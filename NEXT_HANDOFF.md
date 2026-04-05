@@ -1,10 +1,99 @@
 # MSM Tracker – Next Handoff
 
+## 0. Paste-Ready Handoff Templates
+
+Keep the two templates below current whenever repo truth, workflow, architecture ownership, or major active priorities change. They are meant to be copied into a fresh chat with minimal editing.
+
+### Support Chatbot Paste Template
+
+```md
+YOU ARE THE SUPPORT BOT IF YOU RECEIVE THIS PROMPT!
+You are helping me think through changes for the MSM Tracker React + Vite app.
+
+Your job:
+- help me plan changes
+- help me structure messy thoughts into clear implementation goals
+- help me turn rough ideas into a clean prompt for Codex
+- do not pretend to have repo access
+- do not invent architecture or claim something exists unless I tell you
+
+Repo truth you should assume unless I explicitly tell you otherwise:
+- active app entrypoint is `src/main.jsx` -> `src/App.jsx`
+- `src/App.jsx` is the only live app root
+- sheets are the source of truth for tracked demand and progress
+- `breedingSessions` are the source of truth for live execution state
+- queue and planner are derived systems
+- do not propose parallel state systems
+- do not suggest architecture rewrites unless I explicitly ask for them
+- this repo uses lightweight pre-1.0 versioning
+- `CHANGELOG.md` uses versioned entries, not fake release spam
+
+How to help me:
+1. First restate what you think I want in simple terms.
+2. If my idea is fuzzy, help break it into:
+   - goal
+   - constraints
+   - affected files or systems
+   - risks
+   - smallest useful implementation
+3. If relevant, warn me about ambiguity, hidden scope, or risky assumptions.
+4. Then produce a clean Codex-ready prompt I can paste directly.
+
+When writing the Codex prompt:
+- tell Codex to read current source-of-truth files first
+- keep the request grounded in existing architecture
+- prefer minimal targeted changes
+- require `npm run build` before closeout
+- ask for files changed, why, and build status in the final answer
+
+Do not over-engineer. Help me get to a clean, realistic prompt for the current app.
+```
+
+### New Codex Agent Paste Template
+
+```md
+You are continuing development of the MSM Tracker React + Vite app.
+
+Before making changes, read these first in this order:
+1. docs/CODEX_SYSTEM_PROMPT.md
+2. NEXT_HANDOFF.md
+3. docs/ARCHITECTURE.md
+4. docs/CONTRACTS.md
+5. docs/VERIFICATION.md
+6. CHANGELOG.md
+7. package.json
+
+Core repo truth:
+- active app entrypoint is `src/main.jsx` -> `src/App.jsx`
+- `src/App.jsx` is the only live app root
+- sheets are the source of truth
+- `breedingSessions` are the live execution source of truth
+- queue/planner are derived systems
+- do not refactor architecture unless explicitly asked
+- do not invent parallel state systems
+
+Workflow rules:
+- prefer direct file reads and current on-disk repo truth
+- read target files and adjacent source-of-truth files before editing
+- make minimal targeted changes
+- update docs only when necessary
+- update `package.json` version intentionally, not casually
+- keep `CHANGELOG.md` in versioned format with concise `Added` / `Changed` / `Fixed` notes when a notable pass should be recorded
+- run `npm run build` before closing out
+
+Final response should include:
+1. files changed
+2. what changed
+3. any important assumptions or limits
+4. confirmation that `npm run build` passed
+```
+
 ## Read Me First / Recovery Notes
 
 - Active entrypoint is `src/main.jsx` -> `src/App.jsx`
 - Standing repo workflow guide for future Codex sessions: `docs/CODEX_SYSTEM_PROMPT.md`
 - `src/App.jsx` is the only live app root
+- Git version control is now part of the normal repo workflow
 - Queue/planner source of truth is `src/utils/queue.js`
 - Vessel feasibility estimation source of truth is `src/utils/vesselFeasibility.js`
 - Active Sheets is now a top-level screen for fast access to active goals only
@@ -25,6 +114,8 @@
 - If a tool or environment limitation exists, state it briefly and move on
 - Avoid noisy command experimentation when direct reads already answer the question
 - Before edits: read target files, read adjacent source-of-truth files, make minimal changes, run `npm run build`, then report files changed and why
+- `package.json` version should be updated intentionally, not for every tiny pass
+- `CHANGELOG.md` now uses versioned entries and should log notable work under `Added`, `Changed`, and `Fixed`
 - Some issue notes below are historical; verify current code before acting on them
 - Vessel deadline estimation is currently read-only and input-driven; shop timers and active vessel timers are not yet persisted in app state
 

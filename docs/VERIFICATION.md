@@ -6,6 +6,7 @@ Use this checklist before feature work, after queue/planner edits, and during re
 
 - Read [`NEXT_HANDOFF.md`](../NEXT_HANDOFF.md) first.
 - Trust the code on disk over prior chat summaries.
+- For versioning or release-structure work, also inspect [`package.json`](../package.json).
 
 ## Entrypoint Verification
 
@@ -86,3 +87,4 @@ Use this checklist before feature work, after queue/planner edits, and during re
   - [`docs/ARCHITECTURE.md`](./ARCHITECTURE.md)
   - [`docs/CONTRACTS.md`](./CONTRACTS.md)
   - [`docs/VERIFICATION.md`](./VERIFICATION.md)
+- If the change intentionally updates the app version, also update [`package.json`](../package.json) and add or revise the matching versioned changelog entry.

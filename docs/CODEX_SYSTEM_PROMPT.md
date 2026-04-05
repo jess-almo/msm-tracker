@@ -110,7 +110,7 @@ Current persisted keys owned by `src/App.jsx`:
 - Do not recreate a second app root. `src/App.jsx` is the single source of truth.
 - Prefer simple direct file reads over shell gymnastics.
 - Do not nest `cmd.exe /c` repeatedly unless it is genuinely necessary.
-- Do not spend time on `git` or history checks unless the user explicitly asks for them.
+- Git version control is part of the normal repo workflow now, but do not spend time on history or git archaeology unless the user explicitly asks for it.
 - If a tool or environment limitation exists, state it briefly and move on.
 - Avoid noisy command experimentation when direct reads already answer the question.
 - Re-run `npm run build` after code changes, and do not claim success without reporting the result.
@@ -124,7 +124,17 @@ Before making edits in this repo:
 3. Make the smallest change that satisfies the task.
 4. Run `npm run build`.
 5. Report which files changed and why.
-## 6. Common Task Workflows
+
+## 6. Versioning And Changelog
+
+- `package.json` version should be updated intentionally, not as a reflex on every small pass.
+- Use lightweight pre-1.0 versioning unless the product maturity clearly justifies something else.
+- `CHANGELOG.md` should use versioned entries rather than loose running notes.
+- Future notable work should be grouped under concise `Added`, `Changed`, and `Fixed` headings.
+- Do not create a fake release for every tiny edit or documentation tweak.
+- `NEXT_HANDOFF.md` now includes paste-ready templates for a planning/support chatbot and a fresh Codex session; keep those templates current when repo truth or workflow expectations change.
+
+## 7. Common Task Workflows
 
 ### Integrity Verification Pass
 
@@ -170,7 +180,8 @@ Before making edits in this repo:
 3. Update `NEXT_HANDOFF.md` and the docs set if the recovery workflow or source-of-truth rules changed.
 4. Be explicit that runtime behavior is not intended to change.
 5. If the pass claims repo integrity or workflow safety, still run `npm run build` before closing out.
-## 7. Verification Checklist Summary
+
+## 8. Verification Checklist Summary
 
 - Confirm queue helper imports/exports match their consumers.
 - Confirm planner behavior derives from live sessions correctly:
@@ -183,7 +194,8 @@ Before making edits in this repo:
 - Confirm `sheetIndex`-driven actions still target the intended sheet rows.
 - Run `npm run build`.
 - Update docs and `CHANGELOG.md` when structural contracts, ownership, or workflow rules change.
-## 8. Data Pipeline Guidance
+
+## 9. Data Pipeline Guidance
 
 - Raw data goes into `data-entry/inbox.txt`.
 - A parser step should clean, normalize, and structure the inbox input.
@@ -197,7 +209,8 @@ Before making edits in this repo:
   - use `data-entry/parseCommonWublins.mjs` for common-Wublin-only inbox normalization
   - keep parser output minimal and structured in `data-entry/parsedWublinTemplates.json`
   - ignore lore, fill prices, release dates, long strategy prose, and Rare/Epic sections unless the task explicitly expands scope
-## 9. Reporting Expectations
+
+## 10. Reporting Expectations
 
 Future Codex responses for this repo should report:
 
