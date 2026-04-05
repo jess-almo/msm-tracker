@@ -1,0 +1,1535 @@
+{
+  "sourceFile": "data-entry/inbox.txt",
+  "focus": "common_wublins_only",
+  "ignoredSections": [
+    "lore",
+    "awakening strategy prose",
+    "fill prices",
+    "release dates",
+    "rare wublins",
+    "epic wublins",
+    "special/non-common sections"
+  ],
+  "templates": [
+    {
+      "name": "Brump",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 8,
+      "timeLimitDays": 2,
+      "requirements": [
+        {
+          "name": "Furcorn",
+          "count": 6
+        },
+        {
+          "name": "Fwog",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "Zynth",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 6,
+      "timeLimitDays": 3,
+      "requirements": [
+        {
+          "name": "Pango",
+          "count": 1
+        },
+        {
+          "name": "Oaktopus",
+          "count": 1
+        },
+        {
+          "name": "Drumpler",
+          "count": 1
+        },
+        {
+          "name": "Maw",
+          "count": 1
+        },
+        {
+          "name": "Congle",
+          "count": 1
+        },
+        {
+          "name": "T-Rox",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "Poewk",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 11,
+      "timeLimitDays": 5,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 1
+        },
+        {
+          "name": "Reedling",
+          "count": 1
+        },
+        {
+          "name": "Scups",
+          "count": 1
+        },
+        {
+          "name": "PomPom",
+          "count": 1
+        },
+        {
+          "name": "Clamble",
+          "count": 2
+        },
+        {
+          "name": "Dandidoo",
+          "count": 2
+        },
+        {
+          "name": "Pango",
+          "count": 1
+        },
+        {
+          "name": "Shrubb",
+          "count": 1
+        },
+        {
+          "name": "Oaktopus",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "Thwok",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 25,
+      "timeLimitDays": 7,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 1
+        },
+        {
+          "name": "Quarrister",
+          "count": 1
+        },
+        {
+          "name": "Deedge",
+          "count": 1
+        },
+        {
+          "name": "Riff",
+          "count": 1
+        },
+        {
+          "name": "Entbrat",
+          "count": 1
+        },
+        {
+          "name": "Spunge",
+          "count": 4
+        },
+        {
+          "name": "PomPom",
+          "count": 4
+        },
+        {
+          "name": "Bowgart",
+          "count": 4
+        },
+        {
+          "name": "Quibble",
+          "count": 4
+        },
+        {
+          "name": "Furcorn",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "name": "Dwumrohl",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 71,
+      "timeLimitDays": 14,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 3
+        },
+        {
+          "name": "Quarrister",
+          "count": 3
+        },
+        {
+          "name": "Deedge",
+          "count": 3
+        },
+        {
+          "name": "Riff",
+          "count": 3
+        },
+        {
+          "name": "Entbrat",
+          "count": 3
+        },
+        {
+          "name": "Reedling",
+          "count": 4
+        },
+        {
+          "name": "Scups",
+          "count": 2
+        },
+        {
+          "name": "Thumpies",
+          "count": 2
+        },
+        {
+          "name": "PomPom",
+          "count": 4
+        },
+        {
+          "name": "Congle",
+          "count": 4
+        },
+        {
+          "name": "Pummel",
+          "count": 4
+        },
+        {
+          "name": "Bowgart",
+          "count": 4
+        },
+        {
+          "name": "Tweedle",
+          "count": 4
+        },
+        {
+          "name": "Potbelly",
+          "count": 4
+        },
+        {
+          "name": "Noggin",
+          "count": 8
+        },
+        {
+          "name": "Toe Jammer",
+          "count": 8
+        },
+        {
+          "name": "Mammott",
+          "count": 8
+        }
+      ]
+    },
+    {
+      "name": "Zuuker",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 30,
+      "timeLimitDays": 10,
+      "requirements": [
+        {
+          "name": "Deedge",
+          "count": 2
+        },
+        {
+          "name": "Entbrat",
+          "count": 2
+        },
+        {
+          "name": "Bowgart",
+          "count": 4
+        },
+        {
+          "name": "T-Rox",
+          "count": 6
+        },
+        {
+          "name": "Oaktopus",
+          "count": 6
+        },
+        {
+          "name": "Furcorn",
+          "count": 6
+        },
+        {
+          "name": "Fwog",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "name": "Screemu",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 20,
+      "timeLimitDays": 5,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 2
+        },
+        {
+          "name": "Spunge",
+          "count": 6
+        },
+        {
+          "name": "Quibble",
+          "count": 6
+        },
+        {
+          "name": "Shrubb",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "Tympa",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 68,
+      "timeLimitDays": 14,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 8
+        },
+        {
+          "name": "Pummel",
+          "count": 12
+        },
+        {
+          "name": "Clamble",
+          "count": 12
+        },
+        {
+          "name": "T-Rox",
+          "count": 12
+        },
+        {
+          "name": "Drumpler",
+          "count": 24
+        }
+      ]
+    },
+    {
+      "name": "Dermit",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 26,
+      "timeLimitDays": 3,
+      "requirements": [
+        {
+          "name": "Quarrister",
+          "count": 3
+        },
+        {
+          "name": "Entbrat",
+          "count": 3
+        },
+        {
+          "name": "Scups",
+          "count": 4
+        },
+        {
+          "name": "Thumpies",
+          "count": 4
+        },
+        {
+          "name": "Fwog",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "name": "Gheegur",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 26,
+      "timeLimitDays": 7,
+      "requirements": [
+        {
+          "name": "Riff",
+          "count": 6
+        },
+        {
+          "name": "Reedling",
+          "count": 6
+        },
+        {
+          "name": "Scups",
+          "count": 4
+        },
+        {
+          "name": "PomPom",
+          "count": 4
+        },
+        {
+          "name": "Cybop",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "Whajje",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 43,
+      "timeLimitDays": 10,
+      "requirements": [
+        {
+          "name": "Deedge",
+          "count": 7
+        },
+        {
+          "name": "Reedling",
+          "count": 10
+        },
+        {
+          "name": "Dandidoo",
+          "count": 10
+        },
+        {
+          "name": "Cybop",
+          "count": 10
+        },
+        {
+          "name": "Tweedle",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "Creepuscule",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 52,
+      "timeLimitDays": 7,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 5
+        },
+        {
+          "name": "Deedge",
+          "count": 5
+        },
+        {
+          "name": "Congle",
+          "count": 8
+        },
+        {
+          "name": "Pummel",
+          "count": 6
+        },
+        {
+          "name": "T-Rox",
+          "count": 6
+        },
+        {
+          "name": "Quibble",
+          "count": 10
+        },
+        {
+          "name": "Noggin",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "name": "Blipsqueak",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 24,
+      "timeLimitDays": 5,
+      "requirements": [
+        {
+          "name": "Deedge",
+          "count": 4
+        },
+        {
+          "name": "PomPom",
+          "count": 4
+        },
+        {
+          "name": "T-Rox",
+          "count": 6
+        },
+        {
+          "name": "Cybop",
+          "count": 6
+        },
+        {
+          "name": "Toe Jammer",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "name": "Scargo",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 16,
+      "timeLimitDays": 3,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 3
+        },
+        {
+          "name": "Spunge",
+          "count": 2
+        },
+        {
+          "name": "Pummel",
+          "count": 2
+        },
+        {
+          "name": "Clamble",
+          "count": 3
+        },
+        {
+          "name": "Dandidoo",
+          "count": 3
+        },
+        {
+          "name": "Shrubb",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "name": "Astropod",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 42,
+      "timeLimitDays": 10,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 5
+        },
+        {
+          "name": "Deedge",
+          "count": 5
+        },
+        {
+          "name": "Reedling",
+          "count": 8
+        },
+        {
+          "name": "Scups",
+          "count": 6
+        },
+        {
+          "name": "Spunge",
+          "count": 8
+        },
+        {
+          "name": "Toe Jammer",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "name": "Pixolotl",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 62,
+      "timeLimitDays": 14,
+      "requirements": [
+        {
+          "name": "Riff",
+          "count": 6
+        },
+        {
+          "name": "Entbrat",
+          "count": 6
+        },
+        {
+          "name": "Scups",
+          "count": 10
+        },
+        {
+          "name": "Pummel",
+          "count": 8
+        },
+        {
+          "name": "T-Rox",
+          "count": 8
+        },
+        {
+          "name": "Cybop",
+          "count": 14
+        },
+        {
+          "name": "Fwog",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "name": "Bona-Petite",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 68,
+      "timeLimitDays": 10,
+      "requirements": [
+        {
+          "name": "Riff",
+          "count": 5
+        },
+        {
+          "name": "Entbrat",
+          "count": 5
+        },
+        {
+          "name": "PomPom",
+          "count": 6
+        },
+        {
+          "name": "Bowgart",
+          "count": 6
+        },
+        {
+          "name": "T-Rox",
+          "count": 6
+        },
+        {
+          "name": "Fwog",
+          "count": 10
+        },
+        {
+          "name": "Drumpler",
+          "count": 10
+        },
+        {
+          "name": "Maw",
+          "count": 10
+        },
+        {
+          "name": "Mammott",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "name": "Maulch",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 38,
+      "timeLimitDays": 7,
+      "requirements": [
+        {
+          "name": "Quarrister",
+          "count": 4
+        },
+        {
+          "name": "Entbrat",
+          "count": 4
+        },
+        {
+          "name": "Spunge",
+          "count": 6
+        },
+        {
+          "name": "Pummel",
+          "count": 6
+        },
+        {
+          "name": "Clamble",
+          "count": 4
+        },
+        {
+          "name": "Furcorn",
+          "count": 8
+        },
+        {
+          "name": "Noggin",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "Fleechwurm",
+      "rarity": "common",
+      "systemKey": "wublin",
+      "collectionKey": "wublins",
+      "totalEggs": 24,
+      "timeLimitDays": 5,
+      "requirements": [
+        {
+          "name": "Shellbeat",
+          "count": 3
+        },
+        {
+          "name": "Quarrister",
+          "count": 3
+        },
+        {
+          "name": "Reedling",
+          "count": 3
+        },
+        {
+          "name": "Spunge",
+          "count": 3
+        },
+        {
+          "name": "Pummel",
+          "count": 4
+        },
+        {
+          "name": "Dandidoo",
+          "count": 4
+        },
+        {
+          "name": "Furcorn",
+          "count": 4
+        }
+      ]
+    }
+  ],
+  "normalizedRequirementsBySpecies": {
+    "Brump": [
+      {
+        "name": "Furcorn",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Fwog",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Zynth": [
+      {
+        "name": "Pango",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Oaktopus",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Drumpler",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Maw",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Congle",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Poewk": [
+      {
+        "name": "Shellbeat",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Reedling",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Scups",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "PomPom",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Clamble",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Dandidoo",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pango",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Shrubb",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Oaktopus",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Thwok": [
+      {
+        "name": "Shellbeat",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Quarrister",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Deedge",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Riff",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 1,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Spunge",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "PomPom",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Bowgart",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Quibble",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Furcorn",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Dwumrohl": [
+      {
+        "name": "Shellbeat",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Quarrister",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Deedge",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Riff",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Reedling",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Scups",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Thumpies",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "PomPom",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Congle",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Bowgart",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Tweedle",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Potbelly",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Noggin",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Toe Jammer",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Mammott",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Zuuker": [
+      {
+        "name": "Deedge",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Bowgart",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Oaktopus",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Furcorn",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Fwog",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Screemu": [
+      {
+        "name": "Shellbeat",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Spunge",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Quibble",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Shrubb",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Tympa": [
+      {
+        "name": "Shellbeat",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 12,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Clamble",
+        "count": 12,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 12,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Drumpler",
+        "count": 24,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Dermit": [
+      {
+        "name": "Quarrister",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Scups",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Thumpies",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Fwog",
+        "count": 12,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Gheegur": [
+      {
+        "name": "Riff",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Reedling",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Scups",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "PomPom",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Cybop",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Whajje": [
+      {
+        "name": "Deedge",
+        "count": 7,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Reedling",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Dandidoo",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Cybop",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Tweedle",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Creepuscule": [
+      {
+        "name": "Shellbeat",
+        "count": 5,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Deedge",
+        "count": 5,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Congle",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Quibble",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Noggin",
+        "count": 12,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Blipsqueak": [
+      {
+        "name": "Deedge",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "PomPom",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Cybop",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Toe Jammer",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Scargo": [
+      {
+        "name": "Shellbeat",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Spunge",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 2,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Clamble",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Dandidoo",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Shrubb",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Astropod": [
+      {
+        "name": "Shellbeat",
+        "count": 5,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Deedge",
+        "count": 5,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Reedling",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Scups",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Spunge",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Toe Jammer",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Pixolotl": [
+      {
+        "name": "Riff",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Scups",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Cybop",
+        "count": 14,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Fwog",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Bona-Petite": [
+      {
+        "name": "Riff",
+        "count": 5,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 5,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "PomPom",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Bowgart",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "T-Rox",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Fwog",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Drumpler",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Maw",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Mammott",
+        "count": 10,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Maulch": [
+      {
+        "name": "Quarrister",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Entbrat",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Spunge",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Clamble",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Furcorn",
+        "count": 8,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Noggin",
+        "count": 6,
+        "island": "Natural",
+        "notes": ""
+      }
+    ],
+    "Fleechwurm": [
+      {
+        "name": "Shellbeat",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Quarrister",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Reedling",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Spunge",
+        "count": 3,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Pummel",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Dandidoo",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      },
+      {
+        "name": "Furcorn",
+        "count": 4,
+        "island": "Natural",
+        "notes": ""
+      }
+    ]
+  }
+}

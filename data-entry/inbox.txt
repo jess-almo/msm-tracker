@@ -1,0 +1,1032 @@
+Magical Nexus
+Talk
+15+
+
+Save
+View source
+This is the main article for Magical Nexus. For the category, see Category:Magical Nexus.
+
+Magical Nexus
+Map Pin
+Icon
+Empty Island
+Wordmark
+Backdrop
+Map Pin
+Main Elements
+Psychic Element	Bone Element	Light Element	Faerie Element
+Other Elements
+Plant Element	Earth Element	Water Element	Cold Element	Fire Element
+Release
+Statistics
+Available at
+Level 18
+Requirement
+Fire Oasis Map Pin
+Fire Oasis
+Restrictions
+Magical Monsters only (excluding the Monsters on Magical Sanctum)
+No placeable Decorations or Structures
+Collection
+Commons
+Common Monsters Icon	Rares
+Rare Monsters Icon	Epics
+Epic Monsters Icon
+32	32	4
+Costumes
+Costumes Icon
+32
+Related
+Previous Island	Next Island
+Magical Sanctum Map Pin
+Magical Sanctum	Paironormal Carnival Map Pin (Major)
+Paironormal Carnival
+Special Structure(s)
+Nexus Nucleus
+Nexus Nucleus	Stair Shaper (Inactive)
+Stair Shaper
+Song Information
+120 BPM (Beats Per Minute)	D Dorian, D Byzantine	4/4 Compass
+“	There's a being who's sure all that glitters is gold… and it's buying a stairway to heaven. Even though some facets of it appear familiar, the Magical Nexus doesn't actually belong to the Monster World proper; it hails from Beyond. The floating island is situated at the cosmic 'crossroads' of the wanderings of the Stair Shaper, an enigmatic entity that hitchhikes across galaxies searching for intelligent life with which to commune. Over the span of its interstellar travels, the Stair Shaper has recruited many like-minded beings of titanic size to its cause, and once it learned the history of the Colossals, dispatched them to integrate into the Monster World. Now, the Magical Monsters born of these unions can use Transposition to travel to the Nexus and 'meet their maker' for the very first time. At times serene, at others rousing, the Nexus' song represents a culmination of a lifetime's hopes and dreams.	”
+— In-game description	
+
+Contents
+1	About
+2	Song
+2.1	Chord Progressions
+2.2	Song Table
+3	Indigenous Monsters
+3.1	Upcoming Monsters
+4	Strategy
+5	Version History
+6	Gallery
+7	Notes
+8	References
+About
+Magical Nexus Magical Nexus Icon is an Island where all impure Magical Monsters can be found, acting similarly to Gold Island or Amber Island but for Magical Monsters. However, it does lack the Pure Magical Monsters from the Magical Sanctum. It was added on March 26th, 2024, during Version 4.2.0.
+
+Monsters on the Island are obtained by Transposing them at Level 18. Once a Magical Monster on one of the Magical Islands reaches Level 18, it can be Transposed to Magical Nexus for a cost.
+
+Single-Element Magicals cost 2,990,040 Treats (to reach Level 18), and 1,000,000 Coins (if Common), 5 Diamonds (if Rare), or 10 Diamonds (if Epic).
+Double-Element Magicals cost 2,990,040 Treats (to reach Level 18), and 2,000,000 Coins (if Common) or 10 Diamonds (if Rare).
+Triple-Element Magicals cost 4,485,060 Treats (to reach Level 18), and 4,000,000 Coins (if Common) 20 Diamonds (if Rare), or 40 Diamonds (if Epic).
+Quad-Element Magicals cost 5,980,080 Treats (to reach Level 18), and 8,000,000 Coins (if Common) or 40 Diamonds (if Rare).
+Once Transposed, the Monster is reborn on, or essentially teleported to, Magical Nexus, removing it from the Island it was originally on. Transposed Monsters cannot return to their original Islands. Additionally, note that Magical Monsters residing on Magical Sanctum (including Single-Elemental Monsters teleported there) cannot be transposed to Magical Nexus, because the Pocket Dimension is unable to interact with the Beyond[1]. However, a Magical Monster CAN teleport to Magical Nexus if it is level 18 on a Mirror Magical Island.
+
+Common Single-Element Magicals can also be directly purchased on Magical Nexus for 1,800 Diamonds.
+
+Beds are not used on this Island, and as such, there is no Castle. The amount of Monsters you can have on the Island at a given time is limited only by physical space.
+
+Song
+Official_Magical_Nexus_Full_Song
+Official Magical Nexus Full Song
+
+Composer: Tom Meikle
+
+Magical Nexus’s song plays at a speed of 120 beats per minute and is in the mode of D Dorian, later switching to D Byzantine, also referred to as the D double harmonic or D arabic scale.
+
+Magical Nexus's ambience consists of white noise with some sci-fi-esque sound effects in the background.
+
+
+Chord Progressions
+Pattern 1: Dm, Am, G, F, C
+
+Pattern 2: Dm, C#, Dm, G7
+
+Pattern 3: Dm, D#, D, C#, Dm, D#
+
+Pattern 4: D, D#, Cm, D#
+
+Song Table
+This is a chart that shows where each Monster plays in the song. Each part is 16 beats long, meaning that one part is 8 seconds long. The number next to each Monster indicates which track is being played at each part.
+
+Magical Nexus Song Magical Nexus Icon
+1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20
+Withur 1	Withur 2		Withur 2		Withur 1		Withur 3		Withur 4	Withur 2		Withur 1
+Floot Fly 1		Denchuhs 1	Floot Fly 1	Floot Fly 2	Floot Fly 3	Denchuhs 1	Floot Fly 1
+Fluoress 1	Fluoress 2			Cantorell 1		Fluoress 3	Fluoress 2	Fluoress 1
+Wimmzies 1	Bonkers 1	Wimmzies 1	Bonkers 2	Wimmzies 2	Bonkers 1	Wimmzies 1
+Peckidna 1	Peckidna 2	Peckidna 1	Peckidna 3		Pladdie 1	Peckidna 2	Peckidna 1
+Banjaw 1		Banjaw 1			Banjaw 2		Banjaw 2	Banjaw 1			Fiddlement 1	Fiddlement 2		Banjaw 2	Banjaw 1	
+Yuggler 1	Yuggler 2	Yuggler 1	Yuggler 3	Yuggler 1	Yuggler 2	Yuggler 1
+Plinkajou 1	Plinkajou 2	Plinkajou 1			Plinkajou 3	Plinkajou 4	Plinkajou 2	Plinkajou 1
+Squot 1	Squot 2	Squot 3	Squot 2			Squot 1		
+Bulbo 1	TooToo 1	TooToo 2	Clavi Gnat 1	Bulbo 1			TooToo 3		Clavi Gnat 2	TooToo 2	Clavi Gnat 1	Bulbo 1
+Tapricorn 1	Tapricorn 2	Pluckbill 1	Pluckbill 1	Tapricorn 1	Tapricorn 2
+Spytrap 1			HippityHop 1	Spytrap 2	Spytrap 3			HippityHop 1	Spytrap 2
+Gloptic 1			Gloptic 1		Gloptic 2		Gloptic 3			Gloptic 1
+Clackula 1	Clackula 2	Clackula 3	Clackula 4			Clackula 1	Clackula 2
+Periscorp 1				Periscorp 3	Periscorp 1	Periscorp 2
+Uuduk 1	Uuduk 2	Uuduk 1	Uuduk 3	Uuduk 4	Uuduk 2	Uuduk 1
+Bridg-it 1		Bridg-it 1			Theremind 1	Bridg-it 2		Bridg-it 1	Theremind 1
+Gob 1	Gob 2	Gob 1	Gob 3	Gob 4	Gob 3	Gob 5	Gob 2	Gob 1
+Rooba 1	Rooba 2				Rooba 3	Rooba 4	Rooba 2		
+Blow't 1	Blow't 2	Blow't 3	Blow't 4	Blow't 1
+Hawlo 1	Hawlo 2					Hawlo 1
+Poppette 1	Poppette 1	Poppette 2		Poppette 3	Poppette 1
+Indigenous Monsters
+The list of indigenous Monsters is below with each Monster's class indicated in parenthesis.
+
+Monster	Rare	Epic	Element(s)
+(Class)
+Theremind
+Theremind	Rare Theremind
+Rare Theremind		Psychic Element
+(Magical)
+Clackula
+Clackula	Rare Clackula
+Rare Clackula	Epic Clackula
+Epic Clackula	Bone Element
+(Magical)
+Fluoress
+Fluoress	Rare Fluoress
+Rare Fluoress		Light Element
+(Magical)
+Floot Fly
+Floot Fly	Rare Floot Fly
+Rare Floot Fly	Epic Floot Fly
+Epic Floot Fly	Faerie Element
+(Magical)
+Bonkers
+Bonkers	Rare Bonkers
+Rare Bonkers		Plant ElementPsychic Element
+(Magical)
+Gob
+Gob	Rare Gob
+Rare Gob		Plant ElementLight Element
+(Magical)
+Peckidna
+Peckidna	Rare Peckidna
+Rare Peckidna		Earth ElementBone Element
+(Magical)
+HippityHop
+HippityHop	Rare HippityHop
+Rare HippityHop		Earth ElementFaerie Element
+(Magical)
+Poppette
+Poppette	Rare Poppette
+Rare Poppette		Water ElementPsychic Element
+(Magical)
+Denchuhs
+Denchuhs	Rare Denchuhs
+Rare Denchuhs		Water ElementBone Element
+(Magical)
+Bulbo
+Bulbo	Rare Bulbo
+Rare Bulbo		Cold ElementLight Element
+(Magical)
+Squot
+Squot	Rare Squot
+Rare Squot		Cold ElementFaerie Element
+(Magical)
+Yuggler
+Yuggler	Rare Yuggler
+Rare Yuggler		Fire ElementPsychic Element
+(Magical)
+Hawlo
+Hawlo	Rare Hawlo
+Rare Hawlo		Fire ElementBone Element
+(Magical)
+Pluckbill
+Pluckbill	Rare Pluckbill
+Rare Pluckbill		Fire ElementLight Element
+(Magical)
+Wimmzies
+Wimmzies	Rare Wimmzies
+Rare Wimmzies		Fire ElementFaerie Element
+(Magical)
+Tapricorn
+Tapricorn	Rare Tapricorn
+Rare Tapricorn		Plant ElementWater ElementPsychic Element
+(Magical)
+Spytrap
+Spytrap	Rare Spytrap
+Rare Spytrap		Plant ElementCold ElementLight Element
+(Magical)
+Rooba
+Rooba	Rare Rooba
+Rare Rooba	Epic Rooba
+Epic Rooba	Plant ElementFire ElementPsychic Element
+(Magical)
+TooToo
+TooToo	Rare TooToo
+Rare TooToo	Epic TooToo
+Epic TooToo	Plant ElementFire ElementLight Element
+(Magical)
+Withur
+Withur	Rare Withur
+Rare Withur		Earth ElementWater ElementBone Element
+(Magical)
+Cantorell
+Cantorell	Rare Cantorell
+Rare Cantorell		Earth ElementCold ElementFaerie Element
+(Magical)
+Uuduk
+Uuduk	Rare Uuduk
+Rare Uuduk		Earth ElementFire ElementBone Element
+(Magical)
+Bridg-it
+Bridg-it	Rare Bridg-it
+Rare Bridg-it		Earth ElementFire ElementFaerie Element
+(Magical)
+Periscorp
+Periscorp	Rare Periscorp
+Rare Periscorp		Water ElementFire ElementPsychic Element
+(Magical)
+Banjaw
+Banjaw	Rare Banjaw
+Rare Banjaw		Water ElementFire ElementBone Element
+(Magical)
+Fiddlement
+Fiddlement	Rare Fiddlement
+Rare Fiddlement		Cold ElementFire ElementLight Element
+(Magical)
+Clavi Gnat
+Clavi Gnat	Rare Clavi Gnat
+Rare Clavi Gnat		Cold ElementFire ElementFaerie Element
+(Magical)
+Gloptic
+Gloptic	Rare Gloptic
+Rare Gloptic		Plant ElementWater ElementFire ElementPsychic Element
+(Magical)
+Blow't
+Blow't	Rare Blow't
+Rare Blow't		Plant ElementCold ElementFire ElementLight Element
+(Magical)
+Plinkajou
+Plinkajou	Rare Plinkajou
+Rare Plinkajou		Earth ElementWater ElementFire ElementBone Element
+(Magical)
+Pladdie
+Pladdie	Rare Pladdie
+Rare Pladdie		Earth ElementCold ElementFire ElementFaerie Element
+(Magical)
+Upcoming Monsters
+Main article: Upcoming Features
+More Epic Monsters will come to Magical Nexus in future updates.
+
+Theremind Portrait
+Epic Theremind	Fluoress Portrait
+Epic Fluoress	Bonkers Portrait
+Epic Bonkers	Gob Portrait
+Epic Gob	Peckidna Portrait
+Epic Peckidna	HippityHop Portrait
+Epic HippityHop
+Poppette Portrait
+Epic Poppette	Denchuhs Portrait
+Epic Denchuhs	Bulbo Portrait
+Epic Bulbo	Squot Portrait
+Epic Squot	Yuggler Portrait
+Epic Yuggler	Hawlo Portrait
+Epic Hawlo
+Pluckbill Portrait
+Epic Pluckbill	Wimmzies Portrait
+Epic Wimmzies	Tapricorn Portrait
+Epic Tapricorn	Spytrap Portrait
+Epic Spytrap	Withur Portrait
+Epic Withur	Cantorell Portrait
+Epic Cantorell
+Uuduk Portrait
+Epic Uuduk	Bridg-it Portrait
+Epic Bridg-it	Periscorp Portrait
+Epic Periscorp	Banjaw Portrait
+Epic Banjaw	Fiddlement Portrait
+Epic Fiddlement	Clavi Gnat Portrait
+Epic Clavi Gnat
+Gloptic Portrait
+Epic Gloptic	Blow't Portrait
+Epic Blow't	Plinkajou Portrait
+Epic Plinkajou	Pladdie Portrait
+Epic Pladdie
+Strategy
+In order to transpose all the Common Magicals you will need 125,581,680 Treats, 108,000,000 Coins and 1,018 hours (or 42 days and 10 hours) for transposition. To additionally transpose all the Rare Magicals, another 125,581,680 Treats would be needed to transpose all Rare Magical Monsters, including 540 Diamonds and 1,234 hours (or 51 days and 10 hours) for transposition.
+
+
+
+
+
+
+
+
+NEW DATA: ethereal workshop
+Ethereal Workshop
+(Redirected from another page)
+Talk
+15+
+
+Save
+View source
+This is the main article for Ethereal Workshop. For the category, see Category:Ethereal Workshop.
+Ethereal Workshop
+Map Pin
+Icon
+Empty Island
+Obstacled Island
+Wordmark
+Backdrop
+Map Pin
+Main Elements
+Plasma Element	Shadow Element	Mech Element	Crystal Element	Poison Element
+Release
+Statistics
+Type	Available at
+Ethereal	Level 19
+Requirement
+Reach Level 19
+Restrictions
+Ethereal Monsters with ≥3 Elements only
+Colossal's Name
+Zarroë (Brain)
+Special Monsters
+Quint
+BeMeebEth
+BeMeebEth
+Beds
+Maximum Available	Full Collection	Full Song
+600	385	275
+Collection
+Commons
+Common Monsters Icon	Rares
+Rare Monsters Icon	Costumes
+Costumes Icon
+16	7	2
+Related
+Previous Island	Next Island
+Ethereal Island Map Pin
+Ethereal Island	Fire Haven Map Pin
+Fire Haven
+Special Structure(s)
+Attunement Structure
+Attunement Structure	Synthesizer (Inactive)
+Synthesizer
+Song Information
+140 BPM (Beats Per Minute)	B minor	4/4 Compass
+
+
+“	So this is how the other half lives… literally! For all of recorded Monster history, the Ethereal class has been confined to Single- and Double-Elementals… until the establishment of the Workshop. Located inside Ethereal Island and doubling as the 'brain' of the Colossal Zarroë, it's actually superimposed on the abandoned ruins of another entity's laboratory. Here, Zarroë has achieved the impossible and brought to life Triple-Element Ethereals (and beyond) using the unpredictably powerful Meebs and strange new Structures of its own invention. The Colossal's goal? To create a symphony of synthetic sounds worthy of the name Workshop!	”
+
+Contents
+1	About
+2	Obtaining Monsters
+2.1	Attunement
+2.2	Synthesis
+3	Song
+3.1	Chord Progressions
+3.2	Song Table
+3.3	BeMeebEth Lyrics
+4	Indigenous Monsters
+4.1	Common
+4.2	Rare
+4.3	Upcoming Monsters
+5	Special Features
+5.1	Obstacles
+5.2	Decorations
+6	Castle
+6.1	Sound
+6.2	Castles
+7	Strategy
+8	Version History
+9	Gallery
+10	Notes
+About
+Ethereal Workshop Ethereal Workshop Icon is an Island in My Singing Monsters that is home to the Meeb critters, Triple-Element, Quad-Element, and the Quint-Element Ethereals. It appears to be located inside the head of the Ethereal Island Colossal, and uses new mechanics that require the use of the Mirror Islands and strange creatures called Meebs. The Island was added in version 4.1.0, on Wednesday, October 11th, 2023.
+
+The Island is located in the Pocket Dimension, as Shards are its main currency.
+
+Obtaining Monsters
+Ethereal Workshop has a unique mechanic to obtaining new Monsters not seen on any other Island. It utilizes two specialized Structures: the Attunement Structure and the Synthesizer. When you first get Ethereal Workshop at level 19, you will receive a free Meebkin egg ready to place from the Synthesizer.
+
+Attunement
+Main article: Attunement Structure
+To start getting more Monsters, attuning Meebs are required. Meebs are a special type of critter that can absorb the energies of each Ethereal element. With the Basic Castle, 10 Meebs are available, with more becoming available for each Castle upgrade.
+
+Meebs are attuned in the Attunement Structure by traveling to different Mirror Islands. However, Mirror Islands are not required to be unlocked or purchased to attune Meebs. To attune a Meeb, select any Meeb from the right side of the Structure's GUI and then select an Island to travel to. It will take Shards and time to attune a Meeb. You can also attune Meebs from one element to a different one.
+
+ 	 	 	 		 			 		 		 		 	 
+New attunement structure timetable
+Every day at 3:00 PM UTC (15:00) or 10 AM ET (11 AM during daylights savings), the Mirror Islands rotate clockwise, meaning that they will take a different amount of Shards and time. When an Island resonates with the Attunement Structure, that Island will take only Shards500 and 5 hours to travel to. Waiting for an Island to be resonated will allow for more Meebs to be attuned in a day, while using less Shards. You can tell how long a current Mirror Island will take by looking at the current color of the text, and the text itself listed by the Mirror Island icons in the Attunement Structure.
+
+Synthesis
+Main article: Synthesizer
+Once you have attuned enough Meebs, the Synthesizer is available to use. Select the elemental Meebs based on the elements of the Monster you want to create. For example, Yooreek has the elements, Plasma ElementShadow ElementMech Element; so it can be synthesized with a Meeb attuned to the Plasma, Shadow, and Mech elements. Plasma Meeb Portrait+Shadow Meeb Portrait+Mech Meeb Portrait Each element introduced will increase the gauge, showing the level of instability. The closer the gauge is to the green side, the more stable the Monster combination will be. But the closer it is to the red side, the more unstable it will be. Each element has a different level of instability, increasing in the order in which they are unlocked with the Natural Islands. (A chart is shown below). Currently, only Oogiddy (Shadow ElementMech ElementCrystal ElementPoison Element) and BeMeebEth (Plasma ElementShadow ElementMech ElementCrystal ElementPoison Element) reach all the way to the end of the gauge.
+
+A successful synthesis of a Triple-Element Ethereal will take 1 day and 6 hours, a Quad-Element Ethereal will take 1 day and 18 hours, and the Quint-Element Ethereal will take 2 days and 7 hours. An unsuccessful attempt to synthesize a Triple-Element Ethereal will take 10 hours, a Quad-Element Ethereal will take 17 hours, and the Quint-Element Ethereal will take 22 hours. Failing to synthesize an Ethereal will scramble the elemental attunements of the combined Meebs with random elements that were used in the process.
+
+Synthesizer Stability Infographic 2
+
+The Synthesizer can be upgraded to the Refined Synthesizer for a cost of Shards10,000, then to the Hyper-Refined Synthesizer for a cost of Shards20,000, then to the Super-Hyper-Refined Synthesizer for a cost of Shards30,000, then to the Mega-Super-Hyper-Refined Synthesizer for a cost of Shards40,000, and the most recent upgrade is the Ultra-Mega-Super-Hyper-Refined Synthesizer which costs Shards50,000. These new upgrades allow for synthesizing Quad-Element Ethereals and the Quint-Element Ethereal. Currently, there are five Quad-Element Ethereals and one Quint-Element Ethereal. The process of synthesizing Quads and the Quint works a little differently; you need to select a base monster (Triple-Element for Quads and Quad-Element for the Quint) that is placed on the Island to transform into the desired monster. When selecting a base Monster, three to four Meeb slots are already occupied, one for each Ethereal element the base Monster has. You may choose any of the remaining Meeb types to fill the last slot. Each slot requires two to three Meebs to start synthesizing. When the synthesis has succeeded, the base Monster you chose will be replaced with the new monster you have synthesized.
+
+Song
+Official_Ethereal_Workshop_Full_Song
+Official Ethereal Workshop Full Song
+
+Composer(s): Dylan Cole
+
+The tempo is 140 BPM (4/4) and in the B minor, B harmonic minor and D major.
+
+Ethereal Workshop's song is of the genre intelligent dance music.
+
+The Island's ambience consists of deep gurgling and rumbling, as well as dripping water.
+
+Chord Progressions
+Pattern 1: Bm, Em, F#, Bm, D, E, Bm, G, F#, F, F#
+
+Pattern 2: Bm, G, A, E, Bm, G, F#m7
+
+Pattern 3: Bm, Em, F#m
+
+Pattern 4: Em11, Aadd2, Bm7, F#m7
+
+Song Table
+This is a chart that shows where each Monster plays in the song. Each part is 8 beats long, meaning that one part is around 3.43 seconds long. The number next to each Monster indicates which track is being played at each part.
+
+Ethereal Workshop Song Ethereal Workshop Icon
+1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	32	33	34	35	36	37	38	39	40	41	42	43	44
+Extravagant Castle 1	Extravagant Castle 2	Extravagant Castle 1	Extravagant Castle 3
+Gaddzooks 1		Gaddzooks 2	Gaddzooks 3			Gaddzooks 1					Gaddzooks 2	Gaddzooks 3	Gaddzooks 2		
+X'rt 1			X'rt 1	X'rt 2										X'rt 1				X'rt 2										X'rt 1							X'rt 2
+Yooreek 1	Yooreek 1	Yooreek 1	Yooreek 1	Yooreek 2	Yooreek 3		Yooreek 2	Yooreek 3
+Blarret 1			Blarret 1							Blarret 2	Blarret 2					Blarret 1		
+Oogiddy 1	Oogiddy 1	Oogiddy 1			Oogiddy 2	Oogiddy 3	Oogiddy 1	Oogiddy 1	Oogiddy 4	Oogiddy 1			Oogiddy 1	Oogiddy 1			Oogiddy 3	Oogiddy 1
+Meebkin 1		Meebkin 2		Meebkin 1			Meebkin 2
+Vhenshun 1	Vhenshun 2		Vhenshun 1	Vhenshun 2					Vhenshun 2	Vhenshun 1					Vhenshun 1	Vhenshun 2					Vhenshun 1	Vhenshun 2		
+Teeter-Tauter 1		Teeter-Tauter 2	Teeter-Tauter 4	Teeter-Tauter 3	Teeter-Tauter 1	Teeter-Tauter 2	Teeter-Tauter 1							Teeter-Tauter 1	Teeter-Tauter 4	Teeter-Tauter 1			Teeter-Tauter 2
+Pentumbra 1	Pentumbra 2	Pentumbra 1				Pentumbra 1	Pentumbra 3	Pentumbra 2		Pentumbra 1	Pentumbra 2	Pentumbra 1	Pentumbra 3		Pentumbra1			Pentumbra 3	Pentumbra 2
+Flasque 1				Flasque 1			Flasque 2	Flasque 1					Flasque 2	Flasque 1	Flasque 2	Flasque 1			Flasque 2
+Rhysmuth 1			Rhysmuth 2	Rhysmuth 3	Rhysmuth 4	Rhysmuth 1	Rhysmuth 2					Rhysmuth 2	Rhysmuth 1			Rhysmuth 4	Rhysmuth 1	Rhysmuth 1	Rhysmuth 2	Rhysmuth 4	Rhysmuth 1	Rhysmuth 2
+Whaill 1	Piplash 1			Piplash 1	Whaill 2
+Auglur 1	Auglur 2			Auglur 1	Auglur 2		
+Nitebear 1					Nitebear 1
+BeMeebEth 1	BeMeebEth 2			BeMeebEth 3	BeMeebEth 4		
+BeMeebEth Lyrics
+BeMeebEth: Creations of a mastermind,
+
+we are the workshop!
+
+Monstrosities to monster kind, stay here!
+
+Our song is simply too unstable!
+
+Do do do do do doo do
+
+Oh-oh-oh-oh-oh-oh-oh-oh-oh-oh
+
+How do I become?
+
+Aye aye ah-ah oh oh oh oh oh oh
+
+Can't separate!
+
+Ow ow woaaaaaaah-ow!
+
+Indigenous Monsters
+The Monsters of Ethereal Workshop are of the Plasma (Plasma Element), Shadow (Shadow Element), Mech (Mech Element), Crystal (Crystal Element), and Poison (Poison Element) elements. The island houses 16 different monsters unique to the island. The list of indigenous Monsters is below with each Monster's class indicated in parentheses. Monsters can be synthesized by combining 3 (or more) Meebs with the same elements. Since each Monster has a unique elemental configuration, each one will have a different set of Meebs that can combine to make it. Unstable combinations may result in a higher rate of failure.
+
+Common
+Monsters	Level
+Available	Beds
+Required	Buying
+Price	Selling
+Price	Synthesis Combo	Synthesis
+Time	Stability	Element(s)
+(Class)
+Yooreek
+Yooreek	19	15	1,500 Diamonds	220 Shards	Plasma Meeb Portrait+Shadow Meeb Portrait+Mech Meeb Portrait
+Plasma Meeb, Shadow Meeb, Mech Meeb	Success:
+1 day
+6 hours
+Fail:
+10 hours	6	Plasma ElementShadow ElementMech Element
+(Ethereal)
+Meebkin
+Meebkin	19	15	1,600 Diamonds	225 Shards	Plasma Meeb Portrait+Shadow Meeb Portrait+Crystal Meeb Portrait
+Plasma Meeb, Shadow Meeb, Crystal Meeb	Success:
+1 day
+6 hours
+Fail:
+10 hours	8	Plasma ElementShadow ElementCrystal Element
+(Ethereal)
+Blarret
+Blarret	19	15	1,700 Diamonds	250 Shards	Plasma Meeb Portrait+Shadow Meeb Portrait+Poison Meeb Portrait
+Plasma Meeb, Shadow Meeb, Poison Meeb	Success:
+1 day
+6 hours
+Fail:
+10 hours	10	Plasma ElementShadow ElementPoison Element
+(Ethereal)
+Gaddzooks
+Gaddzooks	19	15	1,800 Diamonds	275 Shards	Plasma Meeb Portrait+Mech Meeb Portrait+Crystal Meeb Portrait
+Plasma Meeb, Mech Meeb, Crystal Meeb	Success:
+1 day
+6 hours
+Fail:
+10 hours	12	Plasma ElementMech ElementCrystal Element
+(Ethereal)
+Auglur
+Auglur	19	15	1,900 Diamonds	300 Shards	(Most Unstable of base Synthesizer)
+Plasma Meeb Portrait+Mech Meeb Portrait+Poison Meeb Portrait
+Plasma Meeb, Mech Meeb, Poison Meeb
+
+Success:
+1 day
+6 hours
+Fail:
+10 hours	15	Plasma ElementMech ElementPoison Element
+(Ethereal)
+Flasque
+Flasque	19	15	2,000 Diamonds	325 Shards	(Requires Synthesizer Upgrade 1)
+Plasma Meeb Portrait+Crystal Meeb Portrait+Poison Meeb Portrait
+Plasma Meeb, Crystal Meeb, Poison Meeb
+
+Success:
+1 day
+6 hours
+Fail:
+10 hours	20	Plasma ElementCrystal ElementPoison Element
+(Ethereal)
+Nitebear
+Nitebear	19	15	2,100 Diamonds	350 Shards	(Requires Synthesizer Upgrade 1)
+Shadow Meeb Portrait+Mech Meeb Portrait+Crystal Meeb Portrait
+Shadow Meeb, Mech Meeb, Crystal Meeb
+
+Success:
+1 day
+6 hours
+Fail:
+10 hours	24	Shadow ElementMech ElementCrystal Element
+(Ethereal)
+Piplash
+Piplash	19	15	2,200 Diamonds	375 Shards	(Requires Synthesizer Upgrade 2)
+Shadow Meeb Portrait+Mech Meeb Portrait+Poison Meeb Portrait
+Shadow Meeb, Mech Meeb, Poison Meeb
+
+Success:
+1 day
+6 hours
+Fail:
+10 hours	30	Shadow ElementMech ElementPoison Element
+(Ethereal)
+X'rt
+X'rt	19	15	2,300 Diamonds	400 Shards	(Requires Synthesizer Upgrade 3)
+Shadow Meeb Portrait+Crystal Meeb Portrait+Poison Meeb Portrait
+Shadow Meeb, Crystal Meeb, Poison Meeb
+
+Success:
+1 day
+6 hours
+Fail:
+10 hours	40	Shadow ElementCrystal ElementPoison Element
+(Ethereal)
+Teeter-Tauter
+Teeter-Tauter	19	15	2,400 Diamonds	425 Shards	(Requires Synthesizer Upgrade 4)
+Mech Meeb Portrait+Crystal Meeb Portrait+Poison Meeb Portrait
+Mech Meeb, Crystal Meeb, Poison Meeb
+
+Success:
+1 day
+6 hours
+Fail:
+10 hours	60	Mech ElementCrystal ElementPoison Element
+(Ethereal)
+Whaill
+Whaill	19	20	3,000 Diamonds	750 Shards	(Requires Synthesizer Upgrade 1
+Most Unstable)
+Yooreek Portrait+Plasma Meeb PortraitShadow Meeb PortraitMech Meeb Portrait+Crystal Meeb Portrait
+Yooreek + 2 of each Attuned Meebs of Yooreek's
+Elements + 3 Crystal Meebs
+Meebkin Portrait+Plasma Meeb PortraitShadow Meeb PortraitCrystal Meeb Portrait+Mech Meeb Portrait
+Meebkin + 2 of each Attuned Meebs of Meebkin's
+Elements + 3 Mech Meebs
+Gaddzooks Portrait+Plasma Meeb PortraitMech Meeb PortraitCrystal Meeb Portrait+Shadow Meeb Portrait
+Gaddzooks + 2 of each Attuned Meebs of Gaddzooks'
+Elements + 3 Shadow Meebs
+Nitebear Portrait+Shadow Meeb PortraitMech Meeb PortraitCrystal Meeb Portrait+Plasma Meeb Portrait
+Nitebear + 2 of each Attuned Meebs of Nitebear's
+Elements + 3 Plasma Meebs
+
+Success:
+1 day
+18 hours
+Fail:
+17 hours	24	Plasma ElementShadow ElementMech ElementCrystal Element
+(Ethereal)
+Vhenshun
+Vhenshun	19	20	3,100 Diamonds	775 Shards	(Requires Synthesizer Upgrade 2
+Most Unstable)
+Yooreek Portrait+Plasma Meeb PortraitShadow Meeb PortraitMech Meeb Portrait+Poison Meeb Portrait
+Yooreek + 2 of each Attuned Meebs of Yooreek's
+Elements + 3 Poison Meebs
+Blarret Portrait+Plasma Meeb PortraitShadow Meeb PortraitPoison Meeb Portrait+Mech Meeb Portrait
+Blarret + 2 of each Attuned Meebs of Blarret's
+Elements + 3 Mech Meebs
+Auglur Portrait+Plasma Meeb PortraitMech Meeb PortraitPoison Meeb Portrait+Shadow Meeb Portrait
+Auglur + 2 of each Attuned Meebs of Auglur's
+Elements + 3 Shadow Meebs
+Piplash Portrait+Shadow Meeb PortraitMech Meeb PortraitPoison Meeb Portrait+Plasma Meeb Portrait
+Piplash + 2 of each Attuned Meebs of Piplash's
+Elements + 3 Plasma Meebs
+
+Success:
+1 day
+18 hours
+Fail:
+17 hours	30	Plasma ElementShadow ElementMech ElementPoison Element
+(Ethereal)
+Pentumbra
+Pentumbra	19	20	3,200 Diamonds	800 Shards	(Requires Synthesizer Upgrade 3
+Most Unstable)
+Meebkin Portrait+Plasma Meeb PortraitShadow Meeb PortraitCrystal Meeb Portrait+Poison Meeb Portrait
+Meebkin + 2 of each Attuned Meebs of Meebkin's
+Elements + 3 Poison Meebs
+Blarret Portrait+Plasma Meeb PortraitShadow Meeb PortraitPoison Meeb Portrait+Crystal Meeb Portrait
+Blarret + 2 of each Attuned Meebs of Blarret's
+Elements + 3 Crystal Meebs
+Flasque Portrait+Plasma Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Shadow Meeb Portrait
+Flasque + 2 of each Attuned Meebs of Flasque's
+Elements + 3 Shadow Meebs
+X'rt Portrait+Shadow Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Plasma Meeb Portrait
+X'rt + 2 of each Attuned Meebs of X'rt's
+Elements + 3 Plasma Meebs
+
+Success:
+1 day
+18 hours
+Fail:
+17 hours	40	Plasma ElementShadow ElementCrystal ElementPoison Element
+(Ethereal)
+Rhysmuth
+Rhysmuth	19	20	3,300 Diamonds	825 Shards	(Requires Synthesizer Upgrade 4
+Most Unstable)
+Gaddzooks Portrait+Plasma Meeb PortraitMech Meeb PortraitCrystal Meeb Portrait+Poison Meeb Portrait
+Gaddzooks + 2 of each Attuned Meebs of Gaddzooks'
+Elements + 3 Poison Meebs
+Auglur Portrait+Plasma Meeb PortraitMech Meeb PortraitPoison Meeb Portrait+Crystal Meeb Portrait
+Auglur + 2 of each Attuned Meebs of Auglur's
+Elements + 3 Crystal Meebs
+Flasque Portrait+Plasma Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Mech Meeb Portrait
+Flasque + 2 of each Attuned Meebs of Flasque's
+Elements + 3 Mech Meebs
+Teeter-Tauter Portrait+Mech Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Plasma Meeb Portrait
+Teeter-Tauter + 2 of each Attuned Meebs of Teeter-Tauter's
+Elements + 3 Plasma Meebs
+
+Success:
+1 day
+18 hours
+Fail:
+17 hours	60	Plasma ElementMech ElementCrystal ElementPoison Element
+(Ethereal)
+Oogiddy
+Oogiddy	19	20	3,400 Diamonds	850 Shards	(Requires Synthesizer Upgrade 5)
+Nitebear Portrait+Shadow Meeb PortraitMech Meeb PortraitCrystal Meeb Portrait+Poison Meeb Portrait
+Nitebear + 2 of each Attuned Meebs of Nitebear's
+Elements + 3 Poison Meebs
+Piplash Portrait+Shadow Meeb PortraitMech Meeb PortraitPoison Meeb Portrait+Crystal Meeb Portrait
+Piplash + 2 of each Attuned Meebs of Piplash's
+Elements + 3 Crystal Meebs
+X'rt Portrait+Shadow Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Mech Meeb Portrait
+X'rt + 2 of each Attuned Meebs of X'rt's
+Elements + 3 Mech Meebs
+Teeter-Tauter Portrait+Mech Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Shadow Meeb Portrait
+Teeter-Tauter + 2 of each Attuned Meebs of Teeter-Tauter's
+Elements + 3 Shadow Meebs
+
+Success:
+1 day
+18 hours
+Fail:
+17 hours	120	Shadow ElementMech ElementCrystal ElementPoison Element
+(Ethereal)
+BeMeebEth
+BeMeebEth	19	25	5,555 Diamonds	1,111 Shards	(Requires Synthesizer Upgrade 5
+Most Unstable)
+Whaill Portrait+Plasma Meeb PortraitShadow Meeb PortraitMech Meeb PortraitCrystal Meeb Portrait+Poison Meeb Portrait
+Whaill + 3 of each Attuned Meebs of Whaill's
+Elements + 4 Poison Meebs
+Vhenshun Portrait+Plasma Meeb PortraitShadow Meeb PortraitMech Meeb PortraitPoison Meeb Portrait+Crystal Meeb Portrait
+Vhenshun + 3 of each Attuned Meebs of Vhenshun's
+Elements + 4 Crystal Meebs
+Pentumbra Portrait+Plasma Meeb PortraitShadow Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Mech Meeb Portrait
+Pentumbra + 3 of each Attuned Meebs of Pentumbra's
+Elements + 4 Mech Meebs
+Rhysmuth Portrait+Plasma Meeb PortraitMech Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Shadow Meeb Portrait
+Rhysmuth + 3 of each Attuned Meebs of Rhysmuth's
+Elements + 4 Shadow Meebs
+Oogiddy Portrait+Shadow Meeb PortraitMech Meeb PortraitCrystal Meeb PortraitPoison Meeb Portrait+Plasma Meeb Portrait
+Oogiddy + 3 of each Attuned Meebs of Oogiddy's
+Elements + 4 Plasma Meebs
+
+Success:
+2 days
+7 hours
+Fail:
+22 hours	120	Plasma ElementShadow ElementMech ElementCrystal ElementPoison Element
+(Ethereal)
+Rare
+Monsters	Level
+Available	Beds
+Required	Buying
+Price	Selling
+Price	Tuning Up Combo	Element(s)
+(Class)
+Rare Yooreek
+Rare Yooreek	19	15	3,000 Diamonds	300 Shards	
+Tuned Up Plasma Element (Rare)+Tuned Up Shadow Element (Rare)+Tuned Up Mech Element (Rare)
+Plasma, Shadow, and Mech
+
+Plasma ElementShadow ElementMech Element
+(Rare (Ethereal))
+Rare Meebkin
+Rare Meebkin	19	15	3,100 Diamonds	325 Shards	
+Tuned Up Plasma Element (Rare)+Tuned Up Shadow Element (Rare)+Tuned Up Crystal Element (Rare)
+Plasma, Shadow, and Crystal
+
+Plasma ElementShadow ElementCrystal Element
+(Rare (Ethereal))
+Rare Blarret
+Rare Blarret	19	15	3,200 Diamonds	350 Shards	
+Tuned Up Plasma Element (Rare)+Tuned Up Shadow Element (Rare)+Tuned Up Poison Element (Rare)
+Plasma, Shadow, and Poison
+
+Plasma ElementShadow ElementPoison Element
+(Rare (Ethereal))
+Rare Gaddzooks
+Rare Gaddzooks	19	15	3,300 Diamonds	375 Shards	
+Tuned Up Plasma Element (Rare)+Tuned Up Mech Element (Rare)+Tuned Up Crystal Element (Rare)
+Plasma, Mech, and Crystal
+
+Plasma ElementMech ElementCrystal Element
+(Rare (Ethereal))
+Rare Auglur
+Rare Auglur	19	15	3,400 Diamonds	400 Shards	
+Tuned Up Plasma Element (Rare)+Tuned Up Mech Element (Rare)+Tuned Up Poison Element (Rare)
+Plasma, Mech, and Poison
+
+Plasma ElementMech ElementPoison Element
+(Rare (Ethereal))
+Rare Nitebear
+Rare Nitebear	19	15	3,600 Diamonds	450 Shards	
+Tuned Up Shadow Element (Rare)+Tuned Up Mech Element (Rare)+Tuned Up Crystal Element (Rare)
+Shadow, Mech, and Crystal
+
+Shadow ElementMech ElementCrystal Element
+(Rare (Ethereal))
+Rare Whaill
+Rare Whaill	19	20	4,000 Diamonds	800 Shards	
+Tuned Up Plasma Element (Rare)+Tuned Up Shadow Element (Rare)+Tuned Up Mech Element (Rare)+Tuned Up Crystal Element (Rare)
+Plasma, Shadow, Mech, and Crystal
+
+Plasma ElementShadow ElementMech ElementCrystal Element
+(Rare (Ethereal))
+Upcoming Monsters
+Main article: Upcoming Features
+More Rarethereals will be added to Ethereal Workshop in future updates.
+
+Flasque Portrait
+Rare Flasque	Piplash Portrait
+Rare Piplash	X'rt Portrait
+Rare X'rt	Teeter-Tauter Portrait
+Rare Teeter-Tauter	Vhenshun Portrait
+Rare Vhenshun
+Pentumbra Portrait
+Rare Pentumbra	Rhysmuth Portrait
+Rare Rhysmuth	Oogiddy Portrait
+Rare Oogiddy	BeMeebEth Portrait
+Rare BeMeebEth	
+
+NEW DATA: COLOSSINGUM
+The Colossingum
+(Redirected from another page)
+Talk
+15+
+
+Save
+View source
+This is the main article for The Colossingum. For the category, see Category:The Colossingum.
+
+The Colossingum
+Map Pin
+Icon
+Empty Island
+Wordmark
+Backdrop
+Map Pin
+Main Elements
+Air Element	Plant Element	Earth Element	Water Element	Cold Element
+Plasma Element	Shadow Element	Mech Element	Crystal Element	Poison Element
+Spooktacle Element	Festival of Yay Element	Season of Love Element	Eggs-Travaganza Element	SummerSong Element
+Release
+Statistics
+Teleporting Island
+Available at
+Level 10
+Requirement
+One Breeding Complete
+Restrictions
+Naturals (except Mimic), Single and Double Element Ethereals, and Core Seasonals only
+Only Colossingum Decorations
+No placeable Structures
+Cost
+Free
+Colossal's Name
+Lanysta
+Collection
+Commons
+Common Monsters Icon	Seasonals
+Seasonal Monsters Icon	Costumes
+Costumes Icon
+45	5	319
+Related
+Previous Island	Next Island
+Shugabush Island Map Pin
+Shugabush Island	Gold Island Map Pin
+Gold Island
+Special Structure(s)
+Conservatory
+Conservatory	Mess Hall
+Mess Hall
+“	Had it not been for seismic serendipity unearthing it from its hiding place, the existence of the Colossingum might have remained a secret forever. Estimated to date back to the waning years of the Dawn of Fire, the provenance of its magnificent architecture is regarded to be the first-recorded instance of a Colossal spirit imbuing its life-force into an island. Evidence suggests that this was the site of rigorous musical training and friendly choral competition. Today, Monsters are establishing a restored presence on the Colossingum, to resume their musical empowerment and to discover the secrets held within its ancient brickwork.	”
+— In-game description	
+
+Contents
+1	About
+2	Song
+3	Indigenous Monsters
+4	Levels
+5	Structures
+5.1	Mess Hall
+5.2	Conservatory
+5.3	Nursery
+6	Battle
+7	Version History
+8	Gallery
+9	Notes
+About
+The Colossingum The Colossingum Icon is an unique Island introduced in version 3.0.0, where Monsters can compete in musical battles to win various prizes, including Currency, Costumes, and exclusive Decorations. To start participating in the Colossingum, you must teleport Level 5 or higher Monsters from your other Islands, and send them to the Conservatory for training to improve their stats, which allows them to successfully compete in the large selection of Quests (the main campaign of the Colossingum). There is also Versus mode, released on December 4th, 2020, that allows players to battle against each other's teams of Monsters.
+
+Song
+Unlike any other Island, the Monsters do not sing whatsoever; they are constantly in their idle animations. Instead, the Colossingum is run by the Jukebox, which plays the soundtrack “The Monster World” by default, but can be changed to a different soundtrack once higher levels are reached.
+
+Indigenous Monsters
+Only Common Natural Monsters (except for Mimic), the Single and Double-Element Ethereals, and the Core Seasonals can teleport to and battle in the Colossingum. Monsters can be teleported at level 5 from any Island they can be fed on, including Natural Islands, Fire Islands, Magical Islands, Mirror Islands, Shugabush Island, Ethereal Island, Ethereal Islets, and Seasonal Shanty. Monsters can also be bought from the Colossingum Market for an increased Diamond price. Below is a chart of the Monsters available on the Island, alongside useful data such as Elements, power, and stamina. Note that strengths and weaknesses are listed according to a monster's elements. Example: Dandidoo has the Air Element, and Air is strong against Plant, so the Plant Element will be listed on the same position as Dandidoo's Air Element. The same logic applies to other elements and monsters.
+
+Monster	Element	Cost	Max
+Power icon	Max
+Stamina icon	Effectiveness
+Power icon+Stamina icon	Stamina to Power
+Ratio	Strengths	Weaknesses
+Levels
+The Colossingum has its own levels, which requires its own Battle Experience (Battle XP).
+
+Level	Battle Exp	Unlocks
+2	200 Battle XP	Noggin (Slideshow Intern)
+Noggin	Log Drum
+Log Drum	Jukebox Soundtrack:
+Plant Symphony	
+3	300 Battle XP	Toe Jammer (Folly Roger)
+Toe Jammer	Spurrit of Adventure Model
+Spurrit of Adventure Model	
+4	450 Battle XP	Fwog (Narwhaaa?)
+Fwog	Jukebox Soundtrack:
+The Thumpieverse	
+5	600 Battle XP	Drumpler (Thingia Swag)
+Drumpler	Twihorn
+Twihorn	
+6	750 Battle XP	Maw (Sensory Furphones)
+Maw	Jukebox Soundtrack:
+Cold Symphony	
+7	1,000 Battle XP	T-Rox (Construction, a Head)
+T-Rox	Potbelly (Bowl-Cuttings)
+Potbelly	Costume Rack
+Costume Rack	
+8	5,000 Battle XP	Shrubb (Conehead)
+Shrubb	Oaktopus (Cotton Dandy)
+Oaktopus	Jukebox Soundtrack:
+Realm of Thingia	
+9	10,000 Battle XP	Furcorn (Fashion Forward)
+Furcorn	Pummel (Horned Spangenhelm)
+Pummel	Craft Services Table
+Craft Services Table	
+10	20,000 Battle XP	Clamble (Bough Down)
+Clamble	Bowgart (Ushanka Very Much)
+Bowgart	Tamborine Trampoline
+Tamborine Trampoline	Jukebox Soundtrack:
+Air Symphony	
+11	40,000 Battle XP	Tweedle (Party Hardy Hat)
+Tweedle	Entbrat (Spiral Engravings)
+Entbrat	
+12	75,000 Battle XP	Pango (Dynamic Dome)
+Pango	Dandidoo (Fanciful Florets)
+Dandidoo	Jukebox Soundtrack:
+Jammerland Anthem	
+13	150,000 Battle XP	Congle (Ten Gallon Hat)
+Congle	Quibble (Dyad Hatters)
+Quibble	Critter Fountain
+Critter Fountain	
+14	300,000 Battle XP	Thumpies (Crash Test Gear)
+Thumpies	Spunge (Umbrella Hat)
+Spunge	Jukebox Soundtrack:
+Jelly Dreams	
+15	600,000 Battle XP	Deedge (Skrooball)
+Deedge	Cybop (Chitin Mittens)
+Cybop	Gaung Tree
+Gaung Tree	
+16	1,200,000 Battle XP	Scups (Space Ploddity)
+Scups	PomPom (Pom-Mohawk)
+PomPom	Jukebox Soundtrack:
+Plant Reverie	
+17	2,000,000 Battle XP	Riff (Heavymetal Helmet)
+Riff	Reedling (Breath Tweeter)
+Reedling	Monstrolympic Torch
+Monstrolympic Torch	
+18	4,000,000 Battle XP	Shellbeat (Cod Topper)
+Shellbeat	Jukebox Soundtrack:
+Cold Reverie	
+19	6,000,000 Battle XP	Quarrister (Sweatbands)
+Quarrister	
+20	8,000,000 Battle XP	Ghazt (GKO)
+Ghazt	Simbull Tree	Jukebox Soundtrack:
+Air Reverie	
+21	10,000,000 Battle XP	Grumpyre (Dungeon Master)
+Grumpyre	Reebro (Future So Bright)
+Reebro	
+22	12,000,000 Battle XP	Jeeode (Darlin' Garlands)
+Jeeode	Humbug (MailMon Mike)
+Humbug	Clarinedge
+Clarinedge	
+23	14,000,000 Battle XP	Whisp (Cute Corsair)
+Whisp	Nebulob (Sticky Handed)
+Nebulob	Jukebox Soundtrack:
+Faerie Tale Suite	
+24	16,000,000 Battle XP	Arackulele (Baseborn Busker)
+Arackulele	Boodoo (Chande-leer)
+Boodoo	Ottavine
+Ottavine	
+25	18,000,000 Battle XP	Sox (Business Casual)
+Sox	Kazilleon (Lobster Role)
+Kazilleon	
+26	20,000,000 Battle XP	Bellowfish (Take the Plunge)
+Bellowfish	Dragong (Frill Thrill)
+Dragong	Stone Drum
+Stone Drum	Jukebox Soundtrack:
+Spurrit of Adventure	
+27	22,000,000 Battle XP	Jellbilly (Propeller Beanie)
+Jellbilly	Fung Pray (Awesome Saucer)
+Fung Pray	
+28	24,000,000 Battle XP	Strummy-ache
+Strummy-ache	
+29	26,000,000 Battle XP	
+30	28,000,000 Battle XP	Conservatory Column Cast - 1 4
+Conservatory Column Cast - 1/4	Conservatory Column Cast - 2 4
+Conservatory Column Cast - 2/4	Conservatory Column Cast - 3 4
+Conservatory Column Cast - 3/4	Conservatory Column Cast - 4 4
+Conservatory Column Cast - 4/4	Jukebox Soundtrack:
+Plant Beat	Jukebox Soundtrack:
+Cold Beat	Jukebox Soundtrack:
+Air Beat	Jukebox Soundtrack:
+Water Beat	Jukebox Soundtrack:
+Earth Beat
+After reaching Level 30, the Battle XP Battle XP counter no longer increases, and reads the overflowed (amount of BXP earned above the 28,000,000 required to reach Level 30) value out of 0 (zero).
+
+Structures
+Main article: Structures
+Mess Hall
+The Mess Hall works much like a Hotel. It also works like a Castle in that you can tap and mute or alter the background track using the Jukebox. There are currently twelve different background tracks to choose from that become unlocked as the Colossingum level increases. It can be upgraded for more beds to store monsters.
+
+Mess Hall	Messy Mess Hall	Extra Messy Mess Hall
+Mess Hall
+Cost: Free
+Time: N/A
+Battle XP: N/A
+Beds: 25	Messy Mess Hall
+Cost: 50,000 Coins
+Time: 6 hours
+Battle XP: 250 Battle XP
+Beds: 50	Extra Messy Mess Hall
+Cost: 100,000 Coins
+Time: 12 hours
+Battle XP: 500 Battle XP
+Beds: 75
+Conservatory
+The Conservatory allows you train your monsters to make them stronger. It can be upgraded for extra training slots.
+
+Conservatory	Renowned Conservatory	Prestigious Conservatory
+Conservatory
+Cost: Free
+Time: N/A
+Battle XP: N/A
+Training slots: 1	Renowned Conservatory
+Cost: 100 Diamonds
+Time: 8 hours
+Battle XP: 2,500 Battle XP
+Training slots: 2	Prestigious Conservatory
+Cost: 200 Diamonds
+Time: 1 day
+Battle XP: 5,000 Battle XP
+Training slots: 3
+Nursery
+The Nursery allows you teleport monsters that reach level 5 to the Colossingum. They will transform into an egg upon being teleported. It can be upgraded for shorter incubation times. The Bonus Nursery is not available on the island due to the inability to buy Structures on the Colossingum.
+
+Battle
+Main article: Battle
+In the Colossingum, players can battle in Quests, and Versus, a mode with player versus player (PvP) battles.
