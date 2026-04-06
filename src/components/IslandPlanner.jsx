@@ -180,6 +180,61 @@ function getAvailabilityFilterMeaning(filterKey)
   return "";
 }
 
+function buildObservedSlotDraft(observedNames, slotCount)
+{
+  const normalizedCount = Math.max(slotCount, observedNames.length, 0);
+  const next = Array.from({ length: normalizedCount }, (_, index) => observedNames[index] || "");
+
+  return next;
+}
+
+function compareObservedSessions(trackedItems, observedNames)
+{
+  const remainingObservedByName = observedNames.reduce((acc, name) =>
+  {
+    if (!name)
+    {
+      return acc;
+    }
+
+    acc.set(name, Number(acc.get(name) || 0) + 1);
+    return acc;
+  }, new Map());
+
+  const matchedTracked = [];
+  const missingTracked = [];
+
+  trackedItems.forEach((item) =>
+  {
+    const currentCount = Number(remainingObservedByName.get(item.name) || 0);
+
+    if (currentCount > 0)
+    {
+      remainingObservedByName.set(item.name, currentCount - 1);
+      matchedTracked.push(item);
+      return;
+    }
+
+    missingTracked.push(item);
+  });
+
+  const observedOnly = [];
+
+  remainingObservedByName.forEach((count, name) =>
+  {
+    for (let index = 0; index < count; index += 1)
+    {
+      observedOnly.push(name);
+    }
+  });
+
+  return {
+    matchedTracked,
+    missingTracked,
+    observedOnly,
+  };
+}
+
 function NeedNowRow({ item, faded, canBreed, onBreed, buttonLabel = "Assign Here + Breeding" })
 {
   const metadata = getMonsterMetadata(item.name);
@@ -271,6 +326,7 @@ function CookingRow({
   item,
   onZapAssigned,
   onAssignAndZap,
+  onUnassign,
   onBreed,
   onMoveToNursery,
   canMoveToNursery,
@@ -419,6 +475,19 @@ function CookingRow({
             + Breeding
           </button>
         )}
+
+        {!isUnassigned && onUnassign && (
+          <button
+            style={{
+              ...primaryButtonStyle,
+              padding: "8px 12px",
+              background: "rgba(239,68,68,0.16)",
+            }}
+            onClick={() => onUnassign(item.sessionIds?.[0])}
+          >
+            Unassign
+          </button>
+        )}
       </div>
 
       {showZapTargets && activeZapTargets.length > 1 && (
@@ -456,9 +525,10 @@ function CookingRow({
   );
 }
 
-function NurseryRow({ item, onHatch })
+function NurseryRow({ item, onHatch, onUnassign })
 {
   const metadata = getMonsterMetadata(item.name);
+  const isUnassigned = !item.sheetKey;
 
   return (
     <div
@@ -527,6 +597,19 @@ function NurseryRow({ item, onHatch })
         >
           Hatch
         </button>
+
+        {!isUnassigned && onUnassign && (
+          <button
+            style={{
+              ...primaryButtonStyle,
+              padding: "8px 12px",
+              background: "rgba(239,68,68,0.16)",
+            }}
+            onClick={() => onUnassign(item.sessionIds?.[0])}
+          >
+            Unassign
+          </button>
+        )}
       </div>
     </div>
   );
@@ -542,7 +625,10 @@ function IslandCard({
   onZapFromPlanner,
   onBreedFromPlanner,
   onCreateManualBreed,
+  onCreateObservedLiveSession,
   onAssignAndZapFromPlanner,
+  onUnassignFromPlanner,
+  onClearPlannerSession,
   onMoveToNurseryFromPlanner,
   onHatchNurseryFromPlanner,
 })
@@ -551,6 +637,9 @@ function IslandCard({
   const [confirmCapacityAction, setConfirmCapacityAction] = useState(null);
   const [showCapacityEditor, setShowCapacityEditor] = useState(false);
   const [showManualForm, setShowManualForm] = useState(false);
+  const [showReconcilePanel, setShowReconcilePanel] = useState(false);
+  const [reconcileBreedingSlots, setReconcileBreedingSlots] = useState([]);
+  const [reconcileNurserySlots, setReconcileNurserySlots] = useState([]);
   const [manualMode, setManualMode] = useState("pair");
   const [manualMonsterId, setManualMonsterId] = useState("");
   const [manualParentA, setManualParentA] = useState("");
@@ -589,6 +678,22 @@ function IslandCard({
     return () => clearTimeout(timeout);
   }, [confirmCapacityAction]);
 
+  function resetReconcileDraft()
+  {
+    setReconcileBreedingSlots(
+      buildObservedSlotDraft(
+        (island.currentlyBreeding || []).map((item) => item.name),
+        breederReconcileSlotCount
+      )
+    );
+    setReconcileNurserySlots(
+      buildObservedSlotDraft(
+        (island.nurserySessions || []).map((item) => item.name),
+        nurseryReconcileSlotCount
+      )
+    );
+  }
+
   const canUpgradeBreedingStructures =
     island.isUnlocked &&
     island.supportsStandardBreeding &&
@@ -625,6 +730,33 @@ function IslandCard({
     () => manualMonsterOptions.filter((monsterName) => !isEpicMonsterName(monsterName)),
     [manualMonsterOptions]
   );
+  const reconcileMonsterOptions = useMemo(
+    () =>
+      Array.from(new Set([
+        ...manualMonsterOptions,
+        ...(island.currentlyBreeding || []).map((item) => item.name),
+        ...(island.nurserySessions || []).map((item) => item.name),
+      ])).sort(compareMonsterNamesByPriority),
+    [island.currentlyBreeding, island.nurserySessions, manualMonsterOptions]
+  );
+  const breederReconcileSlotCount = Math.max(
+    Number(island.breedingStructures || 0),
+    Number(island.currentlyBreeding?.length || 0)
+  );
+  const nurseryReconcileSlotCount = Math.max(
+    Number(island.nurseries || 0),
+    Number(island.nurserySessions?.length || 0)
+  );
+  const observedBreedingNames = reconcileBreedingSlots.filter(Boolean);
+  const observedNurseryNames = reconcileNurserySlots.filter(Boolean);
+  const breedingReconcile = useMemo(
+    () => compareObservedSessions(island.currentlyBreeding || [], observedBreedingNames),
+    [island.currentlyBreeding, observedBreedingNames]
+  );
+  const nurseryReconcile = useMemo(
+    () => compareObservedSessions(island.nurserySessions || [], observedNurseryNames),
+    [island.nurserySessions, observedNurseryNames]
+  );
   const selectedManualCombo = useMemo(
     () => getBreedingComboByMonsterName(manualMonsterId),
     [manualMonsterId]
@@ -659,6 +791,22 @@ function IslandCard({
     island.supportsNursery || Number(island.nurserySessions?.length || 0) > 0;
   const canMaxCapacity = canUpgradeBreedingStructures || canUpgradeNurseries;
   const capacitySummaryParts = [];
+
+  useEffect(() =>
+  {
+    if (!showReconcilePanel)
+    {
+      return;
+    }
+
+    resetReconcileDraft();
+  }, [
+    breederReconcileSlotCount,
+    island.currentlyBreeding,
+    island.nurserySessions,
+    nurseryReconcileSlotCount,
+    showReconcilePanel,
+  ]);
 
   if (island.supportsStandardBreeding)
   {
@@ -758,6 +906,45 @@ function IslandCard({
     onCreateManualBreed(manualMonsterId, island.island);
     setManualMonsterId("");
     setShowManualForm(false);
+  }
+
+  function handleToggleReconcilePanel()
+  {
+    setShowReconcilePanel((current) =>
+    {
+      const next = !current;
+
+      if (next)
+      {
+        setShowCapacityEditor(false);
+        setShowManualForm(false);
+        setConfirmCapacityAction(null);
+        setConfirmUpgradeAction(null);
+        resetReconcileDraft();
+      }
+
+      return next;
+    });
+  }
+
+  function updateReconcileSlot(setter, slotIndex, value)
+  {
+    setter((current) =>
+    {
+      const next = [...current];
+      next[slotIndex] = value;
+      return next;
+    });
+  }
+
+  function handleAdoptObservedSession(monsterName, status)
+  {
+    if (!monsterName)
+    {
+      return;
+    }
+
+    onCreateObservedLiveSession?.(monsterName, island.island, status);
   }
 
   return (
@@ -926,6 +1113,20 @@ function IslandCard({
                       disabled={island.freeSlots <= 0}
                     >
                       + Manual Breed
+                    </button>
+                  )}
+
+                  {island.isUnlocked && (showBreedingPipeline || showNurseryPipeline) && (
+                    <button
+                      style={{
+                        ...compactActionStyle,
+                        background: showReconcilePanel
+                          ? "rgba(96,165,250,0.18)"
+                          : compactActionStyle.background,
+                      }}
+                      onClick={handleToggleReconcilePanel}
+                    >
+                      {showReconcilePanel ? "Done Reconciling" : "Reconcile"}
                     </button>
                   )}
 
@@ -1151,6 +1352,364 @@ function IslandCard({
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {showReconcilePanel && island.isUnlocked && (showBreedingPipeline || showNurseryPipeline) && (
+        <div
+          style={{
+            marginTop: "14px",
+            padding: "14px",
+            borderRadius: "16px",
+            border: "1px solid rgba(96,165,250,0.22)",
+            background: "rgba(96,165,250,0.06)",
+            display: "grid",
+            gap: "14px",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.82 }}>
+              Reconcile Live Island State
+            </div>
+            <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.72, lineHeight: 1.55 }}>
+              Enter what is actually sitting in the breeder and nursery slots right now. The tracker will compare that against its live sessions so you can clear stale links or adopt missing sessions without rebuilding the island by hand.
+            </div>
+          </div>
+
+          {showBreedingPipeline && (
+            <div
+              style={{
+                display: "grid",
+                gap: "10px",
+                padding: "12px",
+                borderRadius: "14px",
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+              }}
+            >
+              <div style={{ ...sectionTitleStyle, marginBottom: 0 }}>
+                BREEDER SLOTS
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                  gap: "10px",
+                }}
+              >
+                {Array.from({ length: breederReconcileSlotCount }, (_, index) => (
+                  <label
+                    key={`${island.island}-breeder-reconcile-${index}`}
+                    style={{
+                      display: "grid",
+                      gap: "6px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      opacity: 0.82,
+                    }}
+                  >
+                    Slot {index + 1}
+                    <select
+                      value={reconcileBreedingSlots[index] || ""}
+                      onChange={(event) =>
+                        updateReconcileSlot(setReconcileBreedingSlots, index, event.target.value)
+                      }
+                      style={{
+                        padding: "8px 10px",
+                        borderRadius: "10px",
+                        border: "1px solid rgba(255,255,255,0.12)",
+                        background: "rgba(255,255,255,0.06)",
+                        color: "inherit",
+                      }}
+                    >
+                      <option value="">Empty / Unknown</option>
+                      {reconcileMonsterOptions.map((monsterName) => (
+                        <option key={`${island.island}-breeder-slot-${index}-${monsterName}`} value={monsterName}>
+                          {monsterName}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+              </div>
+
+              <div style={{ fontSize: "13px", opacity: 0.7 }}>
+                Matched {breedingReconcile.matchedTracked.length} tracked session{breedingReconcile.matchedTracked.length === 1 ? "" : "s"}.
+              </div>
+
+              {breedingReconcile.missingTracked.length > 0 && (
+                <div style={{ display: "grid", gap: "8px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
+                    Tracked as breeding here, but not seen in the breeder slots
+                  </div>
+                  {breedingReconcile.missingTracked.map((item, index) => (
+                    <div
+                      key={`${island.island}-missing-breeding-${item.name}-${item.sessionIds?.[0] || index}`}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                        padding: "10px 12px",
+                        borderRadius: "12px",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(239,68,68,0.08)",
+                      }}
+                    >
+                      <div style={{ fontSize: "13px", opacity: 0.82 }}>
+                        <strong>{item.name}</strong> · {item.sheetTitle}
+                      </div>
+                      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                        {item.sheetKey && (
+                          <button
+                            style={{
+                              ...compactActionStyle,
+                              background: "rgba(239,68,68,0.16)",
+                            }}
+                            onClick={() => onUnassignFromPlanner?.(item.sessionIds?.[0])}
+                          >
+                            Unassign
+                          </button>
+                        )}
+                        <button
+                          style={{
+                            ...compactActionStyle,
+                            background: "rgba(245,158,11,0.16)",
+                          }}
+                          onClick={() => onClearPlannerSession?.(item.sessionIds?.[0])}
+                        >
+                          Remove From Board
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {breedingReconcile.observedOnly.length > 0 && (
+                <div style={{ display: "grid", gap: "8px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
+                    Seen in breeder slots, but not tracked live yet
+                  </div>
+                  {breedingReconcile.observedOnly.map((monsterName, index) => (
+                    <div
+                      key={`${island.island}-observed-breeding-${monsterName}-${index}`}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                        padding: "10px 12px",
+                        borderRadius: "12px",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(34,197,94,0.08)",
+                      }}
+                    >
+                      <div style={{ fontSize: "13px", opacity: 0.82 }}>
+                        <strong>{monsterName}</strong> appears to be breeding here.
+                      </div>
+                      <button
+                        style={{
+                          ...compactActionStyle,
+                          background: "rgba(34,197,94,0.16)",
+                        }}
+                        onClick={() => handleAdoptObservedSession(monsterName, "breeding")}
+                      >
+                        Add Unassigned Breeding
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {breedingReconcile.missingTracked.length === 0 && breedingReconcile.observedOnly.length === 0 && (
+                <div style={{ fontSize: "13px", opacity: 0.72 }}>
+                  Breeder slots match the tracker right now.
+                </div>
+              )}
+            </div>
+          )}
+
+          {showNurseryPipeline && (
+            <div
+              style={{
+                display: "grid",
+                gap: "10px",
+                padding: "12px",
+                borderRadius: "14px",
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+              }}
+            >
+              <div style={{ ...sectionTitleStyle, marginBottom: 0 }}>
+                NURSERY SLOTS
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                  gap: "10px",
+                }}
+              >
+                {Array.from({ length: nurseryReconcileSlotCount }, (_, index) => (
+                  <label
+                    key={`${island.island}-nursery-reconcile-${index}`}
+                    style={{
+                      display: "grid",
+                      gap: "6px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      opacity: 0.82,
+                    }}
+                  >
+                    Slot {index + 1}
+                    <select
+                      value={reconcileNurserySlots[index] || ""}
+                      onChange={(event) =>
+                        updateReconcileSlot(setReconcileNurserySlots, index, event.target.value)
+                      }
+                      style={{
+                        padding: "8px 10px",
+                        borderRadius: "10px",
+                        border: "1px solid rgba(255,255,255,0.12)",
+                        background: "rgba(255,255,255,0.06)",
+                        color: "inherit",
+                      }}
+                    >
+                      <option value="">Empty / Unknown</option>
+                      {reconcileMonsterOptions.map((monsterName) => (
+                        <option key={`${island.island}-nursery-slot-${index}-${monsterName}`} value={monsterName}>
+                          {monsterName}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+              </div>
+
+              <div style={{ fontSize: "13px", opacity: 0.7 }}>
+                Matched {nurseryReconcile.matchedTracked.length} tracked nursery session{nurseryReconcile.matchedTracked.length === 1 ? "" : "s"}.
+              </div>
+
+              {nurseryReconcile.missingTracked.length > 0 && (
+                <div style={{ display: "grid", gap: "8px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
+                    Tracked in nursery here, but not seen in the nursery slots
+                  </div>
+                  {nurseryReconcile.missingTracked.map((item, index) => (
+                    <div
+                      key={`${island.island}-missing-nursery-${item.name}-${item.sessionIds?.[0] || index}`}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                        padding: "10px 12px",
+                        borderRadius: "12px",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(239,68,68,0.08)",
+                      }}
+                    >
+                      <div style={{ fontSize: "13px", opacity: 0.82 }}>
+                        <strong>{item.name}</strong> · {item.sheetTitle}
+                      </div>
+                      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                        {item.sheetKey && (
+                          <button
+                            style={{
+                              ...compactActionStyle,
+                              background: "rgba(239,68,68,0.16)",
+                            }}
+                            onClick={() => onUnassignFromPlanner?.(item.sessionIds?.[0])}
+                          >
+                            Unassign
+                          </button>
+                        )}
+                        <button
+                          style={{
+                            ...compactActionStyle,
+                            background: "rgba(245,158,11,0.16)",
+                          }}
+                          onClick={() => onClearPlannerSession?.(item.sessionIds?.[0])}
+                        >
+                          Remove From Board
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {nurseryReconcile.observedOnly.length > 0 && (
+                <div style={{ display: "grid", gap: "8px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
+                    Seen in nursery slots, but not tracked live yet
+                  </div>
+                  {nurseryReconcile.observedOnly.map((monsterName, index) => (
+                    <div
+                      key={`${island.island}-observed-nursery-${monsterName}-${index}`}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                        padding: "10px 12px",
+                        borderRadius: "12px",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(34,197,94,0.08)",
+                      }}
+                    >
+                      <div style={{ fontSize: "13px", opacity: 0.82 }}>
+                        <strong>{monsterName}</strong> appears to be in the nursery here.
+                      </div>
+                      <button
+                        style={{
+                          ...compactActionStyle,
+                          background: "rgba(34,197,94,0.16)",
+                        }}
+                        onClick={() => handleAdoptObservedSession(monsterName, "nursery")}
+                      >
+                        Add Unassigned Nursery
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {nurseryReconcile.missingTracked.length === 0 && nurseryReconcile.observedOnly.length === 0 && (
+                <div style={{ fontSize: "13px", opacity: 0.72 }}>
+                  Nursery slots match the tracker right now.
+                </div>
+              )}
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <button
+              style={{
+                ...compactActionStyle,
+                background: "rgba(255,255,255,0.12)",
+              }}
+              onClick={resetReconcileDraft}
+            >
+              Reset To Tracker
+            </button>
+            <button
+              style={{
+                ...compactActionStyle,
+                background: "rgba(255,255,255,0.08)",
+              }}
+              onClick={() => setShowReconcilePanel(false)}
+            >
+              Hide Reconcile
+            </button>
           </div>
         </div>
       )}
@@ -1511,6 +2070,7 @@ function IslandCard({
                       item={item}
                       onZapAssigned={onZapFromPlanner}
                       onAssignAndZap={onAssignAndZapFromPlanner}
+                      onUnassign={onUnassignFromPlanner}
                       onMoveToNursery={onMoveToNurseryFromPlanner}
                       canMoveToNursery={island.isUnlocked && island.freeNurseries > 0}
                       onBreed={
@@ -1540,6 +2100,7 @@ function IslandCard({
                     key={`${island.island}-${item.sheetKey || "manual"}-${item.name}-nursery`}
                     item={item}
                     onHatch={onHatchNurseryFromPlanner}
+                    onUnassign={onUnassignFromPlanner}
                   />
                 ))}
               </div>
@@ -1561,7 +2122,10 @@ export default function IslandPlanner({
   onZapFromPlanner,
   onBreedFromPlanner,
   onCreateManualBreed,
+  onCreateObservedLiveSession,
   onAssignAndZapFromPlanner,
+  onUnassignFromPlanner,
+  onClearPlannerSession,
   onMoveToNurseryFromPlanner,
   onHatchNurseryFromPlanner,
 })
@@ -1795,7 +2359,10 @@ export default function IslandPlanner({
                 onZapFromPlanner={onZapFromPlanner}
                 onBreedFromPlanner={onBreedFromPlanner}
                 onCreateManualBreed={onCreateManualBreed}
+                onCreateObservedLiveSession={onCreateObservedLiveSession}
                 onAssignAndZapFromPlanner={onAssignAndZapFromPlanner}
+                onUnassignFromPlanner={onUnassignFromPlanner}
+                onClearPlannerSession={onClearPlannerSession}
                 onMoveToNurseryFromPlanner={onMoveToNurseryFromPlanner}
                 onHatchNurseryFromPlanner={onHatchNurseryFromPlanner}
               />

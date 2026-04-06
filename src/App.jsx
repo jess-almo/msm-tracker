@@ -1570,6 +1570,36 @@ export default function App()
     ]);
   };
 
+  const createObservedLiveSession = (monsterId, islandId, status = "breeding") =>
+  {
+    const normalizedMonsterId = typeof monsterId === "string" ? monsterId.trim() : "";
+    const normalizedIslandId = typeof islandId === "string" ? islandId.trim() : "";
+    const normalizedStatus = status === "nursery" ? "nursery" : "breeding";
+
+    if (!normalizedMonsterId || !isRealBreedingIsland(normalizedIslandId))
+    {
+      return { ok: false, reason: "invalid_target" };
+    }
+
+    setBreedingSessions((prev) => [
+      ...prev,
+      {
+        id: createBreedingSessionId(),
+        monsterId: normalizedMonsterId,
+        islandId: normalizedIslandId,
+        source: "reconciled",
+        sheetId: null,
+        sheetTitle: normalizedStatus === "nursery"
+          ? "Unassigned nursery"
+          : "Unassigned breeding",
+        status: normalizedStatus,
+        createdAt: Date.now(),
+      },
+    ]);
+
+    return { ok: true };
+  };
+
   const completeBreedingSession = (sessionId) =>
   {
     if (!sessionId)
@@ -1709,6 +1739,63 @@ export default function App()
     return { ok: true };
   };
 
+  const unassignBreedingSession = (sessionId) =>
+  {
+    const session = breedingSessions.find(
+      (entry) =>
+        entry.id === sessionId
+        && entry.status !== "completed"
+        && Boolean(entry.sheetId)
+    );
+
+    if (!session)
+    {
+      return { ok: false, reason: "missing_session" };
+    }
+
+    const confirmed = window.confirm(
+      `Unassign ${session.monsterId} from ${session.sheetTitle || "this target"}? The live session will stay on ${session.islandId}, but the tracker link will be cleared so you can assign it somewhere else.`
+    );
+
+    if (!confirmed)
+    {
+      return { ok: false, reason: "cancelled" };
+    }
+
+    const sheetIndex = sheets.findIndex((sheet) => sheet.key === session.sheetId);
+
+    if (sheetIndex >= 0)
+    {
+      const monsterIndex = findMonsterRowIndex(sheets[sheetIndex].monsters, session.monsterId);
+
+      if (monsterIndex >= 0)
+      {
+        updateMonster(sheetIndex, monsterIndex, "breeding", -1, {
+          islandName: session.islandId,
+        });
+      }
+    }
+
+    setBreedingSessions((prev) =>
+      prev.map((entry) =>
+      {
+        if (entry.id !== sessionId)
+        {
+          return entry;
+        }
+
+        return {
+          ...entry,
+          source: "unassigned",
+          sheetId: null,
+          sheetTitle: "Unassigned breeding",
+        };
+      })
+    );
+
+    return { ok: true };
+  };
+
   const assignAndZapBreedingSession = (sessionId, sheetKey) =>
   {
     const session = breedingSessions.find(
@@ -1843,6 +1930,30 @@ export default function App()
       });
     }
 
+    return { ok: true };
+  };
+
+  const clearBreedingSessionFromBoard = (sessionId) =>
+  {
+    const session = breedingSessions.find(
+      (entry) => entry.id === sessionId && entry.status !== "completed"
+    );
+
+    if (!session)
+    {
+      return { ok: false, reason: "missing_session" };
+    }
+
+    const confirmed = window.confirm(
+      `Remove ${session.monsterId} from the live board on ${session.islandId}? This will clear the tracked live session without changing any sheet counts.`
+    );
+
+    if (!confirmed)
+    {
+      return { ok: false, reason: "cancelled" };
+    }
+
+    completeBreedingSession(sessionId);
     return { ok: true };
   };
 
@@ -2711,7 +2822,10 @@ export default function App()
               onZapFromPlanner={zapAssignedSessionFromPlanner}
               onBreedFromPlanner={breedFromPlanner}
               onCreateManualBreed={createManualBreedingSession}
+              onCreateObservedLiveSession={createObservedLiveSession}
               onAssignAndZapFromPlanner={assignAndZapBreedingSession}
+              onUnassignFromPlanner={unassignBreedingSession}
+              onClearPlannerSession={clearBreedingSessionFromBoard}
               onMoveToNurseryFromPlanner={moveBreedingSessionToNursery}
               onHatchNurseryFromPlanner={hatchNurserySession}
             />
