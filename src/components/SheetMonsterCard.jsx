@@ -89,18 +89,8 @@ function getBreedAvailability({
 function MetadataRow({ label, value })
 {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "86px minmax(0, 1fr)",
-        gap: "10px",
-        alignItems: "start",
-        fontSize: "14px",
-        opacity: 0.86,
-        minHeight: "26px",
-      }}
-    >
-      <div style={{ fontWeight: 700, opacity: 0.7 }}>{label}</div>
+    <div className="sheet-monster-meta-row">
+      <div className="sheet-monster-meta-label">{label}</div>
       <div>{value}</div>
     </div>
   );
@@ -184,32 +174,37 @@ export default function SheetMonsterCard({
 
   return (
     <div
+      className="sheet-monster-card"
       style={{
         ...cardStyle,
-        position: "relative",
         opacity: isComplete ? 0.74 : 1,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "18px",
-          right: "18px",
-          padding: "7px 12px",
-          borderRadius: "999px",
-          border: "1px solid rgba(255,255,255,0.1)",
-          background: isComplete ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.08)",
-          fontSize: "13px",
-          fontWeight: 700,
-          letterSpacing: "0.02em",
-        }}
-      >
-        {isComplete ? "Complete" : `${progress}% tracked`}
-      </div>
+      <div className="sheet-monster-body">
+        <div className="sheet-monster-header">
+          <div style={{ minWidth: 0 }}>
+            <div
+              className="sheet-monster-title"
+              style={{ fontSize: "28px", fontWeight: 700, lineHeight: 1.08 }}
+            >
+              {monster.name}
+            </div>
+          </div>
 
-      <div style={{ paddingRight: "124px", display: "grid", gap: "12px" }}>
-        <div>
-          <div style={{ fontSize: "28px", fontWeight: 700, lineHeight: 1.08 }}>{monster.name}</div>
+          <div
+            style={{
+              padding: "7px 12px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: isComplete ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.08)",
+              fontSize: "13px",
+              fontWeight: 700,
+              letterSpacing: "0.02em",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {isComplete ? "Complete" : `${progress}% tracked`}
+          </div>
         </div>
 
         <div style={{ display: "grid", gap: "8px" }}>
@@ -267,14 +262,7 @@ export default function SheetMonsterCard({
         </div>
 
         <div style={{ display: "grid", gap: "10px" }}>
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
+          <div className="sheet-monster-actions">
             <button
               type="button"
               style={{
@@ -316,6 +304,7 @@ export default function SheetMonsterCard({
 
           {showBreedOptions && (
             <div
+              className="sheet-monster-breed-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",

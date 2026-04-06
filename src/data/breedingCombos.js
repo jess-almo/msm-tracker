@@ -1,3 +1,5 @@
+import importedBreedingData from "./breedingCombosImported.json" with { type: "json" };
+
 export const BREEDING_COMBOS_NATURAL = [
   {
     monsterName: "Dandidoo",
@@ -329,4 +331,12 @@ export const BREEDING_COMBOS_NATURAL = [
     enhancedBreedingTime: "18h",
     notes: "Higher success rate with Any Single + Any Triple.",
   },
+];
+
+export const BREEDING_COMBOS_IMPORTED = importedBreedingData.importedCombos || [];
+export const BREEDING_TIME_ONLY_IMPORTED = importedBreedingData.timeOnlyEntries || [];
+export const BREEDING_COMBOS_ALL = [
+  ...BREEDING_COMBOS_NATURAL,
+  ...BREEDING_COMBOS_IMPORTED,
+  ...BREEDING_TIME_ONLY_IMPORTED,
 ];

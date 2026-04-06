@@ -237,10 +237,10 @@ export default function BreedingQueue({
 
   return (
     <div
+      className="responsive-page-card"
       style={{
         border: "1px solid rgba(255,255,255,0.12)",
         borderRadius: "22px",
-        padding: "22px",
         marginBottom: "28px",
         background: "linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025))",
         boxShadow: "0 18px 40px rgba(0,0,0,0.2)",

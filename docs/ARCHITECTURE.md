@@ -137,20 +137,56 @@ Persistence behavior currently implemented in [`src/App.jsx`](../src/App.jsx):
 - saved breeding sessions normalize legacy `hatching` to `nursery`
 - assigned sessions reconcile against sheet `breedingAssignments`
 - island state merges against `ISLAND_STATE_DEFAULTS`
+- manual sessions may now carry lightweight recipe metadata such as parent pair, observed timer, and exact-vs-mystery resolution without creating a second execution system
 
 ## Data Pipeline Notes
 
 Current committed staging flow:
 
 - raw inbox input: [`data-entry/inbox.txt`](../data-entry/inbox.txt)
+- raw inbox archive: [`data-entry/inboxArchive.md`](../data-entry/inboxArchive.md)
+- general research parser: [`data-entry/parseInboxResearch.mjs`](../data-entry/parseInboxResearch.mjs)
+- operational coverage audit: [`data-entry/auditOperationalBreedingCoverage.mjs`](../data-entry/auditOperationalBreedingCoverage.mjs)
+- structured breeding/mechanics candidate output: [`data-entry/parsedBreedingData.json`](../data-entry/parsedBreedingData.json)
+- human-readable mechanics reference: [`data-entry/gameMechanicsReference.md`](../data-entry/gameMechanicsReference.md)
+- operational coverage reports: [`data-entry/operationalBreedingCoverage.json`](../data-entry/operationalBreedingCoverage.json) and [`data-entry/operationalBreedingCoverage.md`](../data-entry/operationalBreedingCoverage.md)
 - common-Wublin parser: [`data-entry/parseCommonWublins.mjs`](../data-entry/parseCommonWublins.mjs)
 - structured candidate output: [`data-entry/parsedWublinTemplates.json`](../data-entry/parsedWublinTemplates.json)
 
 Current intended scope:
 
-- the parser is intentionally common-Wublin-only
+- `parseInboxResearch.mjs` is the broader mechanics/reference extraction path for noisy wiki dumps that include breeding rules, timer notes, and feature-planning research
+- `npm run parse:inbox` runs the broader parser directly
+- `npm run promote:breeding-data` runs [`data-entry/promoteParsedBreedingData.mjs`](../data-entry/promoteParsedBreedingData.mjs)
+- `npm run audit:operational-data` runs [`data-entry/auditOperationalBreedingCoverage.mjs`](../data-entry/auditOperationalBreedingCoverage.mjs)
+- `parseInboxResearch.mjs` now merges newly extracted facts and candidate rows into `parsedBreedingData.json` instead of replacing prior extracted knowledge
+- `parseInboxResearch.mjs` archives processed raw page dumps into `data-entry/inboxArchive.md` and trims them out of `data-entry/inbox.txt`
+- `parsedBreedingData.json` is now a cumulative structured candidate reference artifact that includes mechanics facts plus combo/time candidate rows
+- `gameMechanicsReference.md` is the readable summary of extracted mechanics facts plus latest-run pipeline summary
+- `operationalBreedingCoverage.*` now define the first explicit operational completeness target:
+  - every monster currently referenced by the active requirement systems must have a runtime monster database entry
+  - explicit breeding-island metadata must exist
+  - runtime breeding data must include a standard breeding time through combo or time-only coverage
+- `promoteParsedBreedingData.mjs` now generates [`src/data/breedingCombosImported.json`](../src/data/breedingCombosImported.json) as the runtime import layer for parsed combo/time data
+- runtime combo helpers now read from a combined dataset in [`src/data/breedingCombos.js`](../src/data/breedingCombos.js):
+  - hand-authored Natural baseline data
+  - imported combo rows
+  - imported unambiguous time-only rows
+- promotion intentionally filters to monster names already known in [`src/data/monsterDatabase.js`](../src/data/monsterDatabase.js) and skips ambiguous time-only rows instead of guessing
+- the common-Wublin parser is intentionally narrow and common-Wublin-only
 - it extracts only relevant template fields such as species name, egg requirements, total eggs, and time limit
 - it ignores lore, release dates, fill prices, long strategy prose, and Rare/Epic sections unless a future task explicitly expands scope
+
+## Release Workflow Notes
+
+- `npm run release:check` reads `package.json`, `CHANGELOG.md`, and the latest operational coverage audit to decide whether a real release is recommended.
+- The current lightweight threshold policy is:
+  - recommend release at 8 or more notable `Unreleased` bullets
+  - or at 4 or more notable `Unreleased` bullets once operational completeness has been achieved
+- `npm run release:prepare -- <version>` is the intentional version-cut step:
+  - updates `package.json`
+  - moves `CHANGELOG.md` `Unreleased` notes into a new dated version section
+  - leaves build, commit, and push as explicit follow-up actions
 
 ## Recovery Notes
 
@@ -158,5 +194,6 @@ Current intended scope:
 - Trust the code on disk over prior chat summaries.
 - Re-verify entrypoints and queue helper contracts before feature work.
 - `TrackerSheet` is no longer meant to be primarily manual-counter driven. Its primary workflow is row-linked `Breed on...` plus contextual `Zap Ready`, reusing the same underlying App/session logic as queue and planner flows.
+- Island Manager manual breeding now supports parent-pair entry with exact-result inference when combo data is sufficient, and falls back to `Mystery Egg` when it is not.
 - Preserve exact `sheet.key` targeting for queue, planner, and session behavior even when multiple sheets share the same Wublin template.
 - Update this file, [`docs/CONTRACTS.md`](./CONTRACTS.md), and [`docs/VERIFICATION.md`](./VERIFICATION.md) whenever architecture or helper contracts change.

@@ -188,12 +188,16 @@ Current output shape per grouped entry:
 - `sessionIds`
 - `matchingSheets`
 - `zapTargets`
+- `manualRecipeParents`
+- `manualObservedTime`
+- `manualResolution`
 
 Notes:
 
 - `count` is the number of grouped sessions in that bucket.
 - `breeding` is also incremented per grouped session and currently matches `count`.
 - `sheetIndex` is preserved from incoming indexed sheets when available.
+- Manual sessions may carry parent-pair metadata and are grouped by that recipe identity so different manual mystery sessions do not collapse together accidentally.
 
 ## `buildIslandPlannerData(indexedActiveSheets, islandStates, breedingSessions)`
 
@@ -374,3 +378,72 @@ Sheet index integrity:
   - imports `buildBreedingQueue` and `buildBreedingNowEntriesFromSessions`
 - [`src/components/IslandPlanner.jsx`](../src/components/IslandPlanner.jsx)
   - consumes planner data shape from `buildIslandPlannerData(...)`
+
+## Breeding Combo Runtime Contract
+
+Runtime breeding combo helpers in [`src/utils/breedingCombos.js`](../src/utils/breedingCombos.js) now read from `BREEDING_COMBOS_ALL` in [`src/data/breedingCombos.js`](../src/data/breedingCombos.js).
+
+Current composition:
+
+- hand-authored `BREEDING_COMBOS_NATURAL`
+- generated `BREEDING_COMBOS_IMPORTED`
+- generated `BREEDING_TIME_ONLY_IMPORTED`
+
+Important notes:
+
+- imported combo and time-only rows are generated into [`src/data/breedingCombosImported.json`](../src/data/breedingCombosImported.json)
+- time-only rows are allowed to provide breeding-time lookup without exact combo data
+- helper consumers must not assume every runtime entry has exact `combinations`
+- generated imports are filtered to monster names already present in [`src/data/monsterDatabase.js`](../src/data/monsterDatabase.js)
+- ambiguous time-only rows are intentionally skipped during promotion instead of letting one conflicting time silently win
+
+## Research Pipeline Outputs
+
+`npm run parse:inbox` currently runs [`data-entry/parseInboxResearch.mjs`](../data-entry/parseInboxResearch.mjs).
+
+`npm run promote:breeding-data` currently runs [`data-entry/promoteParsedBreedingData.mjs`](../data-entry/promoteParsedBreedingData.mjs).
+
+`npm run audit:operational-data` currently runs [`data-entry/auditOperationalBreedingCoverage.mjs`](../data-entry/auditOperationalBreedingCoverage.mjs).
+
+High-level output contract:
+
+- [`data-entry/parsedBreedingData.json`](../data-entry/parsedBreedingData.json)
+  - cumulative structured candidate artifact
+  - keeps prior extracted facts and candidate rows even after the live inbox is trimmed
+  - includes:
+    - `factsByCategory`
+    - `candidateData.comboCandidates`
+    - `candidateData.timeCandidates`
+    - `candidateData.summary`
+    - `latestRun`
+    - `processedInboxSections`
+    - `futureInboxFormat`
+    - `researchBacklog`
+- [`data-entry/gameMechanicsReference.md`](../data-entry/gameMechanicsReference.md)
+  - readable summary generated from the same structured output
+- [`data-entry/operationalBreedingCoverage.json`](../data-entry/operationalBreedingCoverage.json)
+  - machine-readable operational coverage audit for requirement-scope monsters
+  - includes:
+    - `target`
+    - `summary`
+    - `parserBacklog`
+    - `blockingGapMonsters`
+    - `timeOnlyMonsters`
+    - `missingEnhancedTimeMonsters`
+    - `auditedMonsters`
+- [`data-entry/operationalBreedingCoverage.md`](../data-entry/operationalBreedingCoverage.md)
+  - human-readable version of the same audit
+- [`data-entry/inboxArchive.md`](../data-entry/inboxArchive.md)
+  - raw-page archive for processed page dumps removed from the live inbox
+
+Behavior contract:
+
+- Processed full-page raw dumps are archived and removed from [`data-entry/inbox.txt`](../data-entry/inbox.txt).
+- The parser must not destroy already extracted structured knowledge when the inbox becomes empty or placeholder-only.
+- Parsed combo/time rows remain candidate data until reviewed and promoted into production datasets under `src/data/*`.
+- Promotion output now lands in [`src/data/breedingCombosImported.json`](../src/data/breedingCombosImported.json), which is consumed at runtime through [`src/data/breedingCombos.js`](../src/data/breedingCombos.js).
+- Operational completeness currently means:
+  - runtime monster database entry exists
+  - explicit breeding-island metadata exists
+  - runtime breeding data includes a standard breeding time through combo coverage or time-only coverage
+- Time-only coverage counts as operationally complete for the current requirement scope, but not as exact combo completeness.

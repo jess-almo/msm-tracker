@@ -1,0 +1,6895 @@
+{
+  "source": "data-entry/parsedBreedingData.json",
+  "generatedAt": "2026-04-05T22:41:30.169Z",
+  "importedCombos": [
+    {
+      "monsterName": "Anglow",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Water",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Scups",
+          "Pummel"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 9h",
+      "enhancedBreedingTime": "1d 45m",
+      "notes": null,
+      "sourceLine": 1550,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Arackulele",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Shadow ElementMech"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Grumpyre",
+          "Reebro"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1377,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Banjaw",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Water ElementFire ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Hawlo",
+          "Toe Jammer"
+        ],
+        [
+          "Phangler",
+          "Clackula"
+        ],
+        [
+          "Denchuhs",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1161,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Barrb",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Air ElementPlant ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven"
+      ],
+      "combinations": [
+        [
+          "Dandidoo",
+          "Kayna"
+        ],
+        [
+          "Flowah",
+          "Tweedle"
+        ],
+        [
+          "Glowl",
+          "Potbelly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 868,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bellowfish",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Mech ElementCrystal"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Reebro",
+          "Jeeode"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1392,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Blabbit",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Core Seasonals",
+      "elements": [
+        "Eggs-Travaganza"
+      ],
+      "breedableOn": [
+        "Water",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Spunge",
+          "Scups"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "19h",
+      "enhancedBreedingTime": "14h 15m",
+      "notes": null,
+      "sourceLine": 1430,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bleatnik",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Double Element",
+      "elements": [
+        "Dream ElementMythical"
+      ],
+      "breedableOn": [
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Cataliszt",
+          "G'joob"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h",
+      "enhancedBreedingTime": "20h 15m",
+      "notes": null,
+      "sourceLine": 1578,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Blow't",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Quad Element",
+      "elements": [
+        "Plant ElementCold ElementFire ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": null,
+      "sourceLine": 1236,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bonkers",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Plant ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Potbelly",
+          "Theremind"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 986,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Boo'qwurm",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "MindBoggle"
+      ],
+      "breedableOn": [
+        "Psychic",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Periscorp",
+          "Bonkers"
+        ],
+        [
+          "Schmoochle",
+          "Hoola"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 6m 24s",
+      "enhancedBreedingTime": "18h 4m 48s",
+      "notes": null,
+      "sourceLine": 1509,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Boodoo",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Shadow ElementCrystal"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Grumpyre",
+          "Jeeode"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1382,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Boskus",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Double Element",
+      "elements": [
+        "Cold ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Oasis",
+        "Light",
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Mammott"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "10h",
+      "enhancedBreedingTime": "7h 30m",
+      "notes": null,
+      "sourceLine": 857,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bridg-It",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Earth ElementFire ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Wimmzies",
+          "Noggin"
+        ],
+        [
+          "Stogg",
+          "Floot Fly"
+        ],
+        [
+          "HippityHop",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1143,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bulbo",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Cold ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Mammott",
+          "Fluoress"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1016,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Buzzinga",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Fire Haven",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Reedling",
+          "Barrb"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "23h",
+      "enhancedBreedingTime": "17h 15m",
+      "notes": null,
+      "sourceLine": 1562,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Cahoot",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Psychic ElementLight"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Theremind",
+          "Fluoress"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 1051,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Cantorell",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Earth ElementCold ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Squot",
+          "Noggin"
+        ],
+        [
+          "Drumpler",
+          "Floot Fly"
+        ],
+        [
+          "HippityHop",
+          "Mammott"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1125,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Carillong",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Crescendo Moon"
+      ],
+      "breedableOn": [
+        "Magical Sanctum",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Mushaboom",
+          "Roarick"
+        ],
+        [
+          "Yool",
+          "Schmoochle"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h 9m 32s",
+      "enhancedBreedingTime": "20h 22m 9s",
+      "notes": null,
+      "sourceLine": 1477,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Cherubble",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Fire Oasis",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Congle",
+          "Woolabee"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "18h",
+      "enhancedBreedingTime": "13h 30m",
+      "notes": null,
+      "sourceLine": 1568,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Clavavera",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Beat Hereafter"
+      ],
+      "breedableOn": [
+        "Bone",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Withur",
+          "Clackula"
+        ],
+        [
+          "Punkleton",
+          "Schmoochle"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "22h 11m",
+      "enhancedBreedingTime": "16h 38m 15s",
+      "notes": null,
+      "sourceLine": 1456,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Clavi Gnat",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Cold ElementFire ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Wimmzies",
+          "Mammott"
+        ],
+        [
+          "Boskus",
+          "Floot Fly"
+        ],
+        [
+          "Squot",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1179,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Cranchee",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Double Element",
+      "elements": [
+        "Dream ElementMythical"
+      ],
+      "breedableOn": [
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Cataliszt",
+          "Strombonin"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": null,
+      "sourceLine": 1583,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Déjà-Jin",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Psychic ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Theremind",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 1056,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Denchuhs",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Water ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Toe Jammer",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1011,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Dragong",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Mech ElementPoison"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Reebro",
+          "Humbug"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1397,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Enchantling",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Quad Element",
+      "elements": [
+        "Psychic ElementBone ElementLight ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "2d 2h",
+      "enhancedBreedingTime": "1d 13h 30m",
+      "notes": null,
+      "sourceLine": 1260,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Ffidyll",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Cloverspell"
+      ],
+      "breedableOn": [
+        "Faerie",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Pladdie",
+          "Floot Fly"
+        ],
+        [
+          "Schmoochle",
+          "Blabbit"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "22h 44m",
+      "enhancedBreedingTime": "17h 3m",
+      "notes": null,
+      "sourceLine": 1501,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Fiddlement",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Cold ElementFire ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Pluckbill",
+          "Mammott"
+        ],
+        [
+          "Boskus",
+          "Fluoress"
+        ],
+        [
+          "Bulbo",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1170,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Floogull",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Air ElementEarth ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven"
+      ],
+      "combinations": [
+        [
+          "Cybop",
+          "Kayna"
+        ],
+        [
+          "Stogg",
+          "Tweedle"
+        ],
+        [
+          "Glowl",
+          "Noggin"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 877,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Flowah",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Double Element",
+      "elements": [
+        "Plant ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven",
+        "Light",
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Potbelly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "10h",
+      "enhancedBreedingTime": "7h 30m",
+      "notes": null,
+      "sourceLine": 836,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Frondley",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Psychic ElementLight ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Déjà-Jin",
+          "Fluoress"
+        ],
+        [
+          "Knucklehead",
+          "Theremind"
+        ],
+        [
+          "Cahoot",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": null,
+      "sourceLine": 1206,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Fung Pray",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Crystal ElementPoison"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Jeeode",
+          "Humbug"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1402,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "G'Day",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Psychic ElementBone ElementLight"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Xyster",
+          "Fluoress"
+        ],
+        [
+          "Roarick",
+          "Theremind"
+        ],
+        [
+          "Cahoot",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": null,
+      "sourceLine": 1188,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "G'Joob",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Plant",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Pummel",
+          "T-Rox"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "18h",
+      "enhancedBreedingTime": "13h 30m",
+      "notes": null,
+      "sourceLine": 1532,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Ghazt",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Single Element",
+      "elements": [
+        "Plasma"
+      ],
+      "breedableOn": [
+        "Ethereal",
+        "Plant"
+      ],
+      "combinations": [
+        [
+          "Entbrat",
+          "Clamble"
+        ],
+        [
+          "Entbrat",
+          "Bowgart"
+        ],
+        [
+          "Entbrat",
+          "T-Rox"
+        ],
+        [
+          "Entbrat",
+          "Pummel Plant Island Icon Plant:"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "10h",
+      "sourceLine": 1273,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Gloptic",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Quad Element",
+      "elements": [
+        "Plant ElementWater ElementFire ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": null,
+      "sourceLine": 1228,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Glowl",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Double Element",
+      "elements": [
+        "Air ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven",
+        "Fire Oasis"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Tweedle"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "10h",
+      "enhancedBreedingTime": "7h 30m",
+      "notes": null,
+      "sourceLine": 830,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Gob",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Plant ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Potbelly",
+          "Fluoress"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 991,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Gobbleygourd",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Feast-Ember"
+      ],
+      "breedableOn": [
+        "Fire Haven",
+        "Fire Oasis",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Glowl",
+          "Kayna"
+        ],
+        [
+          "Punkleton",
+          "Yool"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "21h",
+      "enhancedBreedingTime": "15h 45m",
+      "notes": null,
+      "sourceLine": 1447,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Grumpyre",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Single Element",
+      "elements": [
+        "Shadow"
+      ],
+      "breedableOn": [
+        "Ethereal",
+        "Cold"
+      ],
+      "combinations": [
+        [
+          "Deedge",
+          "Congle"
+        ],
+        [
+          "Deedge",
+          "Bowgart"
+        ],
+        [
+          "Deedge",
+          "Spunge"
+        ],
+        [
+          "Deedge",
+          "Thumpies Cold Island Icon Cold:"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "10h",
+      "sourceLine": 1289,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Hawlo",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Fire ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1031,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "HippityHop",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Earth ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Noggin",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1001,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Hoola",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Core Seasonals",
+      "elements": [
+        "SummerSong"
+      ],
+      "breedableOn": [
+        "Air",
+        "Earth",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "PomPom",
+          "Pango"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h",
+      "enhancedBreedingTime": "18h 45m",
+      "notes": null,
+      "sourceLine": 1436,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Humbug",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Single Element",
+      "elements": [
+        "Poison"
+      ],
+      "breedableOn": [
+        "Ethereal",
+        "Earth"
+      ],
+      "combinations": [
+        [
+          "Quarrister",
+          "Clamble"
+        ],
+        [
+          "Quarrister",
+          "Thumpies"
+        ],
+        [
+          "Quarrister",
+          "PomPom"
+        ],
+        [
+          "Quarrister",
+          "Reedling Earth Island Icon Earth:"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "10h",
+      "sourceLine": 1337,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Hyehehe",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Earth",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Thumpies",
+          "PomPom"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 4h",
+      "enhancedBreedingTime": "21h",
+      "notes": null,
+      "sourceLine": 1556,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Jam Boree",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Anniversary Month"
+      ],
+      "breedableOn": [
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Punkleton",
+          "Hoola"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h 24m",
+      "enhancedBreedingTime": "1d 6h 18m",
+      "notes": null,
+      "sourceLine": 1472,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Jeeode",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Single Element",
+      "elements": [
+        "Crystal"
+      ],
+      "breedableOn": [
+        "Ethereal",
+        "Water"
+      ],
+      "combinations": [
+        [
+          "Shellbeat",
+          "Spunge"
+        ],
+        [
+          "Shellbeat",
+          "Pummel"
+        ],
+        [
+          "Shellbeat",
+          "Scups"
+        ],
+        [
+          "Shellbeat",
+          "Reedling Water Island Icon Water:"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "10h",
+      "sourceLine": 1321,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Jellbilly",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Plasma ElementPoison"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Ghazt",
+          "Humbug"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1372,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Kazilleon",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Shadow ElementPoison"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Grumpyre",
+          "Humbug"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1387,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Knucklehead",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Light ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Fluoress",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 1071,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Knurv",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Double Element",
+      "elements": [
+        "Dream ElementMythical"
+      ],
+      "breedableOn": [
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Cataliszt",
+          "Buzzinga"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": "ShLep shLep Cataliszt and Cherubble 1d 3h",
+      "sourceLine": 1603,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Larvaluss",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Psychic ElementBone ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Osstax",
+          "Theremind"
+        ],
+        [
+          "Xyster",
+          "Floot Fly"
+        ],
+        [
+          "Déjà-Jin",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": null,
+      "sourceLine": 1197,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Monculus",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Life-Formula"
+      ],
+      "breedableOn": [
+        "Ethereal",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Nebulob",
+          "Jeeode"
+        ],
+        [
+          "Yool",
+          "Hoola"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h 4m",
+      "enhancedBreedingTime": "15h 3m",
+      "notes": null,
+      "sourceLine": 1493,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Mushaboom",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Bone ElementLight ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Osstax",
+          "Fluoress"
+        ],
+        [
+          "Roarick",
+          "Floot Fly"
+        ],
+        [
+          "Knucklehead",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": null,
+      "sourceLine": 1215,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Nebulob",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Plasma ElementMech"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Ghazt",
+          "Reebro"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1362,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Osstax",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Bone ElementFaerie"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Clackula",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 1066,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Peckidna",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Earth ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Noggin",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 996,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Periscorp",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Water ElementFire ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Yuggler",
+          "Toe Jammer"
+        ],
+        [
+          "Phangler",
+          "Theremind"
+        ],
+        [
+          "Poppette",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1152,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Phangler",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Double Element",
+      "elements": [
+        "Water ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Oasis",
+        "Psychic",
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Toe Jammer"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "10h",
+      "enhancedBreedingTime": "7h 30m",
+      "notes": null,
+      "sourceLine": 850,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Pinghound",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Double Element",
+      "elements": [
+        "Dream ElementMythical"
+      ],
+      "breedableOn": [
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Cataliszt",
+          "Anglow"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1593,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Pladdie",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Quad Element",
+      "elements": [
+        "Earth ElementCold ElementFire ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": null,
+      "sourceLine": 1252,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Plinkajou",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Quad Element",
+      "elements": [
+        "Earth ElementWater ElementFire ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": null,
+      "sourceLine": 1244,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Pluckbill",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Fire ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Fluoress"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1036,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Poppette",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Water ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Toe Jammer",
+          "Theremind"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1006,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Punkleton",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Core Seasonals",
+      "elements": [
+        "Spooktacle"
+      ],
+      "breedableOn": [
+        "Plant",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Bowgart",
+          "T-Rox"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "18h",
+      "enhancedBreedingTime": "13h 30m",
+      "notes": null,
+      "sourceLine": 1412,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Clackula",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Bone"
+      ],
+      "breedableOn": [
+        "Bone",
+        "Magical Sanctum"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Bone Triples"
+      ],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": null,
+      "sourceLine": 1783,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Floot Fly",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Faerie"
+      ],
+      "breedableOn": [
+        "Faerie",
+        "Magical Sanctum"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Faerie Triples"
+      ],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": "Note that the list doesn't include Rares that share the same breeding combinations as their Common variants",
+      "sourceLine": 1795,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Fluoress",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Light"
+      ],
+      "breedableOn": [
+        "Light",
+        "Magical Sanctum"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Light Triples"
+      ],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": null,
+      "sourceLine": 1789,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Kayna",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Fire"
+      ],
+      "breedableOn": [
+        "Fire Haven",
+        "Fire Oasis",
+        "Light",
+        "Psychic",
+        "Faerie",
+        "Bone"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Fire Triples"
+      ],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": null,
+      "sourceLine": 1767,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Mammott",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Cold"
+      ],
+      "breedableOn": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Earth",
+        "Shugabush",
+        "Fire Oasis",
+        "Light",
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Shugabush",
+          "Mammott"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Cold Triples"
+      ],
+      "breedingTime": "6h",
+      "enhancedBreedingTime": "4h 30m",
+      "notes": null,
+      "sourceLine": 1753,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Noggin",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Earth"
+      ],
+      "breedableOn": [
+        "Plant",
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Faerie",
+        "Bone"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Earth Triples"
+      ],
+      "breedingTime": "6h",
+      "enhancedBreedingTime": "4h 30m",
+      "notes": null,
+      "sourceLine": 1731,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Potbelly",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Plant"
+      ],
+      "breedableOn": [
+        "Plant",
+        "Cold",
+        "Water",
+        "Earth",
+        "Shugabush",
+        "Fire Haven",
+        "Light",
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Shugabush",
+          "Potbelly"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Plant Triples"
+      ],
+      "breedingTime": "6h",
+      "enhancedBreedingTime": "4h 30m",
+      "notes": null,
+      "sourceLine": 1717,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Theremind",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Psychic"
+      ],
+      "breedableOn": [
+        "Psychic",
+        "Magical Sanctum"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Psychic Triples"
+      ],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": null,
+      "sourceLine": 1777,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Toe Jammer",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Water"
+      ],
+      "breedableOn": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Water",
+        "Fire Oasis",
+        "Psychic",
+        "Bone"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Water Triples"
+      ],
+      "breedingTime": "6h",
+      "enhancedBreedingTime": "4h 30m",
+      "notes": null,
+      "sourceLine": 1742,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Tweedle",
+      "rarity": "Rare",
+      "category": "Rare",
+      "subclass": null,
+      "elements": [
+        "Air"
+      ],
+      "breedableOn": [
+        "Cold",
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Fire Oasis"
+      ],
+      "combinations": [],
+      "genericCombinations": [
+        "Any two Air Triples"
+      ],
+      "breedingTime": "6h",
+      "enhancedBreedingTime": "4h 30m",
+      "notes": null,
+      "sourceLine": 1707,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Reebro",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Single Element",
+      "elements": [
+        "Mech"
+      ],
+      "breedableOn": [
+        "Ethereal",
+        "Air"
+      ],
+      "combinations": [
+        [
+          "Riff",
+          "Congle"
+        ],
+        [
+          "Riff",
+          "Scups"
+        ],
+        [
+          "Riff",
+          "PomPom"
+        ],
+        [
+          "Riff",
+          "T-Rox Air Island Icon Air:"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "10h",
+      "sourceLine": 1305,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Repatillo",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementEarth ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven"
+      ],
+      "combinations": [
+        [
+          "Shrubb",
+          "Kayna"
+        ],
+        [
+          "Stogg",
+          "Potbelly"
+        ],
+        [
+          "Flowah",
+          "Noggin"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 904,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Roarick",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Bone ElementLight"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Clackula",
+          "Fluoress"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 1061,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rooba",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementFire ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Yuggler",
+          "Potbelly"
+        ],
+        [
+          "Bonkers",
+          "Kayna"
+        ],
+        [
+          "Flowah",
+          "Theremind"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1098,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rootitoot",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementWater ElementFire"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Oaktopus",
+          "Kayna"
+        ],
+        [
+          "Flowah",
+          "Toe Jammer"
+        ],
+        [
+          "Phangler",
+          "Potbelly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 913,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Schmoochle",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Core Seasonals",
+      "elements": [
+        "Season of Love"
+      ],
+      "breedableOn": [
+        "Air",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Riff",
+          "Tweedle"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 6m 30s",
+      "enhancedBreedingTime": "23h 19m 52s",
+      "notes": null,
+      "sourceLine": 1424,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Sneyser",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Quad Element",
+      "elements": [
+        "Air ElementWater ElementCold ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Oasis"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": null,
+      "sourceLine": 970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Sooza",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementCold ElementFire"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Furcorn",
+          "Kayna"
+        ],
+        [
+          "Flowah",
+          "Mammott"
+        ],
+        [
+          "Boskus",
+          "Potbelly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 922,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Sox",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Plasma ElementCrystal"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Ghazt",
+          "Jeeode"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Sporerow",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Double Element",
+      "elements": [
+        "Dream ElementMythical"
+      ],
+      "breedableOn": [
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Cataliszt",
+          "Yawstrich"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 13h",
+      "enhancedBreedingTime": "1d 3h 45m",
+      "notes": null,
+      "sourceLine": 1588,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Spurrit",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Perplexplore"
+      ],
+      "breedableOn": [
+        "Fire Oasis",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Wynq",
+          "Maw"
+        ],
+        [
+          "Blabbit",
+          "Hoola"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h 18m",
+      "enhancedBreedingTime": "15h 13m 30s",
+      "notes": null,
+      "sourceLine": 1517,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Spytrap",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementCold ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Gob",
+          "Mammott"
+        ],
+        [
+          "Furcorn",
+          "Fluoress"
+        ],
+        [
+          "Bulbo",
+          "Potbelly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1089,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Squot",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Cold ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Mammott",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1021,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Stogg",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Double Element",
+      "elements": [
+        "Earth ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven",
+        "Faerie",
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Noggin"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "10h",
+      "enhancedBreedingTime": "7h 30m",
+      "notes": null,
+      "sourceLine": 843,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Strombonin",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Cold",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Spunge",
+          "Bowgart"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "23h",
+      "enhancedBreedingTime": "17h 15m",
+      "notes": null,
+      "sourceLine": 1538,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Tapricorn",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementWater ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Bonkers",
+          "Toe Jammer"
+        ],
+        [
+          "Poppette",
+          "Potbelly"
+        ],
+        [
+          "Oaktopus",
+          "Theremind"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1080,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Thrumble",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Earth ElementWater ElementFire"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Fwog",
+          "Kayna"
+        ],
+        [
+          "Stogg",
+          "Toe Jammer"
+        ],
+        [
+          "Phangler",
+          "Noggin"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 931,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "TooToo",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Plant ElementFire ElementLight"
+      ],
+      "breedableOn": [
+        "Light"
+      ],
+      "combinations": [
+        [
+          "Pluckbill",
+          "Potbelly"
+        ],
+        [
+          "Flowah",
+          "Fluoress"
+        ],
+        [
+          "Gob",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1107,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Tring",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Quad Element",
+      "elements": [
+        "Air ElementPlant ElementEarth ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Haven"
+      ],
+      "combinations": [
+        [
+          "Any Single",
+          "any Triple"
+        ]
+      ],
+      "genericCombinations": [
+        "Any two Doubles",
+        "Higher rate of success:"
+      ],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": null,
+      "sourceLine": 962,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Uuduk",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Earth ElementFire ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Hawlo",
+          "Noggin"
+        ],
+        [
+          "Stogg",
+          "Clackula"
+        ],
+        [
+          "Peckidna",
+          "Kayna"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1134,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Viveine",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "Echoes of Eco"
+      ],
+      "breedableOn": [
+        "Shugabush",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Shugabush",
+          "Oaktopus"
+        ],
+        [
+          "Punkleton",
+          "Blabbit"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 5m 20s",
+      "enhancedBreedingTime": "19h 34m",
+      "notes": null,
+      "sourceLine": 1464,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Whaddle",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Air ElementWater ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Oasis"
+      ],
+      "combinations": [
+        [
+          "Quibble",
+          "Kayna"
+        ],
+        [
+          "Phangler",
+          "Tweedle"
+        ],
+        [
+          "Glowl",
+          "Toe Jammer"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 886,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Wheezel",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Double Element",
+      "elements": [
+        "Dream ElementMythical"
+      ],
+      "breedableOn": [
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Cataliszt",
+          "Hyehehe"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 13h",
+      "enhancedBreedingTime": "1d 3h 45m",
+      "notes": null,
+      "sourceLine": 1598,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Whisp",
+      "rarity": "Common",
+      "category": "Ethereal",
+      "subclass": "Double Element",
+      "elements": [
+        "Plasma ElementShadow"
+      ],
+      "breedableOn": [
+        "Ethereal"
+      ],
+      "combinations": [
+        [
+          "Ghazt",
+          "Grumpyre"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": null,
+      "sourceLine": 1357,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Whiz-bang",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Auxiliary Seasonals",
+      "elements": [
+        "SkyPainting"
+      ],
+      "breedableOn": [
+        "Light",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Blow't",
+          "Spytrap"
+        ],
+        [
+          "Yool",
+          "Blabbit"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 4h 6m",
+      "enhancedBreedingTime": "21h 4m 30s",
+      "notes": null,
+      "sourceLine": 1485,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Wimmzies",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Fire ElementFaerie"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Floot Fly"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1041,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Withur",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Triple Element",
+      "elements": [
+        "Earth ElementWater ElementBone"
+      ],
+      "breedableOn": [
+        "Bone"
+      ],
+      "combinations": [
+        [
+          "Denchuhs",
+          "Noggin"
+        ],
+        [
+          "Fwog",
+          "Clackula"
+        ],
+        [
+          "Peckidna",
+          "Toe Jammer"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "16h",
+      "enhancedBreedingTime": "12h",
+      "notes": null,
+      "sourceLine": 1116,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Woolabee",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Air ElementCold ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Oasis"
+      ],
+      "combinations": [
+        [
+          "Pango",
+          "Kayna"
+        ],
+        [
+          "Boskus",
+          "Tweedle"
+        ],
+        [
+          "Glowl",
+          "Mammott"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 895,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Wynq",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Water ElementCold ElementFire"
+      ],
+      "breedableOn": [
+        "Fire Oasis"
+      ],
+      "combinations": [
+        [
+          "Maw",
+          "Kayna"
+        ],
+        [
+          "Phangler",
+          "Mammott"
+        ],
+        [
+          "Boskus",
+          "Toe Jammer"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 949,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Xyster",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Psychic ElementBone"
+      ],
+      "breedableOn": [
+        "Magical Sanctum"
+      ],
+      "combinations": [
+        [
+          "Theremind",
+          "Clackula"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 1046,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Yawstrich",
+      "rarity": "Common",
+      "category": "Mythical",
+      "subclass": "Single Element",
+      "elements": [
+        "Mythical"
+      ],
+      "breedableOn": [
+        "Air",
+        "Mythical"
+      ],
+      "combinations": [
+        [
+          "Scups",
+          "T-Rox"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 4h",
+      "enhancedBreedingTime": "21h",
+      "notes": null,
+      "sourceLine": 1544,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Yool",
+      "rarity": "Common",
+      "category": "Seasonal",
+      "subclass": "Core Seasonals",
+      "elements": [
+        "Festival of Yay"
+      ],
+      "breedableOn": [
+        "Cold",
+        "Seasonal Shanty"
+      ],
+      "combinations": [
+        [
+          "Thumpies",
+          "Congle"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": null,
+      "sourceLine": 1418,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Yuggler",
+      "rarity": "Common",
+      "category": "Magical",
+      "subclass": "Double Element",
+      "elements": [
+        "Fire ElementPsychic"
+      ],
+      "breedableOn": [
+        "Psychic"
+      ],
+      "combinations": [
+        [
+          "Kayna",
+          "Theremind"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": null,
+      "sourceLine": 1026,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Ziggurab",
+      "rarity": "Common",
+      "category": "Fire",
+      "subclass": "Triple Element",
+      "elements": [
+        "Earth ElementCold ElementFire"
+      ],
+      "breedableOn": [
+        "Faerie"
+      ],
+      "combinations": [
+        [
+          "Drumpler",
+          "Kayna"
+        ],
+        [
+          "Stogg",
+          "Mammott"
+        ],
+        [
+          "Boskus",
+          "Noggin"
+        ]
+      ],
+      "genericCombinations": [],
+      "breedingTime": "20h",
+      "enhancedBreedingTime": "15h",
+      "notes": null,
+      "sourceLine": 940,
+      "parserConfidence": "high"
+    }
+  ],
+  "timeOnlyEntries": [
+    {
+      "monsterName": "Auglur",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "bbli$zard",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "BeMeebEth",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 7h",
+      "enhancedBreedingTime": "1d 17h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3384,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bisonorus",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Blarret",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Bowhead",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 8h",
+      "enhancedBreedingTime": "2d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3459,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Candelavra",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 8h",
+      "enhancedBreedingTime": "2d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3459,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Cataliszt",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2508,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Cruv'laaphtian Crocus",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h",
+      "enhancedBreedingTime": "9h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2565,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Drummidary",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 8h",
+      "enhancedBreedingTime": "2d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3459,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Edamimi",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Anglow",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 17h 13m",
+      "enhancedBreedingTime": "1d 6h 54m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3204,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Arackulele",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Barrb",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 15h",
+      "enhancedBreedingTime": "1d 5h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3160,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Bellowfish",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 22h",
+      "enhancedBreedingTime": "1d 10h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3292,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Blabbit",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 22m",
+      "enhancedBreedingTime": "19h 1m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2811,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Boo'qwurm",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 10m",
+      "enhancedBreedingTime": "1d 15h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3343,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Boodoo",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3230,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Boskus",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "19h",
+      "enhancedBreedingTime": "14h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2666,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Bowgart",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 5h",
+      "enhancedBreedingTime": "21h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2923,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Buzzinga",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 34m",
+      "enhancedBreedingTime": "22h 55m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2975,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Carillong",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h 12m",
+      "enhancedBreedingTime": "1d 3h 9m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3115,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Cherubble",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 17h 13m",
+      "enhancedBreedingTime": "1d 6h 54m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3204,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Clamble",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "21h",
+      "enhancedBreedingTime": "15h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2724,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Clavavera",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "23h 11m",
+      "enhancedBreedingTime": "17h 23m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2770,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Congle",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "23h",
+      "enhancedBreedingTime": "17h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2765,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Cybop",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "23h",
+      "enhancedBreedingTime": "17h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2765,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Dandidoo",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 5h",
+      "enhancedBreedingTime": "21h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2923,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Deedge",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 17h",
+      "enhancedBreedingTime": "1d 6h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3198,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Dragong",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3110,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Drumpler",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h",
+      "enhancedBreedingTime": "11h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2610,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Edamimi",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 21h",
+      "enhancedBreedingTime": "1d 9h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3278,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Entbrat",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 21h",
+      "enhancedBreedingTime": "1d 9h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3278,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Ffidyll",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 17m",
+      "enhancedBreedingTime": "22h 42m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2948,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Floogull",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 13h",
+      "enhancedBreedingTime": "1d 3h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3124,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Flowah",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "17h",
+      "enhancedBreedingTime": "12h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2651,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Fung Pray",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 20h",
+      "enhancedBreedingTime": "1d 9h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3267,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Furcorn",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "17h",
+      "enhancedBreedingTime": "12h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2651,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Fwog",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "7h",
+      "enhancedBreedingTime": "5h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2448,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic G'Joob",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 9h 10m",
+      "enhancedBreedingTime": "1d 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3039,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Glowl",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h",
+      "enhancedBreedingTime": "18h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2801,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Gobbleygourd",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h 11m",
+      "enhancedBreedingTime": "20h 23m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2892,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Hoola",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "21h 20m",
+      "enhancedBreedingTime": "16h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2729,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Jam Boree",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h 23m",
+      "enhancedBreedingTime": "1d 6h 17m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3186,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Jellbilly",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 14h",
+      "enhancedBreedingTime": "1d 4h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3143,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Kayna",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h",
+      "enhancedBreedingTime": "11h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2610,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Kazilleon",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 14h",
+      "enhancedBreedingTime": "1d 4h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3143,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Krillby",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 19h",
+      "enhancedBreedingTime": "1d 8h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3245,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Mammott",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "5h",
+      "enhancedBreedingTime": "3h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2433,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Maw",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "13h",
+      "enhancedBreedingTime": "9h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2595,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Monculus",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 9h 31m",
+      "enhancedBreedingTime": "1d 19h 8m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3401,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Nebulob",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 20h",
+      "enhancedBreedingTime": "1d 9h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3267,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Noggin",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1h",
+      "enhancedBreedingTime": "45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2398,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Oaktopus",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h",
+      "enhancedBreedingTime": "23h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2982,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Pango",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h",
+      "enhancedBreedingTime": "20h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2882,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Phangler",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "23h",
+      "enhancedBreedingTime": "17h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2765,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic PomPom",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h",
+      "enhancedBreedingTime": "20h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2882,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic PongPing",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 23h",
+      "enhancedBreedingTime": "1d 11h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3303,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Potbelly",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "9h",
+      "enhancedBreedingTime": "6h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2508,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Pummel",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h",
+      "enhancedBreedingTime": "23h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2982,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Punkleton",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 10m",
+      "enhancedBreedingTime": "23h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2992,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Quarrister",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Quibble",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "21h",
+      "enhancedBreedingTime": "15h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2724,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Reedling",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "17h",
+      "enhancedBreedingTime": "12h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2651,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Repatillo",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 9h",
+      "enhancedBreedingTime": "1d 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3034,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Riff",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 15h",
+      "enhancedBreedingTime": "1d 5h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3160,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Rootitoot",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Schmoochle",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "22h 14m",
+      "enhancedBreedingTime": "16h 40m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2744,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Scups",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 13h",
+      "enhancedBreedingTime": "1d 3h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3124,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Shellbeat",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 19h",
+      "enhancedBreedingTime": "1d 8h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3245,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Shrubb",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "19h",
+      "enhancedBreedingTime": "14h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2666,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Sneyser",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 17h",
+      "enhancedBreedingTime": "1d 6h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3198,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Sooza",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h",
+      "enhancedBreedingTime": "20h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2882,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Sox",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 12h",
+      "enhancedBreedingTime": "1d 3h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3110,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Spunge",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h",
+      "enhancedBreedingTime": "18h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2801,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Spurrit",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h 20m",
+      "enhancedBreedingTime": "20h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2897,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Stogg",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 5h",
+      "enhancedBreedingTime": "21h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2923,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Strombonin",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 10h 30m",
+      "enhancedBreedingTime": "1d 1h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3073,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic T-Rox",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "19h",
+      "enhancedBreedingTime": "14h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2666,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Thrumble",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h",
+      "enhancedBreedingTime": "23h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2982,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Thumpies",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 9h",
+      "enhancedBreedingTime": "1d 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3034,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Toe Jammer",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3h",
+      "enhancedBreedingTime": "2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2421,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Tring",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 21h",
+      "enhancedBreedingTime": "1d 9h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3278,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Tweedle",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "11h",
+      "enhancedBreedingTime": "8h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2544,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Viveine",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 8h 10m",
+      "enhancedBreedingTime": "1d 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3027,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Whaddle",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h",
+      "enhancedBreedingTime": "18h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2801,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Whisp",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Whiz-bang",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 30m",
+      "enhancedBreedingTime": "22h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Woolabee",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 19h",
+      "enhancedBreedingTime": "1d 8h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3245,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Wynq",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 5h",
+      "enhancedBreedingTime": "21h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2923,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Yawstrich",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 14h 23m",
+      "enhancedBreedingTime": "1d 4h 47m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3153,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Yelmut",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 15h",
+      "enhancedBreedingTime": "1d 5h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3160,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Yool",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 12m",
+      "enhancedBreedingTime": "18h 54m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2806,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Epic Ziggurab",
+      "rarity": "Epic",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Flasque",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Floot Fly",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "4h",
+      "enhancedBreedingTime": "3h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2427,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Flum Ox",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Gaddzooks",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Gnarls",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 8h",
+      "enhancedBreedingTime": "2d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3459,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Hairionette",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 8h",
+      "enhancedBreedingTime": "1d",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3022,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Incisaur",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Kayna",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "7h",
+      "enhancedBreedingTime": "5h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2448,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Krillby",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Lowb",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 2h",
+      "enhancedBreedingTime": "1d 13h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3332,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Maggpi",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2480,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Mammott",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2m",
+      "enhancedBreedingTime": "1m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2386,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Meebkin",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Mimic",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 8h",
+      "enhancedBreedingTime": "2d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3459,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Nitebear",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Noggin",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "5s",
+      "enhancedBreedingTime": "3s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2376,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Oogiddy",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3230,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Owlesque",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 10h",
+      "enhancedBreedingTime": "1d 1h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3068,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Parlsona",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2480,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Phosphoran Phlox",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h",
+      "enhancedBreedingTime": "9h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2565,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Piplash",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "PongPing",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Potbelly",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2h",
+      "enhancedBreedingTime": "1h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2415,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Anglow",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 17h 15m",
+      "enhancedBreedingTime": "1d 6h 56m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3209,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Banjaw",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Barrb",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bisonorus",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Blabbit",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bleatnik",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 9h 45m",
+      "enhancedBreedingTime": "1d 1h 18m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3050,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bonkers",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Boo'qwurm",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Boskus",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "13h 30m",
+      "enhancedBreedingTime": "10h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2604,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bowgart",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bowhead",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 23h 30m",
+      "enhancedBreedingTime": "2d 23h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3469,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bridg-It",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Bulbo",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Buzzinga",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 4h 45m",
+      "enhancedBreedingTime": "21h 33m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2915,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Candelavra",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 23h 30m",
+      "enhancedBreedingTime": "2d 23h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3469,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Cantorell",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Carillong",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Cataliszt",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "11h 15m",
+      "enhancedBreedingTime": "8h 26m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2549,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Cherubble",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "22h 30m",
+      "enhancedBreedingTime": "16h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2750,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Clamble",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Clavavera",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Clavi Gnat",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Congle",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Cranchee",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Cybop",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Dandidoo",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Deedge",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 30m",
+      "enhancedBreedingTime": "22h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Denchuhs",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Drummidary",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 23h 30m",
+      "enhancedBreedingTime": "2d 23h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3469,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Drumpler",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1h 7m 30s",
+      "enhancedBreedingTime": "50m 37s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2404,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Edamimi",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Entbrat",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 30m",
+      "enhancedBreedingTime": "22h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Ffidyll",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Fiddlement",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Floogull",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Flowah",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "13h 30m",
+      "enhancedBreedingTime": "10h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2604,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Flum Ox",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Fung Pray",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 5h",
+      "enhancedBreedingTime": "1d 15h 45m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3373,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Furcorn",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Fwog",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1h 15m",
+      "enhancedBreedingTime": "56m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2409,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare G'Day",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 13h 30m",
+      "enhancedBreedingTime": "1d 4h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3132,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare G'Joob",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "22h 30m",
+      "enhancedBreedingTime": "16h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2750,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Gloptic",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h 30m",
+      "enhancedBreedingTime": "1d 7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3238,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Glowl",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "13h 30m",
+      "enhancedBreedingTime": "10h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2604,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Gnarls",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 23h 30m",
+      "enhancedBreedingTime": "2d 23h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3469,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Gob",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Gobbleygourd",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Hawlo",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare HippityHop",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Hoola",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Hyehehe",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Incisaur",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Jam Boree",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 2h",
+      "enhancedBreedingTime": "1d 13h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3332,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Knucklehead",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Knurv",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Krillby",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Maw",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1h 7m 30s",
+      "enhancedBreedingTime": "50m 37s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2404,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Mimic",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 23h 30m",
+      "enhancedBreedingTime": "2d 23h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3469,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Monculus",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Mushaboom",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 13h 30m",
+      "enhancedBreedingTime": "1d 4h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3132,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Oaktopus",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Osstax",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Pango",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Phangler",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "13h 30m",
+      "enhancedBreedingTime": "10h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2604,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Pinghound",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Pladdie",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h 30m",
+      "enhancedBreedingTime": "1d 7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3238,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Plinkajou",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h 30m",
+      "enhancedBreedingTime": "1d 7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3238,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Pluckbill",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare PomPom",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare PongPing",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Poppette",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Pummel",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Punkleton",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Quarrister",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 30m",
+      "enhancedBreedingTime": "22h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Quibble",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Reedling",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Repatillo",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Riff",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 30m",
+      "enhancedBreedingTime": "22h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Roarick",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Rooba",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Rootitoot",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Schmoochle",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Scups",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Shellbeat",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h 30m",
+      "enhancedBreedingTime": "22h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2970,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare shLep",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 9h 45m",
+      "enhancedBreedingTime": "1d 1h 18m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3050,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Shrubb",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Sneyser",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Sooza",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Sporerow",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 22h 15m",
+      "enhancedBreedingTime": "1d 10h 41m 15s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3298,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Spunge",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Spurrit",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Spytrap",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Stogg",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "13h 30m",
+      "enhancedBreedingTime": "10h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2604,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Strombonin",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 4h 45m",
+      "enhancedBreedingTime": "21h 33m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2915,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare T-Rox",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "10h 30m",
+      "enhancedBreedingTime": "7h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2539,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Tapricorn",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Thrumble",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Thumpies",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "15h 30m",
+      "enhancedBreedingTime": "11h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2623,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Tiawa",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare TooToo",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Tring",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Tuskski",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 23h 30m",
+      "enhancedBreedingTime": "2d 23h 37m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3469,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Uuduk",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Viveine",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Whaddle",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Whiz-bang",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Wimmzies",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Withur",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 1h 30m",
+      "enhancedBreedingTime": "19h 7m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2827,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Woolabee",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Wubbox",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 12h",
+      "enhancedBreedingTime": "1d 21h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3406,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Wynq",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Xyster",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Yawstrich",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Yelmut",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d 4h 30m",
+      "enhancedBreedingTime": "1d 15h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3367,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Yool",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 7h 45m",
+      "enhancedBreedingTime": "23h 48m 45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3010,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Yuggler",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "12h 30m",
+      "enhancedBreedingTime": "9h 22m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2581,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rare Ziggurab",
+      "rarity": "Rare",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 2h 30m",
+      "enhancedBreedingTime": "19h 52m 30s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2861,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Rhysmuth",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 18h",
+      "enhancedBreedingTime": "1d 7h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3230,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "shLep",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 3h",
+      "enhancedBreedingTime": "20h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2882,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugabass",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugabeats",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugabush",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugabuzz",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugajo",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugarock",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugavox",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Shugitar",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 11h",
+      "enhancedBreedingTime": "1d 2h 15m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3097,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Stoowarb",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2480,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Tawkerr",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "8h",
+      "enhancedBreedingTime": "6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2480,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Teeter-Tauter",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Tiawa",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Toe Jammer",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1m",
+      "enhancedBreedingTime": "45s",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2381,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Tuskski",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "3d 8h",
+      "enhancedBreedingTime": "2d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3459,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Tweedle",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "4h",
+      "enhancedBreedingTime": "3h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2427,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Wubbox",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "2d",
+      "enhancedBreedingTime": "1d 12h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3308,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "X'rt",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Yelmut",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 16h",
+      "enhancedBreedingTime": "1d 6h",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 3181,
+      "parserConfidence": "high"
+    },
+    {
+      "monsterName": "Yooreek",
+      "rarity": "Common",
+      "category": null,
+      "subclass": null,
+      "elements": [],
+      "breedableOn": [],
+      "combinations": [],
+      "genericCombinations": [],
+      "breedingTime": "1d 6h",
+      "enhancedBreedingTime": "22h 30m",
+      "notes": "Imported as time-only candidate from parsed breeding research.",
+      "sourceLine": 2943,
+      "parserConfidence": "high"
+    }
+  ],
+  "skipped": {
+    "unknownParsedComboNames": [],
+    "unknownParsedTimeNames": [
+      "Epic",
+      "Charrkoll",
+      "Faesoddoid Fungus",
+      "Rare Squot",
+      "Rare Peckidna",
+      "Rare",
+      "Epic Floot Fly",
+      "Epic Clackula",
+      "Floot",
+      "Rare Periscorp",
+      "Rare Cahoot",
+      "Rare Déjà-Jin",
+      "Shhimmer",
+      "Epic Hyehehe",
+      "Clavi",
+      "Rare Yooreek",
+      "Rare Meebkin",
+      "Rare Blarret",
+      "Rare Gaddzooks",
+      "Rare Auglur",
+      "Rare Nitebear",
+      "Arcorina",
+      "Epic Flum Ox",
+      "Rare Larvaluss",
+      "Rare Frondley",
+      "Epic Incisaur",
+      "Rare Blow't",
+      "Scallyrags",
+      "eRmA gUrDy",
+      "Dakktyl",
+      "Rare Whaill",
+      "Rare Wheezel",
+      "Epic Tiawa",
+      "Epic Drummidary",
+      "Epic Bleatnik",
+      "Bogle",
+      "Fandhul",
+      "Epic Bisonorus",
+      "Epic Bowhead",
+      "Epic Candelavra",
+      "Epic TooToo",
+      "Epic Tuskski",
+      "Jerm",
+      "Galymph",
+      "Illoost",
+      "Epic Knurv",
+      "Epic Rooba",
+      "Epic Sporerow",
+      "Rare Enchantling",
+      "Epic Cranchee",
+      "Epic Pinghound"
+    ],
+    "ambiguousTimeOnlyMonsterNames": [
+      "Clackula",
+      "Fluoress",
+      "Pentumbra",
+      "Theremind",
+      "Vhenshun",
+      "Whaill"
+    ]
+  }
+}

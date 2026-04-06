@@ -1,7 +1,7 @@
 import {
   isRealBreedingIsland,
-} from "../utils/monsterMetadata";
-import { MONSTER_DIRECTORY } from "./monsterDatabase";
+} from "../utils/monsterMetadata.js";
+import { MONSTER_DIRECTORY } from "./monsterDatabase.js";
 
 export const MONSTER_REQUIREMENTS = {
   amber: {

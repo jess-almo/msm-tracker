@@ -179,6 +179,15 @@ export const MONSTER_DIRECTORY = {
     combo: "",
     notes: "",
   },
+  "bbli$zard": {
+    id: "bblizard",
+    name: "bbli$zard",
+    category: "legendary",
+    elements: ["Legendary"],
+    breedableOn: ["Cold Island"],
+    combo: "Thumpies + Congle",
+    notes: "",
+  },
   BeMeebEth: {
     id: "bemeebeth",
     name: "BeMeebEth",
@@ -755,9 +764,9 @@ export const MONSTER_DIRECTORY = {
     combo: "",
     notes: "",
   },
-  "Epic Congole": {
-    id: "epiccongole",
-    name: "Epic Congole",
+  "Epic Congle": {
+    id: "epiccongle",
+    name: "Epic Congle",
     category: "natural",
     elements: [],
     breedableOn: ["Air Island","Cold Island","Fire Oasis","Gold Island","Mirror Air Island","Mirror Cold Island"],
@@ -2546,9 +2555,9 @@ export const MONSTER_DIRECTORY = {
     combo: "",
     notes: "",
   },
-  "Rare Congole": {
-    id: "rarecongole",
-    name: "Rare Congole",
+  "Rare Congle": {
+    id: "rarecongle",
+    name: "Rare Congle",
     category: "natural",
     elements: [],
     breedableOn: ["Air Island","Cold Island","Fire Oasis","Gold Island","Mirror Air Island","Mirror Cold Island"],

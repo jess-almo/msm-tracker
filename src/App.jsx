@@ -1,10 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
-import BreedingQueue from "./components/BreedingQueue";
-import IslandPlanner from "./components/IslandPlanner";
-import MonsterDirectory from "./components/MonsterDirectory";
-import TrackerSheet from "./components/TrackerSheet";
-import ActiveSheetsPage from "./pages/ActiveSheets";
-import CollectionsPage from "./pages/Collections";
+import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import {
   createTrackerSheetInstanceFromSeed,
   TRACKER_SHEET_DEFAULTS,
@@ -27,6 +21,12 @@ import {
 } from "./utils/monsterMetadata";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
+const BreedingQueue = lazy(() => import("./components/BreedingQueue"));
+const IslandPlanner = lazy(() => import("./components/IslandPlanner"));
+const MonsterDirectory = lazy(() => import("./components/MonsterDirectory"));
+const TrackerSheet = lazy(() => import("./components/TrackerSheet"));
+const ActiveSheetsPage = lazy(() => import("./pages/ActiveSheets"));
+const CollectionsPage = lazy(() => import("./pages/Collections"));
 
 const baseCardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -47,6 +47,30 @@ const buttonBaseStyle = {
   fontWeight: 600,
   boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
 };
+
+function ScreenLoadingFallback({ label = "Loading screen..." })
+{
+  return (
+    <div
+      className="responsive-page-card"
+      style={{
+        ...baseCardStyle,
+        display: "grid",
+        gap: "8px",
+      }}
+    >
+      <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
+        LOADING
+      </div>
+      <div style={{ fontSize: "22px", fontWeight: 700 }}>
+        {label}
+      </div>
+      <div style={{ opacity: 0.72 }}>
+        Pulling in this workspace without changing the current app state.
+      </div>
+    </div>
+  );
+}
 
 function clamp(value, min, max)
 {
@@ -143,6 +167,15 @@ function normalizeBreedingSession(session)
     sheetId,
     status,
     createdAt: Number(session.createdAt || Date.now()),
+    manualRecipeParents: Array.isArray(session.manualRecipeParents)
+      ? session.manualRecipeParents
+          .filter((value) => typeof value === "string" && value.trim())
+          .slice(0, 2)
+      : [],
+    manualObservedTime: typeof session.manualObservedTime === "string"
+      ? session.manualObservedTime.trim()
+      : "",
+    manualResolution: session.manualResolution === "exact" ? "exact" : "mystery",
   };
 }
 
@@ -1399,8 +1432,20 @@ export default function App()
     }));
   };
 
-  const createManualBreedingSession = (monsterId, islandId) =>
+  const createManualBreedingSession = (monsterIdOrPayload, islandIdArg) =>
   {
+    const payload = typeof monsterIdOrPayload === "object" && monsterIdOrPayload !== null
+      ? monsterIdOrPayload
+      : {
+          monsterId: monsterIdOrPayload,
+          islandId: islandIdArg,
+          manualRecipeParents: [],
+          manualObservedTime: "",
+          manualResolution: "exact",
+        };
+    const monsterId = typeof payload.monsterId === "string" ? payload.monsterId.trim() : "";
+    const islandId = typeof payload.islandId === "string" ? payload.islandId.trim() : "";
+
     if (!monsterId || !isRealBreedingIsland(islandId))
     {
       return;
@@ -1423,6 +1468,15 @@ export default function App()
         sheetId: null,
         status: "breeding",
         createdAt: Date.now(),
+        manualRecipeParents: Array.isArray(payload.manualRecipeParents)
+          ? payload.manualRecipeParents
+              .filter((value) => typeof value === "string" && value.trim())
+              .slice(0, 2)
+          : [],
+        manualObservedTime: typeof payload.manualObservedTime === "string"
+          ? payload.manualObservedTime.trim()
+          : "",
+        manualResolution: payload.manualResolution === "exact" ? "exact" : "mystery",
       },
     ]);
   };
@@ -1976,18 +2030,15 @@ export default function App()
 
   return (
     <div
+      className="app-shell"
       style={{
-        padding: "36px 20px 72px",
-        maxWidth: "1120px",
-        margin: "0 auto",
-        minHeight: "100vh",
-        background:
-          "radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 34%)",
+        width: "100%",
       }}
     >
       <h1
+        className="app-title"
         style={{
-          fontSize: "68px",
+          fontSize: "clamp(40px, 8vw, 68px)",
           lineHeight: 0.95,
           margin: "0 0 10px",
           letterSpacing: "-0.04em",
@@ -2001,12 +2052,9 @@ export default function App()
       </div>
 
       <div
+        className="top-nav"
         style={{
-          display: "flex",
-          gap: "10px",
-          marginTop: "18px",
-          marginBottom: "24px",
-          flexWrap: "wrap",
+          width: "100%",
         }}
       >
         <button
@@ -2071,8 +2119,8 @@ export default function App()
       </div>
 
       {view.screen === "home" && (
-        <div style={{ display: "grid", gap: "16px" }}>
-          <div style={baseCardStyle}>
+        <div className="page-surface" style={{ gap: "16px" }}>
+          <div className="responsive-page-card" style={baseCardStyle}>
             <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
               DASHBOARD
             </div>
@@ -2083,7 +2131,7 @@ export default function App()
               Collections holds the tracked goals, Island Manager runs the island floor, and the queue shows the pipeline pressure.
             </div>
 
-            <div style={{ marginTop: "18px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            <div className="dashboard-primary-actions" style={{ marginTop: "18px" }}>
               <button style={buttonBaseStyle} onClick={openActiveSheets}>
                 Open Active Sheets
               </button>
@@ -2099,8 +2147,8 @@ export default function App()
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" }}>
-            <div style={baseCardStyle}>
+          <div className="dashboard-stat-grid">
+            <div className="responsive-section-card" style={baseCardStyle}>
               <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
                 ACTIVE VESSELS
               </div>
@@ -2114,7 +2162,7 @@ export default function App()
               </div>
             </div>
 
-            <div style={baseCardStyle}>
+            <div className="responsive-section-card" style={baseCardStyle}>
               <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
                 ISLAND COLLECTIONS
               </div>
@@ -2126,7 +2174,7 @@ export default function App()
               </div>
             </div>
 
-            <div style={baseCardStyle}>
+            <div className="responsive-section-card" style={baseCardStyle}>
               <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
                 BREEDER SPACE
               </div>
@@ -2138,7 +2186,7 @@ export default function App()
               </div>
             </div>
 
-            <div style={baseCardStyle}>
+            <div className="responsive-section-card" style={baseCardStyle}>
               <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
                 NURSERY SPACE
               </div>
@@ -2151,7 +2199,7 @@ export default function App()
             </div>
           </div>
 
-          <div style={{ ...baseCardStyle, display: "grid", gap: "14px" }}>
+          <div className="responsive-page-card" style={{ ...baseCardStyle, display: "grid", gap: "14px" }}>
             <div
               style={{
                 display: "flex",
@@ -2236,7 +2284,7 @@ export default function App()
             )}
           </div>
 
-          <div style={{ ...baseCardStyle, display: "grid", gap: "14px" }}>
+          <div className="responsive-page-card" style={{ ...baseCardStyle, display: "grid", gap: "14px" }}>
             <div
               style={{
                 display: "flex",
@@ -2306,22 +2354,26 @@ export default function App()
       )}
 
       {view.screen === "active" && (
-        <ActiveSheetsPage
-          goals={homeGoals}
-          onOpenSheet={openSheet}
-          onOpenCollections={openCollections}
-        />
+        <Suspense fallback={<ScreenLoadingFallback label="Loading Active Sheets..." />}>
+          <ActiveSheetsPage
+            goals={homeGoals}
+            onOpenSheet={openSheet}
+            onOpenCollections={openCollections}
+          />
+        </Suspense>
       )}
 
       {view.screen === "collections" && (
-        <CollectionsPage
-          sheets={sheets}
-          getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
-          onOpenSheet={openSheet}
-          onCreateAnotherSheetInstance={createAnotherSheetInstance}
-          onDeleteSheetInstance={deleteSheetInstance}
-          onToggleSheetActive={toggleSheetActive}
-        />
+        <Suspense fallback={<ScreenLoadingFallback label="Loading Collections..." />}>
+          <CollectionsPage
+            sheets={sheets}
+            getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
+            onOpenSheet={openSheet}
+            onCreateAnotherSheetInstance={createAnotherSheetInstance}
+            onDeleteSheetInstance={deleteSheetInstance}
+            onToggleSheetActive={toggleSheetActive}
+          />
+        </Suspense>
       )}
 
       {view.screen === "sheet" && selectedSheet && (
@@ -2385,24 +2437,26 @@ export default function App()
             )}
           </div>
 
-          <TrackerSheet
-            data={selectedSheet}
-            islandStates={islandStates}
-            islandPlannerByName={islandPlannerByName}
-            breedingSessions={breedingSessions}
-            assignableSessions={selectedSheetAssignableSessions}
-            onAdjustMonster={adjustSelectedSheetMonster}
-            onBreedOnIsland={breedSelectedSheetMonsterOnIsland}
-            onZapReady={zapSelectedSheetMonsterReady}
-            onAssignExistingBreeding={(sessionId) =>
-              assignExistingBreedingSession(sessionId, selectedSheet.key)
-            }
-            onActivateAndAssignExistingBreeding={(sessionId) =>
-              assignExistingBreedingSession(sessionId, selectedSheet.key, {
-                activateIfNeeded: true,
-              })
-            }
-          />
+          <Suspense fallback={<ScreenLoadingFallback label={`Loading ${getSheetDisplayName(selectedSheet)}...`} />}>
+            <TrackerSheet
+              data={selectedSheet}
+              islandStates={islandStates}
+              islandPlannerByName={islandPlannerByName}
+              breedingSessions={breedingSessions}
+              assignableSessions={selectedSheetAssignableSessions}
+              onAdjustMonster={adjustSelectedSheetMonster}
+              onBreedOnIsland={breedSelectedSheetMonsterOnIsland}
+              onZapReady={zapSelectedSheetMonsterReady}
+              onAssignExistingBreeding={(sessionId) =>
+                assignExistingBreedingSession(sessionId, selectedSheet.key)
+              }
+              onActivateAndAssignExistingBreeding={(sessionId) =>
+                assignExistingBreedingSession(sessionId, selectedSheet.key, {
+                  activateIfNeeded: true,
+                })
+              }
+            />
+          </Suspense>
         </>
       )}
 
@@ -2414,13 +2468,15 @@ export default function App()
             </button>
           </div>
 
-          <BreedingQueue
-            sheets={sheets}
-            breedingSessions={breedingSessions}
-            islandPlannerData={islandPlannerData}
-            onZapBreedingSession={zapAssignedSessionFromPlanner}
-            onBreedFromQueue={breedFromPlanner}
-          />
+          <Suspense fallback={<ScreenLoadingFallback label="Loading Breeding Queue..." />}>
+            <BreedingQueue
+              sheets={sheets}
+              breedingSessions={breedingSessions}
+              islandPlannerData={islandPlannerData}
+              onZapBreedingSession={zapAssignedSessionFromPlanner}
+              onBreedFromQueue={breedFromPlanner}
+            />
+          </Suspense>
         </>
       )}
 
@@ -2432,20 +2488,22 @@ export default function App()
             </button>
           </div>
 
-          <IslandPlanner
-            plannerData={islandPlannerData}
-            unlockIsland={unlockIsland}
-            unlockIslandBreedingStructure={unlockIslandBreedingStructure}
-            unlockIslandNursery={unlockIslandNursery}
-            reduceIslandBreedingStructure={reduceIslandBreedingStructure}
-            reduceIslandNursery={reduceIslandNursery}
-            onZapFromPlanner={zapAssignedSessionFromPlanner}
-            onBreedFromPlanner={breedFromPlanner}
-            onCreateManualBreed={createManualBreedingSession}
-            onAssignAndZapFromPlanner={assignAndZapBreedingSession}
-            onMoveToNurseryFromPlanner={moveBreedingSessionToNursery}
-            onHatchNurseryFromPlanner={hatchNurserySession}
-          />
+          <Suspense fallback={<ScreenLoadingFallback label="Loading Island Manager..." />}>
+            <IslandPlanner
+              plannerData={islandPlannerData}
+              unlockIsland={unlockIsland}
+              unlockIslandBreedingStructure={unlockIslandBreedingStructure}
+              unlockIslandNursery={unlockIslandNursery}
+              reduceIslandBreedingStructure={reduceIslandBreedingStructure}
+              reduceIslandNursery={reduceIslandNursery}
+              onZapFromPlanner={zapAssignedSessionFromPlanner}
+              onBreedFromPlanner={breedFromPlanner}
+              onCreateManualBreed={createManualBreedingSession}
+              onAssignAndZapFromPlanner={assignAndZapBreedingSession}
+              onMoveToNurseryFromPlanner={moveBreedingSessionToNursery}
+              onHatchNurseryFromPlanner={hatchNurserySession}
+            />
+          </Suspense>
         </>
       )}
 
@@ -2457,7 +2515,9 @@ export default function App()
             </button>
           </div>
 
-          <MonsterDirectory />
+          <Suspense fallback={<ScreenLoadingFallback label="Loading Monster Library..." />}>
+            <MonsterDirectory />
+          </Suspense>
         </>
       )}
     </div>

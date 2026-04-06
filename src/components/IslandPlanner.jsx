@@ -1,12 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ISLAND_GROUPS } from "../data/islands";
 import { MONSTER_DATABASE } from "../data/monsterDatabase";
-import { getBreedingComboByMonsterName } from "../utils/breedingCombos";
+import {
+  getBreedingComboByMonsterName,
+  inferBreedingOutcomeFromParents,
+} from "../utils/breedingCombos";
 import {
   getElementChipStyle,
   getMonsterBreedingIslands,
   getMonsterMetadata,
 } from "../utils/monsterMetadata";
+import {
+  compareMonsterNamesByPriority,
+  isEpicMonsterName,
+} from "../utils/monsterPriority";
 
 const cardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -80,10 +87,9 @@ const DIRECT_SLOT_ACTION_LIMIT = 3;
 const ALL_REGIONS_FILTER = "all";
 const AVAILABILITY_FILTER_OPTIONS = [
   { key: "all", label: "All" },
-  { key: "open", label: "Open" },
-  { key: "breeder_free", label: "Breeder Free" },
+  { key: "breedable", label: "Breedable" },
   { key: "nursery_free", label: "Nursery Free" },
-  { key: "busy", label: "Constrained" },
+  { key: "capacity_limited", label: "Capacity Limited" },
 ];
 
 function getTabLabel(group)
@@ -113,7 +119,7 @@ function matchesAvailabilityFilter(island, filterKey)
     return true;
   }
 
-  if (filterKey === "open" || filterKey === "breeder_free")
+  if (filterKey === "breedable")
   {
     return island.supportsStandardBreeding && Number(island.freeSlots || 0) > 0;
   }
@@ -123,7 +129,7 @@ function matchesAvailabilityFilter(island, filterKey)
     return island.supportsNursery && Number(island.freeNurseries || 0) > 0;
   }
 
-  if (filterKey === "busy")
+  if (filterKey === "capacity_limited")
   {
     return (
       (island.supportsStandardBreeding && Number(island.freeSlots || 0) <= 0) ||
@@ -137,6 +143,26 @@ function matchesAvailabilityFilter(island, filterKey)
 function getAvailabilityFilterLabel(filterKey)
 {
   return AVAILABILITY_FILTER_OPTIONS.find((filter) => filter.key === filterKey)?.label || "All";
+}
+
+function getAvailabilityFilterMeaning(filterKey)
+{
+  if (filterKey === "breedable")
+  {
+    return "At least one breeder slot is open on the visible islands.";
+  }
+
+  if (filterKey === "nursery_free")
+  {
+    return "At least one nursery slot is open on the visible islands.";
+  }
+
+  if (filterKey === "capacity_limited")
+  {
+    return "Breeder or nursery capacity is currently full on the visible islands.";
+  }
+
+  return "";
 }
 
 function NeedNowRow({ item, faded, canBreed, onBreed, buttonLabel = "Assign Here + Breeding" })
@@ -196,6 +222,14 @@ function NeedNowRow({ item, faded, canBreed, onBreed, buttonLabel = "Assign Here
       {metadata?.combo && (
         <div style={{ marginTop: "8px", fontSize: "13px", opacity: 0.72 }}>
           Combo: {metadata.combo}
+        </div>
+      )}
+
+      {item.source === "manual" && item.manualRecipeParents?.length === 2 && (
+        <div style={{ marginTop: "8px", fontSize: "13px", opacity: 0.68 }}>
+          Bred from: {item.manualRecipeParents.join(" + ")}
+          {item.manualObservedTime ? ` · Observed timer: ${item.manualObservedTime}` : ""}
+          {item.manualResolution === "mystery" ? " · Result unresolved" : ""}
         </div>
       )}
 
@@ -459,6 +493,14 @@ function NurseryRow({ item, onHatch })
           : "Manual nursery session"}
       </div>
 
+      {item.source === "manual" && item.manualRecipeParents?.length === 2 && (
+        <div style={{ marginTop: "8px", fontSize: "13px", opacity: 0.68 }}>
+          Bred from: {item.manualRecipeParents.join(" + ")}
+          {item.manualObservedTime ? ` · Observed timer: ${item.manualObservedTime}` : ""}
+          {item.manualResolution === "mystery" ? " · Result unresolved" : ""}
+        </div>
+      )}
+
       <div style={{ marginTop: "12px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
         <button
           style={{
@@ -491,8 +533,14 @@ function IslandCard({
 })
 {
   const [confirmUpgradeAction, setConfirmUpgradeAction] = useState(null);
+  const [confirmCapacityAction, setConfirmCapacityAction] = useState(null);
+  const [showCapacityEditor, setShowCapacityEditor] = useState(false);
   const [showManualForm, setShowManualForm] = useState(false);
+  const [manualMode, setManualMode] = useState("pair");
   const [manualMonsterId, setManualMonsterId] = useState("");
+  const [manualParentA, setManualParentA] = useState("");
+  const [manualParentB, setManualParentB] = useState("");
+  const [manualObservedTime, setManualObservedTime] = useState("");
   const [showAllNeedNow, setShowAllNeedNow] = useState(false);
   const [showAllCollectionMissing, setShowAllCollectionMissing] = useState(false);
 
@@ -510,6 +558,21 @@ function IslandCard({
 
     return () => clearTimeout(timeout);
   }, [confirmUpgradeAction]);
+
+  useEffect(() =>
+  {
+    if (!confirmCapacityAction)
+    {
+      return undefined;
+    }
+
+    const timeout = setTimeout(() =>
+    {
+      setConfirmCapacityAction(null);
+    }, 4000);
+
+    return () => clearTimeout(timeout);
+  }, [confirmCapacityAction]);
 
   const canUpgradeBreedingStructures =
     island.isUnlocked &&
@@ -540,12 +603,26 @@ function IslandCard({
     () =>
       Object.keys(MONSTER_DATABASE)
         .filter((monsterName) => getMonsterBreedingIslands(monsterName).includes(island.island))
-        .sort((a, b) => a.localeCompare(b)),
+        .sort((a, b) => compareMonsterNamesByPriority(a, b, { preferRequirementUsage: false })),
     [island.island]
+  );
+  const manualParentOptions = useMemo(
+    () => manualMonsterOptions.filter((monsterName) => !isEpicMonsterName(monsterName)),
+    [manualMonsterOptions]
   );
   const selectedManualCombo = useMemo(
     () => getBreedingComboByMonsterName(manualMonsterId),
     [manualMonsterId]
+  );
+  const manualPairOutcome = useMemo(
+    () =>
+      inferBreedingOutcomeFromParents({
+        parentA: manualParentA,
+        parentB: manualParentB,
+        islandName: island.island,
+        observedTime: manualObservedTime,
+      }),
+    [island.island, manualObservedTime, manualParentA, manualParentB]
   );
   const visibleNeedNow = showAllNeedNow
     ? island.needNow
@@ -565,6 +642,22 @@ function IslandCard({
     island.currentlyBreeding.length > 0;
   const showNurseryPipeline =
     island.supportsNursery || Number(island.nurserySessions?.length || 0) > 0;
+  const canMaxCapacity = canUpgradeBreedingStructures || canUpgradeNurseries;
+  const capacitySummaryParts = [];
+
+  if (island.supportsStandardBreeding)
+  {
+    capacitySummaryParts.push(
+      `${island.breedingStructures} breeder${island.breedingStructures === 1 ? "" : "s"}`
+    );
+  }
+
+  if (island.supportsNursery)
+  {
+    capacitySummaryParts.push(
+      `${island.nurseries} nursery${island.nurseries === 1 ? "" : "ies"}`
+    );
+  }
 
   function handleUnlockIsland()
   {
@@ -587,15 +680,61 @@ function IslandCard({
   function handleReduceBreeder()
   {
     reduceIslandBreedingStructure(island.island);
+    setConfirmCapacityAction(null);
   }
 
   function handleReduceNursery()
   {
     reduceIslandNursery(island.island);
+    setConfirmCapacityAction(null);
+  }
+
+  function handleMaxCapacity()
+  {
+    const breederUpgradesNeeded = island.supportsStandardBreeding
+      ? Math.max(0, Number(island.maxBreedingStructures || 0) - Number(island.breedingStructures || 0))
+      : 0;
+    const nurseryUpgradesNeeded = island.supportsNursery
+      ? Math.max(0, Number(island.maxNurseries || 0) - Number(island.nurseries || 0))
+      : 0;
+
+    for (let index = 0; index < breederUpgradesNeeded; index += 1)
+    {
+      unlockIslandBreedingStructure(island.island);
+    }
+
+    for (let index = 0; index < nurseryUpgradesNeeded; index += 1)
+    {
+      unlockIslandNursery(island.island);
+    }
+
+    setConfirmUpgradeAction(null);
+    setShowCapacityEditor(false);
   }
 
   function handleCreateManualBreed()
   {
+    if (manualMode === "pair")
+    {
+      if (!manualParentA || !manualParentB)
+      {
+        return;
+      }
+
+      onCreateManualBreed({
+        monsterId: manualPairOutcome.resultName,
+        islandId: island.island,
+        manualRecipeParents: [manualParentA, manualParentB],
+        manualObservedTime,
+        manualResolution: manualPairOutcome.resolution,
+      });
+      setManualParentA("");
+      setManualParentB("");
+      setManualObservedTime("");
+      setShowManualForm(false);
+      return;
+    }
+
     if (!manualMonsterId)
     {
       return;
@@ -654,246 +793,6 @@ function IslandCard({
               {tag}
             </div>
           ))}
-
-          {island.supportsStandardBreeding && (
-            <div
-              style={{
-                display: "grid",
-                gap: "6px",
-                padding: "8px 12px",
-                borderRadius: "14px",
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.05)",
-              }}
-            >
-              <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
-                Breeders
-              </div>
-              <div style={{ fontSize: "13px", fontWeight: 700 }}>{breederSummary}</div>
-              <div style={{ fontSize: "12px", opacity: 0.7 }}>{island.freeSlots} free</div>
-
-              {!island.isUnlocked ? null : canUpgradeBreedingStructures ? (
-                confirmUpgradeAction === "breeder" ? (
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    <button style={confirmButtonStyle} onClick={handleUnlockBreeder}>
-                      Confirm Breeder
-                    </button>
-                    <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    <button
-                      style={{
-                        ...compactActionStyle,
-                        background: "rgba(59,130,246,0.16)",
-                        opacity: isConfirmingUpgrade ? 0.55 : 1,
-                        cursor: isConfirmingUpgrade ? "default" : "pointer",
-                      }}
-                      onClick={() => setConfirmUpgradeAction("breeder")}
-                      disabled={isConfirmingUpgrade}
-                    >
-                      + Breeder
-                    </button>
-                    {canReduceBreedingStructures && (
-                      <button
-                        style={compactActionStyle}
-                        onClick={handleReduceBreeder}
-                      >
-                        Revert
-                      </button>
-                    )}
-                  </div>
-                )
-              ) : canReduceBreedingStructures ? (
-                <button style={compactActionStyle} onClick={handleReduceBreeder}>
-                  Revert
-                </button>
-              ) : (
-                <div style={pillStyle}>Breeder Base</div>
-              )}
-            </div>
-          )}
-
-          {island.supportsNursery && (
-            <div
-              style={{
-                display: "grid",
-                gap: "6px",
-                padding: "8px 12px",
-                borderRadius: "14px",
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.05)",
-              }}
-            >
-              <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
-                Nurseries
-              </div>
-              <div style={{ fontSize: "13px", fontWeight: 700 }}>{nurserySummary}</div>
-              <div style={{ fontSize: "12px", opacity: 0.7 }}>{island.freeNurseries} free</div>
-
-              {!island.isUnlocked ? null : canUpgradeNurseries ? (
-                confirmUpgradeAction === "nursery" ? (
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    <button style={confirmButtonStyle} onClick={handleUnlockNursery}>
-                      Confirm Nursery
-                    </button>
-                    <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    <button
-                      style={{
-                        ...compactActionStyle,
-                        background: "rgba(34,197,94,0.16)",
-                        opacity: isConfirmingUpgrade ? 0.55 : 1,
-                        cursor: isConfirmingUpgrade ? "default" : "pointer",
-                      }}
-                      onClick={() => setConfirmUpgradeAction("nursery")}
-                      disabled={isConfirmingUpgrade}
-                    >
-                      + Nursery
-                    </button>
-                    {canReduceNurseries && (
-                      <button
-                        style={compactActionStyle}
-                        onClick={handleReduceNursery}
-                      >
-                        Revert
-                      </button>
-                    )}
-                  </div>
-                )
-              ) : canReduceNurseries ? (
-                <button style={compactActionStyle} onClick={handleReduceNursery}>
-                  Revert
-                </button>
-              ) : (
-                <div style={pillStyle}>Nursery Base</div>
-              )}
-            </div>
-          )}
-
-          {island.isUnlocked && island.supportsStandardBreeding && (
-            <div
-              style={{
-                display: "grid",
-                gap: "6px",
-                padding: "8px 12px",
-                borderRadius: "14px",
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.05)",
-                minWidth: "210px",
-              }}
-            >
-              <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
-                Manual Breed
-              </div>
-
-              {!showManualForm ? (
-                <button
-                  style={{
-                    ...compactActionStyle,
-                    background: island.freeSlots > 0
-                      ? "rgba(168,85,247,0.16)"
-                      : "rgba(255,255,255,0.08)",
-                    opacity: island.freeSlots > 0 ? 1 : 0.5,
-                    cursor: island.freeSlots > 0 ? "pointer" : "not-allowed",
-                  }}
-                  onClick={() => setShowManualForm(true)}
-                  disabled={island.freeSlots <= 0}
-                >
-                  + Manual Breed
-                </button>
-              ) : (
-                <>
-                  <select
-                    value={manualMonsterId}
-                    onChange={(event) => setManualMonsterId(event.target.value)}
-                    style={{
-                      padding: "8px 10px",
-                      borderRadius: "10px",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      background: "rgba(255,255,255,0.06)",
-                      color: "inherit",
-                    }}
-                  >
-                    <option value="">Select monster</option>
-                    {manualMonsterOptions.map((monsterName) => (
-                      <option key={`${island.island}-${monsterName}`} value={monsterName}>
-                        {monsterName}
-                      </option>
-                    ))}
-                  </select>
-
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    <button
-                      style={{
-                        ...compactActionStyle,
-                        background: "rgba(168,85,247,0.16)",
-                      }}
-                      onClick={handleCreateManualBreed}
-                      disabled={!manualMonsterId}
-                    >
-                      Add Session
-                    </button>
-                    <button
-                      style={compactActionStyle}
-                      onClick={() =>
-                      {
-                        setManualMonsterId("");
-                        setShowManualForm(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-
-                  <div
-                    style={{
-                      marginTop: "4px",
-                      fontSize: "12px",
-                      lineHeight: 1.5,
-                      opacity: 0.78,
-                    }}
-                  >
-                    {manualMonsterId ? (
-                      selectedManualCombo ? (
-                        <>
-                          <div>
-                            Combo: {selectedManualCombo.combinations.length > 0
-                              ? selectedManualCombo.combinations
-                                  .map((combo) => combo.join(" + "))
-                                  .join(" · ")
-                              : "No combo listed"}
-                          </div>
-                          <div>
-                            Breedable On: {selectedManualCombo.breedableOn.join(", ") || "—"}
-                          </div>
-                          <div>
-                            Time: {selectedManualCombo.breedingTime}
-                            {selectedManualCombo.enhancedBreedingTime
-                              ? ` (Enhanced: ${selectedManualCombo.enhancedBreedingTime})`
-                              : ""}
-                          </div>
-                          {selectedManualCombo.notes && (
-                            <div>Notes: {selectedManualCombo.notes}</div>
-                          )}
-                        </>
-                      ) : (
-                        <div>No combo data yet.</div>
-                      )
-                    ) : (
-                      <div>Select a monster to preview combos and breeding time.</div>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
 
           {!hasEditableCapacities && (
             <div
@@ -954,15 +853,115 @@ function IslandCard({
           )
         ) : (
           <>
-            {hasEditableCapacities && isFullyUpgraded && (
-              <div style={{ fontSize: "13px", opacity: 0.72 }}>
-                {island.breedingStructures} breeders · {island.nurseries} nurseries · fully upgraded
-              </div>
-            )}
+            {hasEditableCapacities && (
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(160px, max-content))",
+                  gap: "10px",
+                  width: "100%",
+                }}
+              >
+                {island.supportsStandardBreeding && (
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "4px",
+                      padding: "10px 12px",
+                      borderRadius: "14px",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.76 }}>Breeders</div>
+                    <div style={{ fontSize: "14px", fontWeight: 700 }}>{breederSummary}</div>
+                    <div style={{ fontSize: "12px", opacity: 0.7 }}>{island.freeSlots} free</div>
+                  </div>
+                )}
 
-            {hasEditableCapacities && !isFullyUpgraded && (
-              <div style={{ fontSize: "13px", opacity: 0.72 }}>
-                Upgrade or revert breeder and nursery capacity from the controls above.
+                {island.supportsNursery && (
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "4px",
+                      padding: "10px 12px",
+                      borderRadius: "14px",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.76 }}>Nurseries</div>
+                    <div style={{ fontSize: "14px", fontWeight: 700 }}>{nurserySummary}</div>
+                    <div style={{ fontSize: "12px", opacity: 0.7 }}>{island.freeNurseries} free</div>
+                  </div>
+                )}
+
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+                  {island.supportsStandardBreeding && !showManualForm && (
+                    <button
+                      style={{
+                        ...compactActionStyle,
+                        background: island.freeSlots > 0
+                          ? "rgba(168,85,247,0.16)"
+                          : "rgba(255,255,255,0.08)",
+                        opacity: island.freeSlots > 0 ? 1 : 0.5,
+                        cursor: island.freeSlots > 0 ? "pointer" : "not-allowed",
+                      }}
+                      onClick={() => setShowManualForm(true)}
+                      disabled={island.freeSlots <= 0}
+                    >
+                      + Manual Breed
+                    </button>
+                  )}
+
+                  {canMaxCapacity && (
+                    confirmUpgradeAction === "max_capacity" ? (
+                      <>
+                        <button style={confirmButtonStyle} onClick={handleMaxCapacity}>
+                          Confirm Max Capacity
+                        </button>
+                        <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        style={{
+                          ...compactActionStyle,
+                          background: "rgba(245,158,11,0.16)",
+                          opacity: isConfirmingUpgrade ? 0.55 : 1,
+                          cursor: isConfirmingUpgrade ? "default" : "pointer",
+                        }}
+                        onClick={() => setConfirmUpgradeAction("max_capacity")}
+                        disabled={isConfirmingUpgrade}
+                      >
+                        Max Capacity
+                      </button>
+                    )
+                  )}
+
+                  {(canReduceBreedingStructures || canReduceNurseries || canUpgradeBreedingStructures || canUpgradeNurseries) && (
+                    <button
+                      style={{
+                        ...compactActionStyle,
+                        background: showCapacityEditor ? "rgba(255,255,255,0.16)" : compactActionStyle.background,
+                      }}
+                      onClick={() =>
+                      {
+                        setShowCapacityEditor((current) => !current);
+                        setConfirmCapacityAction(null);
+                        setConfirmUpgradeAction(null);
+                      }}
+                    >
+                      {showCapacityEditor ? "Done" : "Capacity Settings"}
+                    </button>
+                  )}
+                </div>
+
+                <div style={{ fontSize: "13px", opacity: 0.72, alignSelf: "center" }}>
+                  {capacitySummaryParts.join(" · ")}
+                  {isFullyUpgraded ? " · fully upgraded" : ""}
+                </div>
               </div>
             )}
 
@@ -974,6 +973,395 @@ function IslandCard({
           </>
         )}
       </div>
+
+      {showCapacityEditor && island.isUnlocked && hasEditableCapacities && (
+        <div
+          style={{
+            marginTop: "14px",
+            padding: "14px",
+            borderRadius: "16px",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.04)",
+            display: "grid",
+            gap: "12px",
+          }}
+        >
+          <div style={{ fontSize: "13px", opacity: 0.72 }}>
+            Capacity setup stays compact until you intentionally edit it here. Reverts require confirmation and cannot reduce below current live occupancy.
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: "12px",
+            }}
+          >
+            {island.supportsStandardBreeding && (
+              <div
+                style={{
+                  display: "grid",
+                  gap: "8px",
+                  padding: "12px",
+                  borderRadius: "14px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.03)",
+                }}
+              >
+                <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.78 }}>Breeders</div>
+                <div style={{ fontSize: "13px", opacity: 0.74 }}>
+                  {island.breedingStructures} installed · {island.maxBreedingStructures} max
+                </div>
+                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                  {canUpgradeBreedingStructures && (
+                    confirmUpgradeAction === "breeder" ? (
+                      <>
+                        <button style={confirmButtonStyle} onClick={handleUnlockBreeder}>
+                          Confirm + Breeder
+                        </button>
+                        <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        style={{
+                          ...compactActionStyle,
+                          background: "rgba(59,130,246,0.16)",
+                          opacity: isConfirmingUpgrade ? 0.55 : 1,
+                          cursor: isConfirmingUpgrade ? "default" : "pointer",
+                        }}
+                        onClick={() => setConfirmUpgradeAction("breeder")}
+                        disabled={isConfirmingUpgrade}
+                      >
+                        + Breeder
+                      </button>
+                    )
+                  )}
+
+                  {canReduceBreedingStructures && (
+                    confirmCapacityAction === "revert_breeder" ? (
+                      <>
+                        <button style={confirmButtonStyle} onClick={handleReduceBreeder}>
+                          Confirm Revert
+                        </button>
+                        <button style={cancelButtonStyle} onClick={() => setConfirmCapacityAction(null)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        style={compactActionStyle}
+                        onClick={() => setConfirmCapacityAction("revert_breeder")}
+                      >
+                        Revert 1 Breeder
+                      </button>
+                    )
+                  )}
+
+                  {!canUpgradeBreedingStructures && !canReduceBreedingStructures && (
+                    <div style={pillStyle}>Stable</div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {island.supportsNursery && (
+              <div
+                style={{
+                  display: "grid",
+                  gap: "8px",
+                  padding: "12px",
+                  borderRadius: "14px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.03)",
+                }}
+              >
+                <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.78 }}>Nurseries</div>
+                <div style={{ fontSize: "13px", opacity: 0.74 }}>
+                  {island.nurseries} installed · {island.maxNurseries} max
+                </div>
+                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                  {canUpgradeNurseries && (
+                    confirmUpgradeAction === "nursery" ? (
+                      <>
+                        <button style={confirmButtonStyle} onClick={handleUnlockNursery}>
+                          Confirm + Nursery
+                        </button>
+                        <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        style={{
+                          ...compactActionStyle,
+                          background: "rgba(34,197,94,0.16)",
+                          opacity: isConfirmingUpgrade ? 0.55 : 1,
+                          cursor: isConfirmingUpgrade ? "default" : "pointer",
+                        }}
+                        onClick={() => setConfirmUpgradeAction("nursery")}
+                        disabled={isConfirmingUpgrade}
+                      >
+                        + Nursery
+                      </button>
+                    )
+                  )}
+
+                  {canReduceNurseries && (
+                    confirmCapacityAction === "revert_nursery" ? (
+                      <>
+                        <button style={confirmButtonStyle} onClick={handleReduceNursery}>
+                          Confirm Revert
+                        </button>
+                        <button style={cancelButtonStyle} onClick={() => setConfirmCapacityAction(null)}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        style={compactActionStyle}
+                        onClick={() => setConfirmCapacityAction("revert_nursery")}
+                      >
+                        Revert 1 Nursery
+                      </button>
+                    )
+                  )}
+
+                  {!canUpgradeNurseries && !canReduceNurseries && (
+                    <div style={pillStyle}>Stable</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {showManualForm && island.isUnlocked && island.supportsStandardBreeding && (
+        <div
+          style={{
+            marginTop: "14px",
+            padding: "14px",
+            borderRadius: "16px",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.04)",
+            display: "grid",
+            gap: "10px",
+          }}
+        >
+          <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.8 }}>
+            Manual Breed
+          </div>
+
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <button
+              style={{
+                ...compactActionStyle,
+                background: manualMode === "pair" ? "rgba(168,85,247,0.16)" : compactActionStyle.background,
+              }}
+              onClick={() => setManualMode("pair")}
+            >
+              By Pair
+            </button>
+            <button
+              style={{
+                ...compactActionStyle,
+                background: manualMode === "direct" ? "rgba(168,85,247,0.16)" : compactActionStyle.background,
+              }}
+              onClick={() => setManualMode("direct")}
+            >
+              Direct Add
+            </button>
+          </div>
+
+          {manualMode === "pair" ? (
+            <>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                  gap: "10px",
+                }}
+              >
+                <select
+                  value={manualParentA}
+                  onChange={(event) => setManualParentA(event.target.value)}
+                  style={{
+                    padding: "8px 10px",
+                    borderRadius: "10px",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    background: "rgba(255,255,255,0.06)",
+                    color: "inherit",
+                  }}
+                >
+                  <option value="">Select parent A</option>
+                  {manualParentOptions.map((monsterName) => (
+                    <option key={`${island.island}-${monsterName}-a`} value={monsterName}>
+                      {monsterName}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={manualParentB}
+                  onChange={(event) => setManualParentB(event.target.value)}
+                  style={{
+                    padding: "8px 10px",
+                    borderRadius: "10px",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    background: "rgba(255,255,255,0.06)",
+                    color: "inherit",
+                  }}
+                >
+                  <option value="">Select parent B</option>
+                  {manualParentOptions.map((monsterName) => (
+                    <option key={`${island.island}-${monsterName}-b`} value={monsterName}>
+                      {monsterName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {manualPairOutcome.timerOptions.length > 0 && (
+                <select
+                  value={manualObservedTime}
+                  onChange={(event) => setManualObservedTime(event.target.value)}
+                  style={{
+                    padding: "8px 10px",
+                    borderRadius: "10px",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    background: "rgba(255,255,255,0.06)",
+                    color: "inherit",
+                  }}
+                >
+                  <option value="">Observed timer (optional)</option>
+                  {manualPairOutcome.timerOptions.map((timeValue) => (
+                    <option key={`${island.island}-${timeValue}-timer`} value={timeValue}>
+                      {timeValue}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
+          ) : (
+            <select
+              value={manualMonsterId}
+              onChange={(event) => setManualMonsterId(event.target.value)}
+              style={{
+                padding: "8px 10px",
+                borderRadius: "10px",
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(255,255,255,0.06)",
+                color: "inherit",
+              }}
+            >
+              <option value="">Select monster</option>
+              {manualMonsterOptions.map((monsterName) => (
+                <option key={`${island.island}-${monsterName}`} value={monsterName}>
+                  {monsterName}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            <button
+              style={{
+                ...compactActionStyle,
+                background: "rgba(168,85,247,0.16)",
+              }}
+              onClick={handleCreateManualBreed}
+              disabled={
+                manualMode === "pair"
+                  ? (!manualParentA || !manualParentB)
+                  : !manualMonsterId
+              }
+            >
+              {manualMode === "pair"
+                ? (manualPairOutcome.resolution === "exact"
+                  ? `Add ${manualPairOutcome.resultName}`
+                  : "Add Mystery Session")
+                : "Add Session"}
+            </button>
+            <button
+              style={compactActionStyle}
+              onClick={() =>
+              {
+                setManualMonsterId("");
+                setManualParentA("");
+                setManualParentB("");
+                setManualObservedTime("");
+                setShowManualForm(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+
+          <div
+            style={{
+              marginTop: "4px",
+              fontSize: "12px",
+              lineHeight: 1.5,
+              opacity: 0.78,
+            }}
+          >
+            {manualMode === "pair" ? (
+              manualParentA && manualParentB ? (
+                <>
+                  <div>
+                    Pair: {manualParentA} + {manualParentB}
+                  </div>
+                  <div>
+                    {manualPairOutcome.candidates.length === 0
+                      ? "No exact combo match is currently in the dataset for this pair on this island."
+                      : `Possible results: ${manualPairOutcome.candidates.map((entry) => entry.monsterName).join(" · ")}`}
+                  </div>
+                  {manualObservedTime && (
+                    <div>Observed timer: {manualObservedTime}</div>
+                  )}
+                  <div>
+                    {manualPairOutcome.resolution === "exact"
+                      ? `Resolved result: ${manualPairOutcome.resultName}`
+                      : "Result unresolved. The app will record this as a Mystery Egg session."}
+                  </div>
+                </>
+              ) : (
+                <div>Select both parents to preview possible results and use a timer when available.</div>
+              )
+            ) : manualMonsterId ? (
+              selectedManualCombo ? (
+                <>
+                  <div>
+                    Combo: {selectedManualCombo.combinations.length > 0
+                      ? selectedManualCombo.combinations
+                          .map((combo) => combo.join(" + "))
+                          .join(" · ")
+                      : "No combo listed"}
+                  </div>
+                  <div>
+                    Breedable On: {selectedManualCombo.breedableOn.join(", ") || "—"}
+                  </div>
+                  <div>
+                    Time: {selectedManualCombo.breedingTime}
+                    {selectedManualCombo.enhancedBreedingTime
+                      ? ` (Enhanced: ${selectedManualCombo.enhancedBreedingTime})`
+                      : ""}
+                  </div>
+                  {selectedManualCombo.notes && (
+                    <div>Notes: {selectedManualCombo.notes}</div>
+                  )}
+                </>
+              ) : (
+                <div>No combo data yet.</div>
+              )
+            ) : (
+              <div>Select a monster to preview combos and breeding time.</div>
+            )}
+          </div>
+        </div>
+      )}
 
       <div style={{ marginTop: "18px", display: "grid", gap: "18px" }}>
         {showBreedingPipeline && (
@@ -1163,6 +1551,8 @@ export default function IslandPlanner({
 {
   const [activeTab, setActiveTab] = useState(ALL_REGIONS_FILTER);
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
+  const [highlightedIslandKey, setHighlightedIslandKey] = useState(null);
+  const islandCardRefs = useRef(new Map());
 
   const groupedPlannerData = useMemo(() =>
   {
@@ -1208,10 +1598,43 @@ export default function IslandPlanner({
   );
   const activeRegionLabel = getRegionFilterLabel(activeTab, groupedPlannerData);
   const activeAvailabilityLabel = getAvailabilityFilterLabel(availabilityFilter);
+  const activeAvailabilityMeaning = getAvailabilityFilterMeaning(availabilityFilter);
+
+  useEffect(() =>
+  {
+    if (!highlightedIslandKey)
+    {
+      return undefined;
+    }
+
+    const timeout = setTimeout(() =>
+    {
+      setHighlightedIslandKey(null);
+    }, 1800);
+
+    return () => clearTimeout(timeout);
+  }, [highlightedIslandKey]);
+
+  function handleJumpToIsland(island)
+  {
+    const islandKey = island.islandKey || island.island;
+    const targetNode = islandCardRefs.current.get(islandKey);
+
+    if (!targetNode)
+    {
+      return;
+    }
+
+    targetNode.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    setHighlightedIslandKey(islandKey);
+  }
 
   return (
-    <div style={{ display: "grid", gap: "18px" }}>
-      <div style={cardStyle}>
+    <div className="page-surface">
+      <div className="responsive-page-card" style={cardStyle}>
         <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
           Island Manager
         </div>
@@ -1219,14 +1642,7 @@ export default function IslandPlanner({
           Choose a region, then manage island progression, breeding capacity, and active assignments.
         </div>
 
-        <div
-          style={{
-            marginTop: "16px",
-            display: "flex",
-            gap: "10px",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="screen-card-actions island-filter-row island-region-row" style={{ marginTop: "16px" }}>
           {[{ key: ALL_REGIONS_FILTER, label: "All Regions" }, ...ISLAND_GROUPS].map((group) => {
             const isActive = activeTab === group.key;
 
@@ -1248,14 +1664,24 @@ export default function IslandPlanner({
           })}
         </div>
 
-        <div
-          style={{
-            marginTop: "14px",
-            display: "flex",
-            gap: "10px",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="island-region-select-wrap" style={{ marginTop: "16px" }}>
+          <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.72 }}>
+            Region
+          </div>
+          <select
+            className="island-region-select"
+            value={activeTab}
+            onChange={(event) => setActiveTab(event.target.value)}
+          >
+            {[{ key: ALL_REGIONS_FILTER, label: "All Regions" }, ...ISLAND_GROUPS].map((group) => (
+              <option key={`select-${group.key}`} value={group.key}>
+                {group.key === ALL_REGIONS_FILTER ? group.label : getTabLabel(group)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="screen-card-actions island-filter-row island-availability-row" style={{ marginTop: "14px" }}>
           {AVAILABILITY_FILTER_OPTIONS.map((filter) => {
             const isActive = availabilityFilter === filter.key;
 
@@ -1282,6 +1708,29 @@ export default function IslandPlanner({
         <div style={{ marginTop: "10px", fontSize: "13px", opacity: 0.68 }}>
           Viewing: {activeRegionLabel} | {activeAvailabilityLabel}
         </div>
+        {activeAvailabilityMeaning && (
+          <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.56 }}>
+            {activeAvailabilityMeaning}
+          </div>
+        )}
+        {visibleIslands.length > 1 && (
+          <div className="island-jump-wrap" style={{ marginTop: "14px" }}>
+            <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.72 }}>
+              Jump to island
+            </div>
+            <div className="island-jump-row">
+              {visibleIslands.map((island) => (
+                <button
+                  key={`jump-${island.islandKey || island.island}`}
+                  style={compactActionStyle}
+                  onClick={() => handleJumpToIsland(island)}
+                >
+                  {island.island}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div style={{ display: "grid", gap: "16px" }}>
@@ -1291,26 +1740,49 @@ export default function IslandPlanner({
               No islands match this filter
             </div>
             <div style={{ marginTop: "8px", opacity: 0.72 }}>
-              Try a different availability filter for this region.
+              Try a different region or availability filter.
             </div>
           </div>
         ) : (
           visibleIslands.map((island) => (
-            <IslandCard
+            <div
               key={island.islandKey || island.island}
-              island={island}
-              unlockIsland={unlockIsland}
-              unlockIslandBreedingStructure={unlockIslandBreedingStructure}
-              unlockIslandNursery={unlockIslandNursery}
-              reduceIslandBreedingStructure={reduceIslandBreedingStructure}
-              reduceIslandNursery={reduceIslandNursery}
-              onZapFromPlanner={onZapFromPlanner}
-              onBreedFromPlanner={onBreedFromPlanner}
-              onCreateManualBreed={onCreateManualBreed}
-              onAssignAndZapFromPlanner={onAssignAndZapFromPlanner}
-              onMoveToNurseryFromPlanner={onMoveToNurseryFromPlanner}
-              onHatchNurseryFromPlanner={onHatchNurseryFromPlanner}
-            />
+              ref={(node) =>
+              {
+                const islandKey = island.islandKey || island.island;
+
+                if (node)
+                {
+                  islandCardRefs.current.set(islandKey, node);
+                }
+                else
+                {
+                  islandCardRefs.current.delete(islandKey);
+                }
+              }}
+              style={{
+                borderRadius: "18px",
+                boxShadow: highlightedIslandKey === (island.islandKey || island.island)
+                  ? "0 0 0 2px rgba(96,165,250,0.4), 0 0 30px rgba(96,165,250,0.18)"
+                  : "none",
+                transition: "box-shadow 180ms ease",
+              }}
+            >
+              <IslandCard
+                island={island}
+                unlockIsland={unlockIsland}
+                unlockIslandBreedingStructure={unlockIslandBreedingStructure}
+                unlockIslandNursery={unlockIslandNursery}
+                reduceIslandBreedingStructure={reduceIslandBreedingStructure}
+                reduceIslandNursery={reduceIslandNursery}
+                onZapFromPlanner={onZapFromPlanner}
+                onBreedFromPlanner={onBreedFromPlanner}
+                onCreateManualBreed={onCreateManualBreed}
+                onAssignAndZapFromPlanner={onAssignAndZapFromPlanner}
+                onMoveToNurseryFromPlanner={onMoveToNurseryFromPlanner}
+                onHatchNurseryFromPlanner={onHatchNurseryFromPlanner}
+              />
+            </div>
           ))
         )}
       </div>

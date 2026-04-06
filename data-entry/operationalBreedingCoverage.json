@@ -1,0 +1,2931 @@
+{
+  "generatedAt": "2026-04-05T23:55:14.861Z",
+  "target": {
+    "name": "Operational breeding coverage for tracked requirement monsters",
+    "includedSystems": [
+      "amber",
+      "wublin"
+    ],
+    "definition": [
+      "The monster exists in the runtime monster database.",
+      "The monster has at least one explicit breeding island in runtime metadata.",
+      "The runtime breeding dataset includes a standard breeding time, supplied either by combo coverage or by time-only coverage."
+    ]
+  },
+  "summary": {
+    "totalRequirementMonsters": 76,
+    "operationallyCompleteCount": 76,
+    "operationallyCompletePercent": "100.0%",
+    "comboWithTimeCount": 70,
+    "timeOnlyCount": 6,
+    "comboMissingTimeCount": 0,
+    "missingBreedingDataCount": 0,
+    "missingMonsterDatabaseEntryCount": 0,
+    "missingBreedabilityCount": 0,
+    "missingEnhancedTimeCount": 0,
+    "isOperationallyComplete": true,
+    "isExactComboComplete": false
+  },
+  "parserBacklog": {
+    "unknownParsedComboNames": [],
+    "unknownParsedTimeNames": [
+      "Epic",
+      "Charrkoll",
+      "Faesoddoid Fungus",
+      "Rare Squot",
+      "Rare Peckidna",
+      "Rare",
+      "Epic Floot Fly",
+      "Epic Clackula",
+      "Floot",
+      "Rare Periscorp",
+      "Rare Cahoot",
+      "Rare Déjà-Jin",
+      "Shhimmer",
+      "Epic Hyehehe",
+      "Clavi",
+      "Rare Yooreek",
+      "Rare Meebkin",
+      "Rare Blarret",
+      "Rare Gaddzooks",
+      "Rare Auglur",
+      "Rare Nitebear",
+      "Arcorina",
+      "Epic Flum Ox",
+      "Rare Larvaluss",
+      "Rare Frondley",
+      "Epic Incisaur",
+      "Rare Blow't",
+      "Scallyrags",
+      "eRmA gUrDy",
+      "Dakktyl",
+      "Rare Whaill",
+      "Rare Wheezel",
+      "Epic Tiawa",
+      "Epic Drummidary",
+      "Epic Bleatnik",
+      "Bogle",
+      "Fandhul",
+      "Epic Bisonorus",
+      "Epic Bowhead",
+      "Epic Candelavra",
+      "Epic TooToo",
+      "Epic Tuskski",
+      "Jerm",
+      "Galymph",
+      "Illoost",
+      "Epic Knurv",
+      "Epic Rooba",
+      "Epic Sporerow",
+      "Rare Enchantling",
+      "Epic Cranchee",
+      "Epic Pinghound"
+    ],
+    "ambiguousTimeOnlyMonsterNames": [
+      "Clackula",
+      "Fluoress",
+      "Pentumbra",
+      "Theremind",
+      "Vhenshun",
+      "Whaill"
+    ]
+  },
+  "blockingGapMonsters": [],
+  "timeOnlyMonsters": [
+    {
+      "monsterName": "Kayna",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Bisonorus",
+        "Boskus",
+        "Bowhead",
+        "Candelavra",
+        "Drummidary",
+        "Edamimi",
+        "Floogull",
+        "Flowah",
+        "Flum Ox",
+        "Glowl",
+        "Gnarls",
+        "Incisaur",
+        "Krillby",
+        "Phangler",
+        "PongPing",
+        "Repatillo",
+        "Rootitoot",
+        "Sneyser",
+        "Sooza",
+        "Stogg",
+        "Thrumble",
+        "Tiawa",
+        "Tring",
+        "Tuskski",
+        "Viveine",
+        "Whaddle",
+        "Woolabee",
+        "Wynq",
+        "Yelmut",
+        "Ziggurab"
+      ],
+      "referenceCount": 31,
+      "totalRequired": 64,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Fire Oasis",
+        "Amber Island",
+        "Light",
+        "Psychic",
+        "Faerie",
+        "Bone",
+        "Mirror Light",
+        "Mirror Psychic",
+        "Mirror Faerie",
+        "Mirror Bone"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Noggin",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Creepuscule",
+        "Dwumrohl",
+        "Kayna",
+        "Maulch"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 36,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Faerie",
+        "Bone",
+        "Mirror Plant",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Earth",
+        "Mirror Faerie",
+        "Mirror Bone"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Toe Jammer",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Blipsqueak",
+        "Dwumrohl",
+        "Kayna"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 32,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Water",
+        "Fire Oasis",
+        "Psychic",
+        "Bone",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Psychic",
+        "Mirror Bone"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Mammott",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Dwumrohl",
+        "Kayna"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 28,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Earth",
+        "Fire Oasis",
+        "Light",
+        "Faerie",
+        "Shugabush",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Earth",
+        "Mirror Light",
+        "Mirror Faerie"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Tweedle",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Dwumrohl",
+        "Kayna",
+        "Whajje"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 20,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Fire Oasis",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Earth"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Potbelly",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Dwumrohl",
+        "Kayna"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 14,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Light",
+        "Psychic",
+        "Shugabush",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Water",
+        "Mirror Earth",
+        "Mirror Light",
+        "Mirror Psychic"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    }
+  ],
+  "missingEnhancedTimeMonsters": [],
+  "auditedMonsters": [
+    {
+      "monsterName": "Fwog",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Bisonorus",
+        "Bona-Petite",
+        "Boskus",
+        "Bowhead",
+        "Brump",
+        "Dermit",
+        "Drummidary",
+        "Phangler",
+        "Pixolotl",
+        "Sneyser",
+        "Thrumble",
+        "Whaddle",
+        "Zuuker"
+      ],
+      "referenceCount": 14,
+      "totalRequired": 78,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Air",
+        "Water",
+        "Bone",
+        "Mirror Plant",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Drumpler",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Drummidary",
+        "Floogull",
+        "Repatillo",
+        "Sooza",
+        "Stogg",
+        "Thrumble",
+        "Tring",
+        "Tuskski",
+        "Tympa",
+        "Ziggurab",
+        "Zynth"
+      ],
+      "referenceCount": 12,
+      "totalRequired": 75,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Air",
+        "Earth",
+        "Faerie",
+        "Mirror Plant",
+        "Mirror Air",
+        "Mirror Earth",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Furcorn",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Boskus",
+        "Brump",
+        "Fleechwurm",
+        "Flowah",
+        "Gnarls",
+        "Kayna",
+        "Maulch",
+        "PongPing",
+        "Rootitoot",
+        "Thwok",
+        "Tuskski",
+        "Yelmut",
+        "Zuuker"
+      ],
+      "referenceCount": 14,
+      "totalRequired": 75,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Earth",
+        "Light",
+        "Shugabush",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Earth",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "T-Rox",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Blipsqueak",
+        "Bona-Petite",
+        "Boskus",
+        "Bowhead",
+        "Creepuscule",
+        "Drummidary",
+        "Kayna",
+        "Krillby",
+        "Pixolotl",
+        "Repatillo",
+        "Stogg",
+        "Thrumble",
+        "Tring",
+        "Tuskski",
+        "Tympa",
+        "Viveine",
+        "Ziggurab",
+        "Zuuker",
+        "Zynth"
+      ],
+      "referenceCount": 19,
+      "totalRequired": 75,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Air",
+        "Mirror Plant",
+        "Mirror Air"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Cybop",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Blipsqueak",
+        "Drummidary",
+        "Floogull",
+        "Flum Ox",
+        "Gheegur",
+        "Kayna",
+        "Krillby",
+        "Pixolotl",
+        "Stogg",
+        "Whajje"
+      ],
+      "referenceCount": 10,
+      "totalRequired": 70,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Kayna",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Bisonorus",
+        "Boskus",
+        "Bowhead",
+        "Candelavra",
+        "Drummidary",
+        "Edamimi",
+        "Floogull",
+        "Flowah",
+        "Flum Ox",
+        "Glowl",
+        "Gnarls",
+        "Incisaur",
+        "Krillby",
+        "Phangler",
+        "PongPing",
+        "Repatillo",
+        "Rootitoot",
+        "Sneyser",
+        "Sooza",
+        "Stogg",
+        "Thrumble",
+        "Tiawa",
+        "Tring",
+        "Tuskski",
+        "Viveine",
+        "Whaddle",
+        "Woolabee",
+        "Wynq",
+        "Yelmut",
+        "Ziggurab"
+      ],
+      "referenceCount": 31,
+      "totalRequired": 64,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Fire Oasis",
+        "Amber Island",
+        "Light",
+        "Psychic",
+        "Faerie",
+        "Bone",
+        "Mirror Light",
+        "Mirror Psychic",
+        "Mirror Faerie",
+        "Mirror Bone"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Shrubb",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Drummidary",
+        "Edamimi",
+        "Flowah",
+        "Flum Ox",
+        "Gnarls",
+        "Kayna",
+        "Poewk",
+        "PongPing",
+        "Scargo",
+        "Screemu",
+        "Stogg",
+        "Tring",
+        "Viveine",
+        "Ziggurab"
+      ],
+      "referenceCount": 14,
+      "totalRequired": 61,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Mirror Plant",
+        "Mirror Water",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Pummel",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Boskus",
+        "Bowhead",
+        "Creepuscule",
+        "Drummidary",
+        "Dwumrohl",
+        "Fleechwurm",
+        "Gnarls",
+        "Maulch",
+        "Phangler",
+        "Pixolotl",
+        "Scargo",
+        "Sneyser",
+        "Stogg",
+        "Tympa",
+        "Wynq"
+      ],
+      "referenceCount": 16,
+      "totalRequired": 58,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Water",
+        "Mirror Plant",
+        "Mirror Water"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Dandidoo",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Fleechwurm",
+        "Glowl",
+        "Gnarls",
+        "Incisaur",
+        "Kayna",
+        "Krillby",
+        "Poewk",
+        "Scargo",
+        "Whajje",
+        "Woolabee",
+        "Yelmut"
+      ],
+      "referenceCount": 11,
+      "totalRequired": 54,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Mirror Cold",
+        "Mirror Water",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Oaktopus",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Bowhead",
+        "Edamimi",
+        "Flowah",
+        "Gnarls",
+        "Kayna",
+        "Phangler",
+        "Poewk",
+        "Rootitoot",
+        "Viveine",
+        "Zuuker",
+        "Zynth"
+      ],
+      "referenceCount": 12,
+      "totalRequired": 53,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Water",
+        "Psychic",
+        "Shugabush",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Water",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Bowgart",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Boskus",
+        "Bowhead",
+        "Dwumrohl",
+        "Flowah",
+        "Gnarls",
+        "Incisaur",
+        "Kayna",
+        "Rootitoot",
+        "Thwok",
+        "Tiawa",
+        "Tuskski",
+        "Viveine",
+        "Whaddle",
+        "Wynq",
+        "Zuuker"
+      ],
+      "referenceCount": 16,
+      "totalRequired": 52,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Mirror Plant",
+        "Mirror Cold"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Quibble",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Bowhead",
+        "Creepuscule",
+        "Glowl",
+        "Phangler",
+        "Screemu",
+        "Sooza",
+        "Thwok",
+        "Tiawa",
+        "Wynq"
+      ],
+      "referenceCount": 10,
+      "totalRequired": 52,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Air",
+        "Water",
+        "Fire Oasis",
+        "Shugabush",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Water"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Reedling",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Drummidary",
+        "Dwumrohl",
+        "Fleechwurm",
+        "Floogull",
+        "Flowah",
+        "Flum Ox",
+        "Gheegur",
+        "Gnarls",
+        "Krillby",
+        "Poewk",
+        "Stogg",
+        "Tring",
+        "Whajje"
+      ],
+      "referenceCount": 14,
+      "totalRequired": 51,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Mirror Water",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Maw",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Bowhead",
+        "Incisaur",
+        "Repatillo",
+        "Tiawa",
+        "Tuskski",
+        "Whaddle",
+        "Wynq",
+        "Zynth"
+      ],
+      "referenceCount": 9,
+      "totalRequired": 49,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Fire Oasis",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Air"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "PomPom",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Blipsqueak",
+        "Bona-Petite",
+        "Drummidary",
+        "Dwumrohl",
+        "Edamimi",
+        "Gheegur",
+        "Kayna",
+        "Poewk",
+        "Sooza",
+        "Thwok",
+        "Tiawa",
+        "Tuskski",
+        "Ziggurab"
+      ],
+      "referenceCount": 13,
+      "totalRequired": 48,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Air",
+        "Earth",
+        "Shugabush",
+        "Mirror Air",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Spunge",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Bisonorus",
+        "Bowhead",
+        "Fleechwurm",
+        "Flowah",
+        "Glowl",
+        "Gnarls",
+        "Maulch",
+        "Phangler",
+        "Rootitoot",
+        "Scargo",
+        "Screemu",
+        "Thwok",
+        "Viveine",
+        "Whaddle"
+      ],
+      "referenceCount": 15,
+      "totalRequired": 48,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Water",
+        "Mirror Cold",
+        "Mirror Water"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Scups",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Bowhead",
+        "Dermit",
+        "Drummidary",
+        "Dwumrohl",
+        "Floogull",
+        "Gheegur",
+        "Kayna",
+        "Pixolotl",
+        "Poewk",
+        "Sooza",
+        "Thrumble",
+        "Viveine"
+      ],
+      "referenceCount": 13,
+      "totalRequired": 46,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Air",
+        "Water",
+        "Mirror Air",
+        "Mirror Water"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Flowah",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Candelavra",
+        "Edamimi",
+        "Glowl",
+        "Gnarls",
+        "Krillby",
+        "PongPing",
+        "Rootitoot",
+        "Sooza",
+        "Stogg",
+        "Tring",
+        "Yelmut"
+      ],
+      "referenceCount": 12,
+      "totalRequired": 44,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Amber Island",
+        "Light",
+        "Psychic",
+        "Mirror Light",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Clamble",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Drummidary",
+        "Edamimi",
+        "Gnarls",
+        "Kayna",
+        "Maulch",
+        "Poewk",
+        "PongPing",
+        "Scargo",
+        "Tuskski",
+        "Tympa",
+        "Yelmut"
+      ],
+      "referenceCount": 12,
+      "totalRequired": 43,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Earth",
+        "Mirror Plant",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Shellbeat",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Barrb",
+        "Bowhead",
+        "Creepuscule",
+        "Drummidary",
+        "Dwumrohl",
+        "Fleechwurm",
+        "Gnarls",
+        "Kayna",
+        "Phangler",
+        "Poewk",
+        "Scargo",
+        "Screemu",
+        "Thrumble",
+        "Thwok",
+        "Tympa"
+      ],
+      "referenceCount": 16,
+      "totalRequired": 40,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Water",
+        "Mirror Water"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Boskus",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Flowah",
+        "Glowl",
+        "Incisaur",
+        "Phangler",
+        "PongPing",
+        "Repatillo",
+        "Sooza",
+        "Tring",
+        "Tuskski",
+        "Whaddle",
+        "Wynq",
+        "Ziggurab"
+      ],
+      "referenceCount": 13,
+      "totalRequired": 39,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Oasis",
+        "Amber Island",
+        "Light",
+        "Faerie",
+        "Mirror Light",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Phangler",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Boskus",
+        "Bowhead",
+        "Candelavra",
+        "Flowah",
+        "Flum Ox",
+        "Rootitoot",
+        "Sneyser",
+        "Stogg",
+        "Thrumble",
+        "Tiawa",
+        "Ziggurab"
+      ],
+      "referenceCount": 12,
+      "totalRequired": 39,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Oasis",
+        "Amber Island",
+        "Psychic",
+        "Bone",
+        "Mirror Psychic",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Deedge",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Blipsqueak",
+        "Bowhead",
+        "Creepuscule",
+        "Dwumrohl",
+        "Gnarls",
+        "Kayna",
+        "Repatillo",
+        "Sooza",
+        "Thwok",
+        "Tuskski",
+        "Whajje",
+        "Woolabee",
+        "Wynq",
+        "Zuuker"
+      ],
+      "referenceCount": 15,
+      "totalRequired": 37,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Shugabush",
+        "Mirror Cold"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Noggin",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Creepuscule",
+        "Dwumrohl",
+        "Kayna",
+        "Maulch"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 36,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Faerie",
+        "Bone",
+        "Mirror Plant",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Earth",
+        "Mirror Faerie",
+        "Mirror Bone"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Stogg",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Boskus",
+        "Candelavra",
+        "Drummidary",
+        "Edamimi",
+        "Floogull",
+        "Incisaur",
+        "Phangler",
+        "Repatillo",
+        "Sneyser",
+        "Thrumble",
+        "Woolabee"
+      ],
+      "referenceCount": 11,
+      "totalRequired": 36,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Amber Island",
+        "Faerie",
+        "Bone",
+        "Mirror Faerie",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Entbrat",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Bowhead",
+        "Dermit",
+        "Drummidary",
+        "Dwumrohl",
+        "Floogull",
+        "Flowah",
+        "Gnarls",
+        "Kayna",
+        "Maulch",
+        "Pixolotl",
+        "Rootitoot",
+        "Thwok",
+        "Tuskski",
+        "Viveine",
+        "Zuuker"
+      ],
+      "referenceCount": 16,
+      "totalRequired": 35,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Mirror Plant"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Toe Jammer",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Astropod",
+        "Blipsqueak",
+        "Dwumrohl",
+        "Kayna"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 32,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Water",
+        "Fire Oasis",
+        "Psychic",
+        "Bone",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Psychic",
+        "Mirror Bone"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Congle",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Creepuscule",
+        "Dwumrohl",
+        "Flum Ox",
+        "Glowl",
+        "Repatillo",
+        "Sneyser",
+        "Tuskski",
+        "Woolabee",
+        "Zynth"
+      ],
+      "referenceCount": 10,
+      "totalRequired": 30,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Air",
+        "Fire Oasis",
+        "Mirror Cold",
+        "Mirror Air"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Riff",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Boskus",
+        "Bowhead",
+        "Drummidary",
+        "Dwumrohl",
+        "Gheegur",
+        "Glowl",
+        "Kayna",
+        "Pixolotl",
+        "Thwok",
+        "Tuskski",
+        "Whaddle"
+      ],
+      "referenceCount": 12,
+      "totalRequired": 29,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Air",
+        "Mirror Air"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Mammott",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bona-Petite",
+        "Dwumrohl",
+        "Kayna"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 28,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Air",
+        "Earth",
+        "Fire Oasis",
+        "Light",
+        "Faerie",
+        "Shugabush",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Earth",
+        "Mirror Light",
+        "Mirror Faerie"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Thumpies",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Dermit",
+        "Dwumrohl",
+        "Glowl",
+        "Gnarls",
+        "Incisaur",
+        "PongPing",
+        "Tuskski",
+        "Woolabee",
+        "Yelmut"
+      ],
+      "referenceCount": 10,
+      "totalRequired": 27,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Earth",
+        "Mirror Cold",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Glowl",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Candelavra",
+        "Floogull",
+        "Flum Ox",
+        "Whaddle",
+        "Woolabee",
+        "Wynq",
+        "Yelmut"
+      ],
+      "referenceCount": 8,
+      "totalRequired": 26,
+      "requirementIslands": [
+        "Fire"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Fire Oasis",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Quarrister",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Dermit",
+        "Drummidary",
+        "Dwumrohl",
+        "Fleechwurm",
+        "Gnarls",
+        "Kayna",
+        "Maulch",
+        "Stogg",
+        "Thwok",
+        "Tuskski",
+        "Ziggurab"
+      ],
+      "referenceCount": 11,
+      "totalRequired": 22,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Earth",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Pango",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Boskus",
+        "Glowl",
+        "Poewk",
+        "Sneyser",
+        "Tuskski",
+        "Woolabee",
+        "Zynth"
+      ],
+      "referenceCount": 7,
+      "totalRequired": 20,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Air",
+        "Earth",
+        "Fire Oasis",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Earth"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "hand_authored",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Tweedle",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Dwumrohl",
+        "Kayna",
+        "Whajje"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 20,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Cold",
+        "Air",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Fire Oasis",
+        "Mirror Cold",
+        "Mirror Air",
+        "Mirror Water",
+        "Mirror Earth"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Barrb",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Candelavra",
+        "Edamimi",
+        "Flowah",
+        "Glowl",
+        "Gnarls",
+        "Repatillo",
+        "Rootitoot",
+        "Viveine",
+        "Woolabee"
+      ],
+      "referenceCount": 10,
+      "totalRequired": 14,
+      "requirementIslands": [
+        "Haven"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Potbelly",
+      "systems": [
+        "amber",
+        "wublin"
+      ],
+      "targetMonsterNames": [
+        "Dwumrohl",
+        "Kayna"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 14,
+      "requirementIslands": [
+        "Natural"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Plant",
+        "Cold",
+        "Water",
+        "Earth",
+        "Fire Haven",
+        "Light",
+        "Psychic",
+        "Shugabush",
+        "Mirror Plant",
+        "Mirror Cold",
+        "Mirror Water",
+        "Mirror Earth",
+        "Mirror Light",
+        "Mirror Psychic"
+      ],
+      "coverageType": "time_only",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_time_only",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Repatillo",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Drummidary",
+        "Floogull",
+        "Flum Ox",
+        "Gnarls",
+        "Incisaur",
+        "PongPing",
+        "Sneyser",
+        "Stogg",
+        "Thrumble",
+        "Tring"
+      ],
+      "referenceCount": 11,
+      "totalRequired": 14,
+      "requirementIslands": [
+        "Haven"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Floogull",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Boskus",
+        "Candelavra",
+        "Drummidary",
+        "Krillby",
+        "Sooza",
+        "Tiawa",
+        "Whaddle",
+        "Wynq"
+      ],
+      "referenceCount": 9,
+      "totalRequired": 13,
+      "requirementIslands": [
+        "Haven"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Wynq",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Candelavra",
+        "Edamimi",
+        "Repatillo",
+        "Rootitoot",
+        "Sneyser",
+        "Tiawa",
+        "Tuskski",
+        "Woolabee",
+        "Ziggurab"
+      ],
+      "referenceCount": 10,
+      "totalRequired": 12,
+      "requirementIslands": [
+        "Oasis"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Oasis",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Whaddle",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Bowhead",
+        "Candelavra",
+        "Incisaur",
+        "Krillby",
+        "Phangler",
+        "Sooza",
+        "Thrumble"
+      ],
+      "referenceCount": 8,
+      "totalRequired": 11,
+      "requirementIslands": [
+        "Oasis"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Oasis",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Woolabee",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Floogull",
+        "Flum Ox",
+        "PongPing",
+        "Tring",
+        "Tuskski",
+        "Whaddle",
+        "Wynq"
+      ],
+      "referenceCount": 8,
+      "totalRequired": 10,
+      "requirementIslands": [
+        "Oasis"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Oasis",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Peckidna",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Drummidary",
+        "Krillby",
+        "Tiawa",
+        "Whaddle"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 8,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Bonkers",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Gnarls",
+        "Krillby"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 7,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Bridg-It",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Boskus",
+        "Candelavra",
+        "Drummidary",
+        "Flum Ox",
+        "Incisaur",
+        "Tring"
+      ],
+      "referenceCount": 6,
+      "totalRequired": 7,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Squot",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Sooza",
+        "Tuskski",
+        "Woolabee",
+        "Wynq"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 7,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Blow't",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Edamimi",
+        "Gnarls",
+        "Krillby",
+        "Tring",
+        "Tuskski"
+      ],
+      "referenceCount": 6,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Bulbo",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "PongPing",
+        "Tuskski",
+        "Ziggurab"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Gloptic",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Candelavra",
+        "Gnarls",
+        "PongPing",
+        "Sneyser",
+        "Yelmut"
+      ],
+      "referenceCount": 6,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Gob",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Gnarls",
+        "Rootitoot",
+        "Tring"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "HippityHop",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Drummidary",
+        "Floogull",
+        "Thrumble"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Rootitoot",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Bowhead",
+        "Candelavra",
+        "Gnarls",
+        "Phangler",
+        "Viveine"
+      ],
+      "referenceCount": 6,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Amber Island",
+        "Psychic",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Tapricorn",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Gnarls",
+        "Rootitoot",
+        "Wynq",
+        "Yelmut"
+      ],
+      "referenceCount": 5,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Thrumble",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Candelavra",
+        "Drummidary",
+        "Repatillo",
+        "Ziggurab"
+      ],
+      "referenceCount": 5,
+      "totalRequired": 6,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Amber Island",
+        "Bone",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Pladdie",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Drummidary",
+        "Incisaur",
+        "Tiawa",
+        "Tuskski"
+      ],
+      "referenceCount": 5,
+      "totalRequired": 5,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Plinkajou",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Bowhead",
+        "Candelavra",
+        "Drummidary",
+        "Flum Ox"
+      ],
+      "referenceCount": 5,
+      "totalRequired": 5,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Poppette",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Repatillo",
+        "Sneyser"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 5,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Sooza",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Gnarls",
+        "Tuskski",
+        "Whaddle",
+        "Yelmut"
+      ],
+      "referenceCount": 5,
+      "totalRequired": 5,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Amber Island",
+        "Light",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Withur",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Barrb",
+        "Bowhead",
+        "Drummidary",
+        "Stogg",
+        "Thrumble"
+      ],
+      "referenceCount": 5,
+      "totalRequired": 5,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Ziggurab",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Drummidary",
+        "Tuskski",
+        "Yelmut"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 5,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Amber Island",
+        "Faerie",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Clavi Gnat",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Krillby",
+        "Tuskski"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Fiddlement",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bisonorus",
+        "Candelavra",
+        "Tuskski"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Rooba",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Flowah",
+        "Gnarls",
+        "Sooza"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Spytrap",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Glowl",
+        "Gnarls",
+        "Tiawa",
+        "Tuskski"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "TooToo",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Edamimi",
+        "Gnarls"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Uuduk",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Drummidary",
+        "Floogull",
+        "Woolabee"
+      ],
+      "referenceCount": 4,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Wimmzies",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Yelmut"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 4,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Banjaw",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Candelavra",
+        "Phangler"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Cantorell",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Drummidary",
+        "Tuskski",
+        "Ziggurab"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Faerie"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Faerie",
+        "Magical Nexus",
+        "Mirror Faerie"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Denchuhs",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Incisaur"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Hawlo",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Edamimi"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Bone"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Bone",
+        "Magical Nexus",
+        "Mirror Bone"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Periscorp",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Candelavra",
+        "Sneyser"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Pluckbill",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Tiawa"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Light"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Light",
+        "Magical Nexus",
+        "Mirror Light"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Sneyser",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Bowhead",
+        "Candelavra",
+        "Tuskski"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Oasis"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Oasis",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Tring",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Drummidary",
+        "Gnarls"
+      ],
+      "referenceCount": 3,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Haven"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Fire Haven",
+        "Amber Island"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    },
+    {
+      "monsterName": "Yuggler",
+      "systems": [
+        "amber"
+      ],
+      "targetMonsterNames": [
+        "Candelavra",
+        "Flum Ox"
+      ],
+      "referenceCount": 2,
+      "totalRequired": 3,
+      "requirementIslands": [
+        "Psychic"
+      ],
+      "inMonsterDatabase": true,
+      "breedableIslands": [
+        "Psychic",
+        "Magical Nexus",
+        "Mirror Psychic"
+      ],
+      "coverageType": "combo_with_time",
+      "hasBreedingTime": true,
+      "hasEnhancedBreedingTime": true,
+      "breedingDataSource": "imported_combo",
+      "isOperationallyComplete": true
+    }
+  ]
+}

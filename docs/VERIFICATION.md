@@ -38,6 +38,8 @@ Use this checklist before feature work, after queue/planner edits, and during re
 - Verify assigning from one island reduces the same shared remaining demand everywhere that row is projected.
 - Verify special islands like Wublin Island, Gold, Tribal, Composer, Magical Nexus, and Ethereal Workshop do not show fake breeder or nursery availability.
 - Verify breeder/nursery revert controls cannot reduce capacity below live occupancy.
+- Verify Island Manager manual breed supports both direct-add fallback and parent-pair entry.
+- Verify parent-pair manual breed creates an exact result only when combo data resolves to one candidate, otherwise a `Mystery Egg` session.
 
 ## Breeding Queue Behavior
 
@@ -67,6 +69,17 @@ Use this checklist before feature work, after queue/planner edits, and during re
 ## Data Pipeline Checks
 
 - Verify `data-entry/inbox.txt` remains raw staging input, not production truth.
+- Verify `npm run parse:inbox` runs `data-entry/parseInboxResearch.mjs`.
+- Verify `npm run promote:breeding-data` runs `data-entry/promoteParsedBreedingData.mjs`.
+- Verify `npm run audit:operational-data` runs `data-entry/auditOperationalBreedingCoverage.mjs`.
+- Verify `data-entry/parseInboxResearch.mjs` can merge new mechanics/combo/time extractions into `data-entry/parsedBreedingData.json` without wiping previously extracted structured knowledge.
+- Verify `data-entry/parseInboxResearch.mjs` archives processed raw page dumps into `data-entry/inboxArchive.md` and trims them out of `data-entry/inbox.txt`.
+- Verify `data-entry/parsedBreedingData.json` is treated as cumulative structured candidate mechanics/reference output, not production gameplay data.
+- Verify `data-entry/promoteParsedBreedingData.mjs` only promotes monsters already known in `src/data/monsterDatabase.js`.
+- Verify ambiguous time-only rows are skipped during promotion instead of being silently collapsed.
+- Verify `src/data/breedingCombosImported.json` is regenerated when candidate data promotion changes.
+- Verify `data-entry/operationalBreedingCoverage.json` and `data-entry/operationalBreedingCoverage.md` regenerate and reflect the current requirement-scope completeness target.
+- Verify the audit treats time-only runtime coverage as operationally complete but still distinguishes it from exact combo coverage.
 - Verify `data-entry/parseCommonWublins.mjs` only extracts common-Wublin template data.
 - Verify `data-entry/parsedWublinTemplates.json` stays structured and minimal:
   - species name
@@ -79,8 +92,20 @@ Use this checklist before feature work, after queue/planner edits, and during re
 
 - Run `npm run build`.
 
+## Release Readiness Check
+
+- Before intentionally versioning the app, run `npm run release:check`.
+- Verify the recommendation is based on both:
+  - notable `CHANGELOG.md` `Unreleased` volume
+  - latest `data-entry/operationalBreedingCoverage.json` status
+- If a version cut is intended, use `npm run release:prepare -- <version>` so `package.json` and `CHANGELOG.md` stay aligned.
+
 ## Documentation Follow-Through
 
+- If this was an implementation session rather than analysis-only, verify session closeout included:
+  - `npm run build`
+  - [`CHANGELOG.md`](../CHANGELOG.md)
+  - [`NEXT_HANDOFF.md`](../NEXT_HANDOFF.md) and the docs set when repo truth or workflow changed
 - If structural or code changes were made, update:
   - [`NEXT_HANDOFF.md`](../NEXT_HANDOFF.md)
   - [`CHANGELOG.md`](../CHANGELOG.md)

@@ -105,6 +105,8 @@ Final response should include:
 - Wublin tracking now supports shared common-species templates plus separate tracked instances, so `Zynth #1`, `Zynth #2`, etc. can coexist without sharing progress or sessions
 - `src/data/sheets.js` is now the template/instance seed source for common Wublins, and duplicate instances are created from the existing sheet backbone rather than a second tracking system
 - `data-entry/parseCommonWublins.mjs` and `data-entry/parsedWublinTemplates.json` now exist for common-Wublin-only inbox normalization
+- `data-entry/auditOperationalBreedingCoverage.mjs` now defines the first explicit “complete in one operational way” target for breeding data and writes reports to `data-entry/operationalBreedingCoverage.json` and `data-entry/operationalBreedingCoverage.md`
+- `npm run release:check` and `npm run release:prepare -- <version>` now provide a lightweight intentional release workflow tied to changelog state and the latest operational coverage audit
 - Collections now has a second-level vessel family filter and renders Wublins as species-first common-template cards with instance details nested underneath
 - First step before new feature work should be integrity verification, not feature work
 - Trust code on disk over prior chat summaries
@@ -123,6 +125,7 @@ Final response should include:
 
 - `src/App.jsx`
   - Main state owner and view router.
+  - Non-home screen surfaces are now lazy-loaded with `React.lazy` + `Suspense` so the first bundle does not eagerly include every major screen.
   - Controls the top-level screens:
     - Dashboard (`home`)
     - Active Sheets (`active`)
@@ -185,6 +188,11 @@ Final response should include:
   - Implemented through `src/components/MonsterDirectory.jsx`.
   - Read-only reference layer.
   - Not part of the core execution flow.
+  - Default browse order now prefers practical priority over raw alphabetic order:
+    - requirement-used monsters first
+    - common before rare before epic
+    - fewer-element monsters before denser monsters
+    - alphabetical only as a final tie-breaker
 
 - TrackerSheet
   - Implemented in `src/components/TrackerSheet.jsx`.
@@ -199,11 +207,30 @@ Final response should include:
   - `src/data/monsterDatabase.js`
     - monster reference database
   - `src/data/breedingCombos.js`
-    - dedicated breeding combo source file
+    - dedicated runtime breeding combo source file
+    - now merges the hand-authored Natural baseline with generated imports from `src/data/breedingCombosImported.json`
   - `src/data/collections.js`
     - collection/library content
   - `data-entry/inbox.txt`
     - raw staging area for noisy source material before production data updates
+- `data-entry/parseInboxResearch.mjs`
+  - broader parser for noisy mechanics and breeding-rule dumps
+- `data-entry/promoteParsedBreedingData.mjs`
+  - promotion step from parsed candidate breeding data into runtime import data
+- `data-entry/auditOperationalBreedingCoverage.mjs`
+  - audit step that checks current requirement-scope monsters for runtime database coverage, breedability metadata, and runtime breeding-time coverage
+- `data-entry/parsedBreedingData.json`
+  - cumulative structured candidate mechanics/reference output from the general inbox parser
+- `src/data/breedingCombosImported.json`
+  - generated runtime import layer for reviewed parsed combo and time data
+- `data-entry/gameMechanicsReference.md`
+  - human-readable summary of extracted mechanics, timer rules, latest-run extraction counts, and future inbox guidance
+- `data-entry/inboxArchive.md`
+  - archive of processed raw page dumps that have been trimmed out of the live inbox
+- `data-entry/operationalBreedingCoverage.json`
+  - machine-readable operational completeness report for current requirement monsters
+- `data-entry/operationalBreedingCoverage.md`
+  - human-readable operational completeness report
   - `data-entry/parseCommonWublins.mjs`
     - common-Wublin-only parser that ignores rare/epic/lore noise
   - `data-entry/parsedWublinTemplates.json`
@@ -336,16 +363,20 @@ Final response should include:
 
 - Implemented in `src/components/IslandPlanner.jsx`
 - Region-tabbed layout using `ISLAND_GROUPS`
+- On narrow/mobile widths, the region filter now collapses to a single `Region` select so the top of the page is not consumed by stacked full-width region buttons
+- Island Manager now includes a context-aware `Jump to island` row derived from the currently visible islands after region + availability filtering
+- Jumping scrolls to the target card and briefly highlights it without narrowing the list or changing filters
 - Each island card currently shows:
   - island name
   - locked/unlocked state
   - breeder summary
   - nursery summary
+  - compact capacity summary with `Max Capacity` and `Capacity Settings`
   - `Need Now`
   - `Collection Missing`
   - `Currently Breeding`
   - `In Nursery`
-  - `+ Manual Breed`
+  - on-demand `+ Manual Breed`
 
 - `Need Now`
   - Intended to show vessel-priority demand from active vessel sheets
@@ -360,9 +391,13 @@ Final response should include:
   - Nursery-side sessions only
 
 - Manual Breed
-  - Inline form on an island card
+  - On-demand panel on an island card
+  - Supports both direct-add fallback and parent-pair entry
   - Uses monster list filtered by `getMonsterBreedingIslands(monsterName).includes(island)`
-  - Shows combo info inline if combo data exists
+  - Parent-pair dropdowns now use practical priority sorting instead of raw alphabetical order
+  - Epic monsters are now excluded from parent-pair dropdowns because they are not valid breeding parents
+  - Parent-pair entry resolves an exact result only when current combo data supports one candidate for that island and optional observed timer
+  - Falls back to `Mystery Egg` when the result cannot be resolved honestly
   - Creates a manual `breeding` session if the island has free breeder capacity
 
 - Upgrade controls
@@ -371,19 +406,28 @@ Final response should include:
     - unlock island
     - `+ Breeder`
     - `+ Nursery`
+    - `Max Capacity`
+  - Revert actions now live inside `Capacity Settings` and require a second click confirmation
   - Confirmation UI is intentionally separated from planner actions
   - Old `window.confirm` island progression flow was removed in favor of local card confirmation
 
 - What is working well
   - Region-tab grouping exists
-  - Manual Breed UI is inline and isolated per card
+  - Region scope now stays available on mobile without consuming the full first screenful
+  - Availability filters stay quick-access on mobile instead of collapsing into one long vertical stack
+  - Jump-to-island navigation now respects the current top-down filter truth instead of creating a second scope system
+  - Manual Breed UI is isolated per card without permanently bloating the header
   - Upgrade confirmation is locally scoped instead of colliding with planner actions
   - Breeder and nursery capacities are both visible on the card
 
 - What is still rough
   - There is likely drift between the intended planner/session system and the current helper layer in `src/utils/queue.js`
   - Because of that, Island Manager data shaping should be re-verified before any new feature pass
-  - Some parts of the UI are more mature than the underlying helper consolidation
+- Some parts of the UI are more mature than the underlying helper consolidation
+- Availability filter wording is now clearer:
+  - `Breedable` = at least one breeder slot open
+  - `Nursery Free` = at least one nursery slot open
+  - `Capacity Limited` = breeder or nursery capacity is currently full
 
 ## 5. Collections page behavior
 
@@ -450,6 +494,11 @@ Final response should include:
 
 - Combo data file
   - `src/data/breedingCombos.js`
+  - current runtime export path:
+    - `BREEDING_COMBOS_NATURAL`
+    - `BREEDING_COMBOS_IMPORTED`
+    - `BREEDING_TIME_ONLY_IMPORTED`
+    - `BREEDING_COMBOS_ALL`
 
 - Helper layer
   - `src/utils/breedingCombos.js`
@@ -459,21 +508,32 @@ Final response should include:
     - `getBestBreedingCombos`
 
 - Current imported coverage
-  - Natural monsters only
-  - Includes the Natural data pass for:
-    - double-element naturals
-    - triple-element naturals
-    - quad-element naturals
-  - Single-element natural market-obtained rows are not currently present in the file
+  - Hand-authored Natural baseline still exists and remains authoritative for existing Natural rows
+  - Runtime helper coverage is now broader because `BREEDING_COMBOS_ALL` also includes generated imported combo rows and generated unambiguous time-only rows
+  - Latest successful promotion counts:
+    - 109 imported combo rows
+    - 255 imported time-only rows
+    - 51 parsed time names still skipped because they are not yet modeled in `src/data/monsterDatabase.js`
+    - 6 time-only rows still intentionally skipped because parsed times conflict
+  - Imported runtime coverage currently includes many additional:
+    - Fire monsters
+    - Magical monsters
+    - Ethereal monsters
+    - Mythical monsters
+    - Seasonal monsters
+    - some Rare timing rows for monsters already present in the runtime monster database
+  - Time-only imported rows intentionally provide breeding-time lookup even when exact combo data is still unresolved
+  - The current operational completeness target is satisfied even though 6 current requirement monsters are still time-only rather than exact-combo complete
 
 - Missing categories
-  - Fire
-  - Magical
-  - Ethereal
-  - Mythical
-  - Seasonal
-  - Rare / Epic / Special combo coverage
-  - Any other non-Natural categories not yet added
+  - Full Rare runtime database coverage
+  - Full Epic runtime database coverage
+  - Any parsed rows whose monster names do not yet exist in `src/data/monsterDatabase.js`
+  - Ambiguous time-only rows with conflicting parsed times
+  - Any non-Natural monsters still absent from the current parsed import output
+  - Recently fixed runtime-name gaps:
+    - `bbli$zard` now exists in the runtime monster database and can promote parsed timing data
+    - `Rare Congle` and `Epic Congle` now match their real monster names instead of the old `Congole` typo
 
 - Manual Breed consumption
   - `src/components/IslandPlanner.jsx` looks up combo data after monster selection
@@ -486,6 +546,7 @@ Final response should include:
 
 - Fallback behavior
   - If no combo data exists, the UI shows a graceful “No combo data yet” style fallback rather than crashing
+  - `src/components/MonsterDirectory.jsx` now also falls back to imported combo data when the static `monster.combo` field is blank
 
 ## 7. Persistence and migration
 
@@ -527,6 +588,9 @@ Final response should include:
 - Combo coverage is incomplete.
   - Production combo timing data is still heavily Natural-only
   - Manual Breed, Monster Directory timing, and the vessel estimator will hit fallback behavior for many Wublin requirements
+  - Requirement-scope operational completeness is now satisfied, but exact combo completeness is not:
+    - 6 current requirement monsters are still time-only complete rather than exact-combo complete
+    - the broader parsed backlog still includes 51 time names that are not yet modeled in `src/data/monsterDatabase.js`
 
 - Wublin support is intentionally common-first.
   - Common Wublin template requirements now exist
@@ -536,6 +600,33 @@ Final response should include:
   - `data-entry/parseCommonWublins.mjs` only extracts common-Wublin template fields from noisy inbox input
   - it deliberately ignores lore, prices, dates, and Rare/Epic sections
 
+- The general inbox research parser is now broader.
+  - `data-entry/parseInboxResearch.mjs` extracts high-value breeding mechanics, Rare/Epic rules, timer notes, and future inbox guidance
+- `data-entry/parsedBreedingData.json` is now structured candidate mechanics/reference output rather than an empty placeholder
+- `data-entry/gameMechanicsReference.md` is the human-readable summary of those extracted facts
+- `npm run parse:inbox` now runs the broader research pipeline end to end
+- `parseInboxResearch.mjs` now merges extracted mechanics facts, combo candidates, and breeding-time candidates into `parsedBreedingData.json`
+- `parseInboxResearch.mjs` archives processed raw page dumps into `data-entry/inboxArchive.md` and trims them out of `data-entry/inbox.txt`
+- `npm run promote:breeding-data` now turns reviewed parsed combo/time candidates into `src/data/breedingCombosImported.json`
+- `promoteParsedBreedingData.mjs` filters to monsters already known in `src/data/monsterDatabase.js`, canonicalizes name casing, and skips ambiguous time-only rows instead of guessing
+- `npm run audit:operational-data` now checks whether current requirement-scope monsters are operationally complete:
+  - runtime monster database entry exists
+  - explicit breeding-island metadata exists
+  - runtime breeding data includes a standard breeding time through combo coverage or time-only coverage
+- Latest audit status on disk:
+  - 76 unique requirement monsters
+  - 76/76 operationally complete
+  - 70 with combo+time coverage
+  - 6 with time-only coverage
+  - 0 blocking operational gaps
+- `npm run release:check` now recommends a real release when:
+  - `Unreleased` reaches 8 notable bullets
+  - or `Unreleased` reaches 4 notable bullets after operational completeness is achieved
+- Current release-check status on disk:
+  - current version `0.1.0`
+  - unreleased bullet count `15`
+  - recommended next version `0.2.0`
+
 - Collection-level summary counts intentionally aggregate multi-instance Wublin sheets by shared template identity.
   - This avoids duplicate Wublin instances inflating collection-completion summaries
   - per-instance operational work still appears separately in Active Sheets, Collections cards, queue, planner, and sheet screens
@@ -544,6 +635,23 @@ Final response should include:
   - The next pass should trust the files on disk, not prior chat summaries
 
 ## 9. Most recent successful changes
+
+- Added a broader inbox research parser that extracts high-value breeding mechanics, Rare/Epic rules, timer-disambiguation notes, and feature-planning guidance into `data-entry/parsedBreedingData.json`.
+- Added `data-entry/gameMechanicsReference.md` as the readable mechanics reference generated from the inbox, including what future inbox dumps should contain and what noise to avoid.
+- Expanded the inbox research pipeline so it now extracts structured combo candidates and grouped breeding-time candidates, preserves cumulative parsed output across runs, archives processed raw page dumps, and automatically trims `data-entry/inbox.txt`.
+- Added a runtime promotion step that turns reviewed parsed breeding combo/time candidates into `src/data/breedingCombosImported.json`, broadening helper coverage beyond the hand-authored Natural baseline while filtering out unknown names and ambiguous time-only rows.
+- Added an operational breeding coverage audit plus machine-readable and human-readable reports so the repo now has one explicit completeness target for current requirement-scope monsters.
+- Added a lightweight release workflow with `npm run release:check` and `npm run release:prepare -- <version>`, tied to changelog volume and the latest operational coverage audit.
+- Updated a few runtime imports to use explicit module paths or JSON import attributes so Node-based repo tooling can safely read the same source modules the app uses.
+- Updated Monster Directory so blank static combo fields now fall back to imported breeding combo data when available.
+- Added `src/utils/monsterPriority.js` so Monster Directory and Island Manager manual breeding can share the same practical ordering rules.
+- Switched Monster Directory’s default sort to a priority-first browse mode that favors requirement-used monsters, common before rare before epic, and lower-element monsters before denser ones.
+- Reordered Island Manager manual-breed parent pickers by the same practical priority rules and removed Epic monsters from parent-pair dropdowns because they are not valid breeding parents.
+- Added real runtime monster coverage for `bbli$zard` and fixed the `Rare/Epic Congole` typo to `Rare/Epic Congle`, which reduced skipped parsed time rows on the next promotion pass.
+- Lazy-loaded the major non-home screen surfaces from `src/App.jsx` (`Active Sheets`, `Collections`, `Tracker Sheet`, `Breeding Queue`, `Island Manager`, and `Monster Library`) so bundle growth is less front-loaded as the app and data keep expanding.
+- Reworked Island Manager capacity controls so breeder/nursery counts stay visible while upgrades collapse behind a lower-emphasis `Capacity Settings` panel.
+- Added a compact `Max Capacity` action for standard breeding islands and moved manual breeding into an on-demand panel instead of a permanently large header block.
+- Added manual breed parent-pair entry with exact-result inference when combo data supports it, plus a truthful `Mystery Egg` fallback when it does not.
 
 - Added Active Sheets as a top-level operational screen
 - Shifted TrackerSheet toward linked `Breed on...` and `Zap Ready` actions instead of manual counter-first interaction
@@ -556,22 +664,41 @@ Final response should include:
 
 ## 10. Recommended next priorities
 
-1. Expand breeding combo and timing coverage for requirement monsters that still lack data
-   - Tuskski-related gaps are still one of the highest-value clusters
-   - Better combo coverage improves Manual Breed, Monster Directory timing, and estimator usefulness at once
+1. Decide whether to cut the next real release
+   - Current release-check output recommends a release
+   - Suggested next version is `0.2.0`
+   - If accepted, the intended next steps are:
+     - `npm run release:prepare -- 0.2.0`
+     - `npm run build`
+     - commit
+     - push
 
-2. Continue Wublin common-data verification before broadening scope
+2. Expand runtime monster coverage for the remaining parsed names that still cannot promote
+   - Current promotion output still reports 51 parsed time names that do not exist in `src/data/monsterDatabase.js`
+   - This is now a higher-value path than more parser work because the pipeline is already finding usable data
+   - Better runtime coverage immediately improves Monster Directory, Manual Breed inference, and future recipe/event work
+
+3. Upgrade the six time-only requirement monsters to exact combo coverage when clean source data exists
+   - `Kayna`
+   - `Noggin`
+   - `Toe Jammer`
+   - `Mammott`
+   - `Tweedle`
+   - `Potbelly`
+   - This is now a quality pass rather than a blocking operational gap
+
+4. Continue Wublin common-data verification before broadening scope
    - Treat `data-entry/inbox.txt` plus `parseCommonWublins.mjs` as the common-Wublin ingestion path
    - Keep Rare/Epic Wublins out of the production dataset until they are intentionally supported
 
-3. Re-verify multi-instance Wublin UX with real saved state
+5. Re-verify multi-instance Wublin UX with real saved state
    - Check duplicate-instance activation, reset, queue projection, planner projection, and assigned-session flows end to end
 
-4. Decide whether Active Sheets or Collections should gain any additional multi-instance affordances
+6. Decide whether Active Sheets or Collections should gain any additional multi-instance affordances
    - only if needed after real use
    - avoid inventing a second Wublin execution path
 
-5. Revisit internal naming for island-sheet `zapped` / `breeding` only if the change can be done safely
+7. Revisit internal naming for island-sheet `zapped` / `breeding` only if the change can be done safely
    - not urgent while current behavior remains correct
 
 ## 11. Guardrails for the next pass
@@ -596,3 +723,11 @@ Final response should include:
 
 - Latest known status from the most recent successful pass: `npm run build` passed
 - Next pass should still re-run build early and treat that as a verification step, not an assumption
+
+## 13. Session closeout rule
+
+- For implementation sessions, close out with:
+  - `npm run build`
+  - `CHANGELOG.md` update
+  - `NEXT_HANDOFF.md` and docs updates if repo truth, workflow, or contracts changed
+- Use analysis-only closeout only when the task explicitly says no runtime or repo changes.

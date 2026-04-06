@@ -6,10 +6,30 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
+_No unreleased notes yet._
+
+## [0.2.0] - 2026-04-06
+
 ### Changed
 
 - Updated `NEXT_HANDOFF.md` with paste-ready reusable templates for a planning/support chatbot and a fresh Codex session.
 - Added guidance in `docs/CODEX_SYSTEM_PROMPT.md` to keep those handoff templates current when repo truth or workflow expectations change.
+- Added a first responsive polish pass across the app shell, page surfaces, browse screens, and sheet monster cards to reduce small-screen layout drift.
+- Reworked Island Manager island cards so breeder/nursery counts stay visible while upgrade and revert controls collapse into a lower-emphasis `Capacity Settings` panel, with a compact `Max Capacity` action and on-demand manual breeding panel.
+- Clarified the repo session-closeout rule across `docs/CODEX_SYSTEM_PROMPT.md`, `NEXT_HANDOFF.md`, and `docs/VERIFICATION.md` so implementation passes always end with build verification plus changelog and handoff/doc updates when truth changes.
+- Expanded Island Manager manual breeding so you can enter a parent pair, use known combo/timer data to resolve exact results when possible, and fall back to a truthful `Mystery Egg` manual session when the result cannot be determined.
+- Added a broader inbox research parser plus generated mechanics reference outputs so noisy wiki dumps can be turned into reusable breeding rules, Rare/Epic notes, timer guidance, and future inbox-format guidance without treating the raw inbox as production truth.
+- Expanded the inbox research pipeline so `npm run parse:inbox` now extracts structured combo and breeding-time candidates, preserves cumulative parsed output across runs, archives processed raw page dumps into `data-entry/inboxArchive.md`, and automatically trims `data-entry/inbox.txt`.
+- Added `npm run promote:breeding-data` plus `data-entry/promoteParsedBreedingData.mjs` so reviewed parsed breeding combo/time candidates can be promoted into the generated runtime import at `src/data/breedingCombosImported.json`.
+- Broadened runtime breeding helper coverage by merging the hand-authored Natural baseline with imported combo rows and unambiguous time-only rows, and updated Monster Directory to fall back to imported combo data when the static monster entry is blank.
+- Added a shared monster-priority helper and switched Monster Directory to a practical default browse order that favors requirement-used monsters, common before rare before epic, and lower-element monsters before denser ones.
+- Reordered Island Manager manual-breed parent pickers by that same practical priority logic, excluded Epic monsters from parent-pair dropdowns, and fixed runtime coverage gaps for `bbli$zard` plus `Rare/Epic Congle` so those parsed rows now promote cleanly.
+- Tightened Island Manager mobile usability by collapsing the region scope control to a mobile-only select, keeping availability filters as compact quick-action pills, and removing the redundant `Open` breeder-availability label in favor of clearer `Breedable` and `Capacity Limited` wording.
+- Added a context-aware Island Manager `Jump to island` strip that is derived from the currently visible islands, scrolls to the chosen card, and briefly highlights it without creating a second filtering mode.
+- Split the app’s largest non-home screens behind `React.lazy` and `Suspense` so `src/App.jsx` no longer eagerly loads every major screen into the initial bundle.
+- Added `npm run audit:operational-data` plus generated operational coverage reports so the repo now has one explicit “complete in one operational way” target for current requirement-scope breeding data.
+- Added `npm run release:check` and `npm run release:prepare -- <version>` as a lightweight pre-1.0 release workflow tied to changelog volume and the latest operational coverage audit.
+- Tightened a few runtime module imports to use explicit file paths or JSON import attributes so Node-based repo tooling can safely read the same source modules the app uses.
 
 ## [0.1.0] - 2026-04-05
 

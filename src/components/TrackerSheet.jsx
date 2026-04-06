@@ -78,6 +78,7 @@ export default function TrackerSheet({
 
   return (
     <div
+      className="page-surface"
       style={{
         maxWidth:"960px",
         margin:"0 auto",

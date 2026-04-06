@@ -231,6 +231,9 @@ function createBreedingSessionGroup(
     sessionIds: [],
     matchingSheets,
     zapTargets,
+    manualRecipeParents: Array.isArray(session.manualRecipeParents) ? session.manualRecipeParents : [],
+    manualObservedTime: session.manualObservedTime || "",
+    manualResolution: session.manualResolution === "exact" ? "exact" : "mystery",
   };
 }
 
@@ -304,6 +307,10 @@ export function buildBreedingNowEntriesFromSessions(breedingSessions, sheets)
         session.sheetId || "unassigned",
         session.islandId || "",
         session.monsterId || "",
+        session.source === "manual" && Array.isArray(session.manualRecipeParents)
+          ? session.manualRecipeParents.join("::")
+          : "",
+        session.source === "manual" ? session.manualObservedTime || "" : "",
       ].join("::");
 
       if (!groups.has(groupKey))

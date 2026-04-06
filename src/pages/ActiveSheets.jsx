@@ -2,8 +2,6 @@ import React, { useMemo } from "react";
 
 const pageCardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
-  borderRadius: "22px",
-  padding: "22px",
   background: "linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025))",
   boxShadow: "0 18px 40px rgba(0,0,0,0.2)",
   backdropFilter: "blur(8px)",
@@ -11,8 +9,6 @@ const pageCardStyle = {
 
 const sectionCardStyle = {
   border: "1px solid rgba(255,255,255,0.1)",
-  borderRadius: "18px",
-  padding: "18px",
   background: "rgba(255,255,255,0.035)",
   boxShadow: "0 10px 24px rgba(0,0,0,0.12)",
 };
@@ -78,7 +74,7 @@ function renderGoalCard(goal, onOpenSheet)
         <div>{goal.trackedProgress}% tracked</div>
       </div>
 
-      <div style={{ marginTop: "14px", display: "flex", justifyContent: "flex-end" }}>
+      <div className="screen-card-actions" style={{ marginTop: "14px", justifyContent: "flex-end" }}>
         <button
           type="button"
           style={actionButtonStyle}
@@ -107,8 +103,8 @@ export default function ActiveSheetsPage({
   );
 
   return (
-    <div style={{ display: "grid", gap: "18px" }}>
-      <div style={pageCardStyle}>
+    <div className="page-surface">
+      <div className="responsive-page-card" style={pageCardStyle}>
         <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
           Active Sheets
         </div>
@@ -116,7 +112,7 @@ export default function ActiveSheetsPage({
           Fast access to the goals that are currently driving queue and island work.
         </div>
 
-        <div style={{ marginTop: "16px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
+        <div className="screen-card-actions" style={{ marginTop: "16px" }}>
           <div style={{ ...actionButtonStyle, cursor: "default" }}>
             {goals.length} active total
           </div>
@@ -144,7 +140,7 @@ export default function ActiveSheetsPage({
 
       {goals.length > 0 && (
         <>
-          <div style={sectionCardStyle}>
+          <div className="responsive-section-card" style={sectionCardStyle}>
             <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
               VESSELS
             </div>
@@ -155,7 +151,7 @@ export default function ActiveSheetsPage({
             </div>
           </div>
 
-          <div style={sectionCardStyle}>
+          <div className="responsive-section-card" style={sectionCardStyle}>
             <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
               ISLAND COLLECTIONS
             </div>

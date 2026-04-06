@@ -52,6 +52,7 @@
 
 body {
   margin: 0;
+  min-width: 320px;
 }
 
 #root {
@@ -64,6 +65,211 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  padding: 36px 20px 72px;
+  max-width: 1120px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 34%);
+}
+
+.page-surface {
+  display: grid;
+  gap: 18px;
+}
+
+.responsive-page-card {
+  padding: 22px;
+  border-radius: 22px;
+}
+
+.responsive-section-card {
+  padding: 18px;
+  border-radius: 18px;
+}
+
+.top-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dashboard-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.dashboard-primary-actions,
+.screen-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.island-region-select-wrap {
+  display: none;
+}
+
+.island-region-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+}
+
+.island-jump-wrap {
+  display: grid;
+  gap: 8px;
+}
+
+.island-jump-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.island-jump-row > button {
+  flex: 0 0 auto;
+}
+
+.sheet-monster-body {
+  display: grid;
+  gap: 12px;
+}
+
+.sheet-monster-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.sheet-monster-meta-row {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-size: 14px;
+  opacity: 0.86;
+  min-height: 26px;
+}
+
+.sheet-monster-meta-label {
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.sheet-monster-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  #root {
+    border-inline: none;
+  }
+
+  .app-shell {
+    padding: 24px 14px 56px;
+  }
+
+  .page-surface {
+    gap: 14px;
+  }
+
+  .responsive-page-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .responsive-section-card {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .top-nav > button {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 140px;
+  }
+
+  .dashboard-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-primary-actions > button,
+  .screen-card-actions > button {
+    flex: 1 1 100%;
+  }
+
+  .island-filter-row > button {
+    flex: 0 0 auto;
+  }
+
+  .island-region-row {
+    display: none;
+  }
+
+  .island-region-select-wrap {
+    display: grid;
+    gap: 8px;
+  }
+
+  .island-availability-row > button {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 0;
+  }
+
+  .sheet-monster-meta-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .sheet-monster-title {
+    font-size: 24px !important;
+  }
+
+  .sheet-monster-actions > button {
+    flex: 1 1 100%;
+  }
+
+  .sheet-monster-breed-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .top-nav > button {
+    flex-basis: 100%;
+  }
+
+  .island-availability-row > button {
+    flex-basis: calc(50% - 10px);
+  }
 }
 
 h1,

@@ -3,8 +3,6 @@ import { ISLAND_GROUPS, ISLAND_STATE_DEFAULTS } from "../data/islands";
 
 const pageCardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
-  borderRadius: "22px",
-  padding: "22px",
   background: "linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025))",
   boxShadow: "0 18px 40px rgba(0,0,0,0.2)",
   backdropFilter: "blur(8px)",
@@ -12,8 +10,6 @@ const pageCardStyle = {
 
 const sectionCardStyle = {
   border: "1px solid rgba(255,255,255,0.1)",
-  borderRadius: "18px",
-  padding: "18px",
   background: "rgba(255,255,255,0.035)",
   boxShadow: "0 10px 24px rgba(0,0,0,0.12)",
 };
@@ -1196,8 +1192,8 @@ export default function Collections({
   }, [islandGroupByName, islandSheets, statusFilter]);
 
   return (
-    <div style={{ display: "grid", gap: "18px" }}>
-      <div style={pageCardStyle}>
+    <div className="page-surface">
+      <div className="responsive-page-card" style={pageCardStyle}>
         <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
           Collections
         </div>
@@ -1205,7 +1201,7 @@ export default function Collections({
           Track vessels and island completion without leaving the main sheet system.
         </div>
 
-        <div style={{ marginTop: "16px", display: "flex", gap: "10px", flexWrap: "wrap" }}>
+        <div className="screen-card-actions" style={{ marginTop: "16px" }}>
           <button
             style={{
               ...tabStyle,
@@ -1226,7 +1222,7 @@ export default function Collections({
           </button>
         </div>
 
-        <div style={{ marginTop: "16px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
+        <div className="screen-card-actions" style={{ marginTop: "16px", gap: "8px" }}>
           {STATUS_FILTER_OPTIONS.map((filter) => (
             <button
               key={filter.key}
@@ -1245,7 +1241,7 @@ export default function Collections({
 
         {activeTab === "vessels" && (
           <>
-            <div style={{ marginTop: "16px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <div className="screen-card-actions" style={{ marginTop: "16px", gap: "8px" }}>
               {VESSEL_FAMILY_FILTER_OPTIONS.map((filter) => (
                 <button
                   key={filter.key}

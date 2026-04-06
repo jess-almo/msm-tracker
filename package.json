@@ -1,10 +1,15 @@
 {
   "name": "msm-tracker",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "parse:inbox": "node data-entry/parseInboxResearch.mjs",
+    "promote:breeding-data": "node data-entry/promoteParsedBreedingData.mjs",
+    "audit:operational-data": "node --experimental-specifier-resolution=node data-entry/auditOperationalBreedingCoverage.mjs",
+    "release:check": "node data-entry/releaseCheck.mjs",
+    "release:prepare": "node data-entry/prepareRelease.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

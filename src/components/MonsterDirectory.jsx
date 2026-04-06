@@ -1,7 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { MONSTER_DATABASE } from "../data/monsterDatabase";
-import { MONSTER_REQUIREMENTS } from "../data/monsterRequirements";
-import { getBreedingTimeDataByMonsterName } from "../utils/breedingCombos";
+import {
+  getBreedingComboByMonsterName,
+  getBreedingTimeDataByMonsterName,
+} from "../utils/breedingCombos";
+import {
+  compareMonsterEntriesByPriority,
+  getMonsterRequirementUsage,
+} from "../utils/monsterPriority";
 
 const cardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -181,25 +187,6 @@ function getAuditMissingFields(monster)
   return missingFields;
 }
 
-function getRequirementUsage(monsterName)
-{
-  const usage = [];
-
-  Object.entries(MONSTER_REQUIREMENTS).forEach(([systemKey, targets]) =>
-  {
-    const isUsed = Object.values(targets || {}).some((requirementList) =>
-      (requirementList || []).some((item) => item.name === monsterName)
-    );
-
-    if (isUsed)
-    {
-      usage.push(systemKey);
-    }
-  });
-
-  return usage.sort((a, b) => a.localeCompare(b));
-}
-
 function formatLabel(value)
 {
   return value
@@ -207,6 +194,28 @@ function formatLabel(value)
     .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
+}
+
+function getComboDisplay(monster, breedingComboData)
+{
+  if (hasText(monster.combo))
+  {
+    return monster.combo;
+  }
+
+  if (Array.isArray(breedingComboData?.combinations) && breedingComboData.combinations.length > 0)
+  {
+    return breedingComboData.combinations
+      .map((combination) => combination.join(" + "))
+      .join(" | ");
+  }
+
+  if (Array.isArray(breedingComboData?.genericCombinations) && breedingComboData.genericCombinations.length > 0)
+  {
+    return breedingComboData.genericCombinations.join(" | ");
+  }
+
+  return "";
 }
 
 function toggleValue(list, value)
@@ -238,7 +247,7 @@ export default function MonsterDirectory()
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [auditFilter, setAuditFilter] = useState("all");
   const [usageFilter, setUsageFilter] = useState("all");
-  const [sortMode, setSortMode] = useState("needs_details_first");
+  const [sortMode, setSortMode] = useState("priority");
   const [selectedElements, setSelectedElements] = useState([]);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [showSpecialElements, setShowSpecialElements] = useState(false);
@@ -283,7 +292,11 @@ export default function MonsterDirectory()
     return Object.values(MONSTER_DATABASE).map((monster) =>
     {
       const coreMissingFields = getCoreMissingFields(monster);
-      const auditMissingFields = getAuditMissingFields(monster);
+      const breedingComboData = getBreedingComboByMonsterName(monster.name);
+      const comboDisplay = getComboDisplay(monster, breedingComboData);
+      const auditMissingFields = getAuditMissingFields(monster).filter((field) =>
+        field !== "combo" || !hasText(comboDisplay)
+      );
       const aliases = Array.isArray(monster.aliases) ? monster.aliases : [];
       const normalizedCategory = normalizeCategoryKey(monster.category);
       const breedingTimeData = getBreedingTimeDataByMonsterName(monster.name);
@@ -293,10 +306,12 @@ export default function MonsterDirectory()
         aliases,
         coreMissingFields,
         auditMissingFields,
+        comboDisplay,
+        breedingComboData,
         normalizedCategory,
         breedingTimeData,
         isComplete: coreMissingFields.length === 0,
-        usage: getRequirementUsage(monster.name),
+        usage: getMonsterRequirementUsage(monster.name),
       };
     });
   }, []);
@@ -362,6 +377,11 @@ export default function MonsterDirectory()
           return false;
         }
 
+        if (auditFilter === "missing_combo" && hasText(monster.comboDisplay))
+        {
+          return false;
+        }
+
         if (auditFilter === "missing_notes" && hasText(monster.notes))
         {
           return false;
@@ -396,6 +416,11 @@ export default function MonsterDirectory()
       })
       .sort((a, b) =>
       {
+        if (sortMode === "a_z")
+        {
+          return (a.name || "").localeCompare(b.name || "");
+        }
+
         if (sortMode === "needs_details_first" && a.isComplete !== b.isComplete)
         {
           return a.isComplete ? 1 : -1;
@@ -406,7 +431,7 @@ export default function MonsterDirectory()
           return a.isComplete ? -1 : 1;
         }
 
-        return (a.name || "").localeCompare(b.name || "");
+        return compareMonsterEntriesByPriority(a, b);
       });
   }, [auditFilter, categoryFilter, monsters, searchQuery, selectedElements, sortMode, usageFilter]);
 
@@ -566,7 +591,8 @@ export default function MonsterDirectory()
                       Sort
                     </div>
                     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                      {[
+                      {[ 
+                        { key: "priority", label: "Priority" },
                         { key: "a_z", label: "A-Z" },
                         { key: "needs_details_first", label: "Needs details first" },
                         { key: "complete_first", label: "Complete first" },
@@ -717,7 +743,7 @@ export default function MonsterDirectory()
                     : <span style={chipStyle}>—</span>}
                 </div>
               </div>
-              <div>Combo: {monster.combo || "—"}</div>
+              <div>Combo: {monster.comboDisplay || "—"}</div>
               <div>
                 Breeding time: {monster.breedingTimeData?.breedingTime || "—"}
                 {monster.breedingTimeData?.enhancedBreedingTime

@@ -11,6 +11,10 @@ Use this file as the standing repo workflow guide for future Codex sessions. Rea
 - Vessel feasibility estimator: `src/utils/vesselFeasibility.js`
 - Sheet defaults and sheet typing: `src/data/sheets.js`
 - Common-Wublin inbox parser: `data-entry/parseCommonWublins.mjs`
+- General inbox research parser: `data-entry/parseInboxResearch.mjs`
+- Operational breeding coverage audit: `data-entry/auditOperationalBreedingCoverage.mjs`
+- Release readiness check: `data-entry/releaseCheck.mjs`
+- Release prep script: `data-entry/prepareRelease.mjs`
 - Collections page: `src/pages/Collections.jsx`
 - Breeding Queue UI: `src/components/BreedingQueue.jsx`
 - Island Manager UI: `src/components/IslandPlanner.jsx`
@@ -125,6 +129,15 @@ Before making edits in this repo:
 4. Run `npm run build`.
 5. Report which files changed and why.
 
+## 5a. Session Closeout
+
+Every implementation session should close out the same way unless the task is explicitly analysis-only:
+
+1. Run `npm run build`.
+2. Update `CHANGELOG.md`.
+3. Update `NEXT_HANDOFF.md` and the docs set if repo truth, workflow expectations, or contracts changed.
+4. Report what changed, why, and any remaining limitations.
+
 ## 6. Versioning And Changelog
 
 - `package.json` version should be updated intentionally, not as a reflex on every small pass.
@@ -132,6 +145,8 @@ Before making edits in this repo:
 - `CHANGELOG.md` should use versioned entries rather than loose running notes.
 - Future notable work should be grouped under concise `Added`, `Changed`, and `Fixed` headings.
 - Do not create a fake release for every tiny edit or documentation tweak.
+- Use `npm run release:check` before deciding whether the current `Unreleased` work should become a real versioned release.
+- Use `npm run release:prepare -- <version>` when intentionally cutting a release so `package.json` and `CHANGELOG.md` stay aligned.
 - `NEXT_HANDOFF.md` now includes paste-ready templates for a planning/support chatbot and a fresh Codex session; keep those templates current when repo truth or workflow expectations change.
 
 ## 7. Common Task Workflows
@@ -209,6 +224,16 @@ Before making edits in this repo:
   - use `data-entry/parseCommonWublins.mjs` for common-Wublin-only inbox normalization
   - keep parser output minimal and structured in `data-entry/parsedWublinTemplates.json`
   - ignore lore, fill prices, release dates, long strategy prose, and Rare/Epic sections unless the task explicitly expands scope
+- For broader breeding-mechanics or feature-planning research:
+  - use `data-entry/parseInboxResearch.mjs`
+  - prefer `npm run parse:inbox` when running that pipeline end to end
+  - treat `data-entry/parsedBreedingData.json` as structured candidate mechanics/reference output, not production gameplay truth
+  - use `data-entry/gameMechanicsReference.md` as the human-readable summary of high-value facts extracted from the inbox
+  - remember that processed full-page dumps are archived into `data-entry/inboxArchive.md` and trimmed out of the live inbox
+  - use `npm run promote:breeding-data` to turn reviewed parsed combo/time candidates into the generated runtime import at `src/data/breedingCombosImported.json`
+  - use `npm run audit:operational-data` to verify whether currently tracked requirement monsters are operationally complete
+  - review `data-entry/operationalBreedingCoverage.md` and `data-entry/operationalBreedingCoverage.json` after running the audit
+  - do not promote parsed rows blindly when the monster name is unknown to `src/data/monsterDatabase.js` or the time-only data is ambiguous
 
 ## 10. Reporting Expectations
 
