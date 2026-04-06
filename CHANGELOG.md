@@ -10,6 +10,7 @@ Do not create a fake release for every tiny edit.
 
 - Added `npm run release:tag` plus `data-entry/releaseTag.mjs` so intentional version cuts can end with a matching annotated git tag pushed to GitHub.
 - Added a first Capacitor Android wrapper path with `capacitor.config.json`, Android helper scripts in `package.json`, a generated native `android/` project, and a dedicated `docs/ANDROID.md` guide for debug-APK setup.
+- Added `TODO.md` as a public-facing roadmap for the next meaningful Android, data, and product steps.
 
 ### Changed
 
@@ -17,16 +18,17 @@ Do not create a fake release for every tiny edit.
 - Updated the app document title to `MSM Tracker` so the wrapped build carries a cleaner app identity.
 - Replaced the default Vite README with a real project front page covering the app purpose, feature set, workflows, Android path, and release/data commands.
 - Split the public repo docs away from the detailed operator/Codex workflow notes so GitHub now shows cleaner app-facing documentation while the private working notes can stay local.
+- Simplified the public repo surface again by removing the operator-style doc stubs from version control, keeping the public focus on the app docs and roadmap, and moving `data-entry/inboxArchive.md` out of the tracked repo.
 
 ## [0.2.0] - 2026-04-06
 
 ### Changed
 
-- Updated `NEXT_HANDOFF.md` with paste-ready reusable templates for a planning/support chatbot and a fresh Codex session.
-- Added guidance in `docs/CODEX_SYSTEM_PROMPT.md` to keep those handoff templates current when repo truth or workflow expectations change.
+- Updated the local handoff workflow with reusable templates for a planning/support chatbot and a fresh coding session.
+- Added guidance to keep those handoff templates current when repo truth or workflow expectations change.
 - Added a first responsive polish pass across the app shell, page surfaces, browse screens, and sheet monster cards to reduce small-screen layout drift.
 - Reworked Island Manager island cards so breeder/nursery counts stay visible while upgrade and revert controls collapse into a lower-emphasis `Capacity Settings` panel, with a compact `Max Capacity` action and on-demand manual breeding panel.
-- Clarified the repo session-closeout rule across `docs/CODEX_SYSTEM_PROMPT.md`, `NEXT_HANDOFF.md`, and `docs/VERIFICATION.md` so implementation passes always end with build verification plus changelog and handoff/doc updates when truth changes.
+- Clarified the repo session-closeout rule so implementation passes always end with build verification plus changelog and workflow-doc updates when truth changes.
 - Expanded Island Manager manual breeding so you can enter a parent pair, use known combo/timer data to resolve exact results when possible, and fall back to a truthful `Mystery Egg` manual session when the result cannot be determined.
 - Added a broader inbox research parser plus generated mechanics reference outputs so noisy wiki dumps can be turned into reusable breeding rules, Rare/Epic notes, timer guidance, and future inbox-format guidance without treating the raw inbox as production truth.
 - Expanded the inbox research pipeline so `npm run parse:inbox` now extracts structured combo and breeding-time candidates, preserves cumulative parsed output across runs, archives processed raw page dumps into `data-entry/inboxArchive.md`, and automatically trims `data-entry/inbox.txt`.

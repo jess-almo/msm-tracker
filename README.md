@@ -193,12 +193,9 @@ The idea is:
 - improve mobile polish through real device testing
 - eventually support broader collection and event-driven workflows
 
-## Notes
+## Project Docs
 
-- This project is still pre-1.0.
-- Runtime truth matters more than encyclopedic completeness.
-- Public project docs:
-  - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-  - [docs/ANDROID.md](docs/ANDROID.md)
-  - [CHANGELOG.md](CHANGELOG.md)
-- Detailed operator and Codex workflow notes are intentionally kept local and out of version control.
+- [TODO.md](TODO.md)
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- [docs/ANDROID.md](docs/ANDROID.md)
+- [CHANGELOG.md](CHANGELOG.md)
