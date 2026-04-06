@@ -6,6 +6,8 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-06
+
 ### Changed
 
 - Added a root-level `COMMANDS.md` reference so daily dev, data, release, Android, and GitHub release commands are easy to find in one place.
@@ -16,7 +18,6 @@ Do not create a fake release for every tiny edit.
 - Gave the desktop workspace a bit more horizontal room and introduced a responsive Collections card grid so the web app uses side space more intentionally while mobile stays single-column and compact.
 - Started separating collection identity from live run instances by consolidating all vessel families around species-level collection entries, sharing collected-state truth across duplicate-capable vessel runs, and letting new duplicate runs be created beyond the original singleton seed sheets.
 - Turned `TODO.md` into an active workflow file for the next targets, next-release bar, and Android checkpoint routine, and added `npm run release:review`, `npm run android:install-debug`, and `npm run android:refresh-debug` so the latest web/app state is easier to verify and package consistently.
-
 ## [0.3.0] - 2026-04-06
 
 ### Added
