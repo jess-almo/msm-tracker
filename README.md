@@ -6,8 +6,8 @@ Track My Singing Monsters breeding work with one app that keeps long-term goals,
 
 ## Status
 
-- Current version: `0.2.0`
-- Current release tag: `v0.2.0`
+- Current version: `0.3.0`
+- Current release tag: `v0.3.0`
 - Web app is working and actively used
 - Android wrapper path is now set up with Capacitor
 - Current breeding-data target is operationally complete for tracked requirement monsters
@@ -118,6 +118,10 @@ See:
 
 ## Local Development
 
+For the full command index, see:
+
+- [COMMANDS.md](COMMANDS.md)
+
 From the repo root:
 
 ```bash
@@ -195,6 +199,7 @@ The idea is:
 
 ## Project Docs
 
+- [COMMANDS.md](COMMANDS.md)
 - [TODO.md](TODO.md)
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - [docs/ANDROID.md](docs/ANDROID.md)

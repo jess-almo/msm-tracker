@@ -7,6 +7,8 @@ Use this file for:
 - the minimum bar for the next release
 - the current Android packaging routine
 
+For the full command list, use [`COMMANDS.md`](./COMMANDS.md).
+
 Do not let this turn into a graveyard of every idea. Move finished work to [`CHANGELOG.md`](./CHANGELOG.md) and keep this biased toward the next real milestone.
 
 ## Now
