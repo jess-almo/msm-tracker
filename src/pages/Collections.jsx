@@ -60,8 +60,8 @@ const compactDangerButtonStyle = {
 const STATUS_FILTER_OPTIONS = [
   { key: "all", label: "All" },
   { key: "active", label: "Active" },
-  { key: "in_progress", label: "In Progress" },
-  { key: "not_started", label: "Not Started" },
+  { key: "in_progress", label: "Working" },
+  { key: "not_started", label: "Ready to Start" },
   { key: "complete", label: "Complete" },
 ];
 
@@ -132,7 +132,7 @@ function getStatusLabel(status)
 
   if (status === "in_progress")
   {
-    return "In Progress";
+    return "Working";
   }
 
   if (status === "complete")
@@ -140,7 +140,7 @@ function getStatusLabel(status)
     return "Complete";
   }
 
-  return "Not Started";
+  return "Ready to Start";
 }
 
 function getStatusPriority(status)
@@ -357,6 +357,23 @@ function getVesselGroupLabel(groupKey)
   return "Other";
 }
 
+function canActivateSheet(sheet)
+{
+  const status = getDerivedSheetStatus(sheet);
+
+  return status !== "complete" && !sheet.isActive;
+}
+
+function getActivationButtonLabel(sheet)
+{
+  if (sheet.isActive)
+  {
+    return "Deactivate";
+  }
+
+  return getDerivedSheetStatus(sheet) === "in_progress" ? "Activate Run" : "Activate";
+}
+
 function isCommonWublinSheet(sheet)
 {
   if (getVesselGroupKey(sheet) !== "wublin")
@@ -551,11 +568,13 @@ function VesselSheetCard({
   sheet,
   onOpenSheet,
   onCreateAnotherSheetInstance,
+  onToggleSheetActive,
 })
 {
   const progress = getSheetState(sheet);
   const status = getDerivedSheetStatus(sheet);
   const visualStyle = getStatusVisualStyle(status);
+  const showActivationButton = status !== "complete";
 
   return (
     <div
@@ -629,6 +648,21 @@ function VesselSheetCard({
         </div>
 
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {showActivationButton && (
+            <button
+              style={{
+                ...actionButtonStyle,
+                background: sheet.isActive ? "rgba(245,158,11,0.18)" : "rgba(34,197,94,0.16)",
+                border: sheet.isActive
+                  ? "1px solid rgba(245,158,11,0.22)"
+                  : "1px solid rgba(34,197,94,0.18)",
+              }}
+              onClick={() => onToggleSheetActive?.(sheet.key)}
+            >
+              {getActivationButtonLabel(sheet)}
+            </button>
+          )}
+
           {sheet.supportsMultipleInstances && (
             <button
               style={actionButtonStyle}
@@ -662,6 +696,8 @@ function WublinTemplateCard({
   const [confirmDeactivateKey, setConfirmDeactivateKey] = useState(null);
   const sortedInstances = [...instances].sort(sortSheetsByOperationalOrder);
   const primaryInstance = sortedInstances[0];
+  const activeInstance = sortedInstances.find((sheet) => sheet.isActive) || null;
+  const activatableInstance = sortedInstances.find((sheet) => canActivateSheet(sheet)) || null;
   const summary = getWublinTemplateSortSummary(sortedInstances);
   const totals = getWublinTemplateProgress(sortedInstances);
   const visualStyle = getStatusVisualStyle(summary.status);
@@ -904,12 +940,38 @@ function WublinTemplateCard({
           {totals.progress.trackedPercent}% tracked across all current runs
         </div>
 
-        <button
-          style={actionButtonStyle}
-          onClick={() => onCreateAnotherSheetInstance?.(primaryInstance.key)}
-        >
-          {totals.hasCompletedInstance ? "Create New Instance" : "Create Another Instance"}
-        </button>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {activeInstance ? (
+            <button
+              style={{
+                ...actionButtonStyle,
+                background: "rgba(245,158,11,0.18)",
+                border: "1px solid rgba(245,158,11,0.22)",
+              }}
+              onClick={() => onOpenSheet(activeInstance.key)}
+            >
+              Open Active
+            </button>
+          ) : activatableInstance ? (
+            <button
+              style={{
+                ...actionButtonStyle,
+                background: "rgba(34,197,94,0.16)",
+                border: "1px solid rgba(34,197,94,0.18)",
+              }}
+              onClick={() => onToggleSheetActive?.(activatableInstance.key)}
+            >
+              Activate Next Run
+            </button>
+          ) : null}
+
+          <button
+            style={actionButtonStyle}
+            onClick={() => onCreateAnotherSheetInstance?.(primaryInstance.key)}
+          >
+            {totals.hasCompletedInstance ? "Create New Instance" : "Create Another Instance"}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -918,11 +980,13 @@ function WublinTemplateCard({
 function IslandSheetCard({
   sheet,
   onOpenSheet,
+  onToggleSheetActive,
 })
 {
   const progress = getSheetState(sheet);
   const status = getDerivedSheetStatus(sheet);
   const visualStyle = getStatusVisualStyle(status);
+  const showActivationButton = status !== "complete";
 
   return (
     <div
@@ -990,12 +1054,29 @@ function IslandSheetCard({
           {sheet.isActive ? "Active collection sheet" : "Collection tracker"}
         </div>
 
-        <button
-          style={actionButtonStyle}
-          onClick={() => onOpenSheet(sheet.key)}
-        >
-          Open Collection
-        </button>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          {showActivationButton && (
+            <button
+              style={{
+                ...actionButtonStyle,
+                background: sheet.isActive ? "rgba(245,158,11,0.18)" : "rgba(34,197,94,0.16)",
+                border: sheet.isActive
+                  ? "1px solid rgba(245,158,11,0.22)"
+                  : "1px solid rgba(34,197,94,0.18)",
+              }}
+              onClick={() => onToggleSheetActive?.(sheet.key)}
+            >
+              {getActivationButtonLabel(sheet)}
+            </button>
+          )}
+
+          <button
+            style={actionButtonStyle}
+            onClick={() => onOpenSheet(sheet.key)}
+          >
+            Open
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -1091,6 +1172,19 @@ export default function Collections({
     };
   }, [standardVesselGroups, visibleWublinTemplateGroups]);
 
+  const visibleVesselFamilyFilterOptions = useMemo(() =>
+  {
+    return VESSEL_FAMILY_FILTER_OPTIONS.filter((filter) =>
+    {
+      if (filter.key === "all")
+      {
+        return true;
+      }
+
+      return Number(vesselFamilyCounts[filter.key] || 0) > 0;
+    });
+  }, [vesselFamilyCounts]);
+
   const visibleVesselSections = useMemo(() =>
   {
     const sections = [
@@ -1105,6 +1199,7 @@ export default function Collections({
             sheet={sheet}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onToggleSheetActive={onToggleSheetActive}
           />
         )),
       },
@@ -1136,6 +1231,7 @@ export default function Collections({
             sheet={sheet}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onToggleSheetActive={onToggleSheetActive}
           />
         )),
       },
@@ -1150,6 +1246,7 @@ export default function Collections({
             sheet={sheet}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onToggleSheetActive={onToggleSheetActive}
           />
         )),
       },
@@ -1201,68 +1298,79 @@ export default function Collections({
           Track vessels and island completion without leaving the main sheet system.
         </div>
 
-        <div className="screen-card-actions" style={{ marginTop: "16px" }}>
-          <button
-            style={{
-              ...tabStyle,
-              background: activeTab === "vessels" ? "rgba(245,158,11,0.18)" : tabStyle.background,
-            }}
-            onClick={() => setActiveTab("vessels")}
-          >
-            Vessels ({vesselSheets.length})
-          </button>
-          <button
-            style={{
-              ...tabStyle,
-              background: activeTab === "islands" ? "rgba(59,130,246,0.18)" : tabStyle.background,
-            }}
-            onClick={() => setActiveTab("islands")}
-          >
-            Islands ({islandSheets.length})
-          </button>
-        </div>
+        <div className="collections-filter-stack">
+          <div>
+            <div className="collections-filter-label">Browser</div>
+            <div className="screen-card-actions" style={{ marginTop: "8px" }}>
+              <button
+                style={{
+                  ...tabStyle,
+                  background: activeTab === "vessels" ? "rgba(245,158,11,0.18)" : tabStyle.background,
+                }}
+                onClick={() => setActiveTab("vessels")}
+              >
+                Vessels ({vesselSheets.length})
+              </button>
+              <button
+                style={{
+                  ...tabStyle,
+                  background: activeTab === "islands" ? "rgba(59,130,246,0.18)" : tabStyle.background,
+                }}
+                onClick={() => setActiveTab("islands")}
+              >
+                Islands ({islandSheets.length})
+              </button>
+            </div>
+          </div>
 
-        <div className="screen-card-actions" style={{ marginTop: "16px", gap: "8px" }}>
-          {STATUS_FILTER_OPTIONS.map((filter) => (
-            <button
-              key={filter.key}
-              style={{
-                ...filterButtonStyle,
-                background: statusFilter === filter.key
-                  ? "rgba(255,255,255,0.18)"
-                  : filterButtonStyle.background,
-              }}
-              onClick={() => setStatusFilter(filter.key)}
-            >
-              {filter.label}
-            </button>
-          ))}
-        </div>
-
-        {activeTab === "vessels" && (
-          <>
-            <div className="screen-card-actions" style={{ marginTop: "16px", gap: "8px" }}>
-              {VESSEL_FAMILY_FILTER_OPTIONS.map((filter) => (
+          <div>
+            <div className="collections-filter-label">Status</div>
+            <div className="screen-card-actions" style={{ marginTop: "8px", gap: "8px" }}>
+              {STATUS_FILTER_OPTIONS.map((filter) => (
                 <button
                   key={filter.key}
                   style={{
                     ...filterButtonStyle,
-                    background: vesselFamilyFilter === filter.key
-                      ? "rgba(245,158,11,0.18)"
+                    background: statusFilter === filter.key
+                      ? "rgba(255,255,255,0.18)"
                       : filterButtonStyle.background,
                   }}
-                  onClick={() => setVesselFamilyFilter(filter.key)}
+                  onClick={() => setStatusFilter(filter.key)}
                 >
-                  {filter.label} ({vesselFamilyCounts[filter.key] || 0})
+                  {filter.label}
                 </button>
               ))}
             </div>
+          </div>
 
-            <div style={{ marginTop: "10px", fontSize: "13px", opacity: 0.64 }}>
-              Common Wublins only are shown in this vessel browser for now. Rare and Epic Wublin support can layer in later without changing the instance model.
+        {activeTab === "vessels" && (
+          <>
+            <div>
+              <div className="collections-filter-label">Family</div>
+              <div className="screen-card-actions" style={{ marginTop: "8px", gap: "8px" }}>
+                {visibleVesselFamilyFilterOptions.map((filter) => (
+                  <button
+                    key={filter.key}
+                    style={{
+                      ...filterButtonStyle,
+                      background: vesselFamilyFilter === filter.key
+                        ? "rgba(245,158,11,0.18)"
+                        : filterButtonStyle.background,
+                    }}
+                    onClick={() => setVesselFamilyFilter(filter.key)}
+                  >
+                    {filter.label} ({vesselFamilyCounts[filter.key] || 0})
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ fontSize: "13px", opacity: 0.64 }}>
+              Common Wublins are grouped by template here so activation and duplicate-run management stay readable.
             </div>
           </>
         )}
+        </div>
       </div>
 
       {activeTab === "vessels" ? (
@@ -1284,7 +1392,10 @@ export default function Collections({
                   count: section.count,
                 })}
 
-                <div style={{ marginTop: "12px", display: "grid", gap: "12px" }}>
+                <div
+                  className={section.key === "wublin" ? "collections-card-grid collections-card-grid--single" : "collections-card-grid"}
+                  style={{ marginTop: "12px" }}
+                >
                   {section.count === 0 ? (
                     <div style={{ opacity: 0.64 }}>
                       {statusFilter === "all"
@@ -1314,12 +1425,13 @@ export default function Collections({
                   count: group.sheets.length,
                 })}
 
-                <div style={{ marginTop: "12px", display: "grid", gap: "12px" }}>
+                <div className="collections-card-grid" style={{ marginTop: "12px" }}>
                   {group.sheets.map((sheet) => (
                     <IslandSheetCard
                       key={sheet.key}
                       sheet={sheet}
                       onOpenSheet={onOpenSheet}
+                      onToggleSheetActive={onToggleSheetActive}
                     />
                   ))}
                 </div>
