@@ -6,7 +6,16 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
-_No unreleased notes yet._
+### Added
+
+- Added `npm run release:tag` plus `data-entry/releaseTag.mjs` so intentional version cuts can end with a matching annotated git tag pushed to GitHub.
+- Added a first Capacitor Android wrapper path with `capacitor.config.json`, Android helper scripts in `package.json`, a generated native `android/` project, and a dedicated `docs/ANDROID.md` guide for debug-APK setup.
+
+### Changed
+
+- Updated the handoff and workflow docs so the standard release ritual is now `release:check -> release:prepare -> build -> commit/push -> release:tag`, and recorded that the current released checkpoint is `0.2.0` with tag `v0.2.0`.
+- Updated the app document title to `MSM Tracker` so the wrapped build carries a cleaner app identity.
+- Replaced the default Vite README with a real project front page covering the app purpose, feature set, workflows, Android path, and release/data commands.
 
 ## [0.2.0] - 2026-04-06
 

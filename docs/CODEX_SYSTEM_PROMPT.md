@@ -15,6 +15,10 @@ Use this file as the standing repo workflow guide for future Codex sessions. Rea
 - Operational breeding coverage audit: `data-entry/auditOperationalBreedingCoverage.mjs`
 - Release readiness check: `data-entry/releaseCheck.mjs`
 - Release prep script: `data-entry/prepareRelease.mjs`
+- Release tag script: `data-entry/releaseTag.mjs`
+- Android wrapper config: `capacitor.config.json`
+- Android wrapper notes: `docs/ANDROID.md`
+- Native Android project: `android/`
 - Collections page: `src/pages/Collections.jsx`
 - Breeding Queue UI: `src/components/BreedingQueue.jsx`
 - Island Manager UI: `src/components/IslandPlanner.jsx`
@@ -147,6 +151,7 @@ Every implementation session should close out the same way unless the task is ex
 - Do not create a fake release for every tiny edit or documentation tweak.
 - Use `npm run release:check` before deciding whether the current `Unreleased` work should become a real versioned release.
 - Use `npm run release:prepare -- <version>` when intentionally cutting a release so `package.json` and `CHANGELOG.md` stay aligned.
+- After the release commit is built and pushed, use `npm run release:tag` to create and push the matching annotated git tag.
 - `NEXT_HANDOFF.md` now includes paste-ready templates for a planning/support chatbot and a fresh Codex session; keep those templates current when repo truth or workflow expectations change.
 
 ## 7. Common Task Workflows
@@ -178,6 +183,16 @@ Every implementation session should close out the same way unless the task is ex
 3. Prefer copy, layout, emphasis, and labeling improvements over logic churn.
 4. Check both sheet types and the current session states if the screen renders shared data.
 5. Run `npm run build`.
+
+### Android Packaging Pass
+
+1. Read `docs/ANDROID.md`.
+2. Keep the live app root as `src/main.jsx` -> `src/App.jsx`; treat Android as a wrapper layer, not a second app.
+3. Prefer Capacitor config and packaging script updates over runtime rewrites.
+4. Re-run:
+   - `npm run android:doctor`
+   - `npm run android:sync`
+5. If a native build is attempted, report clearly whether the blocker is app code or local Android SDK/tooling.
 
 ### Estimator-Related Pass
 

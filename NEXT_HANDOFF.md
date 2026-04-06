@@ -106,7 +106,12 @@ Final response should include:
 - `src/data/sheets.js` is now the template/instance seed source for common Wublins, and duplicate instances are created from the existing sheet backbone rather than a second tracking system
 - `data-entry/parseCommonWublins.mjs` and `data-entry/parsedWublinTemplates.json` now exist for common-Wublin-only inbox normalization
 - `data-entry/auditOperationalBreedingCoverage.mjs` now defines the first explicit “complete in one operational way” target for breeding data and writes reports to `data-entry/operationalBreedingCoverage.json` and `data-entry/operationalBreedingCoverage.md`
-- `npm run release:check` and `npm run release:prepare -- <version>` now provide a lightweight intentional release workflow tied to changelog state and the latest operational coverage audit
+- `npm run release:check`, `npm run release:prepare -- <version>`, and `npm run release:tag` now provide a lightweight intentional release workflow tied to changelog state, the latest operational coverage audit, and a matching annotated git tag
+- The repo now has a first Android wrapper path using Capacitor:
+  - config in `capacitor.config.json`
+  - native project in `android/`
+  - helper doc in `docs/ANDROID.md`
+  - helper scripts in `package.json`
 - Collections now has a second-level vessel family filter and renders Wublins as species-first common-template cards with instance details nested underneath
 - First step before new feature work should be integrity verification, not feature work
 - Trust code on disk over prior chat summaries
@@ -120,6 +125,10 @@ Final response should include:
 - `CHANGELOG.md` now uses versioned entries and should log notable work under `Added`, `Changed`, and `Fixed`
 - Some issue notes below are historical; verify current code before acting on them
 - Vessel deadline estimation is currently read-only and input-driven; shop timers and active vessel timers are not yet persisted in app state
+- Current Android status on this machine:
+  - `npm run android:doctor` passes
+  - `npm run android:sync` passes
+  - native debug build currently fails because no Android SDK location is configured
 
 ## 1. Current architecture
 
@@ -247,6 +256,11 @@ Final response should include:
   - Breeding sessions persist separately
   - View state persists separately
   - Collections data also persists separately
+
+- Android wrapper layer
+  - `capacitor.config.json` points Capacitor at the built Vite output in `dist`
+  - `android/` is now the generated native wrapper project
+  - this wrapper does not change app state architecture; it packages the same app
 
 ## 2. Sheet system
 
@@ -622,10 +636,10 @@ Final response should include:
 - `npm run release:check` now recommends a real release when:
   - `Unreleased` reaches 8 notable bullets
   - or `Unreleased` reaches 4 notable bullets after operational completeness is achieved
-- Current release-check status on disk:
-  - current version `0.1.0`
-  - unreleased bullet count `15`
-  - recommended next version `0.2.0`
+- Latest intentional release on disk:
+  - version `0.2.0`
+  - git tag `v0.2.0`
+  - the next release should follow: `npm run release:check` -> `npm run release:prepare -- <version>` -> `npm run build` -> commit/push -> `npm run release:tag`
 
 - Collection-level summary counts intentionally aggregate multi-instance Wublin sheets by shared template identity.
   - This avoids duplicate Wublin instances inflating collection-completion summaries
@@ -634,8 +648,13 @@ Final response should include:
 - Some prior summary statements from earlier coding passes do not fully match the current on-disk code.
   - The next pass should trust the files on disk, not prior chat summaries
 
+- Android packaging is set up, but this machine still lacks a configured Android SDK path.
+  - `gradlew.bat assembleDebug` currently fails with `SDK location not found`
+  - the next real mobile step is Android Studio/SDK setup plus a device install test
+
 ## 9. Most recent successful changes
 
+- Added a first Android wrapper path using Capacitor, including repo scripts, config, generated native Android project scaffolding, and a dedicated `docs/ANDROID.md` guide for finishing debug APK generation once the Android SDK is configured.
 - Added a broader inbox research parser that extracts high-value breeding mechanics, Rare/Epic rules, timer-disambiguation notes, and feature-planning guidance into `data-entry/parsedBreedingData.json`.
 - Added `data-entry/gameMechanicsReference.md` as the readable mechanics reference generated from the inbox, including what future inbox dumps should contain and what noise to avoid.
 - Expanded the inbox research pipeline so it now extracts structured combo candidates and grouped breeding-time candidates, preserves cumulative parsed output across runs, archives processed raw page dumps, and automatically trims `data-entry/inbox.txt`.
@@ -664,21 +683,27 @@ Final response should include:
 
 ## 10. Recommended next priorities
 
-1. Decide whether to cut the next real release
-   - Current release-check output recommends a release
-   - Suggested next version is `0.2.0`
-   - If accepted, the intended next steps are:
-     - `npm run release:prepare -- 0.2.0`
+1. Finish the first real Android device install path
+   - install/configure Android Studio or Android SDK
+   - make `gradlew.bat assembleDebug` succeed
+   - install the debug APK on a real Android device
+   - then stress-test persistence, scroll behavior, touch targets, and Android back-button behavior
+
+2. Keep the release ritual consistent for the next real version
+   - start with `npm run release:check`
+   - if a release is warranted, use:
+     - `npm run release:prepare -- <version>`
      - `npm run build`
      - commit
      - push
+     - `npm run release:tag`
 
-2. Expand runtime monster coverage for the remaining parsed names that still cannot promote
+3. Expand runtime monster coverage for the remaining parsed names that still cannot promote
    - Current promotion output still reports 51 parsed time names that do not exist in `src/data/monsterDatabase.js`
    - This is now a higher-value path than more parser work because the pipeline is already finding usable data
    - Better runtime coverage immediately improves Monster Directory, Manual Breed inference, and future recipe/event work
 
-3. Upgrade the six time-only requirement monsters to exact combo coverage when clean source data exists
+4. Upgrade the six time-only requirement monsters to exact combo coverage when clean source data exists
    - `Kayna`
    - `Noggin`
    - `Toe Jammer`
@@ -687,18 +712,18 @@ Final response should include:
    - `Potbelly`
    - This is now a quality pass rather than a blocking operational gap
 
-4. Continue Wublin common-data verification before broadening scope
+5. Continue Wublin common-data verification before broadening scope
    - Treat `data-entry/inbox.txt` plus `parseCommonWublins.mjs` as the common-Wublin ingestion path
    - Keep Rare/Epic Wublins out of the production dataset until they are intentionally supported
 
-5. Re-verify multi-instance Wublin UX with real saved state
+6. Re-verify multi-instance Wublin UX with real saved state
    - Check duplicate-instance activation, reset, queue projection, planner projection, and assigned-session flows end to end
 
-6. Decide whether Active Sheets or Collections should gain any additional multi-instance affordances
+7. Decide whether Active Sheets or Collections should gain any additional multi-instance affordances
    - only if needed after real use
    - avoid inventing a second Wublin execution path
 
-7. Revisit internal naming for island-sheet `zapped` / `breeding` only if the change can be done safely
+8. Revisit internal naming for island-sheet `zapped` / `breeding` only if the change can be done safely
    - not urgent while current behavior remains correct
 
 ## 11. Guardrails for the next pass

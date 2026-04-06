@@ -92,6 +92,18 @@ Use this checklist before feature work, after queue/planner edits, and during re
 
 - Run `npm run build`.
 
+## Android Wrapper Check
+
+- Run `npm run android:doctor`.
+- Run `npm run android:sync`.
+- Verify the Capacitor Android project exists under [`android`](../android).
+- If a native build is attempted, distinguish clearly between:
+  - app/runtime issues
+  - missing Android SDK / local machine setup
+- If SDK is configured, a debug build can be checked with:
+  - `cd android`
+  - `gradlew.bat assembleDebug`
+
 ## Release Readiness Check
 
 - Before intentionally versioning the app, run `npm run release:check`.
@@ -99,6 +111,8 @@ Use this checklist before feature work, after queue/planner edits, and during re
   - notable `CHANGELOG.md` `Unreleased` volume
   - latest `data-entry/operationalBreedingCoverage.json` status
 - If a version cut is intended, use `npm run release:prepare -- <version>` so `package.json` and `CHANGELOG.md` stay aligned.
+- After the release commit is built and pushed, run `npm run release:tag`.
+- Verify the matching annotated git tag exists and is pushed to `origin`.
 
 ## Documentation Follow-Through
 
@@ -112,4 +126,6 @@ Use this checklist before feature work, after queue/planner edits, and during re
   - [`docs/ARCHITECTURE.md`](./ARCHITECTURE.md)
   - [`docs/CONTRACTS.md`](./CONTRACTS.md)
   - [`docs/VERIFICATION.md`](./VERIFICATION.md)
+- If Android packaging workflow changed, also update:
+  - [`docs/ANDROID.md`](./ANDROID.md)
 - If the change intentionally updates the app version, also update [`package.json`](../package.json) and add or revise the matching versioned changelog entry.

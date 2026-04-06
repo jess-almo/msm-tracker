@@ -10,11 +10,19 @@
     "audit:operational-data": "node --experimental-specifier-resolution=node data-entry/auditOperationalBreedingCoverage.mjs",
     "release:check": "node data-entry/releaseCheck.mjs",
     "release:prepare": "node data-entry/prepareRelease.mjs",
+    "release:tag": "node data-entry/releaseTag.mjs",
+    "android:doctor": "npx cap doctor android",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:run": "npm run build && npx cap run android",
+    "android:open": "npx cap open android",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },

@@ -139,6 +139,22 @@ Persistence behavior currently implemented in [`src/App.jsx`](../src/App.jsx):
 - island state merges against `ISLAND_STATE_DEFAULTS`
 - manual sessions may now carry lightweight recipe metadata such as parent pair, observed timer, and exact-vs-mystery resolution without creating a second execution system
 
+## Android Wrapper Layer
+
+- The repo now includes a Capacitor wrapper for Android packaging.
+- Wrapper config lives in [`capacitor.config.json`](../capacitor.config.json).
+- The generated native Android project lives in [`android`](../android).
+- The Android wrapper still ships the same built Vite app from `dist`; it is not a second frontend or second state system.
+- Current helper scripts in [`package.json`](../package.json):
+  - `npm run android:doctor`
+  - `npm run android:sync`
+  - `npm run android:run`
+  - `npm run android:open`
+- Current app identity assumptions:
+  - app name: `MSM Tracker`
+  - app id: `com.jessealmo.msmtracker`
+- Detailed packaging notes now live in [`docs/ANDROID.md`](./ANDROID.md).
+
 ## Data Pipeline Notes
 
 Current committed staging flow:
@@ -187,6 +203,11 @@ Current intended scope:
   - updates `package.json`
   - moves `CHANGELOG.md` `Unreleased` notes into a new dated version section
   - leaves build, commit, and push as explicit follow-up actions
+- `npm run release:tag` is the formal release-checkpoint step after the release commit is built and pushed:
+  - verifies `package.json` matches the latest released changelog version
+  - requires a clean working tree
+  - creates the annotated git tag if it does not exist yet
+  - pushes `refs/tags/v<version>` to `origin`
 
 ## Recovery Notes
 
