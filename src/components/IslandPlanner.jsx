@@ -87,8 +87,9 @@ const DIRECT_SLOT_ACTION_LIMIT = 3;
 const ALL_REGIONS_FILTER = "all";
 const AVAILABILITY_FILTER_OPTIONS = [
   { key: "all", label: "All" },
+  { key: "need_now", label: "Need Now" },
   { key: "breedable", label: "Breedable" },
-  { key: "nursery_free", label: "Nursery Free" },
+  { key: "active", label: "Active" },
   { key: "capacity_limited", label: "Capacity Limited" },
 ];
 
@@ -124,9 +125,18 @@ function matchesAvailabilityFilter(island, filterKey)
     return island.supportsStandardBreeding && Number(island.freeSlots || 0) > 0;
   }
 
-  if (filterKey === "nursery_free")
+  if (filterKey === "need_now")
   {
-    return island.supportsNursery && Number(island.freeNurseries || 0) > 0;
+    return Array.isArray(island.needNow) && island.needNow.length > 0;
+  }
+
+  if (filterKey === "active")
+  {
+    return (
+      Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0
+    ) || (
+      Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0
+    );
   }
 
   if (filterKey === "capacity_limited")
@@ -152,9 +162,14 @@ function getAvailabilityFilterMeaning(filterKey)
     return "At least one breeder slot is open on the visible islands.";
   }
 
-  if (filterKey === "nursery_free")
+  if (filterKey === "need_now")
   {
-    return "At least one nursery slot is open on the visible islands.";
+    return "Tracked queue work is waiting on the visible islands right now.";
+  }
+
+  if (filterKey === "active")
+  {
+    return "Breeding or nursery work is already in motion on the visible islands.";
   }
 
   if (filterKey === "capacity_limited")
@@ -914,32 +929,6 @@ function IslandCard({
                     </button>
                   )}
 
-                  {canMaxCapacity && (
-                    confirmUpgradeAction === "max_capacity" ? (
-                      <>
-                        <button style={confirmButtonStyle} onClick={handleMaxCapacity}>
-                          Confirm Max Capacity
-                        </button>
-                        <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        style={{
-                          ...compactActionStyle,
-                          background: "rgba(245,158,11,0.16)",
-                          opacity: isConfirmingUpgrade ? 0.55 : 1,
-                          cursor: isConfirmingUpgrade ? "default" : "pointer",
-                        }}
-                        onClick={() => setConfirmUpgradeAction("max_capacity")}
-                        disabled={isConfirmingUpgrade}
-                      >
-                        Max Capacity
-                      </button>
-                    )
-                  )}
-
                   {(canReduceBreedingStructures || canReduceNurseries || canUpgradeBreedingStructures || canUpgradeNurseries) && (
                     <button
                       style={{
@@ -989,6 +978,34 @@ function IslandCard({
           <div style={{ fontSize: "13px", opacity: 0.72 }}>
             Capacity setup stays compact until you intentionally edit it here. Reverts require confirmation and cannot reduce below current live occupancy.
           </div>
+
+          {canMaxCapacity && (
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {confirmUpgradeAction === "max_capacity" ? (
+                <>
+                  <button style={confirmButtonStyle} onClick={handleMaxCapacity}>
+                    Confirm Max Capacity
+                  </button>
+                  <button style={cancelButtonStyle} onClick={() => setConfirmUpgradeAction(null)}>
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  style={{
+                    ...compactActionStyle,
+                    background: "rgba(245,158,11,0.16)",
+                    opacity: isConfirmingUpgrade ? 0.55 : 1,
+                    cursor: isConfirmingUpgrade ? "default" : "pointer",
+                  }}
+                  onClick={() => setConfirmUpgradeAction("max_capacity")}
+                  disabled={isConfirmingUpgrade}
+                >
+                  Max Capacity
+                </button>
+              )}
+            </div>
+          )}
 
           <div
             style={{

@@ -6,6 +6,8 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-06
+
 ### Added
 
 - Added `npm run release:tag` plus `data-entry/releaseTag.mjs` so intentional version cuts can end with a matching annotated git tag pushed to GitHub.
@@ -19,7 +21,9 @@ Do not create a fake release for every tiny edit.
 - Replaced the default Vite README with a real project front page covering the app purpose, feature set, workflows, Android path, and release/data commands.
 - Split the public repo docs away from the detailed operator/Codex workflow notes so GitHub now shows cleaner app-facing documentation while the private working notes can stay local.
 - Simplified the public repo surface again by removing the operator-style doc stubs from version control, keeping the public focus on the app docs and roadmap, and moving `data-entry/inboxArchive.md` out of the tracked repo.
-
+- Reworked the mobile app shell so the top screen navigation collapses into a compact `Screen` select instead of stacking full-width buttons above every page.
+- Reframed the home screen into a more operational `Right Now` command center with live counts for `Need Now`, `Breedable`, `Active Eggs`, and `Queue Pressure`, while removing the duplicated `Open ...` navigation buttons from the hero area.
+- Updated Island Manager filter semantics so `Need Now` and `Active` are first-class operational views, `Nursery Free` is retired, and `Max Capacity` now lives inside `Capacity Settings` instead of competing with top-level card actions.
 ## [0.2.0] - 2026-04-06
 
 ### Changed

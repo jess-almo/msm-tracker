@@ -48,6 +48,15 @@ const buttonBaseStyle = {
   boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
 };
 
+const SCREEN_OPTIONS = [
+  { key: "home", label: "Dashboard" },
+  { key: "active", label: "Active Sheets" },
+  { key: "collections", label: "Collections" },
+  { key: "queue", label: "Breeding Queue" },
+  { key: "planner", label: "Island Manager" },
+  { key: "directory", label: "Monster Library" },
+];
+
 function ScreenLoadingFallback({ label = "Loading screen..." })
 {
   return (
@@ -2028,6 +2037,51 @@ export default function App()
     );
   };
 
+  const needNowIslandCount = islandPlannerData.filter(
+    (island) => Array.isArray(island.needNow) && island.needNow.length > 0
+  ).length;
+  const breedableIslandCount = islandPlannerData.filter(
+    (island) => island.isUnlocked && Number(island.freeSlots || 0) > 0
+  ).length;
+  const activeIslandSessionCount = islandPlannerData.reduce(
+    (sum, island) =>
+      sum
+      + Number(island.currentlyBreeding?.length || 0)
+      + Number(island.nurserySessions?.length || 0),
+    0
+  );
+  const queuePressureCount = topQueueItems.reduce(
+    (sum, item) => sum + Number(item.actualRemaining || 0),
+    0
+  );
+
+  const openScreenByKey = (screenKey) =>
+  {
+    switch (screenKey)
+    {
+      case "home":
+        openHome();
+        break;
+      case "active":
+        openActiveSheets();
+        break;
+      case "collections":
+        openCollections();
+        break;
+      case "queue":
+        openQueue();
+        break;
+      case "planner":
+        openIslandPlanner();
+        break;
+      case "directory":
+        openDirectory();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div
       className="app-shell"
@@ -2050,6 +2104,25 @@ export default function App()
       <div style={{ fontSize: "16px", opacity: 0.72, marginBottom: "4px" }}>
         Wublin egg chaos, but dressed better.
       </div>
+
+      {view.screen !== "sheet" && (
+        <div className="mobile-screen-nav" style={{ width: "100%" }}>
+          <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.72, marginBottom: "8px" }}>
+            Screen
+          </div>
+          <select
+            className="mobile-screen-select"
+            value={view.screen}
+            onChange={(event) => openScreenByKey(event.target.value)}
+          >
+            {SCREEN_OPTIONS.map((screen) => (
+              <option key={`mobile-screen-${screen.key}`} value={screen.key}>
+                {screen.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div
         className="top-nav"
@@ -2120,30 +2193,71 @@ export default function App()
 
       {view.screen === "home" && (
         <div className="page-surface" style={{ gap: "16px" }}>
-          <div className="responsive-page-card" style={baseCardStyle}>
-            <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-              DASHBOARD
-            </div>
-            <div style={{ marginTop: "8px", fontSize: "30px", fontWeight: 700 }}>
-              Decide what matters, then go execute it
-            </div>
-            <div style={{ marginTop: "10px", opacity: 0.76 }}>
-              Collections holds the tracked goals, Island Manager runs the island floor, and the queue shows the pipeline pressure.
+          <div className="responsive-page-card" style={{ ...baseCardStyle, display: "grid", gap: "16px" }}>
+            <div>
+              <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                RIGHT NOW
+              </div>
+              <div style={{ marginTop: "8px", fontSize: "30px", fontWeight: 700 }}>
+                Work the live board, not the brochure
+              </div>
+              <div style={{ marginTop: "10px", opacity: 0.76 }}>
+                Let Island Manager answer what can move, let Active Sheets hold the goals, and let the queue show where pressure is building.
+              </div>
             </div>
 
-            <div className="dashboard-primary-actions" style={{ marginTop: "18px" }}>
-              <button style={buttonBaseStyle} onClick={openActiveSheets}>
-                Open Active Sheets
-              </button>
-              <button style={buttonBaseStyle} onClick={openCollections}>
-                Open Collections
-              </button>
-              <button style={buttonBaseStyle} onClick={openIslandPlanner}>
-                Open Island Manager
-              </button>
-              <button style={buttonBaseStyle} onClick={openQueue}>
-                Open Queue
-              </button>
+            <div className="dashboard-command-grid">
+              <div className="responsive-section-card" style={baseCardStyle}>
+                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                  NEED NOW
+                </div>
+                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
+                  {needNowIslandCount}
+                </div>
+                <div style={{ marginTop: "6px", opacity: 0.72 }}>
+                  islands with tracked work waiting
+                </div>
+              </div>
+
+              <div className="responsive-section-card" style={baseCardStyle}>
+                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                  BREEDABLE
+                </div>
+                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
+                  {breedableIslandCount}
+                </div>
+                <div style={{ marginTop: "6px", opacity: 0.72 }}>
+                  islands with open breeder space
+                </div>
+              </div>
+
+              <div className="responsive-section-card" style={baseCardStyle}>
+                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                  ACTIVE EGGS
+                </div>
+                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
+                  {activeIslandSessionCount}
+                </div>
+                <div style={{ marginTop: "6px", opacity: 0.72 }}>
+                  breeding or nursery sessions in motion
+                </div>
+              </div>
+
+              <div className="responsive-section-card" style={baseCardStyle}>
+                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                  QUEUE PRESSURE
+                </div>
+                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
+                  {queuePressureCount}
+                </div>
+                <div style={{ marginTop: "6px", opacity: 0.72 }}>
+                  tracked eggs still needed across the top queue
+                </div>
+              </div>
+            </div>
+
+            <div style={{ fontSize: "13px", opacity: 0.68 }}>
+              If you just opened the app on mobile, start with <strong>Island Manager</strong> for live capacity, then drop into <strong>Active Sheets</strong> when you need the exact row-level work.
             </div>
           </div>
 
@@ -2203,24 +2317,18 @@ export default function App()
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
                 gap: "12px",
                 alignItems: "center",
-                flexWrap: "wrap",
               }}
             >
               <div>
                 <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  ACTIVE VESSEL SUMMARY
+                  FOCUS
                 </div>
                 <div style={{ marginTop: "6px", fontSize: "24px", fontWeight: 700 }}>
-                  Focused goals, not the whole archive
+                  Active sheets driving the next moves
                 </div>
               </div>
-
-              <button style={buttonBaseStyle} onClick={openCollections}>
-                Open Collections
-              </button>
             </div>
 
             {activeVesselSummary.length === 0 ? (
@@ -2288,10 +2396,8 @@ export default function App()
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
                 gap: "12px",
                 alignItems: "center",
-                flexWrap: "wrap",
               }}
             >
               <div>
@@ -2302,10 +2408,6 @@ export default function App()
                   Pipeline pressure at a glance
                 </div>
               </div>
-
-              <button style={buttonBaseStyle} onClick={openQueue}>
-                Open queue
-              </button>
             </div>
 
             {topQueueItems.length === 0 ? (
