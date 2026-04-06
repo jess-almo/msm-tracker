@@ -208,6 +208,14 @@ textarea {
   flex: 0 0 auto;
 }
 
+.island-scroll-top {
+  position: fixed;
+  left: max(16px, calc(50vw - 640px));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+}
+
 .sheet-monster-body {
   display: grid;
   gap: 12px;
@@ -315,6 +323,14 @@ textarea {
   .island-availability-row > button {
     flex: 1 1 calc(50% - 10px);
     min-width: 0;
+  }
+
+  .island-scroll-top {
+    left: auto;
+    right: 16px;
+    top: auto;
+    bottom: 20px;
+    transform: none;
   }
 
   .sheet-monster-meta-row {

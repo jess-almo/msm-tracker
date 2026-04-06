@@ -8,6 +8,7 @@ Do not create a fake release for every tiny edit.
 
 ### Changed
 
+- Added a planner-only floating `Top` control in Island Manager so once you scroll deep into the island list you can jump back to the top quickly without manually dragging all the way back up.
 - Reworked Monster Directory category behavior so the `Amber` filter now follows the app's real 32-species Amber vessel set instead of only the 6 monsters literally tagged `category: "amber"` in the raw database, and replaced the old alphabetical category-button order with a more intentional operational browse order.
 - Simplified Collections section headers so vessel and island group counts now read directly in the heading line instead of floating as detached mobile badges.
 - Added mobile-friendly select controls for Collections `Status` and `Family` filters so the page stops stacking a long wall of filter buttons on phones.

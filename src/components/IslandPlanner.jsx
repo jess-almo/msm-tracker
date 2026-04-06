@@ -2133,6 +2133,7 @@ export default function IslandPlanner({
   const [activeTab, setActiveTab] = useState(ALL_REGIONS_FILTER);
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
   const [highlightedIslandKey, setHighlightedIslandKey] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const islandCardRefs = useRef(new Map());
 
   const groupedPlannerData = useMemo(() =>
@@ -2196,6 +2197,19 @@ export default function IslandPlanner({
     return () => clearTimeout(timeout);
   }, [highlightedIslandKey]);
 
+  useEffect(() =>
+  {
+    function handleScroll()
+    {
+      setShowScrollTop(window.scrollY > 720);
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   function handleJumpToIsland(island)
   {
     const islandKey = island.islandKey || island.island;
@@ -2211,6 +2225,14 @@ export default function IslandPlanner({
       block: "start",
     });
     setHighlightedIslandKey(islandKey);
+  }
+
+  function handleScrollToTop()
+  {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   return (
@@ -2313,6 +2335,22 @@ export default function IslandPlanner({
           </div>
         )}
       </div>
+
+      {showScrollTop && (
+        <button
+          className="island-scroll-top"
+          style={{
+            ...compactActionStyle,
+            padding: "10px 14px",
+            background: "rgba(59,130,246,0.16)",
+            border: "1px solid rgba(96,165,250,0.3)",
+            boxShadow: "0 12px 30px rgba(0,0,0,0.24)",
+          }}
+          onClick={handleScrollToTop}
+        >
+          ↑ Top
+        </button>
+      )}
 
       <div style={{ display: "grid", gap: "16px" }}>
         {visibleIslands.length === 0 ? (
