@@ -1,35 +1,76 @@
 # TODO
 
-Current project priorities and likely next steps.
+MSM Tracker's active operating list.
 
-## Android Phase
+Use this file for:
+- the next 1-3 things we are actually working on
+- the minimum bar for the next release
+- the current Android packaging routine
 
-- Finish Android Studio / SDK setup on the current machine
-- Build the first real debug APK and install it on a device
-- Change the Android app id to `com.jalmo.msmtracker`
-- Use `J.almo` as the visible developer/storefront name
-- Add app icon, splash, and basic Android polish
+Do not let this turn into a graveyard of every idea. Move finished work to [`CHANGELOG.md`](./CHANGELOG.md) and keep this biased toward the next real milestone.
 
-## Mobile Polish
+## Now
 
-- Keep tuning Island Manager and other dense screens from real-device use
-- Improve touch comfort, spacing, and long-session navigation
-- Verify Android back-button behavior once the wrapped app is running on device
+- Use the new Island Manager reconciliation flow during real breeding/zapping and note any mismatch cases it still fails to repair cleanly.
+- Add a stronger correction workflow for wrong zaps and wrong assignments:
+  - island-side reconcile stays as the first recovery surface
+  - later add faster reassign/correction helpers where the friction is highest
+- Keep tightening consistency across Collections, Dashboard, Island Manager, and Monster Library so the app feels like one design system.
 
-## Data Expansion
+## Before Next Release
 
-- Keep promoting parsed breeding data into runtime coverage
-- Expand runtime monster coverage beyond the current operational-completeness target
-- Improve Rare and Epic metadata where the app already has partial support
+- Sanity-check the reconciliation flow in actual play, not just ideal test cases.
+- Decide whether the current unreleased work feels like `0.4.0` or should wait for one more safety/polish pass.
+- Run the release routine:
 
-## Product Features
+```bash
+npm run release:review
+```
 
-- Improve Monster Directory as the main in-app reference surface
-- Explore recipe/discovery support built on manual breeding sessions
-- Add broader collection support over time, including more complete Rare/Epic tracking
-- Explore limited-time/event goal activation once the data layer is strong enough
+- If eligible and worth cutting:
 
-## Safety / Quality
+```bash
+npm run release:prepare -- <version>
+npm run build
+npm run release:tag -- --dry-run
+```
 
-- Add a practical backup/export path before relying on the Android app heavily
-- Keep cutting intentional tagged releases instead of letting `Unreleased` grow forever
+- Then commit, push, tag, and publish the GitHub release with the newest APK asset.
+
+## Android Routine
+
+- For fast web iteration, keep using:
+
+```bash
+npm run dev
+```
+
+- For Android checkpoint testing on emulator/device:
+
+```bash
+npm run android:refresh-debug
+```
+
+- That routine should:
+  - build the newest web app
+  - sync it into Capacitor
+  - install the newest debug APK onto the running emulator/device
+
+- Still needed for Android:
+  - change app id to `com.jalmo.msmtracker`
+  - use `J.almo` as the visible developer/storefront identity
+  - add app icon, splash, and basic Android polish
+  - eventually move from debug APK sharing to a proper signed release APK
+
+## Safety / Data
+
+- Add backup/export/import before relying on cross-device use heavily.
+- Keep improving reconciliation so tracker drift can be repaired from game truth instead of manual unraveling.
+- Expand data coverage where it materially improves the live app, not just for encyclopedia completeness.
+
+## Later
+
+- Improve Monster Directory as the main in-app reference surface.
+- Explore recipe/discovery support built on manual breeding sessions.
+- Add broader collection support over time, including more complete Rare/Epic tracking.
+- Explore limited-time or event goal activation once the data layer is strong enough.

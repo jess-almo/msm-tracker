@@ -91,3 +91,13 @@ The repo now includes a Capacitor Android wrapper.
 - details: [docs/ANDROID.md](./ANDROID.md)
 
 The Android layer packages the same web app. It is not a second frontend or second state system.
+
+## Working Routine
+
+Use [`TODO.md`](../TODO.md) as the active operating list for:
+
+- the next real product targets
+- the minimum bar for the next release
+- the current Android test/install routine
+
+Use [`CHANGELOG.md`](../CHANGELOG.md) for completed notable work and released milestones.
