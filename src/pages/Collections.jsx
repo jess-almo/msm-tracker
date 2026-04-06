@@ -408,7 +408,7 @@ function getTemplateStatus(instances)
   return "complete";
 }
 
-function getWublinTemplateSortSummary(instances)
+function getVesselTemplateSortSummary(instances)
 {
   const sortedInstances = [...instances].sort(sortSheetsByOperationalOrder);
   const primaryInstance = sortedInstances[0];
@@ -422,7 +422,7 @@ function getWublinTemplateSortSummary(instances)
   };
 }
 
-function getWublinTemplateProgress(instances)
+function getVesselTemplateProgress(instances)
 {
   const totals = instances.reduce(
     (summary, sheet) =>
@@ -464,7 +464,7 @@ function getWublinTemplateProgress(instances)
   };
 }
 
-function getVisibleWublinInstanceLabel(sheet, visibleInstances)
+function getVisibleTemplateInstanceLabel(sheet, visibleInstances)
 {
   const baseName = sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle || "";
 
@@ -476,10 +476,10 @@ function getVisibleWublinInstanceLabel(sheet, visibleInstances)
   return `${baseName} #${Number(sheet.instanceNumber || 1)}`;
 }
 
-function sortWublinTemplateGroups(a, b)
+function sortVesselTemplateGroups(a, b)
 {
-  const aSummary = getWublinTemplateSortSummary(a);
-  const bSummary = getWublinTemplateSortSummary(b);
+  const aSummary = getVesselTemplateSortSummary(a);
+  const bSummary = getVesselTemplateSortSummary(b);
   const statusPriorityDelta = getStatusPriority(aSummary.status) - getStatusPriority(bSummary.status);
 
   if (statusPriorityDelta !== 0)
@@ -518,6 +518,11 @@ function sortWublinTemplateGroups(a, b)
   const bName = bSummary.name || "";
 
   return aName.localeCompare(bName);
+}
+
+function getTemplateCollectionUnlocked(instances)
+{
+  return instances.some((sheet) => sheet.isCollected || getSheetState(sheet).complete);
 }
 
 function renderSectionHeader({
@@ -684,7 +689,7 @@ function VesselSheetCard({
   );
 }
 
-function WublinTemplateCard({
+function VesselTemplateCard({
   instances,
   onOpenSheet,
   onCreateAnotherSheetInstance,
@@ -698,12 +703,20 @@ function WublinTemplateCard({
   const primaryInstance = sortedInstances[0];
   const activeInstance = sortedInstances.find((sheet) => sheet.isActive) || null;
   const activatableInstance = sortedInstances.find((sheet) => canActivateSheet(sheet)) || null;
-  const summary = getWublinTemplateSortSummary(sortedInstances);
-  const totals = getWublinTemplateProgress(sortedInstances);
+  const summary = getVesselTemplateSortSummary(sortedInstances);
+  const totals = getVesselTemplateProgress(sortedInstances);
+  const familyKey = getVesselGroupKey(primaryInstance);
+  const familyLabel = getVesselGroupLabel(familyKey);
+  const collectionUnlocked = getTemplateCollectionUnlocked(sortedInstances);
   const visualStyle = getStatusVisualStyle(summary.status);
   const statusSummaryParts = [
     `${totals.instanceCount} tracked run${totals.instanceCount === 1 ? "" : "s"}`,
   ];
+
+  if (collectionUnlocked)
+  {
+    statusSummaryParts.unshift("collection unlocked");
+  }
 
   if (totals.activeCount > 0)
   {
@@ -746,7 +759,7 @@ function WublinTemplateCard({
             {summary.name}
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-            {primaryInstance.collectionName} · Common Wublin template
+            {primaryInstance.collectionName} · {familyKey === "wublin" ? "species entry" : `${familyLabel} collection entry`}
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
             {statusSummaryParts.join(" · ")}
@@ -795,7 +808,7 @@ function WublinTemplateCard({
           const instanceStatus = getDerivedSheetStatus(sheet);
           const instanceProgress = getSheetState(sheet);
           const instanceVisualStyle = getStatusVisualStyle(instanceStatus);
-          const instanceLabel = getVisibleWublinInstanceLabel(sheet, sortedInstances);
+          const instanceLabel = getVisibleTemplateInstanceLabel(sheet, sortedInstances);
           const deleteBlockState = getDeleteInstanceBlockState?.(sheet.key) || {
             kind: "",
             reason: "",
@@ -969,7 +982,7 @@ function WublinTemplateCard({
             style={actionButtonStyle}
             onClick={() => onCreateAnotherSheetInstance?.(primaryInstance.key)}
           >
-            {totals.hasCompletedInstance ? "Create New Instance" : "Create Another Instance"}
+            {totals.hasCompletedInstance ? "Create New Run" : "Create Another Run"}
           </button>
         </div>
       </div>
@@ -1121,47 +1134,39 @@ export default function Collections({
     return grouped;
   }, [vesselSheets]);
 
-  const standardVesselGroups = useMemo(() =>
+  const groupedVesselTemplateGroups = useMemo(() =>
   {
-    return {
-      amber: vesselGroups.amber
-        .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
-        .sort(sortSheetsByOperationalOrder),
-      celestial: vesselGroups.celestial
-        .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
-        .sort(sortSheetsByOperationalOrder),
-      other: vesselGroups.other
-        .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
-        .sort(sortSheetsByOperationalOrder),
-    };
-  }, [statusFilter, vesselGroups]);
-
-  const visibleWublinTemplateGroups = useMemo(() =>
-  {
-    const groupedTemplates = new Map();
-
-    vesselGroups.wublin
-      .filter(isCommonWublinSheet)
-      .forEach((sheet) =>
+    return Object.fromEntries(
+      Object.entries(vesselGroups).map(([familyKey, familySheets]) =>
       {
-        const templateKey = sheet.templateKey || sheet.templateName || sheet.monsterName;
-        const existing = groupedTemplates.get(templateKey) || [];
+        const groupedTemplates = new Map();
 
-        groupedTemplates.set(templateKey, [...existing, sheet]);
-      });
+        familySheets
+          .filter((sheet) => familyKey !== "wublin" || isCommonWublinSheet(sheet))
+          .forEach((sheet) =>
+          {
+            const templateKey = sheet.templateKey || sheet.templateName || sheet.monsterName || sheet.key;
+            const existing = groupedTemplates.get(templateKey) || [];
 
-    return Array.from(groupedTemplates.values())
-      .map((instances) => [...instances].sort(sortSheetsByOperationalOrder))
-      .filter((instances) => matchesStatusFilter(getTemplateStatus(instances), statusFilter))
-      .sort(sortWublinTemplateGroups);
-  }, [statusFilter, vesselGroups.wublin]);
+            groupedTemplates.set(templateKey, [...existing, sheet]);
+          });
+
+        const templateGroups = Array.from(groupedTemplates.values())
+          .map((instances) => [...instances].sort(sortSheetsByOperationalOrder))
+          .filter((instances) => matchesStatusFilter(getTemplateStatus(instances), statusFilter))
+          .sort(sortVesselTemplateGroups);
+
+        return [familyKey, templateGroups];
+      })
+    );
+  }, [statusFilter, vesselGroups]);
 
   const vesselFamilyCounts = useMemo(() =>
   {
-    const amberCount = standardVesselGroups.amber.length;
-    const wublinCount = visibleWublinTemplateGroups.length;
-    const celestialCount = standardVesselGroups.celestial.length;
-    const otherCount = standardVesselGroups.other.length;
+    const amberCount = groupedVesselTemplateGroups.amber.length;
+    const wublinCount = groupedVesselTemplateGroups.wublin.length;
+    const celestialCount = groupedVesselTemplateGroups.celestial.length;
+    const otherCount = groupedVesselTemplateGroups.other.length;
 
     return {
       all: amberCount + wublinCount + celestialCount + otherCount,
@@ -1170,7 +1175,7 @@ export default function Collections({
       celestial: celestialCount,
       other: otherCount,
     };
-  }, [standardVesselGroups, visibleWublinTemplateGroups]);
+  }, [groupedVesselTemplateGroups]);
 
   const visibleVesselFamilyFilterOptions = useMemo(() =>
   {
@@ -1187,18 +1192,26 @@ export default function Collections({
 
   const visibleVesselSections = useMemo(() =>
   {
+    const sectionSubtitles = {
+      amber: "Species-first browsing for Amber work, with tracked runs nested underneath each collection entry.",
+      wublin: "Species-first browsing for common Wublin templates, with tracked runs nested underneath.",
+      celestial: "Species-first browsing for current Celestial work and duplicate-run tracking.",
+      other: "Grouped species view for any other vessel-style families that reuse the shared sheet backbone.",
+    };
     const sections = [
       {
         key: "amber",
         title: "Amber",
-        subtitle: "Priority-sorted vessel sheets for active Amber work.",
-        count: standardVesselGroups.amber.length,
-        cards: standardVesselGroups.amber.map((sheet) => (
-          <VesselSheetCard
-            key={sheet.key}
-            sheet={sheet}
+        subtitle: sectionSubtitles.amber,
+        count: groupedVesselTemplateGroups.amber.length,
+        cards: groupedVesselTemplateGroups.amber.map((instances) => (
+          <VesselTemplateCard
+            key={instances[0]?.templateKey || instances[0]?.monsterName || instances[0]?.key}
+            instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onDeleteSheetInstance={onDeleteSheetInstance}
+            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
           />
         )),
@@ -1206,10 +1219,10 @@ export default function Collections({
       {
         key: "wublin",
         title: "Common Wublins",
-        subtitle: "Species-first browsing for common Wublin templates, with tracked runs nested underneath.",
-        count: visibleWublinTemplateGroups.length,
-        cards: visibleWublinTemplateGroups.map((instances) => (
-          <WublinTemplateCard
+        subtitle: sectionSubtitles.wublin,
+        count: groupedVesselTemplateGroups.wublin.length,
+        cards: groupedVesselTemplateGroups.wublin.map((instances) => (
+          <VesselTemplateCard
             key={instances[0]?.templateKey || instances[0]?.monsterName}
             instances={instances}
             onOpenSheet={onOpenSheet}
@@ -1223,14 +1236,16 @@ export default function Collections({
       {
         key: "celestial",
         title: "Celestial",
-        subtitle: "Reserved for current Celestial tracking sheets.",
-        count: standardVesselGroups.celestial.length,
-        cards: standardVesselGroups.celestial.map((sheet) => (
-          <VesselSheetCard
-            key={sheet.key}
-            sheet={sheet}
+        subtitle: sectionSubtitles.celestial,
+        count: groupedVesselTemplateGroups.celestial.length,
+        cards: groupedVesselTemplateGroups.celestial.map((instances) => (
+          <VesselTemplateCard
+            key={instances[0]?.templateKey || instances[0]?.monsterName || instances[0]?.key}
+            instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onDeleteSheetInstance={onDeleteSheetInstance}
+            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
           />
         )),
@@ -1238,14 +1253,16 @@ export default function Collections({
       {
         key: "other",
         title: "Other",
-        subtitle: "Other vessel-style tracking families that reuse the shared sheet backbone.",
-        count: standardVesselGroups.other.length,
-        cards: standardVesselGroups.other.map((sheet) => (
-          <VesselSheetCard
-            key={sheet.key}
-            sheet={sheet}
+        subtitle: sectionSubtitles.other,
+        count: groupedVesselTemplateGroups.other.length,
+        cards: groupedVesselTemplateGroups.other.map((instances) => (
+          <VesselTemplateCard
+            key={instances[0]?.templateKey || instances[0]?.monsterName || instances[0]?.key}
+            instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onDeleteSheetInstance={onDeleteSheetInstance}
+            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
           />
         )),
@@ -1267,9 +1284,8 @@ export default function Collections({
     getDeleteInstanceBlockState,
     onOpenSheet,
     onToggleSheetActive,
-    standardVesselGroups,
     vesselFamilyFilter,
-    visibleWublinTemplateGroups,
+    groupedVesselTemplateGroups,
   ]);
 
   const islandGroupByName = useMemo(
@@ -1366,7 +1382,7 @@ export default function Collections({
             </div>
 
             <div style={{ fontSize: "13px", opacity: 0.64 }}>
-              Common Wublins are grouped by template here so activation and duplicate-run management stay readable.
+              Collections consolidate each species once here, while keeping duplicate tracked runs nested underneath it.
             </div>
           </>
         )}

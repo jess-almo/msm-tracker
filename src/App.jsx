@@ -570,7 +570,7 @@ function getCollectionSheetCounts(collectionKey, sheets)
 
   relevantSheets.forEach((sheet) =>
   {
-    const identity = sheet.supportsMultipleInstances && sheet.templateKey
+    const identity = getSheetType(sheet) === "vessel" && sheet.templateKey
       ? sheet.templateKey
       : sheet.key;
     const existing = collectionProgressByIdentity.get(identity) || {
@@ -610,7 +610,7 @@ function getSheetDisplayName(sheet)
 
 function getSheetDisplayNameForVisibleList(sheet, visibleSheets = [])
 {
-  if (!sheet?.supportsMultipleInstances)
+  if (getSheetType(sheet) !== "vessel" || !sheet?.templateKey)
   {
     return getSheetDisplayName(sheet);
   }
@@ -620,7 +620,6 @@ function getSheetDisplayNameForVisibleList(sheet, visibleSheets = [])
   {
     return (
       getSheetType(candidate) === "vessel"
-      && candidate.supportsMultipleInstances
       && (candidate.templateKey || candidate.templateName || candidate.monsterName || "")
         === templateIdentity
     );
@@ -631,7 +630,101 @@ function getSheetDisplayNameForVisibleList(sheet, visibleSheets = [])
     return sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle;
   }
 
-  return sheet.displayName || sheet.monsterName;
+  if (Number(sheet.instanceNumber || 0) > 0)
+  {
+    return `${sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle} #${Number(sheet.instanceNumber)}`;
+  }
+
+  if (sheet.isDuplicateInstance)
+  {
+    return sheet.displayName || sheet.monsterName;
+  }
+
+  return sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle;
+}
+
+function getSheetTemplateIdentity(sheet)
+{
+  if (getSheetType(sheet) !== "vessel")
+  {
+    return "";
+  }
+
+  return sheet.templateKey || sheet.templateName || sheet.monsterName || "";
+}
+
+function canCreateDuplicateSheetRun(sheet)
+{
+  return (
+    getSheetType(sheet) === "vessel"
+    && sheet?.allowsDuplicateRuns !== false
+    && Boolean(getSheetTemplateIdentity(sheet))
+  );
+}
+
+function canDeleteDuplicateSheetRun(sheet, sheets)
+{
+  if (!canCreateDuplicateSheetRun(sheet))
+  {
+    return false;
+  }
+
+  const templateIdentity = getSheetTemplateIdentity(sheet);
+  const templateInstanceCount = sheets.filter(
+    (entry) => getSheetTemplateIdentity(entry) === templateIdentity
+  ).length;
+
+  return templateInstanceCount > 1;
+}
+
+function getCollectionUnlockedAcrossTemplate(sheet, sheets)
+{
+  const templateIdentity = getSheetTemplateIdentity(sheet);
+
+  if (!templateIdentity)
+  {
+    return Boolean(sheet?.isCollected);
+  }
+
+  return sheets.some((entry) =>
+  {
+    return (
+      getSheetTemplateIdentity(entry) === templateIdentity
+      && Boolean(entry.isCollected)
+    );
+  });
+}
+
+function getTemplateInstanceCount(sheet, sheets)
+{
+  const templateIdentity = getSheetTemplateIdentity(sheet);
+
+  if (!templateIdentity)
+  {
+    return 0;
+  }
+
+  return sheets.filter((entry) => getSheetTemplateIdentity(entry) === templateIdentity).length;
+}
+
+function getNextSheetInstanceNumber(sheet, sheets)
+{
+  const templateIdentity = getSheetTemplateIdentity(sheet);
+
+  if (!templateIdentity)
+  {
+    return 1;
+  }
+
+  return sheets.reduce((maxInstanceNumber, entry) =>
+  {
+    if (getSheetTemplateIdentity(entry) !== templateIdentity)
+    {
+      return maxInstanceNumber;
+    }
+
+    return Math.max(maxInstanceNumber, Number(entry.instanceNumber || 0));
+  }, 0) + 1;
 }
 
 function getSheetSubtitle(sheet)
@@ -1040,24 +1133,16 @@ export default function App()
 
     if (
       !sourceSheet ||
-      getSheetType(sourceSheet) !== "vessel" ||
-      !sourceSheet.supportsMultipleInstances ||
-      !sourceSheet.templateKey
+      !canCreateDuplicateSheetRun(sourceSheet)
     )
     {
       return;
     }
 
-    const nextInstanceNumber = sheets.reduce((maxInstanceNumber, sheet) =>
-    {
-      if (sheet.templateKey !== sourceSheet.templateKey)
-      {
-        return maxInstanceNumber;
-      }
-
-      return Math.max(maxInstanceNumber, Number(sheet.instanceNumber || 0));
-    }, 0) + 1;
-    const nextSheet = createTrackerSheetInstanceFromSeed(sourceSheet, nextInstanceNumber);
+    const nextInstanceNumber = getNextSheetInstanceNumber(sourceSheet, sheets);
+    const nextSheet = createTrackerSheetInstanceFromSeed(sourceSheet, nextInstanceNumber, {
+      forceDuplicateInstance: true,
+    });
 
     setSheets((prev) =>
     {
@@ -1084,15 +1169,12 @@ export default function App()
 
     if (
       !targetSheet ||
-      getSheetType(targetSheet) !== "vessel" ||
-      !targetSheet.supportsMultipleInstances ||
-      targetSheet.systemKey !== "wublin" ||
-      !targetSheet.templateKey
+      !canCreateDuplicateSheetRun(targetSheet)
     )
     {
       return {
         kind: "invalid_target",
-        reason: "Only tracked Wublin instances can be deleted here.",
+        reason: "Only duplicate-capable vessel runs can be deleted here.",
       };
     }
 
@@ -1100,7 +1182,7 @@ export default function App()
     {
       return {
         kind: "active",
-        reason: "Deactivate this Wublin instance before deleting it.",
+        reason: "Deactivate this tracked run before deleting it.",
       };
     }
 
@@ -1116,9 +1198,7 @@ export default function App()
       };
     }
 
-    const templateInstanceCount = sheets.filter(
-      (sheet) => sheet.templateKey === targetSheet.templateKey
-    ).length;
+    const templateInstanceCount = getTemplateInstanceCount(targetSheet, sheets);
 
     if (templateInstanceCount <= 1)
     {
@@ -1151,7 +1231,7 @@ export default function App()
     }
 
     const confirmed = window.confirm(
-      `Delete ${getSheetDisplayName(targetSheet)}? This removes only this tracked Wublin instance and cannot be undone.`
+      `Delete ${getSheetDisplayName(targetSheet)}? This removes only this tracked run and cannot be undone.`
     );
 
     if (!confirmed)
@@ -1985,19 +2065,49 @@ export default function App()
 
   const toggleSheetCollected = (sheetKey) => 
 {
+    const targetSheet = sheets.find((entry) => entry.key === sheetKey);
+
+    if (!targetSheet)
+    {
+      return;
+    }
+
+    const templateIdentity = getSheetTemplateIdentity(targetSheet);
+    const nextCollected = !getCollectionUnlockedAcrossTemplate(targetSheet, sheets);
+
+    if (!nextCollected)
+    {
+      const confirmed = window.confirm("Remove collected status?");
+
+      if (!confirmed)
+      {
+        return;
+      }
+    }
+
+    if (templateIdentity)
+    {
+      setSheets((prev) =>
+        prev.map((sheet) =>
+        {
+          if (getSheetTemplateIdentity(sheet) !== templateIdentity)
+          {
+            return sheet;
+          }
+
+          return {
+            ...sheet,
+            isCollected: nextCollected,
+          };
+        })
+      );
+
+      return;
+    }
+
     updateSheet(sheetKey, (sheet) => 
 {
-      if (sheet.isCollected)
-      {
-        const confirmed = window.confirm("Remove collected status?");
-
-        if (!confirmed)
-        {
-          return sheet;
-        }
-      }
-
-      sheet.isCollected = !sheet.isCollected;
+      sheet.isCollected = nextCollected;
       return sheet;
     });
   };
@@ -2491,7 +2601,7 @@ export default function App()
               ← Collections
             </button>
 
-            {selectedSheet.supportsMultipleInstances && (
+            {canCreateDuplicateSheetRun(selectedSheet) && (
               <button
                 style={buttonBaseStyle}
                 onClick={() => createAnotherSheetInstance(selectedSheet.key)}

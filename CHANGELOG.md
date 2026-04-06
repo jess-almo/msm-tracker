@@ -11,6 +11,7 @@ Do not create a fake release for every tiny edit.
 - Simplified the Collections browsing surface so the filters read more clearly as `Browser`, `Status`, and `Family`, hid empty vessel-family options, and renamed the status labels to more operational wording like `Working` and `Ready to Start`.
 - Surfaced direct `Activate` and `Deactivate` controls on collection cards instead of forcing everything through the full sheet view, and added a clearer top-level `Activate Next Run` action for grouped common Wublin templates.
 - Gave the desktop workspace a bit more horizontal room and introduced a responsive Collections card grid so the web app uses side space more intentionally while mobile stays single-column and compact.
+- Started separating collection identity from live run instances by consolidating all vessel families around species-level collection entries, sharing collected-state truth across duplicate-capable vessel runs, and letting new duplicate runs be created beyond the original singleton seed sheets.
 
 ## [0.3.0] - 2026-04-06
 

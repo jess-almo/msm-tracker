@@ -61,6 +61,8 @@ export function createTrackerSheet({
   templateKey,
   instanceNumber = 1,
   supportsMultipleInstances = false,
+  allowsDuplicateRuns = true,
+  isDuplicateInstance = false,
   notes = "",
   templateNotes = "",
   totalEggs = 0,
@@ -89,6 +91,8 @@ export function createTrackerSheet({
     templateName: targetMonsterName,
     instanceNumber,
     supportsMultipleInstances: Boolean(supportsMultipleInstances),
+    allowsDuplicateRuns: Boolean(allowsDuplicateRuns),
+    isDuplicateInstance: Boolean(isDuplicateInstance),
     displayName: resolvedDisplayName,
     monsterName: targetMonsterName,
     collectionKey,
@@ -107,11 +111,18 @@ export function createTrackerSheet({
   };
 }
 
-export function createTrackerSheetInstanceFromSeed(seedSheet, instanceNumber)
+export function createTrackerSheetInstanceFromSeed(seedSheet, instanceNumber, options = {})
 {
   const targetMonsterName = seedSheet.templateName || seedSheet.monsterName;
   const supportsMultipleInstances = Boolean(seedSheet.supportsMultipleInstances);
-  const resolvedInstanceNumber = supportsMultipleInstances
+  const forceDuplicateInstance = Boolean(options.forceDuplicateInstance);
+  const shouldUseInstanceIdentity = Boolean(
+    supportsMultipleInstances
+    || seedSheet.isDuplicateInstance
+    || forceDuplicateInstance
+    || Math.max(1, Number(instanceNumber || seedSheet.instanceNumber || 1)) > 1
+  );
+  const resolvedInstanceNumber = shouldUseInstanceIdentity
     ? Math.max(1, Number(instanceNumber || seedSheet.instanceNumber || 1))
     : Math.max(1, Number(seedSheet.instanceNumber || 1));
   const resolvedTemplateKey = seedSheet.templateKey
@@ -123,16 +134,18 @@ export function createTrackerSheetInstanceFromSeed(seedSheet, instanceNumber)
     collectionKey: seedSheet.collectionKey,
     collectionName: seedSheet.collectionName,
     priority: seedSheet.priority,
-    sheetTitle: supportsMultipleInstances
+    sheetTitle: shouldUseInstanceIdentity
       ? createInstanceDisplayName(targetMonsterName, resolvedInstanceNumber, true)
       : seedSheet.sheetTitle,
     lanes: Array.isArray(seedSheet.lanes) ? seedSheet.lanes : [],
-    key: supportsMultipleInstances
+    key: shouldUseInstanceIdentity
       ? createTrackerInstanceKey(resolvedTemplateKey, resolvedInstanceNumber)
       : seedSheet.key,
     templateKey: resolvedTemplateKey,
     instanceNumber: resolvedInstanceNumber,
     supportsMultipleInstances,
+    allowsDuplicateRuns: seedSheet.allowsDuplicateRuns !== false,
+    isDuplicateInstance: shouldUseInstanceIdentity,
     notes: seedSheet.templateNotes || seedSheet.notes || "",
     templateNotes: seedSheet.templateNotes || seedSheet.notes || "",
     totalEggs: Number(seedSheet.totalEggs || 0),
@@ -140,7 +153,7 @@ export function createTrackerSheetInstanceFromSeed(seedSheet, instanceNumber)
     displayName: createInstanceDisplayName(
       targetMonsterName,
       resolvedInstanceNumber,
-      supportsMultipleInstances
+      shouldUseInstanceIdentity
     ),
   });
 }
@@ -223,6 +236,7 @@ function createIslandCollectionSheet(islandName, priority)
     priority,
     isActive: false,
     isCollected: false,
+    allowsDuplicateRuns: false,
     status: "ACTIVE",
     lanes: [],
     monsters: createIslandCollectionMonsters(islandName),
