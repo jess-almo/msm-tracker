@@ -34,7 +34,10 @@ npm run release:review
 ```bash
 npm run release:prepare -- <version>
 npm run build
+npm run release:notes
+npm run android:package-debug
 npm run release:tag -- --dry-run
+npm run release:guide
 ```
 
 - Then commit, push, tag, and publish the GitHub release with the newest APK asset.
@@ -51,6 +54,12 @@ npm run dev
 
 ```bash
 npm run android:refresh-debug
+```
+
+- For a releasable debug APK asset:
+
+```bash
+npm run android:package-debug
 ```
 
 - That routine should:

@@ -14,6 +14,7 @@ MSM Tracker now has a first Android wrapper path using Capacitor.
 
 - `npm run android:doctor`
 - `npm run android:sync`
+- `npm run android:package-debug`
 - `npm run android:install-debug`
 - `npm run android:refresh-debug`
 - `npm run android:open`
@@ -44,6 +45,12 @@ npm run android:refresh-debug
 6. If you need the raw debug APK file for sharing or release assets:
 
 ```bash
+npm run android:package-debug
+```
+
+7. Or run Gradle directly if you need the native wrapper command:
+
+```bash
 cd android
 gradlew.bat assembleDebug
 ```
@@ -68,6 +75,9 @@ Before cutting another version, use the active checklist in [`TODO.md`](../TODO.
 
 ```bash
 npm run release:review
+npm run release:notes
+npm run android:package-debug
+npm run release:guide
 ```
 
 That keeps the Android packaging routine aligned with release eligibility instead of treating APK builds as a separate side quest.

@@ -1,6 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { MONSTER_DATABASE } from "../data/monsterDatabase";
 import {
+  AMBER_TRACKER_SHEET_DEFAULTS,
+  BOSKUS_DEFAULT,
+  ZIGGURAB_DEFAULT,
+} from "../data/sheets";
+import {
   getBreedingComboByMonsterName,
   getBreedingTimeDataByMonsterName,
 } from "../utils/breedingCombos";
@@ -112,6 +117,28 @@ const CORE_ELEMENTS = [
   "Depths",
   "Electricity",
 ];
+
+const CATEGORY_ORDER = [
+  "natural",
+  "fire",
+  "amber",
+  "magical",
+  "ethereal",
+  "mythical",
+  "legendary",
+  "seasonal",
+  "celestial",
+  "dipster",
+  "titansoul",
+  "paironormal",
+  "primordial",
+];
+
+const AMBER_CATEGORY_MONSTER_NAMES = new Set([
+  BOSKUS_DEFAULT.monsterName,
+  ZIGGURAB_DEFAULT.monsterName,
+  ...AMBER_TRACKER_SHEET_DEFAULTS.map((sheet) => sheet.monsterName),
+]);
 
 function hasText(value)
 {
@@ -254,14 +281,37 @@ export default function MonsterDirectory()
 
   const categories = useMemo(() =>
   {
-    return Array.from(
+    const discoveredCategories = Array.from(
       new Set(
         Object.values(MONSTER_DATABASE)
           .map((monster) => normalizeCategoryKey(monster.category))
           .filter(Boolean)
       )
-    )
-      .sort((a, b) => a.localeCompare(b))
+    );
+
+    return discoveredCategories
+      .sort((a, b) =>
+      {
+        const aIndex = CATEGORY_ORDER.indexOf(a);
+        const bIndex = CATEGORY_ORDER.indexOf(b);
+
+        if (aIndex !== -1 || bIndex !== -1)
+        {
+          if (aIndex === -1)
+          {
+            return 1;
+          }
+
+          if (bIndex === -1)
+          {
+            return -1;
+          }
+
+          return aIndex - bIndex;
+        }
+
+        return a.localeCompare(b);
+      })
       .map((category) => ({
         key: category,
         label: formatLabel(category),
@@ -336,9 +386,18 @@ export default function MonsterDirectory()
           }
         }
 
-        if (
-          categoryFilter !== "all" &&
-          monster.normalizedCategory !== normalizeCategoryKey(categoryFilter)
+        const normalizedCategoryFilter = normalizeCategoryKey(categoryFilter);
+
+        if (normalizedCategoryFilter === "amber")
+        {
+          if (!AMBER_CATEGORY_MONSTER_NAMES.has(monster.name))
+          {
+            return false;
+          }
+        }
+        else if (
+          normalizedCategoryFilter !== "all" &&
+          monster.normalizedCategory !== normalizedCategoryFilter
         )
         {
           return false;

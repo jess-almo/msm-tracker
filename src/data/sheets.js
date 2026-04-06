@@ -1,6 +1,10 @@
 import { createSheetMonstersFromRequirements } from "./monsterRequirements";
 import { MONSTER_DIRECTORY } from "./monsterDatabase";
 import { getMonsterBreedingIslands } from "../utils/monsterMetadata";
+import {
+  getIslandOperationalProfile,
+  ISLAND_STATE_DEFAULTS,
+} from "./islands";
 
 function createSheetKey(targetMonsterName)
 {
@@ -158,25 +162,21 @@ export function createTrackerSheetInstanceFromSeed(seedSheet, instanceNumber, op
   });
 }
 
-const PASS_1_ISLAND_COLLECTION_ISLANDS = [
-  "Plant",
-  "Cold",
-  "Air",
-  "Water",
-  "Earth",
-  "Fire Haven",
-  "Fire Oasis",
-  "Light",
-  "Psychic",
-  "Faerie",
-  "Bone",
-  "Shugabush",
-];
+const BASE_ISLAND_COLLECTION_ISLANDS = ISLAND_STATE_DEFAULTS
+  .filter((islandState) =>
+  {
+    const profile = getIslandOperationalProfile(islandState.name, islandState.type);
 
-const PASS_1_ALLOWED_ISLAND_CATEGORIES = new Set([
+    return profile.supportsStandardBreeding;
+  })
+  .map((islandState) => islandState.name);
+
+const BASE_ISLAND_ALLOWED_CATEGORIES = new Set([
   "natural",
   "fire",
   "magical",
+  "ethereal",
+  "seasonal",
   "mythical",
   "legendary",
 ]);
@@ -188,7 +188,7 @@ function shouldIncludeInIslandCollection(name, metadata, islandName)
     return false;
   }
 
-  if (!PASS_1_ALLOWED_ISLAND_CATEGORIES.has(metadata.category))
+  if (!BASE_ISLAND_ALLOWED_CATEGORIES.has(metadata.category))
   {
     return false;
   }
@@ -240,7 +240,7 @@ function createIslandCollectionSheet(islandName, priority)
     status: "ACTIVE",
     lanes: [],
     monsters: createIslandCollectionMonsters(islandName),
-    notes: "Pass 1 includes common-form breedable collection monsters for this island.",
+    notes: "Base collection tracker for this island. Rare and Epic variants stay separate and can layer in later as their own collection targets.",
   };
 }
 
@@ -355,7 +355,7 @@ export const WUBLIN_TRACKER_SHEET_DEFAULTS = COMMON_WUBLIN_TRACKABLE_SHEET_CONFI
   })
 );
 
-export const ISLAND_COLLECTION_SHEET_DEFAULTS = PASS_1_ISLAND_COLLECTION_ISLANDS
+export const ISLAND_COLLECTION_SHEET_DEFAULTS = BASE_ISLAND_COLLECTION_ISLANDS
   .map((islandName, index) => createIslandCollectionSheet(islandName, 200 + index))
   .filter((sheet) => sheet.monsters.length > 0);
 

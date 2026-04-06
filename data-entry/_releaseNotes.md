@@ -1,0 +1,11 @@
+### Changed
+
+- Added a root-level `COMMANDS.md` reference so daily dev, data, release, Android, and GitHub release commands are easy to find in one place.
+- Added a first assignment-recovery flow in Island Manager so live breeding and nursery sessions can be unassigned from the wrong tracked target without deleting the real session, letting those eggs be reassigned correctly from the appropriate sheet afterward.
+- Added a first island-side reconciliation flow in Island Manager so you can enter what is actually sitting in breeder and nursery slots, compare that against tracked live sessions, clear stale links from the board, and adopt missing in-game sessions back into the tracker as unassigned live work.
+- Simplified the Collections browsing surface so the filters read more clearly as `Browser`, `Status`, and `Family`, hid empty vessel-family options, and renamed the status labels to more operational wording like `Working` and `Ready to Start`.
+- Surfaced direct `Activate` and `Deactivate` controls on collection cards instead of forcing everything through the full sheet view, and added a clearer top-level `Activate Next Run` action for grouped common Wublin templates.
+- Gave the desktop workspace a bit more horizontal room and introduced a responsive Collections card grid so the web app uses side space more intentionally while mobile stays single-column and compact.
+- Started separating collection identity from live run instances by consolidating all vessel families around species-level collection entries, sharing collected-state truth across duplicate-capable vessel runs, and letting new duplicate runs be created beyond the original singleton seed sheets.
+- Turned `TODO.md` into an active workflow file for the next targets, next-release bar, and Android checkpoint routine, and added `npm run release:review`, `npm run android:install-debug`, and `npm run android:refresh-debug` so the latest web/app state is easier to verify and package consistently.
+- Added `npm run release:notes`, `npm run release:guide`, and `npm run android:package-debug` so release notes, debug APK packaging, and the exact next release commands can be generated from current repo state without automating the final commit/push/publish decisions.

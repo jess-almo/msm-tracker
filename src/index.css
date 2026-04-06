@@ -152,6 +152,14 @@ textarea {
   text-align: left;
 }
 
+.collections-filter-options {
+  display: flex;
+}
+
+.collections-mobile-filter {
+  display: none;
+}
+
 .collections-filter-label {
   font-size: 12px;
   font-weight: 700;
@@ -281,6 +289,14 @@ textarea {
 
   .collections-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .collections-filter-options {
+    display: none;
+  }
+
+  .collections-mobile-filter {
+    display: block;
   }
 
   .island-filter-row > button {

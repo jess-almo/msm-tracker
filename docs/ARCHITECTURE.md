@@ -100,4 +100,11 @@ Use [`TODO.md`](../TODO.md) as the active operating list for:
 - the minimum bar for the next release
 - the current Android test/install routine
 
+Use [`COMMANDS.md`](../COMMANDS.md) as the central command reference for:
+
+- day-to-day dev commands
+- release helper commands
+- Android packaging/install commands
+- GitHub release publishing commands
+
 Use [`CHANGELOG.md`](../CHANGELOG.md) for completed notable work and released milestones.

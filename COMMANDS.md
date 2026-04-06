@@ -43,6 +43,8 @@ Detailed release commands:
 
 ```bash
 npm run release:check
+npm run release:notes
+npm run release:guide
 npm run release:prepare -- <version>
 npm run build
 npm run release:tag -- --dry-run
@@ -56,6 +58,16 @@ What each command does:
 - counts unreleased notable bullets
 - checks whether operational completeness is currently satisfied
 - recommends whether a release should happen and suggests the next version
+
+`npm run release:notes`
+- generates release notes from the current version section in `CHANGELOG.md`
+- writes them to `data-entry/_releaseNotes.md`
+- gives you a reusable notes file for GitHub release publishing
+
+`npm run release:guide`
+- reads the current package version, changelog state, git state, and APK presence
+- prints the next exact commands to run in order
+- acts like a release checklist without taking the final decisions away from you
 
 `npm run release:prepare -- <version>`
 - updates `package.json` to the new version
@@ -83,21 +95,27 @@ When the checker says a release is worth cutting, use this order:
 npm run release:review
 npm run release:prepare -- <version>
 npm run build
+npm run release:notes
+npm run android:package-debug
 npm run release:tag -- --dry-run
+npm run release:guide
 git status
-git add package.json CHANGELOG.md
+git add package.json CHANGELOG.md data-entry/_releaseNotes.md
 git commit -m "release-<version>"
 git push origin main
 npm run release:tag
 git push origin v<version>
-gh release create v<version> "android\app\build\outputs\apk\debug\app-debug.apk" --title "<version>" --notes "<release notes>"
+gh release create v<version> "android\app\build\outputs\apk\debug\app-debug.apk" --title "<version>" --notes-file "data-entry\_releaseNotes.md"
 ```
 
 What this routine is doing:
 - first confirms the release is actually justified
 - then stamps the new version into the repo
 - then verifies the app still builds
+- then generates reusable release notes from the changelog
+- then packages the newest debug APK
 - then previews the tag step
+- then shows you the current release state and exact next commands
 - then creates the actual release commit and pushes it
 - then creates and pushes the tag
 - then creates the GitHub release page and uploads the APK asset
@@ -120,6 +138,12 @@ Sync the latest web build into Capacitor:
 
 ```bash
 npm run android:sync
+```
+
+Build the current debug APK for sharing or GitHub release assets:
+
+```bash
+npm run android:package-debug
 ```
 
 Install the current debug build onto a running emulator or device:
@@ -183,7 +207,7 @@ git push origin v<version>
 GitHub release with APK asset:
 
 ```bash
-gh release create v<version> "android\app\build\outputs\apk\debug\app-debug.apk" --title "<version>" --notes "<release notes>"
+gh release create v<version> "android\app\build\outputs\apk\debug\app-debug.apk" --title "<version>" --notes-file "data-entry\_releaseNotes.md"
 ```
 
 ## Useful Files

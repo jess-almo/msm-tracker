@@ -23,18 +23,68 @@ const actionButtonStyle = {
   fontWeight: 700,
 };
 
+function getGoalOperationalLabel(goal)
+{
+  if (goal.complete)
+  {
+    return "Collected";
+  }
+
+  if ((goal.trackedProgress || 0) > (goal.progress || 0))
+  {
+    return "In Motion";
+  }
+
+  if ((goal.progress || 0) > 0)
+  {
+    return "Progress";
+  }
+
+  return "Ready to Start";
+}
+
+function getGoalCardTone(goal)
+{
+  if (goal.complete)
+  {
+    return {
+      border: "1px solid rgba(34,197,94,0.22)",
+      background: "linear-gradient(180deg, rgba(34,197,94,0.14), rgba(255,255,255,0.02))",
+      chipBackground: "rgba(34,197,94,0.18)",
+    };
+  }
+
+  if ((goal.trackedProgress || 0) > (goal.progress || 0))
+  {
+    return {
+      border: "1px solid rgba(59,130,246,0.2)",
+      background: "linear-gradient(180deg, rgba(59,130,246,0.1), rgba(255,255,255,0.03))",
+      chipBackground: "rgba(59,130,246,0.16)",
+    };
+  }
+
+  return {
+    border: "1px solid rgba(245,158,11,0.18)",
+    background: "linear-gradient(180deg, rgba(245,158,11,0.08), rgba(255,255,255,0.03))",
+    chipBackground: "rgba(255,255,255,0.08)",
+  };
+}
+
 function renderGoalCard(goal, onOpenSheet)
 {
+  const tone = getGoalCardTone(goal);
+  const statusLabel = getGoalOperationalLabel(goal);
+
   return (
     <div
       key={goal.key}
+      onClick={() => onOpenSheet(goal.key)}
       style={{
-        border: "1px solid rgba(255,255,255,0.1)",
+        border: tone.border,
         borderRadius: "16px",
         padding: "16px",
-        background: goal.complete
-          ? "linear-gradient(180deg, rgba(34,197,94,0.14), rgba(255,255,255,0.02))"
-          : "linear-gradient(180deg, rgba(245,158,11,0.08), rgba(255,255,255,0.03))",
+        background: tone.background,
+        cursor: "pointer",
       }}
     >
       <div
@@ -58,27 +108,29 @@ function renderGoalCard(goal, onOpenSheet)
             padding: "6px 12px",
             borderRadius: "999px",
             border: "1px solid rgba(255,255,255,0.1)",
-            background: goal.complete
-              ? "rgba(34,197,94,0.18)"
-              : "rgba(255,255,255,0.08)",
+            background: tone.chipBackground,
             fontSize: "12px",
             fontWeight: 700,
           }}
         >
-          {goal.complete ? "Complete" : `${goal.remaining} left`}
+          {goal.complete ? "Complete" : statusLabel}
         </div>
       </div>
 
       <div style={{ marginTop: "12px", display: "grid", gap: "6px", fontSize: "14px", opacity: 0.84 }}>
-        <div>{goal.progress}% fulfilled</div>
-        <div>{goal.trackedProgress}% tracked</div>
+        <div>{goal.remaining} left</div>
+        <div>{goal.progress}% fulfilled · {goal.trackedProgress}% tracked</div>
       </div>
 
       <div className="screen-card-actions" style={{ marginTop: "14px", justifyContent: "flex-end" }}>
         <button
           type="button"
           style={actionButtonStyle}
-          onClick={() => onOpenSheet(goal.key)}
+          onClick={(event) =>
+          {
+            event.stopPropagation();
+            onOpenSheet(goal.key);
+          }}
         >
           Open Sheet
         </button>
@@ -94,12 +146,32 @@ export default function ActiveSheetsPage({
 })
 {
   const vesselGoals = useMemo(
-    () => goals.filter((goal) => goal.type === "vessel"),
+    () => goals.filter((goal) => goal.type === "vessel" && !goal.complete),
     [goals]
   );
   const islandGoals = useMemo(
-    () => goals.filter((goal) => goal.type === "island"),
+    () => goals.filter((goal) => goal.type === "island" && !goal.complete),
     [goals]
+  );
+  const incompleteGoals = useMemo(
+    () => goals.filter((goal) => !goal.complete),
+    [goals]
+  );
+  const inMotionGoals = useMemo(
+    () => goals.filter((goal) => !goal.complete && (goal.trackedProgress || 0) > (goal.progress || 0)),
+    [goals]
+  );
+  const readyToStartGoals = useMemo(
+    () => goals.filter((goal) => !goal.complete && (goal.progress || 0) === 0 && (goal.trackedProgress || 0) === 0),
+    [goals]
+  );
+  const collectedGoals = useMemo(
+    () => goals.filter((goal) => goal.complete),
+    [goals]
+  );
+  const remainingTotal = useMemo(
+    () => incompleteGoals.reduce((sum, goal) => sum + Number(goal.remaining || 0), 0),
+    [incompleteGoals]
   );
 
   return (
@@ -112,15 +184,53 @@ export default function ActiveSheetsPage({
           Fast access to the goals that are currently driving queue and island work.
         </div>
 
-        <div className="screen-card-actions" style={{ marginTop: "16px" }}>
-          <div style={{ ...actionButtonStyle, cursor: "default" }}>
-            {goals.length} active total
+        <div className="dashboard-command-grid" style={{ marginTop: "16px" }}>
+          <div style={{ ...sectionCardStyle, padding: "14px", borderRadius: "16px" }}>
+            <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+              NEED NOW
+            </div>
+            <div style={{ marginTop: "8px", fontSize: "24px", fontWeight: 700 }}>
+              {incompleteGoals.length}
+            </div>
+            <div style={{ marginTop: "6px", opacity: 0.72 }}>
+              active sheets still needing work
+            </div>
           </div>
-          <div style={{ ...actionButtonStyle, cursor: "default" }}>
-            {vesselGoals.length} vessels
+
+          <div style={{ ...sectionCardStyle, padding: "14px", borderRadius: "16px" }}>
+            <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+              IN MOTION
+            </div>
+            <div style={{ marginTop: "8px", fontSize: "24px", fontWeight: 700 }}>
+              {inMotionGoals.length}
+            </div>
+            <div style={{ marginTop: "6px", opacity: 0.72 }}>
+              sheets with tracked work ahead of zaps
+            </div>
           </div>
-          <div style={{ ...actionButtonStyle, cursor: "default" }}>
-            {islandGoals.length} island collections
+
+          <div style={{ ...sectionCardStyle, padding: "14px", borderRadius: "16px" }}>
+            <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+              READY TO START
+            </div>
+            <div style={{ marginTop: "8px", fontSize: "24px", fontWeight: 700 }}>
+              {readyToStartGoals.length}
+            </div>
+            <div style={{ marginTop: "6px", opacity: 0.72 }}>
+              active sheets with no progress logged yet
+            </div>
+          </div>
+
+          <div style={{ ...sectionCardStyle, padding: "14px", borderRadius: "16px" }}>
+            <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+              REMAINING
+            </div>
+            <div style={{ marginTop: "8px", fontSize: "24px", fontWeight: 700 }}>
+              {remainingTotal}
+            </div>
+            <div style={{ marginTop: "6px", opacity: 0.72 }}>
+              total eggs or collection entries still outstanding
+            </div>
           </div>
         </div>
 
@@ -142,9 +252,12 @@ export default function ActiveSheetsPage({
         <>
           <div className="responsive-section-card" style={sectionCardStyle}>
             <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
-              VESSELS
+              {`VESSELS (${vesselGoals.length})`}
             </div>
-            <div style={{ marginTop: "8px", display: "grid", gap: "12px" }}>
+            <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.64 }}>
+              Goal sheets currently driving queue and zapping pressure.
+            </div>
+            <div className="collections-card-grid" style={{ marginTop: "12px" }}>
               {vesselGoals.length === 0
                 ? <div style={{ opacity: 0.64 }}>No active vessel sheets right now.</div>
                 : vesselGoals.map((goal) => renderGoalCard(goal, onOpenSheet))}
@@ -153,14 +266,31 @@ export default function ActiveSheetsPage({
 
           <div className="responsive-section-card" style={sectionCardStyle}>
             <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
-              ISLAND COLLECTIONS
+              {`ISLAND COLLECTIONS (${islandGoals.length})`}
             </div>
-            <div style={{ marginTop: "8px", display: "grid", gap: "12px" }}>
+            <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.64 }}>
+              Base island ownership trackers that are currently part of the working set.
+            </div>
+            <div className="collections-card-grid" style={{ marginTop: "12px" }}>
               {islandGoals.length === 0
                 ? <div style={{ opacity: 0.64 }}>No active island collection sheets right now.</div>
                 : islandGoals.map((goal) => renderGoalCard(goal, onOpenSheet))}
             </div>
           </div>
+
+          {collectedGoals.length > 0 && (
+            <div className="responsive-section-card" style={sectionCardStyle}>
+              <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
+                {`COLLECTED (${collectedGoals.length})`}
+              </div>
+              <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.64 }}>
+                Finished active sheets that still stay visible here for quick reopening.
+              </div>
+              <div className="collections-card-grid" style={{ marginTop: "12px" }}>
+                {collectedGoals.map((goal) => renderGoalCard(goal, onOpenSheet))}
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

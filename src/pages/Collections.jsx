@@ -35,6 +35,16 @@ const filterButtonStyle = {
   fontSize: "13px",
 };
 
+const filterSelectStyle = {
+  width: "100%",
+  padding: "11px 14px",
+  borderRadius: "14px",
+  border: "1px solid rgba(255,255,255,0.12)",
+  background: "rgba(255,255,255,0.06)",
+  color: "inherit",
+  fontWeight: 700,
+};
+
 const actionButtonStyle = {
   padding: "8px 14px",
   borderRadius: "12px",
@@ -534,37 +544,27 @@ function renderSectionHeader({
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "space-between",
-        gap: "12px",
-        alignItems: "flex-start",
-        flexWrap: "wrap",
+        display: "grid",
+        gap: "6px",
       }}
     >
-      <div>
-        <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
-          {title.toUpperCase()}
-        </div>
-        {subtitle && (
-          <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.64 }}>
-            {subtitle}
-          </div>
-        )}
-      </div>
-
       <div
         style={{
-          display: "inline-flex",
-          padding: "6px 10px",
-          borderRadius: "999px",
-          border: "1px solid rgba(255,255,255,0.1)",
-          background: "rgba(255,255,255,0.06)",
-          fontSize: "12px",
-          fontWeight: 700,
+          display: "flex",
+          gap: "10px",
+          alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
-        {count}
+        <div style={{ fontSize: "13px", opacity: 0.68, letterSpacing: "0.08em" }}>
+          {`${title.toUpperCase()} (${count})`}
+        </div>
       </div>
+      {subtitle && (
+        <div style={{ fontSize: "13px", opacity: 0.64 }}>
+          {subtitle}
+        </div>
+      )}
     </div>
   );
 }
@@ -1341,7 +1341,20 @@ export default function Collections({
 
           <div>
             <div className="collections-filter-label">Status</div>
-            <div className="screen-card-actions" style={{ marginTop: "8px", gap: "8px" }}>
+            <div className="collections-mobile-filter" style={{ marginTop: "8px" }}>
+              <select
+                style={filterSelectStyle}
+                value={statusFilter}
+                onChange={(event) => setStatusFilter(event.target.value)}
+              >
+                {STATUS_FILTER_OPTIONS.map((filter) => (
+                  <option key={`status-select-${filter.key}`} value={filter.key}>
+                    {filter.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="screen-card-actions collections-filter-options" style={{ marginTop: "8px", gap: "8px" }}>
               {STATUS_FILTER_OPTIONS.map((filter) => (
                 <button
                   key={filter.key}
@@ -1363,7 +1376,20 @@ export default function Collections({
           <>
             <div>
               <div className="collections-filter-label">Family</div>
-              <div className="screen-card-actions" style={{ marginTop: "8px", gap: "8px" }}>
+              <div className="collections-mobile-filter" style={{ marginTop: "8px" }}>
+                <select
+                  style={filterSelectStyle}
+                  value={vesselFamilyFilter}
+                  onChange={(event) => setVesselFamilyFilter(event.target.value)}
+                >
+                  {visibleVesselFamilyFilterOptions.map((filter) => (
+                    <option key={`family-select-${filter.key}`} value={filter.key}>
+                      {`${filter.label} (${vesselFamilyCounts[filter.key] || 0})`}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="screen-card-actions collections-filter-options" style={{ marginTop: "8px", gap: "8px" }}>
                 {visibleVesselFamilyFilterOptions.map((filter) => (
                   <button
                     key={filter.key}

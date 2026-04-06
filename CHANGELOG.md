@@ -6,6 +6,16 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
+### Changed
+
+- Reworked Monster Directory category behavior so the `Amber` filter now follows the app's real 32-species Amber vessel set instead of only the 6 monsters literally tagged `category: "amber"` in the raw database, and replaced the old alphabetical category-button order with a more intentional operational browse order.
+- Simplified Collections section headers so vessel and island group counts now read directly in the heading line instead of floating as detached mobile badges.
+- Added mobile-friendly select controls for Collections `Status` and `Family` filters so the page stops stacking a long wall of filter buttons on phones.
+- Expanded base island collection seeding from the old pass-1 subset to the full set of currently modeled standard-breeding islands, including Fire, Magical, Ethereal, Seasonal Shanty, and mirror-island base collections.
+- Clarified island collection notes so base collections stay focused on common-form island ownership while Rare and Epic variants can be layered in later as separate collection targets instead of being faked as the same monster.
+- Reworked Active Sheets into a more operational workbench with inline section counts, overview cards for `Need Now`, `In Motion`, `Ready to Start`, and total remaining work, plus clearer separation between live work and already collected active sheets.
+- Renamed the Breeding Queue mode labels from the older `Zap Run` / `Breed Run` wording to clearer action-first `Ready to Zap` / `Ready to Breed` language, and updated the supporting copy to talk about hatching and board-clearing more naturally.
+
 ## [0.4.0] - 2026-04-06
 
 ### Changed
@@ -18,6 +28,7 @@ Do not create a fake release for every tiny edit.
 - Gave the desktop workspace a bit more horizontal room and introduced a responsive Collections card grid so the web app uses side space more intentionally while mobile stays single-column and compact.
 - Started separating collection identity from live run instances by consolidating all vessel families around species-level collection entries, sharing collected-state truth across duplicate-capable vessel runs, and letting new duplicate runs be created beyond the original singleton seed sheets.
 - Turned `TODO.md` into an active workflow file for the next targets, next-release bar, and Android checkpoint routine, and added `npm run release:review`, `npm run android:install-debug`, and `npm run android:refresh-debug` so the latest web/app state is easier to verify and package consistently.
+- Added `npm run release:notes`, `npm run release:guide`, and `npm run android:package-debug` so release notes, debug APK packaging, and the exact next release commands can be generated from current repo state without automating the final commit/push/publish decisions.
 ## [0.3.0] - 2026-04-06
 
 ### Added

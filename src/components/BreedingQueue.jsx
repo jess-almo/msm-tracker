@@ -234,6 +234,7 @@ export default function BreedingQueue({
   const [activeMode, setActiveMode] = useState(defaultMode);
   const showingZapRun = activeMode === "zap";
   const currentEntries = showingZapRun ? zapItems : breedItems;
+  const currentModeLabel = showingZapRun ? "Ready to Zap" : "Ready to Breed";
 
   return (
     <div
@@ -259,7 +260,7 @@ export default function BreedingQueue({
           Breeding Queue
         </div>
         <div style={{ marginTop: "6px", opacity: 0.75 }}>
-          Run the queue in player order: zap finished eggs, then refill breeders.
+          Clear tracked eggs that are ready to leave the board, then refill open breeders in player order.
         </div>
       </div>
 
@@ -271,7 +272,7 @@ export default function BreedingQueue({
           }}
           onClick={() => setActiveMode("zap")}
         >
-          Zap Run ({zapItems.length})
+          Ready to Zap ({zapItems.length})
         </button>
         <button
           style={{
@@ -280,29 +281,27 @@ export default function BreedingQueue({
           }}
           onClick={() => setActiveMode("breed")}
         >
-          Breed Run ({breedItems.length})
+          Ready to Breed ({breedItems.length})
         </button>
       </div>
 
       <div style={{ marginTop: "16px", fontSize: "18px", fontWeight: 700 }}>
-        {showingZapRun
-          ? `Zap Run - ${zapItems.length} remaining`
-          : `Breed Run - ${breedItems.length} remaining`}
+        {`${currentModeLabel} · ${currentEntries.length} remaining`}
       </div>
 
       {(unassignedBreedingCount > 0 || nurseryCount > 0) && (
         <div style={{ marginTop: "8px", fontSize: "13px", opacity: 0.7 }}>
           {unassignedBreedingCount > 0 && `${unassignedBreedingCount} unassigned breeder egg${unassignedBreedingCount === 1 ? "" : "s"}`}
           {unassignedBreedingCount > 0 && nurseryCount > 0 && " · "}
-          {nurseryCount > 0 && `${nurseryCount} nursery egg${nurseryCount === 1 ? "" : "s"}`}
+          {nurseryCount > 0 && `${nurseryCount} hatching egg${nurseryCount === 1 ? "" : "s"}`}
         </div>
       )}
 
       {currentEntries.length === 0 ? (
         <div style={{ marginTop: "16px", opacity: 0.75 }}>
           {showingZapRun
-            ? "No tracked breeder-side eggs are ready to zap right now."
-            : "No tracked queue work is currently breedable on an open island."}
+            ? "No tracked breeder-side eggs are ready to clear right now."
+            : "No tracked queue work is currently ready to breed on an open island."}
         </div>
       ) : (
         <div style={{ marginTop: "16px", display: "grid", gap: "12px" }}>
@@ -314,7 +313,7 @@ export default function BreedingQueue({
                   actionLabel="Zap"
                   actionTone="rgba(59,130,246,0.14)"
                   onAction={() => onZapBreedingSession(entry)}
-                  statusLine={`Ready in breeder${entry.count > 1 ? ` · ${entry.count} eggs grouped` : ""} · Zapped ${entry.zapped}/${entry.required}`}
+                  statusLine={`Breeder egg ready${entry.count > 1 ? ` · ${entry.count} eggs grouped` : ""} · Zapped ${entry.zapped}/${entry.required}`}
                 />
               ))
             : currentEntries.map((entry) => (
@@ -324,7 +323,7 @@ export default function BreedingQueue({
                   actionLabel="Breed"
                   actionTone="rgba(245,158,11,0.14)"
                   onAction={() => onBreedFromQueue(entry)}
-                  statusLine={`Remaining ${entry.remaining} · Zapped ${entry.zapped}/${entry.required} · Breeding ${entry.breeding}/${entry.required}`}
+                  statusLine={`Need ${entry.remaining} more · Zapped ${entry.zapped}/${entry.required} · Breeding ${entry.breeding}/${entry.required}`}
                 />
               ))}
         </div>
