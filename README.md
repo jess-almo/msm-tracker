@@ -197,8 +197,8 @@ The idea is:
 
 - This project is still pre-1.0.
 - Runtime truth matters more than encyclopedic completeness.
-- The README is the repo front door, but the real workflow truth lives in:
-  - [NEXT_HANDOFF.md](NEXT_HANDOFF.md)
+- Public project docs:
   - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-  - [docs/CONTRACTS.md](docs/CONTRACTS.md)
-  - [docs/VERIFICATION.md](docs/VERIFICATION.md)
+  - [docs/ANDROID.md](docs/ANDROID.md)
+  - [CHANGELOG.md](CHANGELOG.md)
+- Detailed operator and Codex workflow notes are intentionally kept local and out of version control.

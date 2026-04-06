@@ -16,6 +16,7 @@ Do not create a fake release for every tiny edit.
 - Updated the handoff and workflow docs so the standard release ritual is now `release:check -> release:prepare -> build -> commit/push -> release:tag`, and recorded that the current released checkpoint is `0.2.0` with tag `v0.2.0`.
 - Updated the app document title to `MSM Tracker` so the wrapped build carries a cleaner app identity.
 - Replaced the default Vite README with a real project front page covering the app purpose, feature set, workflows, Android path, and release/data commands.
+- Split the public repo docs away from the detailed operator/Codex workflow notes so GitHub now shows cleaner app-facing documentation while the private working notes can stay local.
 
 ## [0.2.0] - 2026-04-06
 
