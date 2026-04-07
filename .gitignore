@@ -29,3 +29,4 @@ android/app/build/
 android/capacitor-cordova-android-plugins/build/
 android/app/src/main/assets/public/
 data-entry/inboxArchive.md
+data-entry/_releaseNotes.md
