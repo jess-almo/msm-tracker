@@ -196,6 +196,17 @@ export default function HomeDashboard({
   isImporting,
 })
 {
+  function handleOpenQueueItem(item)
+  {
+    if (item?.sheetKey)
+    {
+      onOpenSheet(item.sheetKey);
+      return;
+    }
+
+    onOpenQueue();
+  }
+
   return (
     <div className="page-surface" style={{ gap: "16px" }}>
       <div className="responsive-page-card" style={{ ...pageCardStyle, display: "grid", gap: "16px" }}>
@@ -339,8 +350,10 @@ export default function HomeDashboard({
         ) : (
           <div style={{ display: "grid", gap: "10px" }}>
             {topQueueItems.map((item) => (
-              <div
+              <button
                 key={item.name}
+                type="button"
+                className="focus-goal-card"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -350,12 +363,19 @@ export default function HomeDashboard({
                   borderRadius: "14px",
                   background: "rgba(255,255,255,0.035)",
                   border: "1px solid rgba(255,255,255,0.08)",
+                  color: "inherit",
+                  cursor: "pointer",
+                  textAlign: "left",
                 }}
+                onClick={() => handleOpenQueueItem(item)}
               >
                 <div>
                   <div style={{ fontSize: "18px", fontWeight: 700 }}>{item.name}</div>
                   <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
                     {(item.islands || []).join(" / ")}
+                  </div>
+                  <div style={{ marginTop: "6px", fontSize: "12px", opacity: 0.62 }}>
+                    {item.sheetTitle ? `Open ${item.sheetTitle}` : "Open Breeding Queue"}
                   </div>
                 </div>
 
@@ -371,7 +391,7 @@ export default function HomeDashboard({
                 >
                   Need {item.actualRemaining}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         )}
