@@ -6,11 +6,13 @@ Track My Singing Monsters breeding work with one app that keeps long-term goals,
 
 ## Status
 
-- Current version: `0.3.0`
-- Current release tag: `v0.3.0`
+- Current version: `0.4.0`
+- Current release tag: `v0.4.0`
 - Web app is working and actively used
 - Android wrapper path is now set up with Capacitor
 - Current breeding-data target is operationally complete for tracked requirement monsters
+- Backup export/import is now built into the app
+- Lint, build, and a lightweight persistence test layer are all passing
 
 ## What This App Does
 
@@ -42,14 +44,15 @@ That gives the app a practical workflow:
 ### Operational Workflow
 
 - Breeding Queue split into:
-  - `Zap Run`
-  - `Breed Run`
+  - `Ready to Zap`
+  - `Ready to Breed`
 - Island Manager with:
   - island capacity tracking
   - breeder and nursery occupancy
   - demand projection
   - manual breeding support
   - context-aware jump-to-island navigation
+  - island-side reconciliation for fixing tracker drift against what is actually on the board
 - row-linked `Breed on...` and `Zap Ready` actions from sheets
 
 ### Breeding Data / Reference
@@ -65,6 +68,12 @@ That gives the app a practical workflow:
 - raw inbox ingestion for messy research dumps
 - parsing, promotion, and audit commands for growing the runtime data safely
 - explicit operational breeding-completeness audit
+
+### Safety / Validation
+
+- browser persistence is centralized through shared backup helpers instead of scattered inline save/load code
+- export/import backup flow is available from the Dashboard
+- a lightweight Node test layer now validates the persistence and reconciliation helpers
 
 ## Main Screens
 
@@ -107,10 +116,8 @@ What is already done:
 - Capacitor config exists
 - native `android/` project exists
 - web build sync into Android works
-
-Current blocker on this machine:
-
-- Android SDK location is not configured yet, so a debug APK cannot be built from this machine until Android Studio / SDK setup is finished
+- emulator install path works
+- debug APK packaging works
 
 See:
 
@@ -141,6 +148,7 @@ Useful commands:
 npm run build
 npm run preview
 npm run lint
+npm test
 ```
 
 ## Data Workflow
@@ -171,9 +179,11 @@ Key generated outputs:
 This repo now has a lightweight intentional release flow:
 
 ```bash
-npm run release:check
+npm run release:review
 npm run release:prepare -- <version>
 npm run build
+npm run release:notes
+npm run android:package-debug
 npm run release:tag
 ```
 
@@ -181,6 +191,7 @@ The idea is:
 
 - do not cut fake releases for every tiny pass
 - do cut real releases when the changelog and audit state justify it
+- keep the GitHub release asset and Android debug APK in sync with the tagged version
 
 ## Tech Stack
 
@@ -188,14 +199,15 @@ The idea is:
 - Vite
 - Capacitor for Android packaging
 - localStorage persistence
+- Node test runner for lightweight validation
 - plain JS data/model layer
 
 ## Current Priorities
 
-- finish the first real Android device install path
-- continue expanding runtime monster coverage beyond the current operational-completeness target
-- improve mobile polish through real device testing
-- eventually support broader collection and event-driven workflows
+- continue moving Collections toward a true collection-first catalog, including richer Rare/Epic coverage
+- keep tightening mobile and desktop consistency across Collections, Active Sheets, Island Manager, and Monster Library
+- keep improving reconciliation and correction flows so tracker drift is easy to repair
+- eventually move from debug APK sharing to a proper signed Android release build
 
 ## Project Docs
 

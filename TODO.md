@@ -13,16 +13,17 @@ Do not let this turn into a graveyard of every idea. Move finished work to [`CHA
 
 ## Now
 
-- Use the new Island Manager reconciliation flow during real breeding/zapping and note any mismatch cases it still fails to repair cleanly.
-- Add a stronger correction workflow for wrong zaps and wrong assignments:
-  - island-side reconcile stays as the first recovery surface
-  - later add faster reassign/correction helpers where the friction is highest
-- Keep tightening consistency across Collections, Dashboard, Island Manager, and Monster Library so the app feels like one design system.
+- Keep pushing Collections toward the true collection-first model:
+  - one collection item per monster identity
+  - Rare and Epic variants stay separate entries
+  - collection status should describe collection progress, not just sheet/run state
+- Tighten cross-screen consistency across Collections, Dashboard, Island Manager, Active Sheets, and Monster Library so the app feels like one design system.
+- Keep improving correction and reconciliation flows for wrong zaps, wrong assignments, and tracker drift during real play.
 
 ## Before Next Release
 
-- Sanity-check the reconciliation flow in actual play, not just ideal test cases.
-- Decide whether the current unreleased work feels like `0.4.0` or should wait for one more safety/polish pass.
+- Sanity-check the current collection-first and reconciliation changes in actual play, not just ideal test cases.
+- Decide whether the current unreleased work is enough for `0.4.1` or should wait for a broader `0.5.0` milestone.
 - Run the release routine:
 
 ```bash
@@ -75,13 +76,14 @@ npm run android:package-debug
 
 ## Safety / Data
 
-- Add backup/export/import before relying on cross-device use heavily.
+- Use the new backup/export/import flow before device changes or risky tracker cleanup.
 - Keep improving reconciliation so tracker drift can be repaired from game truth instead of manual unraveling.
 - Expand data coverage where it materially improves the live app, not just for encyclopedia completeness.
+- Keep the lightweight persistence tests healthy as shared save/load helpers evolve.
 
 ## Later
 
 - Improve Monster Directory as the main in-app reference surface.
 - Explore recipe/discovery support built on manual breeding sessions.
-- Add broader collection support over time, including more complete Rare/Epic tracking.
+- Add broader collection support over time, including more complete Rare/Epic tracking and full island collection views beyond the base layer.
 - Explore limited-time or event goal activation once the data layer is strong enough.

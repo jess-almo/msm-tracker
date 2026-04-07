@@ -8,6 +8,7 @@ Do not create a fake release for every tiny edit.
 
 ### Changed
 
+- Refreshed the public-facing repo docs so `README.md`, `TODO.md`, and the architecture/Android guides now match the shipped `0.4.0` state, including backup/import support, the lightweight test layer, and the current Android debug-build workflow.
 - Added the same conditional floating `Top` control to Collections so long vessel and island lists can jump back to the top quickly once you scroll deep into the page.
 - Removed the Wublin-only single-column Collections layout treatment and normalized vessel entry labeling so Amber and Wublin collection cards now use the same display rhythm and card sizing.
 - Added a planner-only floating `Top` control in Island Manager so once you scroll deep into the island list you can jump back to the top quickly without manually dragging all the way back up.

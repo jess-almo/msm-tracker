@@ -37,6 +37,8 @@ Top-level state lives in [`src/App.jsx`](../src/App.jsx):
 - `breedingSessions`
 - `view`
 
+Shared persistence and backup helpers now live in [`src/utils/persistence.js`](../src/utils/persistence.js), and the dashboard backup surface lives in [`src/components/HomeDashboard.jsx`](../src/components/HomeDashboard.jsx).
+
 ## Sheet Model
 
 Supported sheet types:
@@ -71,6 +73,12 @@ The app currently persists browser-side state in local storage for:
 - breeding sessions
 - view state
 - collections data
+
+The persistence path is no longer just ad hoc inline `localStorage` calls in the app shell.
+
+- shared load/save/merge helpers: [`src/utils/persistence.js`](../src/utils/persistence.js)
+- export/import UI: [`src/components/HomeDashboard.jsx`](../src/components/HomeDashboard.jsx)
+- backup validation tests: [`test/persistence.test.mjs`](../test/persistence.test.mjs)
 
 ## Data Layer
 
@@ -108,3 +116,5 @@ Use [`COMMANDS.md`](../COMMANDS.md) as the central command reference for:
 - GitHub release publishing commands
 
 Use [`CHANGELOG.md`](../CHANGELOG.md) for completed notable work and released milestones.
+
+Use `npm test` as the lightweight validation layer for persistence/reconciliation helpers when changing save/load behavior.

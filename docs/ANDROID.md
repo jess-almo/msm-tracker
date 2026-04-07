@@ -9,6 +9,7 @@ MSM Tracker now has a first Android wrapper path using Capacitor.
 - App ID: `com.jessealmo.msmtracker`
 - App name: `MSM Tracker`
 - Web build source: `dist`
+- Emulator install path has been verified with the current debug build workflow
 
 ## Repo Commands
 
@@ -64,6 +65,7 @@ android/app/build/outputs/apk/debug/
 ## Recommended Mobile Validation
 
 - local persistence survives close/reopen
+- export/import backup flow remains understandable and safe
 - scroll behavior feels natural
 - tap targets are comfortable
 - Android back-button behavior is sane
