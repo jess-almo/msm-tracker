@@ -629,6 +629,9 @@ function IslandCard({
   onAssignAndZapFromPlanner,
   onUnassignFromPlanner,
   onClearPlannerSession,
+  onClearIslandBreeders,
+  onClearIslandNurseries,
+  onResetIslandLiveBoard,
   onMoveToNurseryFromPlanner,
   onHatchNurseryFromPlanner,
 })
@@ -1111,6 +1114,45 @@ function IslandCard({
                       onClick={handleToggleReconcilePanel}
                     >
                       {showReconcilePanel ? "Done Reconciling" : "Reconcile"}
+                    </button>
+                  )}
+
+                  {Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0 && (
+                    <button
+                      style={{
+                        ...compactActionStyle,
+                        background: "rgba(239,68,68,0.14)",
+                      }}
+                      onClick={() => onClearIslandBreeders?.(island.island)}
+                    >
+                      Clear Breeders
+                    </button>
+                  )}
+
+                  {Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0 && (
+                    <button
+                      style={{
+                        ...compactActionStyle,
+                        background: "rgba(168,85,247,0.14)",
+                      }}
+                      onClick={() => onClearIslandNurseries?.(island.island)}
+                    >
+                      Clear Nurseries
+                    </button>
+                  )}
+
+                  {(
+                    (Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0)
+                    || (Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0)
+                  ) && (
+                    <button
+                      style={{
+                        ...compactActionStyle,
+                        background: "rgba(245,158,11,0.16)",
+                      }}
+                      onClick={() => onResetIslandLiveBoard?.(island.island)}
+                    >
+                      Reset Live Board
                     </button>
                   )}
 
@@ -2110,6 +2152,9 @@ export default function IslandPlanner({
   onAssignAndZapFromPlanner,
   onUnassignFromPlanner,
   onClearPlannerSession,
+  onClearIslandBreeders,
+  onClearIslandNurseries,
+  onResetIslandLiveBoard,
   onMoveToNurseryFromPlanner,
   onHatchNurseryFromPlanner,
 })
@@ -2379,6 +2424,9 @@ export default function IslandPlanner({
                 onAssignAndZapFromPlanner={onAssignAndZapFromPlanner}
                 onUnassignFromPlanner={onUnassignFromPlanner}
                 onClearPlannerSession={onClearPlannerSession}
+                onClearIslandBreeders={onClearIslandBreeders}
+                onClearIslandNurseries={onClearIslandNurseries}
+                onResetIslandLiveBoard={onResetIslandLiveBoard}
                 onMoveToNurseryFromPlanner={onMoveToNurseryFromPlanner}
                 onHatchNurseryFromPlanner={onHatchNurseryFromPlanner}
               />
