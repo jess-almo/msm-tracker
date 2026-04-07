@@ -1,10 +1,10 @@
-import { createSheetMonstersFromRequirements } from "./monsterRequirements";
-import { MONSTER_DIRECTORY } from "./monsterDatabase";
-import { getMonsterBreedingIslands } from "../utils/monsterMetadata";
+import { createSheetMonstersFromRequirements } from "./monsterRequirements.js";
+import { MONSTER_DIRECTORY } from "./monsterDatabase.js";
+import { getMonsterBreedingIslands } from "../utils/monsterMetadata.js";
 import {
   getIslandOperationalProfile,
   ISLAND_STATE_DEFAULTS,
-} from "./islands";
+} from "./islands.js";
 
 function createSheetKey(targetMonsterName)
 {

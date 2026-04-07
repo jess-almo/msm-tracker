@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import packageJson from "../package.json";
 import {
   createTrackerSheetInstanceFromSeed,
   TRACKER_SHEET_DEFAULTS,
@@ -6,7 +7,6 @@ import {
 import {
   getIslandOperationalProfile,
   ISLAND_STATE_DEFAULTS,
-  mergeIslandStates,
 } from "./data/islands";
 import { buildBreedingQueue, buildIslandPlannerData } from "./utils/queue";
 import { COLLECTIONS } from "./data/collections";
@@ -16,11 +16,26 @@ import {
   getAssignedBreedingTotal,
   getMonsterBreedingIslands,
   isRealBreedingIsland,
-  normalizeBreedingAssignments,
   trimBreedingAssignments,
 } from "./utils/monsterMetadata";
+import HomeDashboard from "./components/HomeDashboard";
+import {
+  buildDefaultSheetForSavedSheet,
+  clamp,
+  createBreedingSessionId,
+  deepClone,
+  findMonsterRowIndex,
+  loadInitialAppState,
+  mergeSheetWithDefaults,
+  parseBackupPayload,
+  reconcileBreedingSessions,
+  saveJsonValue,
+  serializeBackupPayload,
+  STORAGE_KEYS,
+} from "./utils/persistence";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
+const APP_VERSION = packageJson.version;
 const BreedingQueue = lazy(() => import("./components/BreedingQueue"));
 const IslandPlanner = lazy(() => import("./components/IslandPlanner"));
 const MonsterDirectory = lazy(() => import("./components/MonsterDirectory"));
@@ -81,422 +96,6 @@ function ScreenLoadingFallback({ label = "Loading screen..." })
   );
 }
 
-function clamp(value, min, max)
-{
-  return Math.max(min, Math.min(max, value));
-}
-
-function deepClone(value)
-{
-  return JSON.parse(JSON.stringify(value));
-}
-
-function createBreedingSessionId()
-{
-  return `breed_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-}
-
-function normalizeMonsterLookupKey(name)
-{
-  return typeof name === "string"
-    ? name.trim().toLowerCase()
-    : "";
-}
-
-function findMonsterRowIndex(monsters, monsterName)
-{
-  if (!Array.isArray(monsters) || !monsterName)
-  {
-    return -1;
-  }
-
-  const exactIndex = monsters.findIndex((monster) => monster.name === monsterName);
-
-  if (exactIndex >= 0)
-  {
-    return exactIndex;
-  }
-
-  const normalizedTarget = normalizeMonsterLookupKey(monsterName);
-
-  return monsters.findIndex(
-    (monster) => normalizeMonsterLookupKey(monster.name) === normalizedTarget
-  );
-}
-
-function normalizeBreedingSession(session)
-{
-  if (!session || typeof session !== "object")
-  {
-    return null;
-  }
-
-  const monsterId = typeof session.monsterId === "string" ? session.monsterId.trim() : "";
-  const islandId = typeof session.islandId === "string" ? session.islandId.trim() : "";
-
-  if (!monsterId || !isRealBreedingIsland(islandId))
-  {
-    return null;
-  }
-
-  const source = session.source === "manual" ? "manual" : "assigned";
-  const sheetId = typeof session.sheetId === "string" && session.sheetId ? session.sheetId : null;
-  const status =
-    session.status === "completed"
-      ? "completed"
-      : session.status === "hatching" || session.status === "nursery"
-        ? "nursery"
-        : "breeding";
-
-  if (source === "assigned" && status !== "completed" && !sheetId)
-  {
-    return null;
-  }
-
-  if (status !== "completed")
-  {
-    const profile = getIslandOperationalProfile(islandId, "breeding");
-
-    if (status === "nursery" && !profile.supportsNursery)
-    {
-      return null;
-    }
-
-    if (status === "breeding" && !profile.supportsStandardBreeding)
-    {
-      return null;
-    }
-  }
-
-  return {
-    id: session.id || createBreedingSessionId(),
-    monsterId,
-    islandId,
-    source,
-    sheetId,
-    status,
-    createdAt: Number(session.createdAt || Date.now()),
-    manualRecipeParents: Array.isArray(session.manualRecipeParents)
-      ? session.manualRecipeParents
-          .filter((value) => typeof value === "string" && value.trim())
-          .slice(0, 2)
-      : [],
-    manualObservedTime: typeof session.manualObservedTime === "string"
-      ? session.manualObservedTime.trim()
-      : "",
-    manualResolution: session.manualResolution === "exact" ? "exact" : "mystery",
-  };
-}
-
-function buildAssignedBreedingSessionsFromSheets(sheets)
-{
-  const sessions = [];
-
-  sheets.forEach((sheet) =>
-  {
-    sheet.monsters.forEach((monster) =>
-    {
-      const breedingAssignments = normalizeBreedingAssignments(monster.breedingAssignments);
-
-      Object.entries(breedingAssignments).forEach(([islandId, count]) =>
-      {
-        for (let index = 0; index < count; index += 1)
-        {
-          sessions.push({
-            id: createBreedingSessionId(),
-            monsterId: monster.name,
-            islandId,
-            source: "assigned",
-            sheetId: sheet.key,
-            status: "breeding",
-            createdAt: Date.now() + index,
-          });
-        }
-      });
-    });
-  });
-
-  return sessions;
-}
-
-function reconcileBreedingSessions(sessions, sheets)
-{
-  const normalizedSessions = Array.isArray(sessions)
-    ? sessions.map(normalizeBreedingSession).filter(Boolean)
-    : [];
-  const persistentCompletedSessions = normalizedSessions.filter(
-    (session) => session.status === "completed"
-  );
-  const persistentManualSessions = normalizedSessions.filter(
-    (session) => session.source === "manual" && session.status !== "completed"
-  );
-  const savedAssignedSessions = normalizedSessions.filter(
-    (session) => session.source === "assigned" && session.status !== "completed" && session.sheetId
-  );
-  const reconciledAssignedSessions = [];
-
-  sheets.forEach((sheet) =>
-  {
-    sheet.monsters.forEach((monster) =>
-    {
-      const breedingAssignments = normalizeBreedingAssignments(monster.breedingAssignments);
-      const totalBreeding = Number(monster.breeding || 0);
-      const totalAssignedBreeding = Object.values(breedingAssignments).reduce(
-        (sum, count) => sum + Number(count || 0),
-        0
-      );
-      const totalDesiredNursery = Math.max(0, totalBreeding - totalAssignedBreeding);
-      const savedMonsterAssignedSessions = savedAssignedSessions
-        .filter(
-          (session) => session.sheetId === sheet.key && session.monsterId === monster.name
-        )
-        .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
-      const savedNurserySessions = savedMonsterAssignedSessions.filter(
-        (session) => session.status === "nursery"
-      );
-      let remainingDesiredNursery = totalDesiredNursery;
-
-      Object.entries(breedingAssignments).forEach(([islandId, count]) =>
-      {
-        const savedBreedingSessions = savedMonsterAssignedSessions.filter(
-          (session) => session.status === "breeding" && session.islandId === islandId
-        );
-
-        for (let index = 0; index < Number(count || 0); index += 1)
-        {
-          reconciledAssignedSessions.push(
-            savedBreedingSessions[index] || {
-              id: createBreedingSessionId(),
-              monsterId: monster.name,
-              islandId,
-              source: "assigned",
-              sheetId: sheet.key,
-              status: "breeding",
-              createdAt: Date.now() + index,
-            }
-          );
-        }
-      });
-
-      savedNurserySessions.forEach((session) =>
-      {
-        if (remainingDesiredNursery <= 0)
-        {
-          return;
-        }
-
-        reconciledAssignedSessions.push(session);
-        remainingDesiredNursery -= 1;
-      });
-    });
-  });
-
-  return [
-    ...persistentCompletedSessions,
-    ...persistentManualSessions,
-    ...reconciledAssignedSessions,
-  ];
-}
-
-function loadBreedingSessions(seedSheets)
-{
-  const savedSessions = localStorage.getItem("msmTrackerBreedingSessions");
-
-  if (!savedSessions)
-  {
-    return buildAssignedBreedingSessionsFromSheets(seedSheets);
-  }
-
-  try
-  {
-    return reconcileBreedingSessions(JSON.parse(savedSessions), seedSheets);
-  }
-  catch (error)
-  {
-    console.error("Failed to parse breeding sessions", error);
-    return buildAssignedBreedingSessionsFromSheets(seedSheets);
-  }
-}
-
-function buildDefaultSheetForSavedSheet(savedSheet)
-{
-  if (!savedSheet || typeof savedSheet !== "object")
-  {
-    return null;
-  }
-
-  if ((savedSheet.type || "vessel") === "vessel" && savedSheet.systemKey && savedSheet.monsterName)
-  {
-    return createTrackerSheetInstanceFromSeed(
-      savedSheet,
-      Number(savedSheet.instanceNumber || 1)
-    );
-  }
-
-  return deepClone(savedSheet);
-}
-
-function mergeSheetWithDefaults(defaultSheet, savedSheet)
-{
-  if (!savedSheet)
-  {
-    return deepClone(defaultSheet);
-  }
-
-  const savedMonstersByName = Object.fromEntries(
-    (savedSheet.monsters || []).map((monster) => [monster.name, monster])
-  );
-
-  return {
-    ...deepClone(defaultSheet),
-    ...savedSheet,
-    type: savedSheet?.type || defaultSheet.type || "vessel",
-    lanes: savedSheet.lanes || defaultSheet.lanes,
-    monsters: defaultSheet.monsters.map((defaultMonster) =>
-    {
-      const savedMonster = savedMonstersByName[defaultMonster.name] || {};
-      const mergedRequirementIsland =
-        savedMonster.requirementIsland || defaultMonster.requirementIsland || "";
-      const mergedIsland = defaultMonster.island || "";
-      const breeding = clamp(
-        Number(savedMonster.breeding ?? defaultMonster.breeding ?? 0),
-        0,
-        Number(defaultMonster.required || 0)
-      );
-      const breedingAssignments = trimBreedingAssignments(
-        normalizeBreedingAssignments(savedMonster.breedingAssignments),
-        breeding
-      );
-
-      return {
-        ...defaultMonster,
-        ...savedMonster,
-        island: mergedIsland,
-        requirementIsland: mergedRequirementIsland,
-        breeding,
-        breedingAssignments,
-      };
-    }),
-  };
-}
-
-function loadSheets()
-{
-  const savedSheets = localStorage.getItem("msmTrackerSheets");
-
-  if (savedSheets)
-  {
-    try
-    {
-      const parsed = JSON.parse(savedSheets);
-      const defaultSheetKeys = new Set(DEFAULT_SHEETS.map((sheet) => sheet.key));
-      const savedByKey = Object.fromEntries(
-        parsed.map((sheet) => [sheet.key, sheet])
-      );
-
-      const mergedDefaultSheets = DEFAULT_SHEETS.map((defaultSheet) =>
-        mergeSheetWithDefaults(defaultSheet, savedByKey[defaultSheet.key])
-      );
-      const extraSavedSheets = parsed
-        .filter((sheet) => !defaultSheetKeys.has(sheet.key))
-        .map((savedSheet) =>
-        {
-          const defaultSheet = buildDefaultSheetForSavedSheet(savedSheet);
-
-          return mergeSheetWithDefaults(defaultSheet || savedSheet, savedSheet);
-        });
-
-      return [
-        ...mergedDefaultSheets,
-        ...extraSavedSheets,
-      ];
-    }
-    catch (error)
-    {
-      console.error("Failed to load saved sheets", error);
-    }
-  }
-
-  return DEFAULT_SHEETS.map((sheet) => mergeSheetWithDefaults(sheet, null));
-}
-
-function loadIslandStates()
-{
-  const savedStates = localStorage.getItem("msmTrackerIslandState");
-  const legacySlotCounts = localStorage.getItem("msmTrackerIslandSlots");
-
-  if (!savedStates)
-  {
-    if (!legacySlotCounts)
-    {
-      return ISLAND_STATE_DEFAULTS;
-    }
-
-    try
-    {
-      return mergeIslandStates(
-        ISLAND_STATE_DEFAULTS,
-        [],
-        JSON.parse(legacySlotCounts)
-      );
-    }
-    catch (error)
-    {
-      console.error("Failed to parse legacy island slot counts", error);
-      return ISLAND_STATE_DEFAULTS;
-    }
-  }
-
-  try
-  {
-    return mergeIslandStates(
-      ISLAND_STATE_DEFAULTS,
-      JSON.parse(savedStates),
-      legacySlotCounts ? JSON.parse(legacySlotCounts) : {}
-    );
-  }
-  catch (error)
-  {
-    console.error("Failed to parse island state", error);
-    return ISLAND_STATE_DEFAULTS;
-  }
-}
-
-function mergeCollectionsWithDefaults(defaultCollections, savedCollections)
-{
-  if (!Array.isArray(savedCollections) || savedCollections.length === 0)
-  {
-    return COLLECTIONS;
-  }
-
-  const savedCollectionsByKey = Object.fromEntries(
-    savedCollections.map((collection) => [collection.key, collection])
-  );
-
-  return defaultCollections.map((defaultCollection) =>
-  {
-    const savedCollection = savedCollectionsByKey[defaultCollection.key];
-
-    if (!savedCollection)
-    {
-      return defaultCollection;
-    }
-
-    const savedEntriesByName = Object.fromEntries(
-      (savedCollection.entries || []).map((entry) => [entry.name, entry])
-    );
-
-    return {
-      ...defaultCollection,
-      ...savedCollection,
-      entries: (defaultCollection.entries || []).map((defaultEntry) => ({
-        ...defaultEntry,
-        ...(savedEntriesByName[defaultEntry.name] || {}),
-      })),
-    };
-  });
-}
-
 function getSheetProgress(sheet)
 {
   if (sheet.isCollected)
@@ -542,55 +141,6 @@ function isSheetComplete(sheet)
     sheet.isCollected ||
     sheet.monsters.every((monster) => (monster.zapped || 0) >= monster.required)
   );
-}
-
-function getCollectionCounts(collection)
-{
-  const entries = collection?.entries || [];
-
-  return {
-    collected: entries.filter((entry) => entry.collected).length,
-    total: entries.length,
-  };
-}
-
-function getCollectionSheetCounts(collectionKey, sheets)
-{
-  if (!collectionKey)
-  {
-    return {
-      active: 0,
-      total: 0,
-      complete: 0,
-    };
-  }
-
-  const relevantSheets = sheets.filter((sheet) => sheet.collectionKey === collectionKey);
-  const collectionProgressByIdentity = new Map();
-
-  relevantSheets.forEach((sheet) =>
-  {
-    const identity = getSheetType(sheet) === "vessel" && sheet.templateKey
-      ? sheet.templateKey
-      : sheet.key;
-    const existing = collectionProgressByIdentity.get(identity) || {
-      active: false,
-      complete: false,
-    };
-
-    collectionProgressByIdentity.set(identity, {
-      active: existing.active || Boolean(sheet.isActive),
-      complete: existing.complete || isSheetComplete(sheet),
-    });
-  });
-
-  const groupedSheets = Array.from(collectionProgressByIdentity.values());
-
-  return {
-    active: groupedSheets.filter((sheet) => sheet.active).length,
-    total: collectionProgressByIdentity.size,
-    complete: groupedSheets.filter((sheet) => sheet.complete).length,
-  };
 }
 
 function getSheetType(sheet)
@@ -662,21 +212,6 @@ function canCreateDuplicateSheetRun(sheet)
   );
 }
 
-function canDeleteDuplicateSheetRun(sheet, sheets)
-{
-  if (!canCreateDuplicateSheetRun(sheet))
-  {
-    return false;
-  }
-
-  const templateIdentity = getSheetTemplateIdentity(sheet);
-  const templateInstanceCount = sheets.filter(
-    (entry) => getSheetTemplateIdentity(entry) === templateIdentity
-  ).length;
-
-  return templateInstanceCount > 1;
-}
-
 function getCollectionUnlockedAcrossTemplate(sheet, sheets)
 {
   const templateIdentity = getSheetTemplateIdentity(sheet);
@@ -725,31 +260,6 @@ function getNextSheetInstanceNumber(sheet, sheets)
 
     return Math.max(maxInstanceNumber, Number(entry.instanceNumber || 0));
   }, 0) + 1;
-}
-
-function getSheetSubtitle(sheet)
-{
-  if (getSheetType(sheet) === "island")
-  {
-    return `${sheet.collectionName} · ${sheet.island}`;
-  }
-
-  return `${sheet.collectionName} · ${sheet.sheetTitle}`;
-}
-
-function getSheetActivationPrompt(sheet)
-{
-  if (getSheetType(sheet) === "island")
-  {
-    return `Activate ${sheet.sheetTitle}? This will start tracking missing island monsters.`;
-  }
-
-  if (sheet.systemKey === "wublin")
-  {
-    return `Activate ${getSheetDisplayName(sheet)}? This will start tracking eggs for this Wublin statue.`;
-  }
-
-  return `Activate ${getSheetDisplayName(sheet)}? This will start tracking required eggs.`;
 }
 
 function getSheetActivationOrderValue(sheet)
@@ -809,31 +319,6 @@ function compareActiveSheetsByActivationOrder(a, b)
   return compareSheetsByOperationalFallback(a, b);
 }
 
-function getRarityBadgeBackground(rarity, collected)
-{
-  if (collected)
-  {
-    return "rgba(34,197,94,0.2)";
-  }
-
-  if (rarity === "rare")
-  {
-    return "rgba(59,130,246,0.16)";
-  }
-
-  if (rarity === "epic")
-  {
-    return "rgba(168,85,247,0.18)";
-  }
-
-  if (rarity === "special")
-  {
-    return "rgba(245,158,11,0.18)";
-  }
-
-  return "rgba(255,255,255,0.08)";
-}
-
 function getIslandCapacityBounds(islandState)
 {
   const profile = getIslandOperationalProfile(
@@ -867,49 +352,24 @@ function getIslandCapacityBounds(islandState)
 
 export default function App()
 {
-  const [view, setView] = useState(() => 
-{
-    const saved = localStorage.getItem("msmTrackerView");
-
-    if (!saved)
-    {
-      return { screen: "home" };
-    }
-
-    try
-    {
-      return JSON.parse(saved);
-    }
-    catch (error)
-    {
-      console.error("Failed to parse saved view", error);
-      return { screen: "home" };
-    }
-  });
-
-  const [sheets, setSheets] = useState(loadSheets);
-  const [collectionsData, setCollectionsData] = useState(() => 
-{
-    const saved = localStorage.getItem("collectionsData");
-
-    if (!saved)
-    {
-      return COLLECTIONS;
-    }
-
-    try
-    {
-      return mergeCollectionsWithDefaults(COLLECTIONS, JSON.parse(saved));
-    }
-    catch (error)
-    {
-      console.error("Failed to parse saved collections", error);
-      return COLLECTIONS;
-    }
-  });
-  const [islandStates, setIslandStates] = useState(loadIslandStates);
-  const [breedingSessions, setBreedingSessions] = useState(() =>
-    loadBreedingSessions(loadSheets())
+  const [initialAppState] = useState(() =>
+    loadInitialAppState({
+      defaultSheets: DEFAULT_SHEETS,
+      defaultCollections: COLLECTIONS,
+    })
+  );
+  const [view, setView] = useState(() => initialAppState.view);
+  const [sheets, setSheets] = useState(() => initialAppState.sheets);
+  const [collectionsData, setCollectionsData] = useState(() => initialAppState.collectionsData);
+  const [islandStates, setIslandStates] = useState(() => initialAppState.islandStates);
+  const [storedBreedingSessions, setBreedingSessions] = useState(
+    () => initialAppState.breedingSessions
+  );
+  const [backupMessage, setBackupMessage] = useState(null);
+  const [isImporting, setIsImporting] = useState(false);
+  const breedingSessions = useMemo(
+    () => reconcileBreedingSessions(storedBreedingSessions, sheets),
+    [storedBreedingSessions, sheets]
   );
 
   const activeSheets = useMemo(
@@ -990,33 +450,6 @@ export default function App()
     });
   }, [breedingSessions, selectedSheet]);
 
-  const collectionSummary = useMemo(() => 
-{
-    return collectionsData.map((collection) => 
-{
-      const entryCounts = getCollectionCounts(collection);
-      const sheetCounts = getCollectionSheetCounts(collection.key, sheets);
-      const isTrackedComplete =
-        sheetCounts.total > 0 && sheetCounts.complete === sheetCounts.total;
-      const isEntryComplete =
-        entryCounts.total > 0 && entryCounts.collected === entryCounts.total;
-      const complete = isTrackedComplete || isEntryComplete;
-
-      return {
-        ...collection,
-        counts: entryCounts,
-        sheetCounts,
-        complete,
-      };
-    });
-  }, [collectionsData, sheets]);
-
-  const completedCollections = collectionSummary.filter((collection) => collection.complete).length;
-  const totalCollections = collectionSummary.length;
-  const overallProgress = totalCollections
-    ? Math.round((completedCollections / totalCollections) * 100)
-    : 0;
-
   const homeGoals = useMemo(() => 
 {
     return activeSheets.map((sheet) => ({
@@ -1083,32 +516,27 @@ export default function App()
 
   useEffect(() => 
 {
-    localStorage.setItem("msmTrackerSheets", JSON.stringify(sheets));
+    saveJsonValue(STORAGE_KEYS.sheets, sheets);
   }, [sheets]);
 
   useEffect(() => 
 {
-    localStorage.setItem("msmTrackerView", JSON.stringify(view));
+    saveJsonValue(STORAGE_KEYS.view, view);
   }, [view]);
 
   useEffect(() => 
 {
-    localStorage.setItem("collectionsData", JSON.stringify(collectionsData));
+    saveJsonValue(STORAGE_KEYS.collections, collectionsData);
   }, [collectionsData]);
 
   useEffect(() =>
 {
-    localStorage.setItem("msmTrackerIslandState", JSON.stringify(islandStates));
+    saveJsonValue(STORAGE_KEYS.islandState, islandStates);
   }, [islandStates]);
 
   useEffect(() =>
   {
-    setBreedingSessions((prev) => reconcileBreedingSessions(prev, sheets));
-  }, [sheets]);
-
-  useEffect(() =>
-  {
-    localStorage.setItem("msmTrackerBreedingSessions", JSON.stringify(breedingSessions));
+    saveJsonValue(STORAGE_KEYS.breedingSessions, breedingSessions);
   }, [breedingSessions]);
 
   const openHome = () => setView({ screen: "home" });
@@ -1126,6 +554,81 @@ export default function App()
   const openQueue = () => setView({ screen: "queue" });
   const openIslandPlanner = () => setView({ screen: "planner" });
   const openDirectory = () => setView({ screen: "directory" });
+
+  const handleExportBackup = () =>
+  {
+    try
+    {
+      const rawBackup = serializeBackupPayload({
+        appVersion: APP_VERSION,
+        sheets,
+        view,
+        collectionsData,
+        islandStates,
+        breedingSessions,
+      });
+      const exportBlob = new Blob([rawBackup], { type: "application/json" });
+      const exportUrl = window.URL.createObjectURL(exportBlob);
+      const downloadLink = document.createElement("a");
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+
+      downloadLink.href = exportUrl;
+      downloadLink.download = `msm-tracker-backup-${timestamp}.json`;
+      downloadLink.click();
+      window.URL.revokeObjectURL(exportUrl);
+      setBackupMessage({
+        kind: "success",
+        text: "Backup exported. Keep that JSON somewhere safe before device changes.",
+      });
+    }
+    catch (error)
+    {
+      console.error("Failed to export backup", error);
+      setBackupMessage({
+        kind: "error",
+        text: "Backup export failed. Try again after the current changes settle.",
+      });
+    }
+  };
+
+  const handleImportBackup = async (file) =>
+  {
+    setIsImporting(true);
+
+    try
+    {
+      const parsedBackup = parseBackupPayload(await file.text(), {
+        defaultSheets: DEFAULT_SHEETS,
+        defaultCollections: COLLECTIONS,
+      });
+
+      setView(parsedBackup.view);
+      setSheets(parsedBackup.sheets);
+      setCollectionsData(parsedBackup.collectionsData);
+      setIslandStates(parsedBackup.islandStates);
+      setBreedingSessions(parsedBackup.breedingSessions);
+      setBackupMessage({
+        kind: "success",
+        text: parsedBackup.meta.exportedAt
+          ? `Backup restored from ${parsedBackup.meta.exportedAt}.`
+          : "Backup restored successfully.",
+      });
+    }
+    catch (error)
+    {
+      console.error("Failed to import backup", error);
+      setBackupMessage({
+        kind: "error",
+        text: error instanceof Error
+          ? error.message
+          : "That backup could not be imported.",
+      });
+    }
+    finally
+    {
+      setIsImporting(false);
+    }
+  };
 
   const createAnotherSheetInstance = (sheetKey, options = {}) =>
   {
@@ -2122,42 +1625,6 @@ export default function App()
     });
   };
 
-  const activateSheetAndOpen = (sheetKey) =>
-{
-    const sheet = sheets.find((entry) => entry.key === sheetKey);
-
-    if (!sheet)
-    {
-      return;
-    }
-
-    if (!sheet.isActive)
-    {
-      const confirmed = window.confirm(
-        getSheetActivationPrompt(sheet)
-      );
-
-      if (!confirmed)
-      {
-        return;
-      }
-
-      updateSheet(sheetKey, (draft) =>
-      {
-        if (draft.isActive)
-        {
-          return draft;
-        }
-
-        draft.isActive = true;
-        draft.activatedAt = new Date().toISOString();
-        return draft;
-      });
-    }
-
-    openSheet(sheetKey);
-  };
-
   const toggleSheetActive = (sheetKey) => 
 {
     updateSheet(sheetKey, (sheet) => 
@@ -2172,6 +1639,59 @@ export default function App()
 
       return sheet;
     });
+  };
+
+  const updateCollectionEntryStatus = (collectionKey, entryName, nextStatus) =>
+  {
+    if (!collectionKey || !entryName)
+    {
+      return;
+    }
+
+    setCollectionsData((prev) =>
+      prev.map((collection) =>
+      {
+        if (collection.key !== collectionKey)
+        {
+          return collection;
+        }
+
+        return {
+          ...collection,
+          entries: collection.entries.map((entry) =>
+          {
+            if (entry.name !== entryName)
+            {
+              return entry;
+            }
+
+            if (nextStatus === "complete")
+            {
+              return {
+                ...entry,
+                collected: true,
+                status: "complete",
+              };
+            }
+
+            if (nextStatus === "in_progress")
+            {
+              return {
+                ...entry,
+                collected: false,
+                status: "in_progress",
+              };
+            }
+
+            return {
+              ...entry,
+              collected: false,
+              status: "inactive",
+            };
+          }),
+        };
+      })
+    );
   };
 
   const toggleSheetCollected = (sheetKey) => 
@@ -2213,6 +1733,15 @@ export default function App()
         })
       );
 
+      if (targetSheet.collectionKey && targetSheet.templateName)
+      {
+        updateCollectionEntryStatus(
+          targetSheet.collectionKey,
+          targetSheet.templateName,
+          nextCollected ? "complete" : "not_started"
+        );
+      }
+
       return;
     }
 
@@ -2221,6 +1750,15 @@ export default function App()
       sheet.isCollected = nextCollected;
       return sheet;
     });
+
+    if (targetSheet.collectionKey && targetSheet.templateName)
+    {
+      updateCollectionEntryStatus(
+        targetSheet.collectionKey,
+        targetSheet.templateName,
+        nextCollected ? "complete" : "not_started"
+      );
+    }
   };
 
   const resetSheet = (sheetKey) => 
@@ -2413,267 +1951,25 @@ export default function App()
       </div>
 
       {view.screen === "home" && (
-        <div className="page-surface" style={{ gap: "16px" }}>
-          <div className="responsive-page-card" style={{ ...baseCardStyle, display: "grid", gap: "16px" }}>
-            <div>
-              <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                RIGHT NOW
-              </div>
-              <div style={{ marginTop: "8px", fontSize: "30px", fontWeight: 700 }}>
-                Work the live board, not the brochure
-              </div>
-              <div style={{ marginTop: "10px", opacity: 0.76 }}>
-                Let Island Manager answer what can move, let Active Sheets hold the goals, and let the queue show where pressure is building.
-              </div>
-            </div>
-
-            <div className="dashboard-command-grid">
-              <div className="responsive-section-card" style={baseCardStyle}>
-                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  NEED NOW
-                </div>
-                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                  {needNowIslandCount}
-                </div>
-                <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                  islands with tracked work waiting
-                </div>
-              </div>
-
-              <div className="responsive-section-card" style={baseCardStyle}>
-                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  BREEDABLE
-                </div>
-                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                  {breedableIslandCount}
-                </div>
-                <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                  islands with open breeder space
-                </div>
-              </div>
-
-              <div className="responsive-section-card" style={baseCardStyle}>
-                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  ACTIVE EGGS
-                </div>
-                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                  {activeIslandSessionCount}
-                </div>
-                <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                  breeding or nursery sessions in motion
-                </div>
-              </div>
-
-              <div className="responsive-section-card" style={baseCardStyle}>
-                <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  QUEUE PRESSURE
-                </div>
-                <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                  {queuePressureCount}
-                </div>
-                <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                  tracked eggs still needed across the top queue
-                </div>
-              </div>
-            </div>
-
-            <div style={{ fontSize: "13px", opacity: 0.68 }}>
-              If you just opened the app on mobile, start with <strong>Island Manager</strong> for live capacity, then drop into <strong>Active Sheets</strong> when you need the exact row-level work.
-            </div>
-          </div>
-
-          <div className="dashboard-stat-grid">
-            <div className="responsive-section-card" style={baseCardStyle}>
-              <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                ACTIVE VESSELS
-              </div>
-              <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                {activeVesselSummary.length}
-              </div>
-              <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                {activeVesselSummary.length === 0
-                  ? "No active vessel sheets"
-                  : "Vessel sheets currently demanding attention"}
-              </div>
-            </div>
-
-            <div className="responsive-section-card" style={baseCardStyle}>
-              <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                ISLAND COLLECTIONS
-              </div>
-              <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                {islandCollectionProgress.complete} / {islandCollectionProgress.total}
-              </div>
-              <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                {islandCollectionProgress.percent}% island collections complete
-              </div>
-            </div>
-
-            <div className="responsive-section-card" style={baseCardStyle}>
-              <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                BREEDER SPACE
-              </div>
-              <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                {islandCapacitySummary.freeBreeders} free
-              </div>
-              <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                {islandCapacitySummary.totalBreeders} total breeders across unlocked islands
-              </div>
-            </div>
-
-            <div className="responsive-section-card" style={baseCardStyle}>
-              <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                NURSERY SPACE
-              </div>
-              <div style={{ marginTop: "8px", fontSize: "26px", fontWeight: 700 }}>
-                {islandCapacitySummary.freeNurseries} free
-              </div>
-              <div style={{ marginTop: "6px", opacity: 0.72 }}>
-                {islandCapacitySummary.totalNurseries} total nurseries across unlocked islands
-              </div>
-            </div>
-          </div>
-
-          <div className="responsive-page-card" style={{ ...baseCardStyle, display: "grid", gap: "14px" }}>
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  FOCUS
-                </div>
-                <div style={{ marginTop: "6px", fontSize: "24px", fontWeight: 700 }}>
-                  Active sheets driving the next moves
-                </div>
-              </div>
-            </div>
-
-            {activeVesselSummary.length === 0 ? (
-              <div style={{ opacity: 0.72 }}>
-                No active vessel sheets yet. Activate one from Collections when you want it to start driving island work.
-              </div>
-            ) : (
-              <div style={{ display: "grid", gap: "12px" }}>
-                {activeVesselSummary.map((goal) => (
-                  <div
-                    key={goal.key}
-                    onClick={() => openSheet(goal.key)}
-                    style={{
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      borderRadius: "16px",
-                      padding: "16px",
-                      background: goal.complete
-                        ? "linear-gradient(180deg, rgba(34,197,94,0.16), rgba(34,197,94,0.06))"
-                        : "rgba(255,255,255,0.035)",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "12px",
-                        flexWrap: "wrap",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div>
-                        <div style={{ fontSize: "21px", fontWeight: 700 }}>{goal.name}</div>
-                        <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-                          {goal.collectionName} · {goal.title}
-                        </div>
-                      </div>
-
-                      <div
-                        style={{
-                          padding: "6px 12px",
-                          borderRadius: "999px",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                          background: goal.complete
-                            ? "rgba(34,197,94,0.2)"
-                            : "rgba(245,158,11,0.18)",
-                          fontSize: "12px",
-                          fontWeight: 700,
-                        }}
-                      >
-                        {goal.complete ? "Collected" : `${goal.remaining} left`}
-                      </div>
-                    </div>
-
-                    <div style={{ marginTop: "12px", fontSize: "14px", opacity: 0.85 }}>
-                      {goal.progress}% zapped · {goal.trackedProgress}% tracked
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="responsive-page-card" style={{ ...baseCardStyle, display: "grid", gap: "14px" }}>
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
-                  QUEUE HIGHLIGHTS
-                </div>
-                <div style={{ marginTop: "6px", fontSize: "24px", fontWeight: 700 }}>
-                  Pipeline pressure at a glance
-                </div>
-              </div>
-            </div>
-
-            {topQueueItems.length === 0 ? (
-              <div style={{ opacity: 0.72 }}>No active breeding pressure right now.</div>
-            ) : (
-              <div style={{ display: "grid", gap: "10px" }}>
-                {topQueueItems.map((item) => (
-                  <div
-                    key={item.name}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: "12px",
-                      flexWrap: "wrap",
-                      padding: "14px 16px",
-                      borderRadius: "14px",
-                      background: "rgba(255,255,255,0.035)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                    }}
-                  >
-                    <div>
-                      <div style={{ fontSize: "18px", fontWeight: 700 }}>{item.name}</div>
-                      <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-                        {(item.islands || []).join(" / ")}
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        padding: "6px 12px",
-                        borderRadius: "999px",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        background: "rgba(255,255,255,0.08)",
-                        fontSize: "12px",
-                        fontWeight: 700,
-                      }}
-                    >
-                      Need {item.actualRemaining}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <HomeDashboard
+          needNowIslandCount={needNowIslandCount}
+          breedableIslandCount={breedableIslandCount}
+          activeIslandSessionCount={activeIslandSessionCount}
+          queuePressureCount={queuePressureCount}
+          activeVesselSummary={activeVesselSummary}
+          islandCollectionProgress={islandCollectionProgress}
+          islandCapacitySummary={islandCapacitySummary}
+          topQueueItems={topQueueItems}
+          onOpenIslandPlanner={openIslandPlanner}
+          onOpenActiveSheets={openActiveSheets}
+          onOpenCollections={openCollections}
+          onOpenQueue={openQueue}
+          onOpenSheet={openSheet}
+          onExportBackup={handleExportBackup}
+          onImportBackup={handleImportBackup}
+          backupMessage={backupMessage}
+          isImporting={isImporting}
+        />
       )}
 
       {view.screen === "active" && (
@@ -2690,10 +1986,12 @@ export default function App()
         <Suspense fallback={<ScreenLoadingFallback label="Loading Collections..." />}>
           <CollectionsPage
             sheets={sheets}
+            collectionsData={collectionsData}
             getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
             onOpenSheet={openSheet}
             onCreateAnotherSheetInstance={createAnotherSheetInstance}
             onDeleteSheetInstance={deleteSheetInstance}
+            onUpdateCollectionEntryStatus={updateCollectionEntryStatus}
             onToggleSheetActive={toggleSheetActive}
           />
         </Suspense>

@@ -17,10 +17,15 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+.codex/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 .codex-local/
+android/.gradle/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/app/src/main/assets/public/
 data-entry/inboxArchive.md

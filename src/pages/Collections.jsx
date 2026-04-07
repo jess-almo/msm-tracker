@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ISLAND_GROUPS, ISLAND_STATE_DEFAULTS } from "../data/islands";
+import { COLLECTIONS } from "../data/collections";
 
 const pageCardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -70,7 +71,7 @@ const compactDangerButtonStyle = {
 const STATUS_FILTER_OPTIONS = [
   { key: "all", label: "All" },
   { key: "active", label: "Active" },
-  { key: "in_progress", label: "Working" },
+  { key: "in_progress", label: "Partially Complete" },
   { key: "not_started", label: "Ready to Start" },
   { key: "complete", label: "Complete" },
 ];
@@ -142,7 +143,7 @@ function getStatusLabel(status)
 
   if (status === "in_progress")
   {
-    return "Working";
+    return "Partially Complete";
   }
 
   if (status === "complete")
@@ -367,6 +368,98 @@ function getVesselGroupLabel(groupKey)
   return "Other";
 }
 
+function getCollectionEntriesForFamily(familyKey, collectionsByKey)
+{
+  if (familyKey === "amber")
+  {
+    return collectionsByKey.get("amber_island")?.entries || [];
+  }
+
+  if (familyKey === "wublin")
+  {
+    return collectionsByKey.get("wublins")?.entries || [];
+  }
+
+  if (familyKey === "celestial")
+  {
+    return collectionsByKey.get("celestials")?.entries || [];
+  }
+
+  return [];
+}
+
+function getCollectionEntryRarityRank(entry)
+{
+  if (entry?.rarity === "common")
+  {
+    return 0;
+  }
+
+  if (entry?.rarity === "rare")
+  {
+    return 1;
+  }
+
+  if (entry?.rarity === "epic")
+  {
+    return 2;
+  }
+
+  return 3;
+}
+
+function getCollectionFamilyKey(collectionKey)
+{
+  if (collectionKey === "amber_island")
+  {
+    return "amber";
+  }
+
+  if (collectionKey === "wublins")
+  {
+    return "wublin";
+  }
+
+  if (collectionKey === "celestials")
+  {
+    return "celestial";
+  }
+
+  return "other";
+}
+
+function getCollectionEntryMatchingSheets(entry, familySheets)
+{
+  return familySheets.filter((sheet) =>
+  {
+    const candidateName =
+      sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle || "";
+
+    return candidateName === entry.name;
+  });
+}
+
+function compareCollectionEntryGroups(a, b)
+{
+  const statusPriorityDelta =
+    getStatusPriority(getCollectionEntryStatus(a.entry, a.instances))
+    - getStatusPriority(getCollectionEntryStatus(b.entry, b.instances));
+
+  if (statusPriorityDelta !== 0)
+  {
+    return statusPriorityDelta;
+  }
+
+  const rarityDelta = getCollectionEntryRarityRank(a.entry) - getCollectionEntryRarityRank(b.entry);
+
+  if (rarityDelta !== 0)
+  {
+    return rarityDelta;
+  }
+
+  return (a.entry?.name || "").localeCompare(b.entry?.name || "");
+}
+
 function canActivateSheet(sheet)
 {
   const status = getDerivedSheetStatus(sheet);
@@ -382,54 +475,6 @@ function getActivationButtonLabel(sheet)
   }
 
   return getDerivedSheetStatus(sheet) === "in_progress" ? "Activate Run" : "Activate";
-}
-
-function isCommonWublinSheet(sheet)
-{
-  if (getVesselGroupKey(sheet) !== "wublin")
-  {
-    return false;
-  }
-
-  const name = sheet.templateName || sheet.monsterName || "";
-
-  return !name.startsWith("Rare ") && !name.startsWith("Epic ");
-}
-
-function getTemplateStatus(instances)
-{
-  const statuses = instances.map((sheet) => getDerivedSheetStatus(sheet));
-
-  if (statuses.includes("active"))
-  {
-    return "active";
-  }
-
-  if (statuses.includes("in_progress"))
-  {
-    return "in_progress";
-  }
-
-  if (statuses.includes("not_started"))
-  {
-    return "not_started";
-  }
-
-  return "complete";
-}
-
-function getVesselTemplateSortSummary(instances)
-{
-  const sortedInstances = [...instances].sort(sortSheetsByOperationalOrder);
-  const primaryInstance = sortedInstances[0];
-  const status = getTemplateStatus(sortedInstances);
-
-  return {
-    key: primaryInstance?.templateKey || primaryInstance?.monsterName || "",
-    name: primaryInstance?.templateName || primaryInstance?.monsterName || "",
-    status,
-    priority: getSheetSortPriority(primaryInstance),
-  };
 }
 
 function getVesselTemplateProgress(instances)
@@ -474,6 +519,41 @@ function getVesselTemplateProgress(instances)
   };
 }
 
+function getCollectionEntryStatus(entry, instances)
+{
+  if (entry?.collected)
+  {
+    return "complete";
+  }
+
+  if (instances.some((sheet) => sheet.isCollected || getSheetState(sheet).complete))
+  {
+    return "complete";
+  }
+
+  if (instances.some((sheet) => sheet.isActive))
+  {
+    return "active";
+  }
+
+  if (
+    entry?.status === "in_progress"
+    || entry?.status === "partial"
+    || entry?.status === "partially_complete"
+    || instances.some((sheet) =>
+    {
+      const progress = getSheetState(sheet);
+
+      return progress.done > 0 || progress.tracked > 0;
+    })
+  )
+  {
+    return "in_progress";
+  }
+
+  return "not_started";
+}
+
 function getVisibleTemplateInstanceLabel(sheet, visibleInstances)
 {
   const baseName = sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle || "";
@@ -484,55 +564,6 @@ function getVisibleTemplateInstanceLabel(sheet, visibleInstances)
   }
 
   return `${baseName} #${Number(sheet.instanceNumber || 1)}`;
-}
-
-function sortVesselTemplateGroups(a, b)
-{
-  const aSummary = getVesselTemplateSortSummary(a);
-  const bSummary = getVesselTemplateSortSummary(b);
-  const statusPriorityDelta = getStatusPriority(aSummary.status) - getStatusPriority(bSummary.status);
-
-  if (statusPriorityDelta !== 0)
-  {
-    return statusPriorityDelta;
-  }
-
-  if (aSummary.status === "active")
-  {
-    const aActivatedAt = getSheetActivationOrderValue(
-      [...a].sort(sortSheetsByOperationalOrder).find((sheet) => sheet.isActive) || null
-    );
-    const bActivatedAt = getSheetActivationOrderValue(
-      [...b].sort(sortSheetsByOperationalOrder).find((sheet) => sheet.isActive) || null
-    );
-
-    if (aActivatedAt && bActivatedAt && aActivatedAt !== bActivatedAt)
-    {
-      return aActivatedAt.localeCompare(bActivatedAt);
-    }
-
-    if (aActivatedAt !== bActivatedAt)
-    {
-      return aActivatedAt ? -1 : 1;
-    }
-  }
-
-  const priorityDelta = aSummary.priority - bSummary.priority;
-
-  if (priorityDelta !== 0)
-  {
-    return priorityDelta;
-  }
-
-  const aName = aSummary.name || "";
-  const bName = bSummary.name || "";
-
-  return aName.localeCompare(bName);
-}
-
-function getTemplateCollectionUnlocked(instances)
-{
-  return instances.some((sheet) => sheet.isCollected || getSheetState(sheet).complete);
 }
 
 function renderSectionHeader({
@@ -690,32 +721,48 @@ function VesselSheetCard({
 }
 
 function VesselTemplateCard({
+  collectionKey,
+  entry,
   instances,
   onOpenSheet,
   onCreateAnotherSheetInstance,
   onDeleteSheetInstance,
   getDeleteInstanceBlockState,
   onToggleSheetActive,
+  onUpdateCollectionEntryStatus,
 })
 {
   const [confirmDeactivateKey, setConfirmDeactivateKey] = useState(null);
   const sortedInstances = [...instances].sort(sortSheetsByOperationalOrder);
-  const primaryInstance = sortedInstances[0];
+  const primaryInstance = sortedInstances[0] || null;
   const activeInstance = sortedInstances.find((sheet) => sheet.isActive) || null;
   const activatableInstance = sortedInstances.find((sheet) => canActivateSheet(sheet)) || null;
-  const summary = getVesselTemplateSortSummary(sortedInstances);
   const totals = getVesselTemplateProgress(sortedInstances);
-  const familyKey = getVesselGroupKey(primaryInstance);
+  const familyKey = getCollectionFamilyKey(collectionKey);
   const familyLabel = getVesselGroupLabel(familyKey);
-  const collectionUnlocked = getTemplateCollectionUnlocked(sortedInstances);
-  const visualStyle = getStatusVisualStyle(summary.status);
-  const statusSummaryParts = [
-    `${totals.instanceCount} tracked run${totals.instanceCount === 1 ? "" : "s"}`,
-  ];
+  const status = getCollectionEntryStatus(entry, sortedInstances);
+  const visualStyle = getStatusVisualStyle(status);
+  const statusSummaryParts = [];
+  const progressDone = sortedInstances.length > 0 ? totals.progress.done : status === "complete" ? 1 : 0;
+  const progressTotal = sortedInstances.length > 0 ? totals.progress.total : 1;
+  const progressPercent = sortedInstances.length > 0 ? totals.progress.percent : status === "complete" ? 100 : 0;
+  const trackedPercent = sortedInstances.length > 0 ? totals.progress.trackedPercent : status === "in_progress" ? 100 : 0;
+  const rarityLabel = entry?.rarity === "common"
+    ? "collection entry"
+    : `${entry?.rarity || "special"} collection entry`;
 
-  if (collectionUnlocked)
+  if (status === "complete")
   {
-    statusSummaryParts.unshift("collection unlocked");
+    statusSummaryParts.push("collection unlocked");
+  }
+
+  if (sortedInstances.length > 0)
+  {
+    statusSummaryParts.push(`${totals.instanceCount} tracked run${totals.instanceCount === 1 ? "" : "s"}`);
+  }
+  else
+  {
+    statusSummaryParts.push("no tracked runs yet");
   }
 
   if (totals.activeCount > 0)
@@ -725,17 +772,17 @@ function VesselTemplateCard({
 
   if (totals.inProgressCount > 0)
   {
-    statusSummaryParts.push(`${totals.inProgressCount} in progress`);
+    statusSummaryParts.push(`${totals.inProgressCount} partially complete`);
   }
 
   if (totals.completeCount > 0)
   {
-    statusSummaryParts.push(`${totals.completeCount} complete`);
+    statusSummaryParts.push(`${totals.completeCount} completed run${totals.completeCount === 1 ? "" : "s"}`);
   }
 
   return (
     <div
-      key={summary.key}
+      key={`${collectionKey}:${entry.name}`}
       style={{
         border: visualStyle.border,
         borderRadius: "16px",
@@ -756,19 +803,19 @@ function VesselTemplateCard({
       >
         <div>
           <div style={{ fontSize: "22px", fontWeight: 700 }}>
-            {summary.name}
+            {entry.name}
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-            {primaryInstance.collectionName} · {familyKey === "wublin" ? "species entry" : `${familyLabel} collection entry`}
+            {familyLabel} · {rarityLabel}
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
             {statusSummaryParts.join(" · ")}
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-            {Number(primaryInstance.timeLimitDays || 0) > 0
+            {Number(primaryInstance?.timeLimitDays || 0) > 0
               ? `${primaryInstance.timeLimitDays}d limit`
               : "No time limit data"}
-            {Number(primaryInstance.totalEggs || 0) > 0 ? ` · ${primaryInstance.totalEggs} eggs` : ""}
+            {Number(primaryInstance?.totalEggs || 0) > 0 ? ` · ${primaryInstance.totalEggs} eggs` : ""}
           </div>
         </div>
 
@@ -785,159 +832,161 @@ function VesselTemplateCard({
               marginBottom: "8px",
             }}
           >
-            {getStatusLabel(summary.status)}
+            {getStatusLabel(status)}
           </div>
           <div style={{ fontSize: "14px", fontWeight: 700 }}>
-            {totals.progress.done} / {totals.progress.total}
+            {progressDone} / {progressTotal}
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-            {totals.progress.percent}% complete
+            {progressPercent}% complete
           </div>
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: "12px",
-          display: "grid",
-          gap: "8px",
-        }}
-      >
-        {sortedInstances.map((sheet) =>
-        {
-          const instanceStatus = getDerivedSheetStatus(sheet);
-          const instanceProgress = getSheetState(sheet);
-          const instanceVisualStyle = getStatusVisualStyle(instanceStatus);
-          const instanceLabel = getVisibleTemplateInstanceLabel(sheet, sortedInstances);
-          const deleteBlockState = getDeleteInstanceBlockState?.(sheet.key) || {
-            kind: "",
-            reason: "",
-          };
-          const deleteBlockReason = deleteBlockState.reason || "";
-          const canDelete = !deleteBlockReason;
-          const shouldShowDeleteWarning = deleteBlockReason
-            && deleteBlockState.kind !== "last_instance"
-            && deleteBlockState.kind !== "active";
-          const isConfirmingDeactivate = confirmDeactivateKey === sheet.key;
+      {sortedInstances.length > 0 && (
+        <div
+          style={{
+            marginTop: "12px",
+            display: "grid",
+            gap: "8px",
+          }}
+        >
+          {sortedInstances.map((sheet) =>
+          {
+            const instanceStatus = getDerivedSheetStatus(sheet);
+            const instanceProgress = getSheetState(sheet);
+            const instanceVisualStyle = getStatusVisualStyle(instanceStatus);
+            const instanceLabel = getVisibleTemplateInstanceLabel(sheet, sortedInstances);
+            const deleteBlockState = getDeleteInstanceBlockState?.(sheet.key) || {
+              kind: "",
+              reason: "",
+            };
+            const deleteBlockReason = deleteBlockState.reason || "";
+            const canDelete = !deleteBlockReason;
+            const shouldShowDeleteWarning = deleteBlockReason
+              && deleteBlockState.kind !== "last_instance"
+              && deleteBlockState.kind !== "active";
+            const isConfirmingDeactivate = confirmDeactivateKey === sheet.key;
 
-          return (
-            <div
-              key={sheet.key}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-                alignItems: "center",
-                flexWrap: "wrap",
-                padding: "10px 12px",
-                borderRadius: "14px",
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.04)",
-              }}
-            >
-              <div>
-                <div style={{ fontSize: "14px", fontWeight: 700 }}>
-                  {instanceLabel}
-                </div>
-                <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.7 }}>
-                  {getStatusLabel(instanceStatus)} · {instanceProgress.done} / {instanceProgress.total} · {instanceProgress.percent}% complete
-                </div>
-                {shouldShowDeleteWarning && (
-                  <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.72, color: "rgba(252,165,165,0.95)" }}>
-                    Delete blocked: {deleteBlockReason}
+            return (
+              <div
+                key={sheet.key}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: "12px",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  padding: "10px 12px",
+                  borderRadius: "14px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.04)",
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: "14px", fontWeight: 700 }}>
+                    {instanceLabel}
                   </div>
-                )}
-              </div>
+                  <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.7 }}>
+                    {getStatusLabel(instanceStatus)} · {instanceProgress.done} / {instanceProgress.total} · {instanceProgress.percent}% complete
+                  </div>
+                  {shouldShowDeleteWarning && (
+                    <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.72, color: "rgba(252,165,165,0.95)" }}>
+                      Delete blocked: {deleteBlockReason}
+                    </div>
+                  )}
+                </div>
 
-              <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-                {instanceStatus === "active" ? (
-                  isConfirmingDeactivate ? (
-                    <>
+                <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
+                  {instanceStatus === "active" ? (
+                    isConfirmingDeactivate ? (
+                      <>
+                        <button
+                          style={{
+                            ...compactActionButtonStyle,
+                            background: "rgba(239,68,68,0.16)",
+                          }}
+                          onClick={() =>
+                          {
+                            onToggleSheetActive?.(sheet.key);
+                            setConfirmDeactivateKey(null);
+                          }}
+                        >
+                          Confirm Deactivate
+                        </button>
+                        <button
+                          style={compactActionButtonStyle}
+                          onClick={() => setConfirmDeactivateKey(null)}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
                       <button
                         style={{
                           ...compactActionButtonStyle,
-                          background: "rgba(239,68,68,0.16)",
+                          border: "1px solid rgba(245,158,11,0.2)",
+                          background: instanceVisualStyle.chipBackground,
                         }}
-                        onClick={() =>
-                        {
-                          onToggleSheetActive?.(sheet.key);
-                          setConfirmDeactivateKey(null);
-                        }}
+                        onClick={() => setConfirmDeactivateKey(sheet.key)}
+                        title="Deactivate this active instance"
                       >
-                        Confirm Deactivate
+                        Active
                       </button>
-                      <button
-                        style={compactActionButtonStyle}
-                        onClick={() => setConfirmDeactivateKey(null)}
-                      >
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
+                    )
+                  ) : instanceStatus === "not_started" ? (
                     <button
                       style={{
                         ...compactActionButtonStyle,
-                        border: "1px solid rgba(245,158,11,0.2)",
-                        background: instanceVisualStyle.chipBackground,
+                        border: "1px solid rgba(34,197,94,0.2)",
+                        background: "rgba(34,197,94,0.16)",
                       }}
-                      onClick={() => setConfirmDeactivateKey(sheet.key)}
-                      title="Deactivate this active instance"
+                      onClick={() => onToggleSheetActive?.(sheet.key)}
+                      title="Activate this tracked instance"
                     >
-                      Active
+                      Activate
                     </button>
-                  )
-                ) : instanceStatus === "not_started" ? (
+                  ) : (
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        padding: "5px 9px",
+                        borderRadius: "999px",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: instanceVisualStyle.chipBackground,
+                        fontSize: "11px",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {getStatusLabel(instanceStatus)}
+                    </div>
+                  )}
+
+                  <button
+                    style={compactActionButtonStyle}
+                    onClick={() => onOpenSheet(sheet.key)}
+                  >
+                    Open
+                  </button>
+
                   <button
                     style={{
-                      ...compactActionButtonStyle,
-                      border: "1px solid rgba(34,197,94,0.2)",
-                      background: "rgba(34,197,94,0.16)",
+                      ...compactDangerButtonStyle,
+                      opacity: canDelete ? 1 : 0.5,
+                      cursor: canDelete ? "pointer" : "not-allowed",
                     }}
-                    onClick={() => onToggleSheetActive?.(sheet.key)}
-                    title="Activate this tracked instance"
+                    onClick={() => onDeleteSheetInstance?.(sheet.key)}
+                    disabled={!canDelete}
+                    title={deleteBlockReason || "Delete this tracked instance"}
                   >
-                    Activate
+                    Delete
                   </button>
-                ) : (
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      padding: "5px 9px",
-                      borderRadius: "999px",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      background: instanceVisualStyle.chipBackground,
-                      fontSize: "11px",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {getStatusLabel(instanceStatus)}
-                  </div>
-                )}
-
-                <button
-                  style={compactActionButtonStyle}
-                  onClick={() => onOpenSheet(sheet.key)}
-                >
-                  Open
-                </button>
-
-                <button
-                  style={{
-                    ...compactDangerButtonStyle,
-                    opacity: canDelete ? 1 : 0.5,
-                    cursor: canDelete ? "pointer" : "not-allowed",
-                  }}
-                  onClick={() => onDeleteSheetInstance?.(sheet.key)}
-                  disabled={!canDelete}
-                  title={deleteBlockReason || "Delete this tracked instance"}
-                >
-                  Delete
-                </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       <div
         style={{
@@ -950,7 +999,13 @@ function VesselTemplateCard({
         }}
       >
         <div style={{ fontSize: "13px", opacity: 0.72 }}>
-          {totals.progress.trackedPercent}% tracked across all current runs
+          {sortedInstances.length > 0
+            ? `${trackedPercent}% tracked across all current runs`
+            : status === "complete"
+              ? "Collected in your tracker"
+              : status === "in_progress"
+                ? "Marked partially complete"
+                : "Collection entry not started yet"}
         </div>
 
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -978,12 +1033,45 @@ function VesselTemplateCard({
             </button>
           ) : null}
 
-          <button
-            style={actionButtonStyle}
-            onClick={() => onCreateAnotherSheetInstance?.(primaryInstance.key)}
-          >
-            {totals.hasCompletedInstance ? "Create New Run" : "Create Another Run"}
-          </button>
+          {primaryInstance && (
+            <button
+              style={actionButtonStyle}
+              onClick={() => onCreateAnotherSheetInstance?.(primaryInstance.key)}
+            >
+              {totals.hasCompletedInstance ? "Create New Run" : "Create Another Run"}
+            </button>
+          )}
+
+          {status !== "complete" && (
+            <button
+              style={{
+                ...actionButtonStyle,
+                background: "rgba(34,197,94,0.16)",
+                border: "1px solid rgba(34,197,94,0.18)",
+              }}
+              onClick={() => onUpdateCollectionEntryStatus?.(collectionKey, entry.name, "complete")}
+            >
+              Mark Collected
+            </button>
+          )}
+
+          {status !== "in_progress" && status !== "complete" && (
+            <button
+              style={actionButtonStyle}
+              onClick={() => onUpdateCollectionEntryStatus?.(collectionKey, entry.name, "in_progress")}
+            >
+              Mark Partial
+            </button>
+          )}
+
+          {status !== "not_started" && (
+            <button
+              style={actionButtonStyle}
+              onClick={() => onUpdateCollectionEntryStatus?.(collectionKey, entry.name, "not_started")}
+            >
+              Clear Status
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -1097,16 +1185,40 @@ function IslandSheetCard({
 
 export default function Collections({
   sheets,
+  collectionsData,
   onOpenSheet,
   onCreateAnotherSheetInstance,
   onDeleteSheetInstance,
   getDeleteInstanceBlockState,
   onToggleSheetActive,
+  onUpdateCollectionEntryStatus,
 })
 {
   const [activeTab, setActiveTab] = useState("vessels");
   const [statusFilter, setStatusFilter] = useState("all");
   const [vesselFamilyFilter, setVesselFamilyFilter] = useState("all");
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() =>
+  {
+    function handleScroll()
+    {
+      setShowScrollTop(window.scrollY > 720);
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  function handleScrollToTop()
+  {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   const vesselSheets = useMemo(
     () => sheets.filter((sheet) => (sheet.type || "vessel") === "vessel"),
@@ -1115,6 +1227,11 @@ export default function Collections({
   const islandSheets = useMemo(
     () => sheets.filter((sheet) => sheet.type === "island"),
     [sheets]
+  );
+
+  const collectionsByKey = useMemo(
+    () => new Map((collectionsData || []).map((collection) => [collection.key, collection])),
+    [collectionsData]
   );
 
   const vesselGroups = useMemo(() =>
@@ -1134,39 +1251,40 @@ export default function Collections({
     return grouped;
   }, [vesselSheets]);
 
-  const groupedVesselTemplateGroups = useMemo(() =>
+  const vesselCollectionEntryGroups = useMemo(() =>
   {
-    return Object.fromEntries(
-      Object.entries(vesselGroups).map(([familyKey, familySheets]) =>
-      {
-        const groupedTemplates = new Map();
-
-        familySheets
-          .filter((sheet) => familyKey !== "wublin" || isCommonWublinSheet(sheet))
-          .forEach((sheet) =>
-          {
-            const templateKey = sheet.templateKey || sheet.templateName || sheet.monsterName || sheet.key;
-            const existing = groupedTemplates.get(templateKey) || [];
-
-            groupedTemplates.set(templateKey, [...existing, sheet]);
-          });
-
-        const templateGroups = Array.from(groupedTemplates.values())
-          .map((instances) => [...instances].sort(sortSheetsByOperationalOrder))
-          .filter((instances) => matchesStatusFilter(getTemplateStatus(instances), statusFilter))
-          .sort(sortVesselTemplateGroups);
-
-        return [familyKey, templateGroups];
-      })
-    );
-  }, [statusFilter, vesselGroups]);
+    return {
+      amber: getCollectionEntriesForFamily("amber", collectionsByKey)
+        .map((entry) => ({
+          entry,
+          instances: getCollectionEntryMatchingSheets(entry, vesselGroups.amber),
+        }))
+        .filter(({ entry, instances }) => matchesStatusFilter(getCollectionEntryStatus(entry, instances), statusFilter))
+        .sort(compareCollectionEntryGroups),
+      wublin: getCollectionEntriesForFamily("wublin", collectionsByKey)
+        .map((entry) => ({
+          entry,
+          instances: getCollectionEntryMatchingSheets(entry, vesselGroups.wublin),
+        }))
+        .filter(({ entry, instances }) => matchesStatusFilter(getCollectionEntryStatus(entry, instances), statusFilter))
+        .sort(compareCollectionEntryGroups),
+      celestial: getCollectionEntriesForFamily("celestial", collectionsByKey)
+        .map((entry) => ({
+          entry,
+          instances: getCollectionEntryMatchingSheets(entry, vesselGroups.celestial),
+        }))
+        .filter(({ entry, instances }) => matchesStatusFilter(getCollectionEntryStatus(entry, instances), statusFilter))
+        .sort(compareCollectionEntryGroups),
+      other: [],
+    };
+  }, [collectionsByKey, statusFilter, vesselGroups]);
 
   const vesselFamilyCounts = useMemo(() =>
   {
-    const amberCount = groupedVesselTemplateGroups.amber.length;
-    const wublinCount = groupedVesselTemplateGroups.wublin.length;
-    const celestialCount = groupedVesselTemplateGroups.celestial.length;
-    const otherCount = groupedVesselTemplateGroups.other.length;
+    const amberCount = vesselCollectionEntryGroups.amber.length;
+    const wublinCount = vesselCollectionEntryGroups.wublin.length;
+    const celestialCount = vesselCollectionEntryGroups.celestial.length;
+    const otherCount = vesselCollectionEntryGroups.other.length;
 
     return {
       all: amberCount + wublinCount + celestialCount + otherCount,
@@ -1175,7 +1293,7 @@ export default function Collections({
       celestial: celestialCount,
       other: otherCount,
     };
-  }, [groupedVesselTemplateGroups]);
+  }, [vesselCollectionEntryGroups]);
 
   const visibleVesselFamilyFilterOptions = useMemo(() =>
   {
@@ -1193,9 +1311,9 @@ export default function Collections({
   const visibleVesselSections = useMemo(() =>
   {
     const sectionSubtitles = {
-      amber: "Species-first browsing for Amber work, with tracked runs nested underneath each collection entry.",
-      wublin: "Species-first browsing for common Wublin templates, with tracked runs nested underneath.",
-      celestial: "Species-first browsing for current Celestial work and duplicate-run tracking.",
+      amber: "Collection-first browsing for Amber monsters, with tracked runs nested underneath each species.",
+      wublin: "Collection-first browsing for Wublin monsters and variants, with tracked runs nested underneath each species.",
+      celestial: "Collection-first browsing for Celestial monsters and future tracked runs.",
       other: "Grouped species view for any other vessel-style families that reuse the shared sheet backbone.",
     };
     const sections = [
@@ -1203,33 +1321,39 @@ export default function Collections({
         key: "amber",
         title: "Amber",
         subtitle: sectionSubtitles.amber,
-        count: groupedVesselTemplateGroups.amber.length,
-        cards: groupedVesselTemplateGroups.amber.map((instances) => (
+        count: vesselCollectionEntryGroups.amber.length,
+        cards: vesselCollectionEntryGroups.amber.map(({ entry, instances }) => (
           <VesselTemplateCard
-            key={instances[0]?.templateKey || instances[0]?.monsterName || instances[0]?.key}
+            key={`amber:${entry.name}`}
+            collectionKey="amber_island"
+            entry={entry}
             instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
+            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
       },
       {
         key: "wublin",
-        title: "Common Wublins",
+        title: "Wublins",
         subtitle: sectionSubtitles.wublin,
-        count: groupedVesselTemplateGroups.wublin.length,
-        cards: groupedVesselTemplateGroups.wublin.map((instances) => (
+        count: vesselCollectionEntryGroups.wublin.length,
+        cards: vesselCollectionEntryGroups.wublin.map(({ entry, instances }) => (
           <VesselTemplateCard
-            key={instances[0]?.templateKey || instances[0]?.monsterName}
+            key={`wublins:${entry.name}`}
+            collectionKey="wublins"
+            entry={entry}
             instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
+            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
       },
@@ -1237,16 +1361,19 @@ export default function Collections({
         key: "celestial",
         title: "Celestial",
         subtitle: sectionSubtitles.celestial,
-        count: groupedVesselTemplateGroups.celestial.length,
-        cards: groupedVesselTemplateGroups.celestial.map((instances) => (
+        count: vesselCollectionEntryGroups.celestial.length,
+        cards: vesselCollectionEntryGroups.celestial.map(({ entry, instances }) => (
           <VesselTemplateCard
-            key={instances[0]?.templateKey || instances[0]?.monsterName || instances[0]?.key}
+            key={`celestials:${entry.name}`}
+            collectionKey="celestials"
+            entry={entry}
             instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
+            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
       },
@@ -1254,16 +1381,19 @@ export default function Collections({
         key: "other",
         title: "Other",
         subtitle: sectionSubtitles.other,
-        count: groupedVesselTemplateGroups.other.length,
-        cards: groupedVesselTemplateGroups.other.map((instances) => (
+        count: vesselCollectionEntryGroups.other.length,
+        cards: vesselCollectionEntryGroups.other.map(({ entry, instances }) => (
           <VesselTemplateCard
-            key={instances[0]?.templateKey || instances[0]?.monsterName || instances[0]?.key}
+            key={`other:${entry.name}`}
+            collectionKey="other"
+            entry={entry}
             instances={instances}
             onOpenSheet={onOpenSheet}
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
             onToggleSheetActive={onToggleSheetActive}
+            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
       },
@@ -1284,8 +1414,9 @@ export default function Collections({
     getDeleteInstanceBlockState,
     onOpenSheet,
     onToggleSheetActive,
+    onUpdateCollectionEntryStatus,
     vesselFamilyFilter,
-    groupedVesselTemplateGroups,
+    vesselCollectionEntryGroups,
   ]);
 
   const islandGroupByName = useMemo(
@@ -1325,7 +1456,7 @@ export default function Collections({
                 }}
                 onClick={() => setActiveTab("vessels")}
               >
-                Vessels ({vesselSheets.length})
+                Vessels ({vesselFamilyCounts.all})
               </button>
               <button
                 style={{
@@ -1415,6 +1546,22 @@ export default function Collections({
         </div>
       </div>
 
+      {showScrollTop && (
+        <button
+          className="page-scroll-top"
+          style={{
+            ...compactActionButtonStyle,
+            padding: "10px 14px",
+            background: "rgba(59,130,246,0.16)",
+            border: "1px solid rgba(96,165,250,0.3)",
+            boxShadow: "0 12px 30px rgba(0,0,0,0.24)",
+          }}
+          onClick={handleScrollToTop}
+        >
+          ↑ Top
+        </button>
+      )}
+
       {activeTab === "vessels" ? (
         <div style={{ display: "grid", gap: "16px" }}>
           {visibleVesselSections.length === 0 ? (
@@ -1435,13 +1582,13 @@ export default function Collections({
                 })}
 
                 <div
-                  className={section.key === "wublin" ? "collections-card-grid collections-card-grid--single" : "collections-card-grid"}
+                  className="collections-card-grid"
                   style={{ marginTop: "12px" }}
                 >
                   {section.count === 0 ? (
                     <div style={{ opacity: 0.64 }}>
                       {statusFilter === "all"
-                        ? `No ${section.title.toLowerCase()} sheets yet.`
+                        ? `No ${section.title.toLowerCase()} collection entries yet.`
                         : getEmptyStateCopy(statusFilter)}
                     </div>
                   ) : section.cards}

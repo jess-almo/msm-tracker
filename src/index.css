@@ -174,10 +174,6 @@ textarea {
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 }
 
-.collections-card-grid--single {
-  grid-template-columns: 1fr;
-}
-
 .island-region-select-wrap {
   display: none;
 }
@@ -208,7 +204,7 @@ textarea {
   flex: 0 0 auto;
 }
 
-.island-scroll-top {
+.page-scroll-top {
   position: fixed;
   left: max(16px, calc(50vw - 640px));
   top: 50%;
@@ -325,7 +321,7 @@ textarea {
     min-width: 0;
   }
 
-  .island-scroll-top {
+  .page-scroll-top {
     left: auto;
     right: 16px;
     top: auto;

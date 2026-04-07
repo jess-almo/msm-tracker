@@ -23,6 +23,7 @@
     "android:open": "npx cap open android",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "node --test",
     "preview": "vite preview"
   },
   "dependencies": {

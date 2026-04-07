@@ -8,6 +8,8 @@ Do not create a fake release for every tiny edit.
 
 ### Changed
 
+- Added the same conditional floating `Top` control to Collections so long vessel and island lists can jump back to the top quickly once you scroll deep into the page.
+- Removed the Wublin-only single-column Collections layout treatment and normalized vessel entry labeling so Amber and Wublin collection cards now use the same display rhythm and card sizing.
 - Added a planner-only floating `Top` control in Island Manager so once you scroll deep into the island list you can jump back to the top quickly without manually dragging all the way back up.
 - Reworked Monster Directory category behavior so the `Amber` filter now follows the app's real 32-species Amber vessel set instead of only the 6 monsters literally tagged `category: "amber"` in the raw database, and replaced the old alphabetical category-button order with a more intentional operational browse order.
 - Simplified Collections section headers so vessel and island group counts now read directly in the heading line instead of floating as detached mobile badges.
@@ -16,6 +18,7 @@ Do not create a fake release for every tiny edit.
 - Clarified island collection notes so base collections stay focused on common-form island ownership while Rare and Epic variants can be layered in later as separate collection targets instead of being faked as the same monster.
 - Reworked Active Sheets into a more operational workbench with inline section counts, overview cards for `Need Now`, `In Motion`, `Ready to Start`, and total remaining work, plus clearer separation between live work and already collected active sheets.
 - Renamed the Breeding Queue mode labels from the older `Zap Run` / `Breed Run` wording to clearer action-first `Ready to Zap` / `Ready to Breed` language, and updated the supporting copy to talk about hatching and board-clearing more naturally.
+- Finished the visible Collections shift toward the real collection catalog by rendering Amber, Wublin, and Celestial entries from `collectionsData`, giving each monster its own collection card, and adding collection-level `Mark Partial`, `Mark Collected`, and `Clear Status` controls even when no live run sheet exists yet.
 
 ## [0.4.0] - 2026-04-06
 

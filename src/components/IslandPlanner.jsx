@@ -792,22 +792,6 @@ function IslandCard({
   const canMaxCapacity = canUpgradeBreedingStructures || canUpgradeNurseries;
   const capacitySummaryParts = [];
 
-  useEffect(() =>
-  {
-    if (!showReconcilePanel)
-    {
-      return;
-    }
-
-    resetReconcileDraft();
-  }, [
-    breederReconcileSlotCount,
-    island.currentlyBreeding,
-    island.nurserySessions,
-    nurseryReconcileSlotCount,
-    showReconcilePanel,
-  ]);
-
   if (island.supportsStandardBreeding)
   {
     capacitySummaryParts.push(
@@ -2143,44 +2127,9 @@ export default function IslandPlanner({
       islands: plannerData.filter((island) => (island.group || "other") === group.key),
     }));
   }, [plannerData]);
-
-  useEffect(() =>
-  {
-    const hasActiveTab = activeTab === ALL_REGIONS_FILTER
-      || groupedPlannerData.some((group) => group.key === activeTab);
-
-    if (!hasActiveTab)
-    {
-      setActiveTab(ALL_REGIONS_FILTER);
-    }
-  }, [activeTab, groupedPlannerData]);
-
-  if (plannerData.length === 0)
-  {
-    return (
-      <div style={cardStyle}>
-        <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
-          Island Manager
-        </div>
-        <div style={{ marginTop: "8px", opacity: 0.75 }}>
-          No active islands yet. Activate a sheet to start planning islands.
-        </div>
-      </div>
-    );
-  }
-
-  const activeGroup = activeTab === ALL_REGIONS_FILTER
-    ? null
-    : groupedPlannerData.find((group) => group.key === activeTab) || groupedPlannerData[0];
-  const regionFilteredIslands = activeTab === ALL_REGIONS_FILTER
-    ? plannerData
-    : (activeGroup?.islands || []);
-  const visibleIslands = regionFilteredIslands.filter((island) =>
-    matchesAvailabilityFilter(island, availabilityFilter)
-  );
-  const activeRegionLabel = getRegionFilterLabel(activeTab, groupedPlannerData);
-  const activeAvailabilityLabel = getAvailabilityFilterLabel(availabilityFilter);
-  const activeAvailabilityMeaning = getAvailabilityFilterMeaning(availabilityFilter);
+  const hasActiveTab = activeTab === ALL_REGIONS_FILTER
+    || groupedPlannerData.some((group) => group.key === activeTab);
+  const resolvedActiveTab = hasActiveTab ? activeTab : ALL_REGIONS_FILTER;
 
   useEffect(() =>
   {
@@ -2209,6 +2158,33 @@ export default function IslandPlanner({
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (plannerData.length === 0)
+  {
+    return (
+      <div style={cardStyle}>
+        <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
+          Island Manager
+        </div>
+        <div style={{ marginTop: "8px", opacity: 0.75 }}>
+          No active islands yet. Activate a sheet to start planning islands.
+        </div>
+      </div>
+    );
+  }
+
+  const activeGroup = resolvedActiveTab === ALL_REGIONS_FILTER
+    ? null
+    : groupedPlannerData.find((group) => group.key === resolvedActiveTab) || groupedPlannerData[0];
+  const regionFilteredIslands = resolvedActiveTab === ALL_REGIONS_FILTER
+    ? plannerData
+    : (activeGroup?.islands || []);
+  const visibleIslands = regionFilteredIslands.filter((island) =>
+    matchesAvailabilityFilter(island, availabilityFilter)
+  );
+  const activeRegionLabel = getRegionFilterLabel(resolvedActiveTab, groupedPlannerData);
+  const activeAvailabilityLabel = getAvailabilityFilterLabel(availabilityFilter);
+  const activeAvailabilityMeaning = getAvailabilityFilterMeaning(availabilityFilter);
 
   function handleJumpToIsland(island)
   {
@@ -2246,8 +2222,9 @@ export default function IslandPlanner({
         </div>
 
         <div className="screen-card-actions island-filter-row island-region-row" style={{ marginTop: "16px" }}>
-          {[{ key: ALL_REGIONS_FILTER, label: "All Regions" }, ...ISLAND_GROUPS].map((group) => {
-            const isActive = activeTab === group.key;
+          {[{ key: ALL_REGIONS_FILTER, label: "All Regions" }, ...ISLAND_GROUPS].map((group) =>
+          {
+            const isActive = resolvedActiveTab === group.key;
 
             return (
               <button
@@ -2273,7 +2250,7 @@ export default function IslandPlanner({
           </div>
           <select
             className="island-region-select"
-            value={activeTab}
+            value={resolvedActiveTab}
             onChange={(event) => setActiveTab(event.target.value)}
           >
             {[{ key: ALL_REGIONS_FILTER, label: "All Regions" }, ...ISLAND_GROUPS].map((group) => (
@@ -2285,7 +2262,8 @@ export default function IslandPlanner({
         </div>
 
         <div className="screen-card-actions island-filter-row island-availability-row" style={{ marginTop: "14px" }}>
-          {AVAILABILITY_FILTER_OPTIONS.map((filter) => {
+          {AVAILABILITY_FILTER_OPTIONS.map((filter) =>
+          {
             const isActive = availabilityFilter === filter.key;
 
             return (
@@ -2338,7 +2316,7 @@ export default function IslandPlanner({
 
       {showScrollTop && (
         <button
-          className="island-scroll-top"
+          className="page-scroll-top"
           style={{
             ...compactActionStyle,
             padding: "10px 14px",
