@@ -7,6 +7,10 @@ import {
   reconcileBreedingSessions,
   serializeBackupPayload,
 } from "../src/utils/persistence.js";
+import {
+  buildBreedingQueue,
+  buildIslandPlannerData,
+} from "../src/utils/queue.js";
 
 function createDefaultSheet(overrides = {})
 {
@@ -165,4 +169,68 @@ test("reconcileBreedingSessions preserves manual sessions and restores assigned 
   assert.ok(assignedSession, "assigned session should exist after reconciliation");
   assert.equal(assignedSession.monsterId, "Congle");
   assert.equal(assignedSession.islandId, "Plant");
+});
+
+test("island collection queue entries stay routed to the sheet's target island", () =>
+{
+  const islandCollectionSheet = {
+    key: "mirror_plant_collection",
+    type: "island",
+    island: "Mirror Plant",
+    sheetTitle: "Mirror Plant Collection",
+    priority: 200,
+    status: "ACTIVE",
+    isActive: true,
+    monsters: [
+      {
+        name: "Bowgart",
+        required: 1,
+        zapped: 0,
+        breeding: 0,
+        breedingAssignments: {},
+        island: "Mirror Plant",
+        requirementIsland: "Mirror Plant",
+      },
+    ],
+  };
+
+  const queue = buildBreedingQueue([islandCollectionSheet]);
+
+  assert.equal(queue.length, 1);
+  assert.equal(queue[0].island, "Mirror Plant");
+  assert.deepEqual(queue[0].validBreedingIslands, ["Mirror Plant"]);
+  assert.equal(queue[0].routeLockedToIsland, true);
+});
+
+test("island planner keeps island collection demand on the intended island", () =>
+{
+  const islandCollectionSheet = {
+    key: "mirror_plant_collection",
+    type: "island",
+    island: "Mirror Plant",
+    sheetTitle: "Mirror Plant Collection",
+    priority: 200,
+    status: "ACTIVE",
+    isActive: true,
+    monsters: [
+      {
+        name: "Bowgart",
+        required: 1,
+        zapped: 0,
+        breeding: 0,
+        breedingAssignments: {},
+        island: "Mirror Plant",
+        requirementIsland: "Mirror Plant",
+      },
+    ],
+  };
+
+  const planner = buildIslandPlannerData([islandCollectionSheet], [], []);
+  const mirrorPlantEntry = planner.find((entry) => entry.island === "Mirror Plant");
+  const psychicEntry = planner.find((entry) => entry.island === "Psychic");
+
+  assert.ok(mirrorPlantEntry, "mirror plant planner entry should exist");
+  assert.equal(mirrorPlantEntry.collectionMissing.length, 1);
+  assert.equal(mirrorPlantEntry.collectionMissing[0].name, "Bowgart");
+  assert.ok(!psychicEntry || psychicEntry.collectionMissing.length === 0);
 });

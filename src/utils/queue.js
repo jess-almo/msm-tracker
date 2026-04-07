@@ -1,5 +1,22 @@
-import { getIslandOperationalProfile } from "../data/islands";
-import { getMonsterBreedingIslands } from "./monsterMetadata";
+import { getIslandOperationalProfile } from "../data/islands.js";
+import { getMonsterBreedingIslands } from "./monsterMetadata.js";
+
+function getLockedRoutingIsland(sheet, monster, validBreedingIslands)
+{
+  if (!sheet || sheet.type !== "island")
+  {
+    return "";
+  }
+
+  const explicitIsland = typeof monster?.island === "string" ? monster.island : "";
+
+  if (explicitIsland && validBreedingIslands.includes(explicitIsland))
+  {
+    return explicitIsland;
+  }
+
+  return "";
+}
 
 function compareEntries(a, b)
 {
@@ -84,8 +101,12 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
     return null;
   }
 
-  const validBreedingIslands = getMonsterBreedingIslands(monster.name);
-  const preferredIsland = monster.island || validBreedingIslands[0] || "";
+  const allBreedingIslands = getMonsterBreedingIslands(monster.name);
+  const lockedRoutingIsland = getLockedRoutingIsland(sheet, monster, allBreedingIslands);
+  const validBreedingIslands = lockedRoutingIsland
+    ? [lockedRoutingIsland]
+    : allBreedingIslands;
+  const preferredIsland = lockedRoutingIsland || monster.island || validBreedingIslands[0] || "";
 
   return {
     id: `${sheet.key}-${monster.name}-${monsterIndex}`,
@@ -93,6 +114,7 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
     island: preferredIsland,
     islands: validBreedingIslands.length > 0 ? validBreedingIslands : [preferredIsland].filter(Boolean),
     validBreedingIslands,
+    routeLockedToIsland: Boolean(lockedRoutingIsland),
     sheetKey: sheet.key,
     sheetTitle: sheet.sheetTitle,
     sheetPriority: sheet.priority ?? 999,
