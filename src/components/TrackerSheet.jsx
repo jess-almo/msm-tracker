@@ -234,21 +234,38 @@ export default function TrackerSheet({
         </div>
       )}
 
-      {data.monsters.map((monster, monsterIndex) => (
-        <SheetMonsterCard
-          key={`${data.key}-${monster.name}-${monsterIndex}`}
-          monster={monster}
-          monsterIndex={monsterIndex}
-          sheetKey={data.key}
-          isIslandSheet={isIslandSheet}
-          isSheetActive={data.isActive}
-          breedingSessions={breedingSessions}
-          islandPlannerByName={islandPlannerByName}
-          onAdjustMonster={onAdjustMonster}
-          onBreedOnIsland={onBreedOnIsland}
-          onZapReady={onZapReady}
-        />
-      ))}
+      <div
+        style={
+          isIslandSheet
+            ? {
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                gap: "12px",
+                alignItems: "start",
+              }
+            : {
+                display: "grid",
+                gap: "0px",
+              }
+        }
+      >
+        {data.monsters.map((monster, monsterIndex) => (
+          <SheetMonsterCard
+            key={`${data.key}-${monster.name}-${monsterIndex}`}
+            monster={monster}
+            monsterIndex={monsterIndex}
+            sheetKey={data.key}
+            isIslandSheet={isIslandSheet}
+            compact={isIslandSheet}
+            isSheetActive={data.isActive}
+            breedingSessions={breedingSessions}
+            islandPlannerByName={islandPlannerByName}
+            onAdjustMonster={onAdjustMonster}
+            onBreedOnIsland={onBreedOnIsland}
+            onZapReady={onZapReady}
+          />
+        ))}
+      </div>
     </div>
   );
 }

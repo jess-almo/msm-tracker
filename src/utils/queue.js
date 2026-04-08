@@ -142,7 +142,9 @@ function getActivationOrderByKey(activeSheets)
 
 function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
 {
-  if (sheet?.type === "island")
+  const isIslandCollectionSheet = sheet?.type === "island";
+
+  if (isIslandCollectionSheet)
   {
     if (monster?.showInOperations === false)
     {
@@ -165,8 +167,9 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
   const breeding = Number(monster.breeding || 0);
   const queueRemaining = Math.max(0, required - zapped - breeding);
   const actualRemaining = Math.max(0, required - zapped);
+  const plannerRemaining = isIslandCollectionSheet ? actualRemaining : queueRemaining;
 
-  if (queueRemaining <= 0)
+  if (plannerRemaining <= 0)
   {
     return null;
   }
@@ -187,6 +190,7 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
     routeLockedToIsland: Boolean(lockedRoutingIsland),
     sheetKey: sheet.key,
     sheetTitle: sheet.sheetTitle,
+    sheetType: sheet.type || "vessel",
     sheetPriority: sheet.priority ?? 999,
     activatedOrder,
     sheetIndex: sheet.sheetIndex,
@@ -196,7 +200,8 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
     breeding,
     actualRemaining,
     queueRemaining,
-    remaining: queueRemaining,
+    remaining: plannerRemaining,
+    acquisitionType: monster?.acquisitionType || "breed",
   };
 }
 
@@ -207,6 +212,16 @@ function createPlannerProjectionEntries(item)
   if (!item)
   {
     return [];
+  }
+
+  if (item.sheetType === "island")
+  {
+    return [
+      {
+        ...item,
+        island: item.island,
+      },
+    ].filter((entry) => Boolean(entry.island));
   }
 
   const eligibleIslands = Array.isArray(item.validBreedingIslands) && item.validBreedingIslands.length > 0
@@ -768,7 +783,42 @@ export function buildIslandPlannerData(
   }));
   const activationOrderByKey = getActivationOrderByKey(indexedSheets);
 
-  indexedSheets.forEach((sheet) =>
+  indexedAllSheets
+    .filter((sheet) => sheet.type === "island")
+    .forEach((sheet) =>
+    {
+      sheet.monsters.forEach((monster, monsterIndex) =>
+      {
+        const item = buildRemainingEntry(
+          monster,
+          monsterIndex,
+          sheet,
+          activationOrderByKey.get(sheet.key) ?? 999
+        );
+
+        const plannerItems = createPlannerProjectionEntries(item);
+
+        if (plannerItems.length === 0)
+        {
+          return;
+        }
+
+        plannerItems.forEach((plannerItem) =>
+        {
+          const islandEntry = ensureIslandEntry(
+            plannerByIsland,
+            plannerItem.island,
+            orderedIslandStates.length + plannerByIsland.size
+          );
+
+          islandEntry.collectionMissing.push(plannerItem);
+        });
+      });
+    });
+
+  indexedSheets
+    .filter((sheet) => sheet.type !== "island")
+    .forEach((sheet) =>
   {
     sheet.monsters.forEach((monster, monsterIndex) =>
     {
@@ -793,12 +843,6 @@ export function buildIslandPlannerData(
           plannerItem.island,
           orderedIslandStates.length + plannerByIsland.size
         );
-
-        if (sheet.type === "island")
-        {
-          islandEntry.collectionMissing.push(plannerItem);
-          return;
-        }
 
         if (!islandEntry.supportsStandardBreeding)
         {
