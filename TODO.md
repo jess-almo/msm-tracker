@@ -13,6 +13,14 @@ Do not let this turn into a graveyard of every idea. Move finished work to [`CHA
 
 ## Now
 
+- Audit and simplify Island Manager before adding more planner features:
+  - keep island card order stable and use focus order only inside each island card
+  - make planner `Breed` / `Zap` flows feel trustworthy again
+  - reduce testing/debug controls in the primary planner action lane
+- Decide the planner tracking model:
+  - preserve strong sheet-level `tracked` progress
+  - separate sheet coverage truth from live island-board truth
+  - keep the top 5 focus window for operational urgency without reordering whole regions
 - Keep pushing Collections toward the true collection-first model:
   - one collection item per monster identity
   - Rare and Epic variants stay separate entries

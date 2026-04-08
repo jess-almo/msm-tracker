@@ -8,6 +8,7 @@ Do not create a fake release for every tiny edit.
 
 ### Changed
 
+- Added a working planner-model note under `docs/PLANNER_MODEL.md` so the next Island Manager refactor has one explicit source of truth for stable island ordering, focus-driven in-card lists, and the split between sheet coverage progress, live island-board state, and operational priority.
 - Added a lightweight local activity log for major tracker mutations like activating sheets, creating/deleting tracked runs, resetting sheets, and changing collection-entry status so recovery work has human-readable breadcrumbs alongside the automatic snapshot history.
 - Wrapped local persistence values in a versioned save envelope and added rolling automatic full-state snapshots so the tracker can fall back to recent saved state if an active-development change or malformed slice knocks out one of the primary localStorage keys.
 - Centralized collection-entry status derivation into a shared helper so manual `Mark Partial` / `Mark Collected` state and sheet-driven progress now resolve through the same rules, and added focused tests for duplicate-run completion, active-vs-partial precedence, and legacy inactive-state normalization.

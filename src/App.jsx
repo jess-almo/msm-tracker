@@ -11,6 +11,7 @@ import {
 import {
   buildBlockedBreedingQueue,
   buildIslandPlannerData,
+  FOCUSED_OPERATIONAL_LIMIT,
   buildReadyBreedingQueue,
 } from "./utils/queue";
 import { COLLECTIONS } from "./data/collections";
@@ -43,7 +44,6 @@ import { applyCollectionEntryStatus } from "./utils/collectionStatus";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
 const APP_VERSION = packageJson.version;
-const MAX_FOCUSED_SHEETS = 5;
 const BreedingQueue = lazy(() => import("./components/BreedingQueue"));
 const IslandPlanner = lazy(() => import("./components/IslandPlanner"));
 const MonsterDirectory = lazy(() => import("./components/MonsterDirectory"));
@@ -507,8 +507,8 @@ export default function App()
   );
 
   const islandPlannerData = useMemo(
-    () => buildIslandPlannerData(indexedOperationalSheets, islandStates, breedingSessions),
-    [indexedOperationalSheets, islandStates, breedingSessions]
+    () => buildIslandPlannerData(indexedOperationalSheets, islandStates, breedingSessions, sheets),
+    [indexedOperationalSheets, islandStates, breedingSessions, sheets]
   );
   const islandPlannerByName = useMemo(
     () => new Map(islandPlannerData.map((entry) => [entry.island, entry])),
@@ -1269,6 +1269,39 @@ export default function App()
     return { ok: true };
   };
 
+  const createAssignedBreedingSession = ({
+    monsterId,
+    islandId,
+    sheetKey,
+    sheetTitle = "",
+  }) =>
+  {
+    const normalizedMonsterId = typeof monsterId === "string" ? monsterId.trim() : "";
+    const normalizedIslandId = typeof islandId === "string" ? islandId.trim() : "";
+    const normalizedSheetKey = typeof sheetKey === "string" ? sheetKey.trim() : "";
+
+    if (!normalizedMonsterId || !isRealBreedingIsland(normalizedIslandId) || !normalizedSheetKey)
+    {
+      return { ok: false, reason: "invalid_target" };
+    }
+
+    setBreedingSessions((prev) => [
+      ...prev,
+      {
+        id: createBreedingSessionId(),
+        monsterId: normalizedMonsterId,
+        islandId: normalizedIslandId,
+        source: "assigned",
+        sheetId: normalizedSheetKey,
+        sheetTitle: sheetTitle || normalizedSheetKey,
+        status: "breeding",
+        createdAt: Date.now(),
+      },
+    ]);
+
+    return { ok: true };
+  };
+
   const completeBreedingSession = (sessionId) =>
   {
     if (!sessionId)
@@ -1626,7 +1659,7 @@ export default function App()
     return { ok: true };
   };
 
-  const clearIslandLiveSessions = (islandName, statusFilter = "all") =>
+  const clearIslandLiveSessions = (islandName, statusFilter = "all", options = {}) =>
   {
     const targetSessions = breedingSessions.filter((entry) =>
     {
@@ -1654,16 +1687,19 @@ export default function App()
       : statusFilter === "breeding"
         ? "breeder slot"
         : "live board session";
-    const confirmed = window.confirm(
-      `Clear ${targetSessions.length} ${sessionLabel}${targetSessions.length === 1 ? "" : "s"} on ${islandName}?`
-      + (assignedCount > 0
-        ? ` ${assignedCount} linked sheet reservation${assignedCount === 1 ? " will" : "s will"} also be released so you can resync this island cleanly.`
-        : " This will only clear the live board tracking for this island.")
-    );
-
-    if (!confirmed)
+    if (!options.skipConfirm)
     {
-      return { ok: false, reason: "cancelled" };
+      const confirmed = window.confirm(
+        `Clear ${targetSessions.length} ${sessionLabel}${targetSessions.length === 1 ? "" : "s"} on ${islandName}?`
+        + (assignedCount > 0
+          ? ` ${assignedCount} linked sheet reservation${assignedCount === 1 ? " will" : "s will"} also be released so you can resync this island cleanly.`
+          : " This will only clear the live board tracking for this island.")
+      );
+
+      if (!confirmed)
+      {
+        return { ok: false, reason: "cancelled" };
+      }
     }
 
     const targetSessionIds = new Set(targetSessions.map((entry) => entry.id));
@@ -1750,6 +1786,46 @@ export default function App()
   const clearIslandBreeders = (islandName) => clearIslandLiveSessions(islandName, "breeding");
   const clearIslandNurseries = (islandName) => clearIslandLiveSessions(islandName, "nursery");
   const resetIslandLiveBoard = (islandName) => clearIslandLiveSessions(islandName, "all");
+  const clearAllIslandLiveBoards = () =>
+  {
+    const islandsWithLiveSessions = islandStates
+      .filter((island) =>
+        breedingSessions.some((entry) =>
+          entry.status !== "completed" && entry.islandId === island.name
+        )
+      )
+      .map((island) => island.name);
+
+    if (islandsWithLiveSessions.length === 0)
+    {
+      return { ok: false, reason: "missing_sessions" };
+    }
+
+    const assignedCount = breedingSessions.filter(
+      (entry) =>
+        entry.status !== "completed"
+        && islandsWithLiveSessions.includes(entry.islandId)
+        && Boolean(entry.sheetId)
+    ).length;
+    const confirmed = window.confirm(
+      `Clear every live breeder and nursery session across ${islandsWithLiveSessions.length} island${islandsWithLiveSessions.length === 1 ? "" : "s"}?`
+      + (assignedCount > 0
+        ? ` ${assignedCount} linked sheet reservation${assignedCount === 1 ? " will" : "s will"} also be released.`
+        : " This will only clear live board tracking.")
+    );
+
+    if (!confirmed)
+    {
+      return { ok: false, reason: "cancelled" };
+    }
+
+    islandsWithLiveSessions.forEach((islandName) =>
+    {
+      clearIslandLiveSessions(islandName, "all", { skipConfirm: true });
+    });
+
+    return { ok: true };
+  };
 
   const moveBreedingSessionToNursery = (sessionId) =>
   {
@@ -1867,14 +1943,30 @@ export default function App()
 {
     const islandEntry = islandPlannerByName.get(item.island);
 
-    if (!islandEntry || !islandEntry.isUnlocked || islandEntry.freeSlots <= 0)
+    if (
+      !islandEntry ||
+      !islandEntry.isUnlocked ||
+      islandEntry.freeSlots <= 0 ||
+      item?.sheetIndex === undefined ||
+      item?.monsterIndex === undefined ||
+      !item?.sheetKey
+    )
     {
-      return;
+      return { ok: false, reason: "invalid_target" };
     }
 
     updateMonster(item.sheetIndex, item.monsterIndex, "breeding", 1, {
       islandName: item.island,
     });
+
+    createAssignedBreedingSession({
+      monsterId: item.name,
+      islandId: item.island,
+      sheetKey: item.sheetKey,
+      sheetTitle: item.sheetTitle,
+    });
+
+    return { ok: true };
   };
 
   const adjustSelectedSheetMonster = (monsterIndex, field, delta, options = {}) =>
@@ -1898,6 +1990,9 @@ export default function App()
       sheetIndex: selectedSheetIndex,
       monsterIndex,
       island: islandName,
+      name: selectedSheet.monsters?.[monsterIndex]?.name || "",
+      sheetKey: selectedSheet.key,
+      sheetTitle: selectedSheet.sheetTitle,
     });
   };
 
@@ -1926,19 +2021,6 @@ export default function App()
     }
 
     const nextActive = !targetSheet.isActive;
-
-    if (nextActive && getSheetType(targetSheet) !== "island")
-    {
-      const focusedSheetCount = sheets.filter((sheet) =>
-        sheet.isActive && getSheetType(sheet) !== "island"
-      ).length;
-
-      if (focusedSheetCount >= MAX_FOCUSED_SHEETS)
-      {
-        window.alert(`Focus is capped at ${MAX_FOCUSED_SHEETS} sheets. Reorder or remove one first.`);
-        return;
-      }
-    }
 
     setSheets((prev) =>
       normalizeFocusedSheetRanks(
@@ -2390,7 +2472,7 @@ export default function App()
               onOpenCollections={openCollections}
               onMoveGoalUp={(sheetKey) => moveFocusedSheet(sheetKey, "up")}
               onMoveGoalDown={(sheetKey) => moveFocusedSheet(sheetKey, "down")}
-              focusLimit={MAX_FOCUSED_SHEETS}
+              focusLimit={FOCUSED_OPERATIONAL_LIMIT}
             />
           </Suspense>
         </ScreenErrorBoundary>
@@ -2552,6 +2634,7 @@ export default function App()
                 onClearIslandBreeders={clearIslandBreeders}
                 onClearIslandNurseries={clearIslandNurseries}
                 onResetIslandLiveBoard={resetIslandLiveBoard}
+                onClearAllIslandLiveBoards={clearAllIslandLiveBoards}
                 onMoveToNurseryFromPlanner={moveBreedingSessionToNursery}
                 onHatchNurseryFromPlanner={hatchNurserySession}
               />

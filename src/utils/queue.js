@@ -1,6 +1,8 @@
 import { getIslandOperationalProfile } from "../data/islands.js";
 import { getMonsterBreedingIslands, getMonsterMetadata } from "./monsterMetadata.js";
 
+export const FOCUSED_OPERATIONAL_LIMIT = 5;
+
 function getLockedRoutingIsland(sheet, monster, validBreedingIslands)
 {
   if (!sheet || sheet.type !== "island")
@@ -20,14 +22,14 @@ function getLockedRoutingIsland(sheet, monster, validBreedingIslands)
 
 function compareEntries(a, b)
 {
-  if (a.sheetPriority !== b.sheetPriority)
+  if ((a.activatedOrder ?? 999) !== (b.activatedOrder ?? 999))
   {
-    return a.sheetPriority - b.sheetPriority;
+    return (a.activatedOrder ?? 999) - (b.activatedOrder ?? 999);
   }
 
-  if (a.activatedOrder !== b.activatedOrder)
+  if ((a.sheetPriority ?? 999) !== (b.sheetPriority ?? 999))
   {
-    return a.activatedOrder - b.activatedOrder;
+    return (a.sheetPriority ?? 999) - (b.sheetPriority ?? 999);
   }
 
   if (a.sheetIndex !== b.sheetIndex)
@@ -51,6 +53,11 @@ function normalizeSheets(sheets)
 function normalizeSessions(sessions)
 {
   return Array.isArray(sessions) ? sessions : [];
+}
+
+function getStableSheetIndex(sheet, fallbackIndex)
+{
+  return Number.isInteger(sheet?.sheetIndex) ? sheet.sheetIndex : fallbackIndex;
 }
 
 function getFocusRankValue(sheet)
@@ -103,28 +110,29 @@ function compareFocusedOperationalSheets(a, b)
 function getOperationalSheetsInOrder(sheets)
 {
   const operationalSheets = normalizeSheets(sheets)
-    .map((sheet, sheetIndex) => ({ ...sheet, sheetIndex }))
+    .map((sheet, fallbackIndex) => ({
+      ...sheet,
+      sheetIndex: getStableSheetIndex(sheet, fallbackIndex),
+    }))
     .filter((sheet) => isOperationalSheet(sheet));
+  const focusedSheets = operationalSheets
+    .filter((sheet) => sheet.isActive)
+    .sort(compareFocusedOperationalSheets);
+  const focusedWindow = focusedSheets.slice(0, FOCUSED_OPERATIONAL_LIMIT);
+  const backgroundSheets = operationalSheets.filter((sheet) => !sheet.isActive);
 
-  return [...operationalSheets].sort((a, b) =>
-  {
-    if (Boolean(a.isActive) !== Boolean(b.isActive))
+  return [
+    ...focusedWindow,
+    ...backgroundSheets.sort((a, b) =>
     {
-      return a.isActive ? -1 : 1;
-    }
+      if ((a.priority ?? 999) !== (b.priority ?? 999))
+      {
+        return (a.priority ?? 999) - (b.priority ?? 999);
+      }
 
-    if (a.isActive && b.isActive)
-    {
-      return compareFocusedOperationalSheets(a, b);
-    }
-
-    if ((a.priority ?? 999) !== (b.priority ?? 999))
-    {
-      return (a.priority ?? 999) - (b.priority ?? 999);
-    }
-
-    return a.sheetIndex - b.sheetIndex;
-  });
+      return a.sheetIndex - b.sheetIndex;
+    }),
+  ];
 }
 
 function getActivationOrderByKey(activeSheets)
@@ -367,12 +375,16 @@ function getSheetMonsterState(sheet, monsterName)
   };
 }
 
-function getMatchingSheetsForMonster(sheets, monsterName, matcher)
+function getMatchingSheetsForMonster(sheets, monsterName, matcher, activationOrderByKey = new Map())
 {
   return normalizeSheets(sheets)
-    .map((sheet, sheetIndex) =>
+    .map((sheet, fallbackIndex) =>
     {
-      const monsterState = getSheetMonsterState({ ...sheet, sheetIndex }, monsterName);
+      const indexedSheet = {
+        ...sheet,
+        sheetIndex: getStableSheetIndex(sheet, fallbackIndex),
+      };
+      const monsterState = getSheetMonsterState(indexedSheet, monsterName);
 
       if (!monsterState || !matcher(monsterState, sheet))
       {
@@ -383,12 +395,14 @@ function getMatchingSheetsForMonster(sheets, monsterName, matcher)
         key: sheet.key,
         title: sheet.sheetTitle,
         isActive: Boolean(sheet.isActive),
-        sheetIndex,
+        activatedOrder: activationOrderByKey.get(sheet.key) ?? 999,
+        sheetPriority: sheet.priority ?? 999,
+        sheetIndex: indexedSheet.sheetIndex,
         monsterIndex: monsterState.monsterIndex,
       };
     })
     .filter(Boolean)
-    .sort((a, b) => a.title.localeCompare(b.title));
+    .sort(compareEntries);
 }
 
 function createBreedingSessionGroup(
@@ -404,7 +418,8 @@ function createBreedingSessionGroup(
     ? getMatchingSheetsForMonster(
         sheets,
         session.monsterId,
-        (monsterState) => monsterState.queueRemaining > 0
+        (monsterState) => monsterState.queueRemaining > 0,
+        activationOrderByKey
       )
     : [];
   const zapTargets = !session.sheetId
@@ -413,6 +428,8 @@ function createBreedingSessionGroup(
         session.monsterId,
         (monsterState, candidateSheet) =>
           candidateSheet.isActive && monsterState.actualRemaining > 0
+        ,
+        activationOrderByKey
       )
     : [];
 
@@ -422,8 +439,8 @@ function createBreedingSessionGroup(
     island: session.islandId,
     source: session.source || (session.sheetId ? "assigned" : "manual"),
     status: session.status,
-    sheetKey: sheet?.key || null,
-    sheetTitle: sheet?.sheetTitle || "Unassigned",
+    sheetKey: sheet?.key || session.sheetId || null,
+    sheetTitle: sheet?.sheetTitle || session.sheetTitle || "Unassigned",
     sheetPriority: sheet?.priority ?? 999,
     activatedOrder: sheet?.key
       ? activationOrderByKey.get(sheet.key) ?? 999
@@ -452,6 +469,16 @@ function sortSessionEntries(entries)
     if (a.status !== b.status)
     {
       return a.status.localeCompare(b.status);
+    }
+
+    if ((a.activatedOrder ?? 999) !== (b.activatedOrder ?? 999))
+    {
+      return (a.activatedOrder ?? 999) - (b.activatedOrder ?? 999);
+    }
+
+    if ((a.sheetPriority ?? 999) !== (b.sheetPriority ?? 999))
+    {
+      return (a.sheetPriority ?? 999) - (b.sheetPriority ?? 999);
     }
 
     if (a.sheetTitle !== b.sheetTitle)
@@ -581,9 +608,9 @@ export function buildBlockedBreedingQueue(sheets, islandPlannerData = [])
 
 export function buildBreedingNowEntriesFromSessions(breedingSessions, sheets)
 {
-  const normalizedSheets = normalizeSheets(sheets).map((sheet, sheetIndex) => ({
+  const normalizedSheets = normalizeSheets(sheets).map((sheet, fallbackIndex) => ({
     ...sheet,
-    sheetIndex: sheet.sheetIndex ?? sheetIndex,
+    sheetIndex: getStableSheetIndex(sheet, fallbackIndex),
   }));
   const activationOrderByKey = getActivationOrderByKey(
     getOperationalSheetsInOrder(normalizedSheets)
@@ -712,7 +739,12 @@ function ensureIslandEntry(plannerByIsland, islandName, fallbackOrderIndex)
   return plannerByIsland.get(islandName);
 }
 
-export function buildIslandPlannerData(activeSheets, islandStates = [], breedingSessions = [])
+export function buildIslandPlannerData(
+  activeSheets,
+  islandStates = [],
+  breedingSessions = [],
+  allSheets = activeSheets
+)
 {
   const plannerByIsland = new Map();
   const orderedIslandStates = Array.isArray(islandStates) ? islandStates : [];
@@ -725,11 +757,15 @@ export function buildIslandPlannerData(activeSheets, islandStates = [], breeding
     );
   });
 
-  const activationOrderByKey = getActivationOrderByKey(getOperationalSheetsInOrder(activeSheets));
-  const indexedSheets = normalizeSheets(activeSheets).map((sheet, fallbackIndex) => ({
+  const indexedSheets = getOperationalSheetsInOrder(activeSheets).map((sheet, fallbackIndex) => ({
     ...sheet,
     sheetIndex: sheet.sheetIndex ?? fallbackIndex,
   }));
+  const indexedAllSheets = normalizeSheets(allSheets).map((sheet, fallbackIndex) => ({
+    ...sheet,
+    sheetIndex: sheet.sheetIndex ?? fallbackIndex,
+  }));
+  const activationOrderByKey = getActivationOrderByKey(indexedSheets);
 
   indexedSheets.forEach((sheet) =>
   {
@@ -773,7 +809,7 @@ export function buildIslandPlannerData(activeSheets, islandStates = [], breeding
     });
   });
 
-  const groupedSessions = buildBreedingNowEntriesFromSessions(breedingSessions, indexedSheets);
+  const groupedSessions = buildBreedingNowEntriesFromSessions(breedingSessions, indexedAllSheets);
 
   groupedSessions.forEach((entry) =>
   {

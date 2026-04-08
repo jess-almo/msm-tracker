@@ -1125,7 +1125,7 @@ function IslandCard({
                       }}
                       onClick={() => onClearIslandBreeders?.(island.island)}
                     >
-                      Clear Breeders
+                      Clear All Breeders
                     </button>
                   )}
 
@@ -1137,7 +1137,7 @@ function IslandCard({
                       }}
                       onClick={() => onClearIslandNurseries?.(island.island)}
                     >
-                      Clear Nurseries
+                      Clear All Nurseries
                     </button>
                   )}
 
@@ -1152,7 +1152,7 @@ function IslandCard({
                       }}
                       onClick={() => onResetIslandLiveBoard?.(island.island)}
                     >
-                      Reset Live Board
+                      Testing: Clear Island Board
                     </button>
                   )}
 
@@ -2155,6 +2155,7 @@ export default function IslandPlanner({
   onClearIslandBreeders,
   onClearIslandNurseries,
   onResetIslandLiveBoard,
+  onClearAllIslandLiveBoards,
   onMoveToNurseryFromPlanner,
   onHatchNurseryFromPlanner,
 })
@@ -2337,6 +2338,22 @@ export default function IslandPlanner({
         {activeAvailabilityMeaning && (
           <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.56 }}>
             {activeAvailabilityMeaning}
+          </div>
+        )}
+        {plannerData.some((island) =>
+          (Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0)
+          || (Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0)
+        ) && (
+          <div className="screen-card-actions" style={{ marginTop: "14px" }}>
+            <button
+              style={{
+                ...compactActionStyle,
+                background: "rgba(255,255,255,0.06)",
+              }}
+              onClick={() => onClearAllIslandLiveBoards?.()}
+            >
+              Testing: Clear All Live Boards
+            </button>
           </div>
         )}
         {visibleIslands.length > 1 && (

@@ -39,14 +39,14 @@ const tabStyle = {
 
 function compareOperationalItems(a, b)
 {
-  if ((a.islandOrder ?? 999) !== (b.islandOrder ?? 999))
-  {
-    return (a.islandOrder ?? 999) - (b.islandOrder ?? 999);
-  }
-
   if ((a.activatedOrder ?? 999) !== (b.activatedOrder ?? 999))
   {
     return (a.activatedOrder ?? 999) - (b.activatedOrder ?? 999);
+  }
+
+  if ((a.islandOrder ?? 999) !== (b.islandOrder ?? 999))
+  {
+    return (a.islandOrder ?? 999) - (b.islandOrder ?? 999);
   }
 
   if ((a.sheetPriority ?? 999) !== (b.sheetPriority ?? 999))
