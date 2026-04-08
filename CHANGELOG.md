@@ -8,9 +8,6 @@ Do not create a fake release for every tiny edit.
 
 ### Changed
 
-- Added a lightweight local activity log for major tracker mutations like activating sheets, creating/deleting tracked runs, resetting sheets, and changing collection-entry status so recovery work has human-readable breadcrumbs alongside the automatic snapshot history.
-- Wrapped local persistence values in a versioned save envelope and added rolling automatic full-state snapshots so the tracker can fall back to recent saved state if an active-development change or malformed slice knocks out one of the primary localStorage keys.
-- Centralized collection-entry status derivation into a shared helper so manual `Mark Partial` / `Mark Collected` state and sheet-driven progress now resolve through the same rules, and added focused tests for duplicate-run completion, active-vs-partial precedence, and legacy inactive-state normalization.
 - Added per-island `Clear Breeders`, `Clear Nurseries`, and `Reset Live Board` actions in Island Manager so bad live-board state can be released from linked sheets and rebuilt from the real in-game island state without wiping long-term collection or sheet progress.
 - Fixed island-collection routing so queue and planner demand now stay attached to the intended island context for island-specific collection targets instead of fanning out across every technically breedable island.
 - Refreshed the public-facing repo docs so `README.md`, `TODO.md`, and the architecture/Android guides now match the shipped `0.4.0` state, including backup/import support, the lightweight test layer, and the current Android debug-build workflow.
