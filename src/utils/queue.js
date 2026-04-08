@@ -144,15 +144,16 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
 {
   if (sheet?.type === "island")
   {
-    const metadata = getMonsterMetadata(monster?.name);
-    const isAllowedBackgroundCategory = ["natural", "fire", "magical", "ethereal"].includes(metadata?.category);
+    if (monster?.showInOperations === false)
+    {
+      return null;
+    }
 
     if (
       !monster?.name ||
       monster.name.startsWith("Rare ") ||
       monster.name.startsWith("Epic ") ||
-      monster.name.startsWith("Adult ") ||
-      !isAllowedBackgroundCategory
+      monster.name.startsWith("Adult ")
     )
     {
       return null;
