@@ -20,6 +20,7 @@ import {
 } from "./utils/monsterMetadata";
 import HomeDashboard from "./components/HomeDashboard";
 import {
+  appendActivityLogEntry,
   buildDefaultSheetForSavedSheet,
   clamp,
   createBreedingSessionId,
@@ -29,10 +30,12 @@ import {
   mergeSheetWithDefaults,
   parseBackupPayload,
   reconcileBreedingSessions,
+  saveAppSnapshot,
   saveJsonValue,
   serializeBackupPayload,
   STORAGE_KEYS,
 } from "./utils/persistence";
+import { applyCollectionEntryStatus } from "./utils/collectionStatus";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
 const APP_VERSION = packageJson.version;
@@ -71,6 +74,71 @@ const SCREEN_OPTIONS = [
   { key: "planner", label: "Island Manager" },
   { key: "directory", label: "Monster Library" },
 ];
+
+class ScreenErrorBoundary extends React.Component
+{
+  constructor(props)
+  {
+    super(props);
+    this.state = { hasError: false, errorMessage: "" };
+  }
+
+  static getDerivedStateFromError(error)
+  {
+    return {
+      hasError: true,
+      errorMessage: error instanceof Error ? error.message : "Unknown screen error.",
+    };
+  }
+
+  componentDidCatch(error)
+  {
+    console.error("Screen render failed", error);
+  }
+
+  handleReset = () =>
+  {
+    this.setState({ hasError: false });
+    this.props.onReset?.();
+  };
+
+  render()
+  {
+    if (this.state.hasError)
+    {
+      return (
+        <div
+          className="responsive-page-card"
+          style={{
+            ...baseCardStyle,
+            display: "grid",
+            gap: "10px",
+          }}
+        >
+          <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
+            SCREEN ERROR
+          </div>
+          <div style={{ fontSize: "24px", fontWeight: 700 }}>
+            That screen failed to load.
+          </div>
+          <div style={{ opacity: 0.7 }}>
+            {this.props.label || "Current screen"}: {this.state.errorMessage || "Unknown screen error."}
+          </div>
+          <div style={{ opacity: 0.74 }}>
+            Jump back to Dashboard and we can keep using the tracker while we fix the broken view.
+          </div>
+          <div>
+            <button style={buttonBaseStyle} onClick={this.handleReset}>
+              Return to Dashboard
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 function ScreenLoadingFallback({ label = "Loading screen..." })
 {
@@ -539,6 +607,18 @@ export default function App()
     saveJsonValue(STORAGE_KEYS.breedingSessions, breedingSessions);
   }, [breedingSessions]);
 
+  useEffect(() =>
+  {
+    saveAppSnapshot({
+      appVersion: APP_VERSION,
+      sheets,
+      view,
+      collectionsData,
+      islandStates,
+      breedingSessions,
+    });
+  }, [breedingSessions, collectionsData, islandStates, sheets, view]);
+
   const openHome = () => setView({ screen: "home" });
   const openActiveSheets = () => setView({ screen: "active" });
 
@@ -554,6 +634,9 @@ export default function App()
   const openQueue = () => setView({ screen: "queue" });
   const openIslandPlanner = () => setView({ screen: "planner" });
   const openDirectory = () => setView({ screen: "directory" });
+  const recoverToHome = () => setView({ screen: "home" });
+  const recordActivity = (type, message, details = {}) =>
+    appendActivityLogEntry({ type, message, details });
 
   const handleExportBackup = () =>
   {
@@ -660,6 +743,16 @@ export default function App()
       ];
     });
 
+    recordActivity(
+      "sheet_instance_created",
+      `Created another tracked run for ${getSheetDisplayName(sourceSheet)}.`,
+      {
+        sourceSheetKey: sourceSheet.key,
+        newSheetKey: nextSheet.key,
+        instanceNumber: nextInstanceNumber,
+      }
+    );
+
     if (options.openAfterCreate !== false)
     {
       openSheet(nextSheet.key);
@@ -743,6 +836,16 @@ export default function App()
     }
 
     setSheets((prev) => prev.filter((entry) => entry.key !== sheetKey));
+
+    recordActivity(
+      "sheet_instance_deleted",
+      `Deleted tracked run ${getSheetDisplayName(targetSheet)}.`,
+      {
+        sheetKey,
+        templateKey: targetSheet.templateKey || "",
+        instanceNumber: Number(targetSheet.instanceNumber || 0),
+      }
+    );
 
     if (view.screen === "sheet" && view.sheetKey === sheetKey)
     {
@@ -1752,9 +1855,17 @@ export default function App()
 
   const toggleSheetActive = (sheetKey) => 
 {
+    const targetSheet = sheets.find((entry) => entry.key === sheetKey);
+
+    if (!targetSheet)
+    {
+      return;
+    }
+
+    const nextActive = !targetSheet.isActive;
+
     updateSheet(sheetKey, (sheet) => 
 {
-      const nextActive = !sheet.isActive;
       sheet.isActive = nextActive;
 
       if (nextActive)
@@ -1764,6 +1875,16 @@ export default function App()
 
       return sheet;
     });
+
+    recordActivity(
+      nextActive ? "sheet_activated" : "sheet_deactivated",
+      `${nextActive ? "Activated" : "Deactivated"} ${getSheetDisplayName(targetSheet)}.`,
+      {
+        sheetKey,
+        sheetType: getSheetType(targetSheet),
+        nextActive,
+      }
+    );
   };
 
   const updateCollectionEntryStatus = (collectionKey, entryName, nextStatus) =>
@@ -1790,32 +1911,20 @@ export default function App()
               return entry;
             }
 
-            if (nextStatus === "complete")
-            {
-              return {
-                ...entry,
-                collected: true,
-                status: "complete",
-              };
-            }
-
-            if (nextStatus === "in_progress")
-            {
-              return {
-                ...entry,
-                collected: false,
-                status: "in_progress",
-              };
-            }
-
-            return {
-              ...entry,
-              collected: false,
-              status: "inactive",
-            };
+            return applyCollectionEntryStatus(entry, nextStatus);
           }),
         };
       })
+    );
+
+    recordActivity(
+      "collection_entry_status_updated",
+      `Set ${entryName} in ${collectionKey} to ${nextStatus}.`,
+      {
+        collectionKey,
+        entryName,
+        nextStatus,
+      }
     );
   };
 
@@ -1867,6 +1976,16 @@ export default function App()
         );
       }
 
+      recordActivity(
+        nextCollected ? "collection_entry_collected" : "collection_entry_uncollected",
+        `${nextCollected ? "Marked" : "Cleared"} collected status for ${getSheetDisplayName(targetSheet)}.`,
+        {
+          sheetKey,
+          templateIdentity,
+          nextCollected,
+        }
+      );
+
       return;
     }
 
@@ -1884,6 +2003,16 @@ export default function App()
         nextCollected ? "complete" : "not_started"
       );
     }
+
+    recordActivity(
+      nextCollected ? "collection_entry_collected" : "collection_entry_uncollected",
+      `${nextCollected ? "Marked" : "Cleared"} collected status for ${getSheetDisplayName(targetSheet)}.`,
+      {
+        sheetKey,
+        templateIdentity: "",
+        nextCollected,
+      }
+    );
   };
 
   const resetSheet = (sheetKey) => 
@@ -1918,6 +2047,15 @@ export default function App()
           ? mergeSheetWithDefaults(defaultSheet, null)
           : entry
       )
+    );
+
+    recordActivity(
+      "sheet_reset",
+      `Reset progress for ${getSheetDisplayName(sheet)}.`,
+      {
+        sheetKey,
+        sheetType: getSheetType(sheet),
+      }
     );
   };
 
@@ -2076,50 +2214,56 @@ export default function App()
       </div>
 
       {view.screen === "home" && (
-        <HomeDashboard
-          needNowIslandCount={needNowIslandCount}
-          breedableIslandCount={breedableIslandCount}
-          activeIslandSessionCount={activeIslandSessionCount}
-          queuePressureCount={queuePressureCount}
-          activeVesselSummary={activeVesselSummary}
-          islandCollectionProgress={islandCollectionProgress}
-          islandCapacitySummary={islandCapacitySummary}
-          topQueueItems={topQueueItems}
-          onOpenIslandPlanner={openIslandPlanner}
-          onOpenActiveSheets={openActiveSheets}
-          onOpenCollections={openCollections}
-          onOpenQueue={openQueue}
-          onOpenSheet={openSheet}
-          onExportBackup={handleExportBackup}
-          onImportBackup={handleImportBackup}
-          backupMessage={backupMessage}
-          isImporting={isImporting}
-        />
+        <ScreenErrorBoundary key="home" label="Dashboard" onReset={recoverToHome}>
+          <HomeDashboard
+            needNowIslandCount={needNowIslandCount}
+            breedableIslandCount={breedableIslandCount}
+            activeIslandSessionCount={activeIslandSessionCount}
+            queuePressureCount={queuePressureCount}
+            activeVesselSummary={activeVesselSummary}
+            islandCollectionProgress={islandCollectionProgress}
+            islandCapacitySummary={islandCapacitySummary}
+            topQueueItems={topQueueItems}
+            onOpenIslandPlanner={openIslandPlanner}
+            onOpenActiveSheets={openActiveSheets}
+            onOpenCollections={openCollections}
+            onOpenQueue={openQueue}
+            onOpenSheet={openSheet}
+            onExportBackup={handleExportBackup}
+            onImportBackup={handleImportBackup}
+            backupMessage={backupMessage}
+            isImporting={isImporting}
+          />
+        </ScreenErrorBoundary>
       )}
 
       {view.screen === "active" && (
-        <Suspense fallback={<ScreenLoadingFallback label="Loading Active Sheets..." />}>
-          <ActiveSheetsPage
-            goals={homeGoals}
-            onOpenSheet={openSheet}
-            onOpenCollections={openCollections}
-          />
-        </Suspense>
+        <ScreenErrorBoundary key="active" label="Active Sheets" onReset={recoverToHome}>
+          <Suspense fallback={<ScreenLoadingFallback label="Loading Active Sheets..." />}>
+            <ActiveSheetsPage
+              goals={homeGoals}
+              onOpenSheet={openSheet}
+              onOpenCollections={openCollections}
+            />
+          </Suspense>
+        </ScreenErrorBoundary>
       )}
 
       {view.screen === "collections" && (
-        <Suspense fallback={<ScreenLoadingFallback label="Loading Collections..." />}>
-          <CollectionsPage
-            sheets={sheets}
-            collectionsData={collectionsData}
-            getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
-            onOpenSheet={openSheet}
-            onCreateAnotherSheetInstance={createAnotherSheetInstance}
-            onDeleteSheetInstance={deleteSheetInstance}
-            onUpdateCollectionEntryStatus={updateCollectionEntryStatus}
-            onToggleSheetActive={toggleSheetActive}
-          />
-        </Suspense>
+        <ScreenErrorBoundary key="collections" label="Collections" onReset={recoverToHome}>
+          <Suspense fallback={<ScreenLoadingFallback label="Loading Collections..." />}>
+            <CollectionsPage
+              sheets={sheets}
+              collectionsData={collectionsData}
+              getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
+              onOpenSheet={openSheet}
+              onCreateAnotherSheetInstance={createAnotherSheetInstance}
+              onDeleteSheetInstance={deleteSheetInstance}
+              onUpdateCollectionEntryStatus={updateCollectionEntryStatus}
+              onToggleSheetActive={toggleSheetActive}
+            />
+          </Suspense>
+        </ScreenErrorBoundary>
       )}
 
       {view.screen === "sheet" && selectedSheet && (
@@ -2184,24 +2328,30 @@ export default function App()
           </div>
 
           <Suspense fallback={<ScreenLoadingFallback label={`Loading ${getSheetDisplayName(selectedSheet)}...`} />}>
-            <TrackerSheet
-              data={selectedSheet}
-              islandStates={islandStates}
-              islandPlannerByName={islandPlannerByName}
-              breedingSessions={breedingSessions}
-              assignableSessions={selectedSheetAssignableSessions}
-              onAdjustMonster={adjustSelectedSheetMonster}
-              onBreedOnIsland={breedSelectedSheetMonsterOnIsland}
-              onZapReady={zapSelectedSheetMonsterReady}
-              onAssignExistingBreeding={(sessionId) =>
-                assignExistingBreedingSession(sessionId, selectedSheet.key)
-              }
-              onActivateAndAssignExistingBreeding={(sessionId) =>
-                assignExistingBreedingSession(sessionId, selectedSheet.key, {
-                  activateIfNeeded: true,
-                })
-              }
-            />
+            <ScreenErrorBoundary
+              key={`sheet:${selectedSheet.key}`}
+              label={getSheetDisplayName(selectedSheet)}
+              onReset={recoverToHome}
+            >
+              <TrackerSheet
+                data={selectedSheet}
+                islandStates={islandStates}
+                islandPlannerByName={islandPlannerByName}
+                breedingSessions={breedingSessions}
+                assignableSessions={selectedSheetAssignableSessions}
+                onAdjustMonster={adjustSelectedSheetMonster}
+                onBreedOnIsland={breedSelectedSheetMonsterOnIsland}
+                onZapReady={zapSelectedSheetMonsterReady}
+                onAssignExistingBreeding={(sessionId) =>
+                  assignExistingBreedingSession(sessionId, selectedSheet.key)
+                }
+                onActivateAndAssignExistingBreeding={(sessionId) =>
+                  assignExistingBreedingSession(sessionId, selectedSheet.key, {
+                    activateIfNeeded: true,
+                  })
+                }
+              />
+            </ScreenErrorBoundary>
           </Suspense>
         </>
       )}
@@ -2214,15 +2364,17 @@ export default function App()
             </button>
           </div>
 
-          <Suspense fallback={<ScreenLoadingFallback label="Loading Breeding Queue..." />}>
-            <BreedingQueue
-              sheets={sheets}
-              breedingSessions={breedingSessions}
-              islandPlannerData={islandPlannerData}
-              onZapBreedingSession={zapAssignedSessionFromPlanner}
-              onBreedFromQueue={breedFromPlanner}
-            />
-          </Suspense>
+          <ScreenErrorBoundary key="queue" label="Breeding Queue" onReset={recoverToHome}>
+            <Suspense fallback={<ScreenLoadingFallback label="Loading Breeding Queue..." />}>
+              <BreedingQueue
+                sheets={sheets}
+                breedingSessions={breedingSessions}
+                islandPlannerData={islandPlannerData}
+                onZapBreedingSession={zapAssignedSessionFromPlanner}
+                onBreedFromQueue={breedFromPlanner}
+              />
+            </Suspense>
+          </ScreenErrorBoundary>
         </>
       )}
 
@@ -2234,28 +2386,30 @@ export default function App()
             </button>
           </div>
 
-          <Suspense fallback={<ScreenLoadingFallback label="Loading Island Manager..." />}>
-            <IslandPlanner
-              plannerData={islandPlannerData}
-              unlockIsland={unlockIsland}
-              unlockIslandBreedingStructure={unlockIslandBreedingStructure}
-              unlockIslandNursery={unlockIslandNursery}
-              reduceIslandBreedingStructure={reduceIslandBreedingStructure}
-              reduceIslandNursery={reduceIslandNursery}
-              onZapFromPlanner={zapAssignedSessionFromPlanner}
-              onBreedFromPlanner={breedFromPlanner}
-              onCreateManualBreed={createManualBreedingSession}
-              onCreateObservedLiveSession={createObservedLiveSession}
-              onAssignAndZapFromPlanner={assignAndZapBreedingSession}
-              onUnassignFromPlanner={unassignBreedingSession}
-              onClearPlannerSession={clearBreedingSessionFromBoard}
-              onClearIslandBreeders={clearIslandBreeders}
-              onClearIslandNurseries={clearIslandNurseries}
-              onResetIslandLiveBoard={resetIslandLiveBoard}
-              onMoveToNurseryFromPlanner={moveBreedingSessionToNursery}
-              onHatchNurseryFromPlanner={hatchNurserySession}
-            />
-          </Suspense>
+          <ScreenErrorBoundary key="planner" label="Island Manager" onReset={recoverToHome}>
+            <Suspense fallback={<ScreenLoadingFallback label="Loading Island Manager..." />}>
+              <IslandPlanner
+                plannerData={islandPlannerData}
+                unlockIsland={unlockIsland}
+                unlockIslandBreedingStructure={unlockIslandBreedingStructure}
+                unlockIslandNursery={unlockIslandNursery}
+                reduceIslandBreedingStructure={reduceIslandBreedingStructure}
+                reduceIslandNursery={reduceIslandNursery}
+                onZapFromPlanner={zapAssignedSessionFromPlanner}
+                onBreedFromPlanner={breedFromPlanner}
+                onCreateManualBreed={createManualBreedingSession}
+                onCreateObservedLiveSession={createObservedLiveSession}
+                onAssignAndZapFromPlanner={assignAndZapBreedingSession}
+                onUnassignFromPlanner={unassignBreedingSession}
+                onClearPlannerSession={clearBreedingSessionFromBoard}
+                onClearIslandBreeders={clearIslandBreeders}
+                onClearIslandNurseries={clearIslandNurseries}
+                onResetIslandLiveBoard={resetIslandLiveBoard}
+                onMoveToNurseryFromPlanner={moveBreedingSessionToNursery}
+                onHatchNurseryFromPlanner={hatchNurserySession}
+              />
+            </Suspense>
+          </ScreenErrorBoundary>
         </>
       )}
 
@@ -2267,9 +2421,11 @@ export default function App()
             </button>
           </div>
 
-          <Suspense fallback={<ScreenLoadingFallback label="Loading Monster Library..." />}>
-            <MonsterDirectory />
-          </Suspense>
+          <ScreenErrorBoundary key="directory" label="Monster Library" onReset={recoverToHome}>
+            <Suspense fallback={<ScreenLoadingFallback label="Loading Monster Library..." />}>
+              <MonsterDirectory />
+            </Suspense>
+          </ScreenErrorBoundary>
         </>
       )}
     </div>

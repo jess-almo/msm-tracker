@@ -151,6 +151,131 @@ function createPlannerProjectionEntries(item)
     }));
 }
 
+function getEligibleBreedingIslands(entry)
+{
+  if (Array.isArray(entry?.validBreedingIslands) && entry.validBreedingIslands.length > 0)
+  {
+    return Array.from(new Set(entry.validBreedingIslands.filter(Boolean)));
+  }
+
+  if (Array.isArray(entry?.islands) && entry.islands.length > 0)
+  {
+    return Array.from(new Set(entry.islands.filter(Boolean)));
+  }
+
+  return [entry?.island].filter(Boolean);
+}
+
+function getBlockedIslandState(islandName, plannerByIsland)
+{
+  const islandEntry = plannerByIsland.get(islandName);
+
+  if (!islandEntry)
+  {
+    return {
+      island: islandName,
+      kind: "unplanned",
+      label: `${islandName}: not configured`,
+      orderIndex: 999,
+    };
+  }
+
+  if (!islandEntry.supportsStandardBreeding)
+  {
+    return {
+      island: islandName,
+      kind: "unsupported",
+      label: `${islandName}: breeding unavailable`,
+      orderIndex: islandEntry.orderIndex ?? 999,
+    };
+  }
+
+  if (!islandEntry.isUnlocked)
+  {
+    return {
+      island: islandName,
+      kind: "locked",
+      label: `${islandName}: locked`,
+      orderIndex: islandEntry.orderIndex ?? 999,
+    };
+  }
+
+  if (Number(islandEntry.freeSlots || 0) <= 0)
+  {
+    return {
+      island: islandName,
+      kind: "full",
+      label: `${islandName}: breeders full`,
+      orderIndex: islandEntry.orderIndex ?? 999,
+    };
+  }
+
+  return {
+    island: islandName,
+    kind: "available",
+    label: `${islandName}: ready`,
+    orderIndex: islandEntry.orderIndex ?? 999,
+  };
+}
+
+function getBlockedReason(entry, blockedIslands, primaryBlockedIsland)
+{
+  if (!Array.isArray(blockedIslands) || blockedIslands.length === 0)
+  {
+    return "No breeding island data is available yet.";
+  }
+
+  if (entry.routeLockedToIsland && primaryBlockedIsland)
+  {
+    if (primaryBlockedIsland.kind === "locked")
+    {
+      return `${primaryBlockedIsland.island} is still locked for this route.`;
+    }
+
+    if (primaryBlockedIsland.kind === "full")
+    {
+      return `No free breeders are open on ${primaryBlockedIsland.island}.`;
+    }
+
+    if (primaryBlockedIsland.kind === "unsupported")
+    {
+      return `${primaryBlockedIsland.island} cannot breed this route right now.`;
+    }
+
+    if (primaryBlockedIsland.kind === "unplanned")
+    {
+      return `${primaryBlockedIsland.island} is not configured in Island Manager.`;
+    }
+  }
+
+  const blockedKinds = Array.from(new Set(blockedIslands.map((island) => island.kind)));
+
+  if (blockedKinds.length === 1)
+  {
+    if (blockedKinds[0] === "locked")
+    {
+      return "All valid breeding islands are still locked.";
+    }
+
+    if (blockedKinds[0] === "full")
+    {
+      return "All valid breeding islands have breeders full.";
+    }
+
+    if (blockedKinds[0] === "unsupported")
+    {
+      return "No valid breeding island can breed this monster right now.";
+    }
+
+    if (blockedKinds[0] === "unplanned")
+    {
+      return "Valid breeding islands are not configured in Island Manager yet.";
+    }
+  }
+
+  return "All valid breeding islands are currently blocked.";
+}
+
 function getSheetMonsterState(sheet, monsterName)
 {
   if (!sheet || !Array.isArray(sheet.monsters))
@@ -306,6 +431,55 @@ export function buildToBreedEntries(sheets)
 export function buildBreedingQueue(sheets)
 {
   return buildToBreedEntries(sheets);
+}
+
+export function buildBlockedBreedingQueue(sheets, islandPlannerData = [])
+{
+  const plannerByIsland = new Map(
+    (Array.isArray(islandPlannerData) ? islandPlannerData : []).map((island) => [island.island, island])
+  );
+
+  return buildBreedingQueue(sheets)
+    .map((entry) =>
+    {
+      const eligibleBreedingIslands = getEligibleBreedingIslands(entry);
+
+      if (eligibleBreedingIslands.length === 0)
+      {
+        return {
+          ...entry,
+          blockingKind: "missing_route",
+          blockReason: "No breeding island data is available yet.",
+          blockDetails: "Add breeding route data for this monster to place it in the operational queue.",
+          blockedIslands: [],
+        };
+      }
+
+      const blockedIslands = eligibleBreedingIslands.map((islandName) =>
+        getBlockedIslandState(islandName, plannerByIsland)
+      );
+
+      if (blockedIslands.some((island) => island.kind === "available"))
+      {
+        return null;
+      }
+
+      const primaryBlockedIsland = blockedIslands.find((island) => island.island === entry.island)
+        || blockedIslands[0]
+        || null;
+
+      return {
+        ...entry,
+        island: primaryBlockedIsland?.island || entry.island,
+        islandOrder: primaryBlockedIsland?.orderIndex ?? 999,
+        blockingKind: primaryBlockedIsland?.kind || "blocked",
+        blockReason: getBlockedReason(entry, blockedIslands, primaryBlockedIsland),
+        blockDetails: blockedIslands.map((island) => island.label).join(" · "),
+        blockedIslands,
+      };
+    })
+    .filter(Boolean)
+    .sort(compareEntries);
 }
 
 export function buildBreedingNowEntriesFromSessions(breedingSessions, sheets)
