@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ISLAND_GROUPS, ISLAND_STATE_DEFAULTS } from "../data/islands";
+import { ISLAND_GROUPS, ISLAND_STATE_DEFAULTS, getIslandOperationalProfile } from "../data/islands";
 import { COLLECTIONS } from "../data/collections";
 import {
   getCollectionEntryStatus,
@@ -1173,6 +1173,125 @@ function IslandSheetCard({
   );
 }
 
+function CollectionWorldCard({
+  world,
+  onOpenWorld,
+  onOpenSheet,
+})
+{
+  const visualStyle = world.kind === "island"
+    ? getIslandCardVisualStyle({ island: world.name }, world.status)
+    : getStatusVisualStyle(world.status);
+
+  const primaryAction = world.kind === "island"
+    ? () => onOpenSheet(world.sheetKey)
+    : () => onOpenWorld(world.key);
+
+  const primaryLabel = world.kind === "island" ? "Open Collection" : "Open World";
+
+  return (
+    <div
+      style={{
+        border: visualStyle.border,
+        borderRadius: "18px",
+        padding: "18px",
+        background: visualStyle.background,
+        boxShadow: visualStyle.boxShadow,
+        opacity: visualStyle.opacity ?? 1,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "12px",
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "grid", gap: "6px", flex: "1 1 220px" }}>
+          <div style={{ fontSize: "22px", fontWeight: 800 }}>
+            {world.title}
+          </div>
+          <div style={{ fontSize: "13px", opacity: 0.72 }}>
+            {world.subtitle}
+          </div>
+        </div>
+
+        <div style={{ textAlign: "right" }}>
+          <div
+            style={{
+              display: "inline-flex",
+              padding: "6px 10px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: visualStyle.chipBackground,
+              fontSize: "12px",
+              fontWeight: 700,
+              marginBottom: "8px",
+            }}
+          >
+            {getStatusLabel(world.status)}
+          </div>
+          <div style={{ fontSize: "14px", fontWeight: 700 }}>
+            {world.summaryValue}
+          </div>
+          <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
+            {world.summaryLabel}
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          marginTop: "14px",
+          display: "flex",
+          gap: "8px",
+          flexWrap: "wrap",
+        }}
+      >
+        {world.chips.map((chip) => (
+          <span
+            key={`${world.key}:${chip}`}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.06)",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            {chip}
+          </span>
+        ))}
+      </div>
+
+      <div
+        style={{
+          marginTop: "16px",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "12px",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ fontSize: "13px", opacity: 0.72 }}>
+          {world.supportingCopy}
+        </div>
+
+        <button
+          style={actionButtonStyle}
+          onClick={primaryAction}
+        >
+          {primaryLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Collections({
   sheets,
   collectionsData,
@@ -1183,14 +1302,13 @@ export default function Collections({
   onUpdateCollectionEntryStatus,
 })
 {
-  const [activeTab, setActiveTab] = useState("vessels");
+  const [selectedWorldKey, setSelectedWorldKey] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [vesselFamilyFilter, setVesselFamilyFilter] = useState("all");
   const [showScrollTop, setShowScrollTop] = useState(false);
   const safeSheets = Array.isArray(sheets) ? sheets.filter(Boolean) : [];
-  const safeCollectionsData = Array.isArray(collectionsData)
+  const safeCollectionsData = Array.isArray(collectionsData) && collectionsData.length > 0
     ? collectionsData.filter((collection) => collection && typeof collection === "object")
-    : [];
+    : COLLECTIONS.filter((collection) => collection && typeof collection === "object");
 
   useEffect(() =>
   {
@@ -1271,193 +1389,276 @@ export default function Collections({
       other: [],
     };
   }, [collectionsByKey, statusFilter, vesselGroups]);
-
-  const vesselFamilyCounts = useMemo(() =>
-  {
-    const amberCount = vesselCollectionEntryGroups.amber.length;
-    const wublinCount = vesselCollectionEntryGroups.wublin.length;
-    const celestialCount = vesselCollectionEntryGroups.celestial.length;
-    const otherCount = vesselCollectionEntryGroups.other.length;
-
-    return {
-      all: amberCount + wublinCount + celestialCount + otherCount,
-      amber: amberCount,
-      wublin: wublinCount,
-      celestial: celestialCount,
-      other: otherCount,
-    };
-  }, [vesselCollectionEntryGroups]);
-
-  const visibleVesselFamilyFilterOptions = useMemo(() =>
-  {
-    return VESSEL_FAMILY_FILTER_OPTIONS.filter((filter) =>
-    {
-      if (filter.key === "all")
-      {
-        return true;
-      }
-
-      return Number(vesselFamilyCounts[filter.key] || 0) > 0;
-    });
-  }, [vesselFamilyCounts]);
-
-  const visibleVesselSections = useMemo(() =>
-  {
-    const sectionSubtitles = {
-      amber: "Collection-first browsing for Amber monsters, with tracked runs nested underneath each species.",
-      wublin: "Collection-first browsing for Wublin monsters and variants, with tracked runs nested underneath each species.",
-      celestial: "Collection-first browsing for Celestial monsters and future tracked runs.",
-      other: "Grouped species view for any other vessel-style families that reuse the shared sheet backbone.",
-    };
-    const sections = [
-      {
-        key: "amber",
-        title: "Amber",
-        subtitle: sectionSubtitles.amber,
-        count: vesselCollectionEntryGroups.amber.length,
-        cards: vesselCollectionEntryGroups.amber.map(({ entry, instances }) => (
-          <VesselTemplateCard
-            key={`amber:${entry.name}`}
-            collectionKey="amber_island"
-            entry={entry}
-            instances={instances}
-            onOpenSheet={onOpenSheet}
-            onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
-            onDeleteSheetInstance={onDeleteSheetInstance}
-            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
-          />
-        )),
-      },
-      {
-        key: "wublin",
-        title: "Wublins",
-        subtitle: sectionSubtitles.wublin,
-        count: vesselCollectionEntryGroups.wublin.length,
-        cards: vesselCollectionEntryGroups.wublin.map(({ entry, instances }) => (
-          <VesselTemplateCard
-            key={`wublins:${entry.name}`}
-            collectionKey="wublins"
-            entry={entry}
-            instances={instances}
-            onOpenSheet={onOpenSheet}
-            onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
-            onDeleteSheetInstance={onDeleteSheetInstance}
-            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
-          />
-        )),
-      },
-      {
-        key: "celestial",
-        title: "Celestial",
-        subtitle: sectionSubtitles.celestial,
-        count: vesselCollectionEntryGroups.celestial.length,
-        cards: vesselCollectionEntryGroups.celestial.map(({ entry, instances }) => (
-          <VesselTemplateCard
-            key={`celestials:${entry.name}`}
-            collectionKey="celestials"
-            entry={entry}
-            instances={instances}
-            onOpenSheet={onOpenSheet}
-            onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
-            onDeleteSheetInstance={onDeleteSheetInstance}
-            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
-          />
-        )),
-      },
-      {
-        key: "other",
-        title: "Other",
-        subtitle: sectionSubtitles.other,
-        count: vesselCollectionEntryGroups.other.length,
-        cards: vesselCollectionEntryGroups.other.map(({ entry, instances }) => (
-          <VesselTemplateCard
-            key={`other:${entry.name}`}
-            collectionKey="other"
-            entry={entry}
-            instances={instances}
-            onOpenSheet={onOpenSheet}
-            onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
-            onDeleteSheetInstance={onDeleteSheetInstance}
-            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
-          />
-        )),
-      },
-    ];
-
-    return sections.filter((section) =>
-    {
-      if (vesselFamilyFilter !== "all")
-      {
-        return section.key === vesselFamilyFilter;
-      }
-
-      return section.count > 0;
-    });
-  }, [
-    onCreateAnotherSheetInstance,
-    onDeleteSheetInstance,
-    getDeleteInstanceBlockState,
-    onOpenSheet,
-    onUpdateCollectionEntryStatus,
-    vesselFamilyFilter,
-    vesselCollectionEntryGroups,
-  ]);
-
   const islandGroupByName = useMemo(
     () => new Map(ISLAND_STATE_DEFAULTS.map((island) => [island.name, island.group || "other"])),
     []
   );
+  const islandProfileByName = useMemo(
+    () => new Map(ISLAND_STATE_DEFAULTS.map((island) => [island.name, island])),
+    []
+  );
+  const islandGroupLabelByKey = useMemo(
+    () => new Map(ISLAND_GROUPS.map((group) => [group.key, group.label])),
+    []
+  );
 
-  const groupedIslandSheets = useMemo(() =>
+  const specialWorlds = useMemo(() =>
   {
-    return ISLAND_GROUPS.map((group) => ({
-      ...group,
-      sheets: islandSheets
-        .filter((sheet) => islandGroupByName.get(sheet.island) === group.key)
-        .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
-        .sort(sortSheetsByOperationalOrder),
-    })).filter((group) => group.sheets.length > 0);
-  }, [islandGroupByName, islandSheets, statusFilter]);
+    const buildWorld = ({
+      key,
+      familyKey,
+      collectionKey,
+      title,
+      subtitle,
+      chips,
+      sectionKey,
+      sectionTitle,
+    }) =>
+    {
+      const groups = vesselCollectionEntryGroups[familyKey] || [];
+
+      if (groups.length === 0)
+      {
+        return null;
+      }
+
+      const statuses = groups.map(({ entry, instances }) => getCollectionEntryStatus(entry, instances));
+      const completeCount = statuses.filter((status) => status === "complete").length;
+      const trackedCount = statuses.filter((status) => status !== "not_started").length;
+      const activeCount = statuses.filter((status) => status === "active").length;
+      const inProgressCount = statuses.filter((status) => status === "in_progress").length;
+      const worldStatus = activeCount > 0
+        ? "active"
+        : inProgressCount > 0
+          ? "in_progress"
+          : completeCount === groups.length
+            ? "complete"
+            : "not_started";
+
+      if (!matchesStatusFilter(worldStatus, statusFilter))
+      {
+        return null;
+      }
+
+      return {
+        key,
+        kind: "special",
+        familyKey,
+        collectionKey,
+        title,
+        subtitle,
+        chips,
+        sectionKey,
+        sectionTitle,
+        status: worldStatus,
+        count: groups.length,
+        summaryValue: `${completeCount} / ${groups.length}`,
+        summaryLabel: "species complete",
+        supportingCopy: trackedCount > 0
+          ? `${trackedCount} species tracked across this world.`
+          : "No tracked species here yet.",
+        cards: groups.map(({ entry, instances }) => (
+          <VesselTemplateCard
+            key={`${familyKey}:${entry.name}`}
+            collectionKey={collectionKey}
+            entry={entry}
+            instances={instances}
+            onOpenSheet={onOpenSheet}
+            onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
+            onDeleteSheetInstance={onDeleteSheetInstance}
+            getDeleteInstanceBlockState={getDeleteInstanceBlockState}
+            onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
+          />
+        )),
+      };
+    };
+
+    return [
+      buildWorld({
+        key: "amber_island",
+        familyKey: "amber",
+        collectionKey: "amber_island",
+        title: "Amber Island",
+        subtitle: "Relic-fueled vessel collection with tracked runs nested under each monster.",
+        chips: ["Vessels", "Relics", "Limited"],
+        sectionKey: "worlds",
+        sectionTitle: "Collection Worlds",
+      }),
+      buildWorld({
+        key: "wublin_island",
+        familyKey: "wublin",
+        collectionKey: "wublins",
+        title: "Wublin Island",
+        subtitle: "Nested Wublin collection runs with statue-first progress and variants together.",
+        chips: ["Zap", "Statues", "Timed"],
+        sectionKey: "special",
+        sectionTitle: "Special Islands",
+      }),
+      buildWorld({
+        key: "celestial_island",
+        familyKey: "celestial",
+        collectionKey: "celestials",
+        title: "Celestial Island",
+        subtitle: "Celestial revival collection space with its own special progression flow.",
+        chips: ["Zap", "Monthly", "Celestials"],
+        sectionKey: "special",
+        sectionTitle: "Special Islands",
+      }),
+    ].filter(Boolean);
+  }, [
+    getDeleteInstanceBlockState,
+    onCreateAnotherSheetInstance,
+    onDeleteSheetInstance,
+    onOpenSheet,
+    onUpdateCollectionEntryStatus,
+    statusFilter,
+    vesselCollectionEntryGroups,
+  ]);
+
+  const collectionWorldSections = useMemo(() =>
+  {
+    const islandWorlds = islandSheets
+      .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
+      .sort((a, b) =>
+      {
+        const groupDelta =
+          (ISLAND_GROUPS.findIndex((group) => group.key === islandGroupByName.get(a.island))
+            - ISLAND_GROUPS.findIndex((group) => group.key === islandGroupByName.get(b.island)));
+
+        if (groupDelta !== 0)
+        {
+          return groupDelta;
+        }
+
+        return compareSheetsByOperationalFallback(a, b);
+      })
+      .map((sheet) =>
+      {
+        const progress = getSheetProgressState(sheet);
+        const groupKey = islandGroupByName.get(sheet.island) || "other";
+        const groupLabel = islandGroupLabelByKey.get(groupKey) || "Other";
+        const islandProfile = islandProfileByName.get(sheet.island);
+        const chips = [
+          groupLabel,
+          ...(sheet.island?.includes("Mirror") ? ["Mirror"] : []),
+          ...((sheet.island === "Seasonal Shanty") ? ["Seasonal"] : []),
+          ...getIslandOperationalProfile(sheet.island, islandProfile?.type).capabilityTags.slice(0, 2),
+        ].filter(Boolean);
+
+        return {
+          key: `island:${sheet.key}`,
+          kind: "island",
+          sheetKey: sheet.key,
+          name: sheet.island,
+          title: sheet.island,
+          subtitle: `${groupLabel} collection world with its own checklist-first sheet.`,
+          chips,
+          sectionKey: "worlds",
+          sectionTitle: "Collection Worlds",
+          status: getDerivedSheetStatus(sheet),
+          summaryValue: `${progress.done} / ${progress.total}`,
+          summaryLabel: "collected",
+          supportingCopy: `${progress.trackedPercent}% tracked across the standing collection sheet.`,
+        };
+      });
+
+    const groupedSections = [
+      {
+        key: "worlds",
+        title: "Collection Worlds",
+        subtitle: "Browse the islands and worlds you actually collect for, not just how the tracker was built.",
+        worlds: [...islandWorlds, ...specialWorlds.filter((world) => world.sectionKey === "worlds")],
+      },
+      {
+        key: "special",
+        title: "Special Islands",
+        subtitle: "Dedicated collection worlds with their own nested mechanics and tracking rules.",
+        worlds: specialWorlds.filter((world) => world.sectionKey === "special"),
+      },
+    ].filter((section) => section.worlds.length > 0);
+
+    return groupedSections;
+  }, [
+    islandGroupByName,
+    islandGroupLabelByKey,
+    islandProfileByName,
+    islandSheets,
+    specialWorlds,
+    statusFilter,
+  ]);
+
+  const allCollectionWorlds = useMemo(
+    () => collectionWorldSections.flatMap((section) => section.worlds),
+    [collectionWorldSections]
+  );
+
+  const selectedWorld = useMemo(
+    () => allCollectionWorlds.find((world) => world.key === selectedWorldKey) || null,
+    [allCollectionWorlds, selectedWorldKey]
+  );
+
+  useEffect(() =>
+  {
+    if (selectedWorldKey && !selectedWorld)
+    {
+      setSelectedWorldKey("");
+    }
+  }, [selectedWorld, selectedWorldKey]);
 
   return (
     <div className="page-surface">
       <div className="responsive-page-card" style={pageCardStyle}>
-        <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
-          Collections
-        </div>
-        <div style={{ marginTop: "8px", opacity: 0.75 }}>
-          Browse standing collection entries and their tracked runs without leaving the main sheet system.
-        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "16px",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+          }}
+        >
+          <div style={{ display: "grid", gap: "8px" }}>
+            {selectedWorld && (
+              <button
+                style={{ ...actionButtonStyle, width: "fit-content" }}
+                onClick={() => setSelectedWorldKey("")}
+              >
+                Back to Collection Worlds
+              </button>
+            )}
 
-        <div className="collections-filter-stack">
-          <div>
-            <div className="collections-filter-label">Browser</div>
-            <div className="screen-card-actions" style={{ marginTop: "8px" }}>
-              <button
-                style={{
-                  ...tabStyle,
-                  background: activeTab === "vessels" ? "rgba(245,158,11,0.18)" : tabStyle.background,
-                }}
-                onClick={() => setActiveTab("vessels")}
-              >
-                Vessels ({vesselFamilyCounts.all})
-              </button>
-              <button
-                style={{
-                  ...tabStyle,
-                  background: activeTab === "islands" ? "rgba(59,130,246,0.18)" : tabStyle.background,
-                }}
-                onClick={() => setActiveTab("islands")}
-              >
-                Islands ({islandSheets.length})
-              </button>
+            <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
+              {selectedWorld ? selectedWorld.title : "Collections"}
+            </div>
+            <div style={{ opacity: 0.75, maxWidth: "720px" }}>
+              {selectedWorld
+                ? selectedWorld.subtitle
+                : "Browse by collection world first, then jump into the mechanic-heavy surfaces that need their own nested views."}
             </div>
           </div>
 
+          {selectedWorld && (
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+              {selectedWorld.chips.map((chip) => (
+                <span
+                  key={`${selectedWorld.key}:hero:${chip}`}
+                  style={{
+                    padding: "7px 12px",
+                    borderRadius: "999px",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    background: "rgba(255,255,255,0.08)",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                  }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="collections-filter-stack">
           <div>
             <div className="collections-filter-label">Status</div>
             <div className="collections-mobile-filter" style={{ marginTop: "8px" }}>
@@ -1491,46 +1692,11 @@ export default function Collections({
             </div>
           </div>
 
-        {activeTab === "vessels" && (
-          <>
-            <div>
-              <div className="collections-filter-label">Family</div>
-              <div className="collections-mobile-filter" style={{ marginTop: "8px" }}>
-                <select
-                  style={filterSelectStyle}
-                  value={vesselFamilyFilter}
-                  onChange={(event) => setVesselFamilyFilter(event.target.value)}
-                >
-                  {visibleVesselFamilyFilterOptions.map((filter) => (
-                    <option key={`family-select-${filter.key}`} value={filter.key}>
-                      {`${filter.label} (${vesselFamilyCounts[filter.key] || 0})`}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="screen-card-actions collections-filter-options" style={{ marginTop: "8px", gap: "8px" }}>
-                {visibleVesselFamilyFilterOptions.map((filter) => (
-                  <button
-                    key={filter.key}
-                    style={{
-                      ...filterButtonStyle,
-                      background: vesselFamilyFilter === filter.key
-                        ? "rgba(245,158,11,0.18)"
-                        : filterButtonStyle.background,
-                    }}
-                    onClick={() => setVesselFamilyFilter(filter.key)}
-                  >
-                    {filter.label} ({vesselFamilyCounts[filter.key] || 0})
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div style={{ fontSize: "13px", opacity: 0.64 }}>
-              Collections keep every species present here as a standing catalog entry, while duplicate tracked runs stay nested underneath it.
-            </div>
-          </>
-        )}
+          <div style={{ fontSize: "13px", opacity: 0.64 }}>
+            {selectedWorld
+              ? "Species stay collection-first here, while duplicate tracked runs remain nested underneath when that world needs them."
+              : "Standard islands jump into their checklist sheet. Special worlds like Amber and Wublin stay here with their own nested interfaces."}
+          </div>
         </div>
       </div>
 
@@ -1550,63 +1716,51 @@ export default function Collections({
         </button>
       )}
 
-      {activeTab === "vessels" ? (
+      {selectedWorld ? (
         <div style={{ display: "grid", gap: "16px" }}>
-          {visibleVesselSections.length === 0 ? (
-            <div style={sectionCardStyle}>
-              <div style={{ opacity: 0.68 }}>
-                {vesselFamilyFilter === "all"
-                  ? getEmptyStateCopy(statusFilter)
-                  : `No ${getVesselGroupLabel(vesselFamilyFilter).toLowerCase()} vessel sheets match the current filter.`}
-              </div>
-            </div>
-          ) : (
-            visibleVesselSections.map((section) => (
-              <div key={section.key} style={sectionCardStyle}>
-                {renderSectionHeader({
-                  title: section.title,
-                  subtitle: section.subtitle,
-                  count: section.count,
-                })}
-
-                <div
-                  className="collections-card-grid"
-                  style={{ marginTop: "12px" }}
-                >
-                  {section.count === 0 ? (
-                    <div style={{ opacity: 0.64 }}>
-                      {statusFilter === "all"
-                        ? `No ${section.title.toLowerCase()} collection entries yet.`
-                        : getEmptyStateCopy(statusFilter)}
-                    </div>
-                  ) : section.cards}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      ) : (
-        <div style={{ display: "grid", gap: "16px" }}>
-          {groupedIslandSheets.length === 0 ? (
+          {!selectedWorld.cards || selectedWorld.cards.length === 0 ? (
             <div style={sectionCardStyle}>
               <div style={{ opacity: 0.68 }}>
                 {getEmptyStateCopy(statusFilter)}
               </div>
             </div>
           ) : (
-            groupedIslandSheets.map((group) => (
-              <div key={group.key} style={sectionCardStyle}>
+            <div style={sectionCardStyle}>
+              {renderSectionHeader({
+                title: selectedWorld.title,
+                subtitle: selectedWorld.supportingCopy,
+                count: selectedWorld.count,
+              })}
+
+              <div className="collections-card-grid" style={{ marginTop: "12px" }}>
+                {selectedWorld.cards}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div style={{ display: "grid", gap: "16px" }}>
+          {collectionWorldSections.length === 0 ? (
+            <div style={sectionCardStyle}>
+              <div style={{ opacity: 0.68 }}>
+                {getEmptyStateCopy(statusFilter)}
+              </div>
+            </div>
+          ) : (
+            collectionWorldSections.map((section) => (
+              <div key={section.key} style={sectionCardStyle}>
                 {renderSectionHeader({
-                  title: group.label,
-                  subtitle: "Tracked island collection sheets for this region.",
-                  count: group.sheets.length,
+                  title: section.title,
+                  subtitle: section.subtitle,
+                  count: section.worlds.length,
                 })}
 
                 <div className="collections-card-grid" style={{ marginTop: "12px" }}>
-                  {group.sheets.map((sheet) => (
-                    <IslandSheetCard
-                      key={sheet.key}
-                      sheet={sheet}
+                  {section.worlds.map((world) => (
+                    <CollectionWorldCard
+                      key={world.key}
+                      world={world}
+                      onOpenWorld={setSelectedWorldKey}
                       onOpenSheet={onOpenSheet}
                     />
                   ))}
