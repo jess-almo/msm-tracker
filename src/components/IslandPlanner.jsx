@@ -239,6 +239,11 @@ function NeedNowRow({ item, faded, canBreed, onBreed, buttonLabel = "Assign Here
 {
   const metadata = getMonsterMetadata(item.name);
   const hasUnreservedNeed = item.queueRemaining > 0;
+  const isIslandCollectionEntry = item.sheetType === "island";
+  const showBreedableIslands =
+    !isIslandCollectionEntry
+    && Array.isArray(item.validBreedingIslands)
+    && item.validBreedingIslands.length > 1;
 
   return (
     <div
@@ -273,7 +278,7 @@ function NeedNowRow({ item, faded, canBreed, onBreed, buttonLabel = "Assign Here
         Remaining {item.queueRemaining} · Total left {item.actualRemaining} · Breeding {item.breeding} · Zapped {item.zapped}/{item.required}
       </div>
 
-      {item.validBreedingIslands?.length > 1 && (
+      {showBreedableIslands && (
         <div style={{ marginTop: "8px", fontSize: "13px", opacity: 0.68 }}>
           Breedable on: {item.validBreedingIslands.join(" · ")}
         </div>

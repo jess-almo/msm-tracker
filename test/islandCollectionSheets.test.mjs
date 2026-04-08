@@ -67,3 +67,92 @@ test("Faerie planner demand skips collection-only monsters", () =>
   assert.ok(!plannerNames.includes("Do"));
   assert.ok(!plannerNames.includes("Ti"));
 });
+
+test("Faerie collection demand stays on the island card until the monster is collected", () =>
+{
+  const faerieSheet = getIslandCollectionSheet("Faerie");
+  const sheetWithTrackedBoskus = {
+    ...faerieSheet,
+    monsters: faerieSheet.monsters.map((monster) =>
+    {
+      if (monster.name !== "Boskus")
+      {
+        return monster;
+      }
+
+      return {
+        ...monster,
+        zapped: 0,
+        breeding: 1,
+      };
+    }),
+  };
+
+  const planner = buildIslandPlannerData(
+    [sheetWithTrackedBoskus],
+    [
+      {
+        name: "Faerie",
+        group: "magical",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    []
+  );
+  const faerieEntry = planner.find((entry) => entry.island === "Faerie");
+  const boskusEntry = faerieEntry.collectionMissing.find((item) => item.name === "Boskus");
+
+  assert.ok(boskusEntry, "Boskus should stay visible until it is actually collected");
+  assert.equal(boskusEntry.remaining, 1);
+  assert.equal(boskusEntry.actualRemaining, 1);
+  assert.equal(boskusEntry.queueRemaining, 0);
+});
+
+test("Faerie island card still shows collection gaps from inactive island sheets", () =>
+{
+  const faerieSheet = getIslandCollectionSheet("Faerie");
+  const inactiveFaerieSheet = {
+    ...faerieSheet,
+    isActive: false,
+    monsters: faerieSheet.monsters.map((monster) =>
+    {
+      if (monster.name !== "Ziggurab")
+      {
+        return monster;
+      }
+
+      return {
+        ...monster,
+        zapped: 0,
+        breeding: 0,
+      };
+    }),
+  };
+
+  const planner = buildIslandPlannerData(
+    [],
+    [
+      {
+        name: "Faerie",
+        group: "magical",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    [],
+    [inactiveFaerieSheet]
+  );
+  const faerieEntry = planner.find((entry) => entry.island === "Faerie");
+  const plannerNames = faerieEntry.collectionMissing.map((item) => item.name);
+
+  assert.ok(plannerNames.includes("Ziggurab"));
+});

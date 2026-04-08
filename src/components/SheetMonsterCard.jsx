@@ -140,6 +140,7 @@ export default function SheetMonsterCard({
   monsterIndex,
   sheetKey,
   isIslandSheet,
+  compact = false,
   isSheetActive,
   breedingSessions,
   islandPlannerByName,
@@ -150,12 +151,21 @@ export default function SheetMonsterCard({
 {
   const [showBreedOptions, setShowBreedOptions] = useState(false);
   const remaining = Math.max(0, monster.required - monster.zapped - monster.breeding);
+  const actualRemaining = Math.max(0, monster.required - monster.zapped);
+  const trackedCount = Math.min(monster.required, monster.zapped + monster.breeding);
   const progress = monster.required
-    ? Math.round(((monster.zapped + monster.breeding) / monster.required) * 100)
+    ? Math.round((trackedCount / monster.required) * 100)
     : 0;
   const isComplete = monster.zapped >= monster.required;
   const metadata = getMonsterMetadata(monster.name);
   const validBreedingIslands = getMonsterBreedingIslands(monster.name);
+  const acquisitionType = monster.acquisitionType || "breed";
+  const showInOperations = monster.showInOperations !== false;
+  const collectionIslandLabel = isRealBreedingIsland(monster.requirementIsland)
+    ? monster.requirementIsland
+    : (isRealBreedingIsland(monster.island) ? monster.island : "");
+  const shouldShowIslandBreedOptions = !isIslandSheet || showInOperations;
+  const canStartBreedingFromSheet = shouldShowIslandBreedOptions && validBreedingIslands.length > 0;
   const assignedZapReadySessions = useMemo(
     () =>
       breedingSessions.filter((session) =>
@@ -168,9 +178,143 @@ export default function SheetMonsterCard({
       }),
     [breedingSessions, monster.name, sheetKey]
   );
-  const islandLabel = validBreedingIslands.length > 0
-    ? validBreedingIslands.join(" · ")
-    : (isRealBreedingIsland(monster.island) ? monster.island : "No verified breeding islands");
+  const metadataLabel = isIslandSheet
+    ? (
+      acquisitionType === "breed"
+        ? "Collection island"
+        : acquisitionType === "keys"
+          ? "Acquired with keys"
+          : acquisitionType === "market_relics"
+            ? "Acquired with relics"
+            : acquisitionType === "seasonal"
+              ? "Seasonal availability"
+              : "Collection source"
+    )
+    : "Breeds on";
+  const metadataValue = isIslandSheet
+    ? (
+      collectionIslandLabel
+        ? (
+          acquisitionType === "breed"
+            ? collectionIslandLabel
+            : `${collectionIslandLabel}${acquisitionType === "seasonal" ? " · enable when available" : ""}`
+        )
+        : "Collection-only entry"
+    )
+    : (
+      validBreedingIslands.length > 0
+        ? validBreedingIslands.join(" · ")
+        : (isRealBreedingIsland(monster.island) ? monster.island : "No verified breeding islands")
+    );
+  const breedButtonLabel = isIslandSheet
+    ? (showInOperations ? "Plan on island" : null)
+    : "Breed on...";
+
+  if (compact && isIslandSheet)
+  {
+    return (
+      <div
+        className="sheet-monster-card"
+        style={{
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: "16px",
+          padding: "14px",
+          background: isComplete
+            ? "linear-gradient(180deg, rgba(34,197,94,0.12), rgba(255,255,255,0.035))"
+            : "rgba(255,255,255,0.035)",
+          boxShadow: "0 10px 24px rgba(0,0,0,0.12)",
+          opacity: isComplete ? 0.82 : 1,
+          display: "grid",
+          gap: "10px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "10px",
+            alignItems: "flex-start",
+          }}
+        >
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontSize: "22px", fontWeight: 700, lineHeight: 1.08 }}>
+              {monster.name}
+            </div>
+            <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.66 }}>
+              {metadataValue}
+            </div>
+          </div>
+
+          <div
+            style={{
+              padding: "6px 10px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: isComplete ? "rgba(34,197,94,0.16)" : "rgba(255,255,255,0.08)",
+              fontSize: "12px",
+              fontWeight: 700,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {isComplete ? "Collected" : `${actualRemaining} left`}
+          </div>
+        </div>
+
+        {metadata?.elements?.length > 0 && (
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            {metadata.elements.map((element) => (
+              <span key={`${monster.name}-${element}`} style={getElementChipStyle(element)}>
+                {element}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div style={{ fontSize: "13px", opacity: 0.72 }}>
+          {isComplete
+            ? `${monster.required}/${monster.required} collected`
+            : `${monster.zapped}/${monster.required} collected`}
+          {!isComplete && monster.breeding > 0 ? ` · ${monster.breeding} waiting to hatch` : ""}
+          {!isComplete && monster.breeding <= 0 ? ` · ${actualRemaining} left to place` : ""}
+        </div>
+
+        <div
+          style={{
+            height: "9px",
+            borderRadius: "999px",
+            background: "rgba(255,255,255,0.07)",
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          <div
+            style={{
+              width: `${Math.min(progress, 100)}%`,
+              height: "100%",
+              borderRadius: "999px",
+              background: isComplete
+                ? "linear-gradient(90deg, rgba(34,197,94,0.98), rgba(74,222,128,0.85))"
+                : "linear-gradient(90deg, rgba(34,197,94,0.88), rgba(187,247,208,0.5))",
+            }}
+          />
+        </div>
+
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <button
+            type="button"
+            style={{
+              ...primaryButtonStyle,
+              padding: "8px 12px",
+              background: isComplete ? "rgba(239,68,68,0.14)" : "rgba(34,197,94,0.14)",
+            }}
+            onClick={() => onAdjustMonster?.(monsterIndex, "zapped", isComplete ? -1 : 1)}
+          >
+            {isComplete ? "Clear Collected" : "Mark Collected"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -208,7 +352,7 @@ export default function SheetMonsterCard({
         </div>
 
         <div style={{ display: "grid", gap: "8px" }}>
-          <MetadataRow label="Breeds on" value={<span>{islandLabel}</span>} />
+          <MetadataRow label={metadataLabel} value={<span>{metadataValue}</span>} />
           <MetadataRow
             label="Elements"
             value={
@@ -231,7 +375,7 @@ export default function SheetMonsterCard({
             value={
               <span>
                 {isIslandSheet
-                  ? `Needed ${monster.required} · Collected ${monster.zapped} · Planned ${monster.breeding} · Missing ${remaining}`
+                  ? `Needed ${monster.required} · Collected ${monster.zapped} · Tracked ${trackedCount} · Left to place ${actualRemaining}`
                   : `Required ${monster.required} · Zapped ${monster.zapped} · Breeding ${monster.breeding} · Remaining ${remaining}`}
               </span>
             }
@@ -263,18 +407,20 @@ export default function SheetMonsterCard({
 
         <div style={{ display: "grid", gap: "10px" }}>
           <div className="sheet-monster-actions">
-            <button
-              type="button"
-              style={{
-                ...primaryButtonStyle,
-                background: showBreedOptions ? "rgba(245,158,11,0.18)" : primaryButtonStyle.background,
-                opacity: validBreedingIslands.length > 0 ? 1 : 0.6,
-              }}
-              onClick={() => setShowBreedOptions((current) => !current)}
-              disabled={validBreedingIslands.length === 0}
-            >
-              Breed on...
-            </button>
+            {breedButtonLabel && (
+              <button
+                type="button"
+                style={{
+                  ...primaryButtonStyle,
+                  background: showBreedOptions ? "rgba(245,158,11,0.18)" : primaryButtonStyle.background,
+                  opacity: canStartBreedingFromSheet ? 1 : 0.6,
+                }}
+                onClick={() => setShowBreedOptions((current) => !current)}
+                disabled={!canStartBreedingFromSheet}
+              >
+                {breedButtonLabel}
+              </button>
+            )}
 
             {assignedZapReadySessions.length > 0 && (
               <button
@@ -297,12 +443,19 @@ export default function SheetMonsterCard({
 
             {!isSheetActive && (
               <div style={{ fontSize: "12px", opacity: 0.7 }}>
-                Activate this sheet before starting new linked breeding here.
+                {showInOperations
+                  ? "Activate this sheet before starting new linked breeding here."
+                  : "This collection entry is tracked here without driving live operations."}
+              </div>
+            )}
+            {isSheetActive && isIslandSheet && !showInOperations && (
+              <div style={{ fontSize: "12px", opacity: 0.7 }}>
+                This collection entry stays visible here but does not use the operational planner.
               </div>
             )}
           </div>
 
-          {showBreedOptions && (
+          {showBreedOptions && canStartBreedingFromSheet && (
             <div
               className="sheet-monster-breed-grid"
               style={{
@@ -311,7 +464,7 @@ export default function SheetMonsterCard({
                 gap: "8px",
               }}
             >
-              {validBreedingIslands.map((islandName) =>
+              {(isIslandSheet ? [collectionIslandLabel].filter(Boolean) : validBreedingIslands).map((islandName) =>
               {
                 const availability = getBreedAvailability({
                   isSheetActive,
