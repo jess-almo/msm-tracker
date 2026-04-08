@@ -3,3 +3,766 @@
 Drop new raw research or wiki dumps below.
 
 Processed page dumps are automatically moved to `data-entry/inboxArchive.md` by `data-entry/parseInboxResearch.mjs`.
+
+Mythical Monsters
+Talk
+15+
+
+Save
+View source
+This is the main article for Mythical Monsters. For the category, see Category:Mythical Monsters.
+This article is about the Mythical Class. For the Element, see Mythical Element.
+Island Icon
+Keep exploring the multiverse
+The following page is about the Mythical Monsters.
+For the Island, see Mythical Island.
+My Singing Monsters
+Dawn of Fire
+
+Mythical Monsters
+Common Mythicals
+Rare Mythicals
+Epic Mythicals
+Common Mythicals
+Element(s)
+Dream Element	Mythical Element
+Class
+Mythical
+Statistics
+Island(s)
+Plant Island IconPlant
+Cold Island IconCold
+Air Island IconAir
+Water Island IconWater
+Earth Island IconEarth
+Fire Haven IconHaven
+Fire Oasis IconOasis
+Mythical Island IconMythical
+Mirror Plant Island IconMirror Plant
+Mirror Cold Island IconMirror Cold
+Mirror Air Island IconMirror Air
+Mirror Water Island IconMirror Water
+Mirror Earth Island IconMirror Earth
+Available at Level 9 or 12	2 to 4 Beds Required
+In other Games
+Dawn of Fire
+Mythical Element (DoF)
+Mythical Monsters
+Mythical Monsters are a special class of Monsters that appear across multiple Islands. There are seven Monsters that manifest the Mythical (Mythical Element) Element, which are found on the five Natural Islands and both Fire Islands.
+All Mythicals from the Natural and Fire Islands can be teleported to Mythical Island once they reach level 15, a special Island featuring every Mythical, including new Mythicals exclusive to the Island. Cataliszt, the Dream (Dream Element) Single-Elemental, can breed with the Mythicals found on the Natural Islands to create brand-new Dreamythicals, hybrids of the Dream (Dream Element) and Mythical (Mythical Element) Elements.
+
+
+Contents
+1	History
+2	List of Mythical Monsters
+2.1	Single Element
+2.2	Double Element
+3	Rare Mythicals
+3.1	Rare Single Element
+3.2	Rare Double Element
+4	Epic Mythicals
+4.1	Epic Single Element
+4.2	Epic Double Element
+5	Mythterious
+5.1	Current Mythterious Events
+5.1.1	Yawstrich
+5.1.2	Buzzinga
+5.1.3	Strombonin
+5.1.4	Cherubble
+5.1.5	Anglow
+6	Notes
+7	References
+History
+The Mythical class was originally exclusive to the PlayStation®Vita version of My Singing Monsters. At the time, the class was known as "PlayStation Vita Exclusive" and its only members were G'joob and Yawstrich. The content exclusive to this version of the game remained so due to an exclusivity contract Big Blue Bubble Inc. had with Sony Interactive Entertainment.
+
+After support for the PlayStation®Vita ended in March 2019, the exclusivity deal expired, and the PlayStation®Vita Exclusive Monsters and Decorations became available in the main version of the game on September 5th, 2019.
+
+Throughout June 2022, an event called Month of the Mythical took place. In this event, the community could vote on various polls to help the Monster-Handlers develop the Cold Island Mythical. The result was Strombonin, which was revealed and released in Anniversary Month 2022.
+
+People who pledged for the Ultimate Creator Experience on the My Singing Monsters: The Board Game Kickstarter had an all-expenses-paid trip to Big Blue Bubble headquarters to design their very own Mythical Monster. These Mythicals, in order of release, are as follows:
+
+On November 23rd, 2022, Cherubble was released on Fire Oasis and Mythical Island. Its concept was created by EriktheCleric.
+
+On February 15th, 2023, Hyehehe was released on Earth Island and Mythical Island. Its concept was created by QuinnQwerty.
+
+On April 5th, 2023, Anglow was released on Water Island and Mythical Island. Its concept was created by Chris Wimberly (ChrisShark).
+
+The Monster-Handlers have stated that Anglow was the last of the Ultimate Creator Experience Mythicals, and the last Mythical on Fire Haven would not be designed by an Ultimate Creator (possibly due to the person who pledged the creation of the Fire Haven Mythical opting out). The Fire Haven Mythical, known as Buzzinga, was instead designed with the community by voting on various polls to determine its characteristics during the Month of the Mythical in June 2023, just like Strombonin. This time around, though, the community was not able to vote on the type of musical sound it plays, having already been chosen beforehand by the Monster-Handlers.
+
+On September 6th, 2023, Buzzinga was released on Fire Haven and Mythical Island. It was created by the community through a series of polls held by the Monster-Handlers on their social media pages.
+
+List of Mythical Monsters
+Mythical Singles can be split into two groups: Core Mythicals, which all have the Mythical Element, and Cataliszt, which has the Dream Element. Each Core Mythical can be obtained by breeding two specific Monsters together at any time of the year. Throughout the year, there can be Mythical Breeding Bonanzas that increase the odds of successfully breeding a Core Mythical Monster.
+
+Single Element
+Monster	Level	Beds	Size	Cost	Sells for	Breeding Combo(s)	Time	Island(s)
+Cataliszt
+Cataliszt
+Dream Element	12	2	3x3
+3 x 3	100,000 Coins	75,000 Coins	N/A	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m	Mythical Island IconMythical
+G'joob
+G'joob
+Mythical Element	9	3	2x2
+2 x 2	Plant Island Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Pummel Portrait + T-Rox Portrait
+Pummel and T-Rox	Breeding Map Icon 18h
+Enhanced Breeding Icon 13h 30m	Plant Island IconPlant
+Mythical Island IconMythical
+Mirror Map IconMirror
+Strombonin
+Strombonin
+Mythical Element	9	3	2x2
+2 x 2	Cold Island Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Spunge Portrait + Bowgart Portrait
+Spunge and Bowgart	Breeding Map Icon 23h
+Enhanced Breeding Icon 17h 15m	Cold Island IconCold
+Mythical Island IconMythical
+Mirror Map IconMirror
+Yawstrich
+Yawstrich
+Mythical Element	9	3	1x1
+1 x 1	Air Island Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Scups Portrait + T-Rox Portrait
+Scups and T-Rox	Breeding Map Icon 1d 4h
+Enhanced Breeding Icon 21h	Air Island IconAir
+Mythical Island IconMythical
+Mirror Map IconMirror
+Anglow
+Anglow
+Mythical Element	9	3	3x3
+3 x 3	Water Island Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Scups Portrait + Pummel Portrait
+Scups and Pummel	Breeding Map Icon 1d 9h
+Enhanced Breeding Icon 1d 45m	Water Island IconWater
+Mythical Island IconMythical
+Mirror Map IconMirror
+Hyehehe
+Hyehehe
+Mythical Element	9	3	2x2
+2 x 2	Earth Island Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Thumpies Portrait + PomPom Portrait
+Thumpies and PomPom	Breeding Map Icon 1d 4h
+Enhanced Breeding Icon 21h	Earth Island IconEarth
+Mythical Island IconMythical
+Mirror Map IconMirror
+Buzzinga
+Buzzinga
+Mythical Element	9	3	3x3
+3 x 3	Fire Haven Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Reedling Portrait + Barrb Portrait
+Reedling and Barrb	Breeding Map Icon 23h
+Enhanced Breeding Icon 17h 15m	Fire Haven IconHaven
+Mythical Island IconMythical
+Cherubble
+Cherubble
+Mythical Element	9	3	2x2
+2 x 2	Fire Oasis Icon 225 Diamonds
+Mythical Island Icon 500 Diamonds	168,750 Coins	Congle Portrait + Woolabee Portrait
+Congle and Woolabee	Breeding Map Icon 18h
+Enhanced Breeding Icon 13h 30m	Fire Oasis IconOasis
+Mythical Island IconMythical
+Double Element
+Double-Element Mythicals, known as "Dreamythicals", were added in Version 3.7.1 with the release of Mythical Island, at the end of Anniversary Month 2022.
+
+Monster	Level	Beds	Size	Cost	Sells for	Source(s)	Time	Island(s)
+Bleatnik
+Bleatnik
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + G'joob Portrait
+Cataliszt and G'joob	Breeding Map Icon 1d 3h
+Enhanced Breeding Icon 20h 15m	Mythical Island IconMythical
+Cranchee
+Cranchee
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Strombonin Portrait
+Cataliszt and Strombonin	Breeding Map Icon 1d 8h
+Enhanced Breeding Icon 1d	Mythical Island IconMythical
+Sporerow
+Sporerow
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Yawstrich Portrait
+Cataliszt and Yawstrich	Breeding Map Icon 1d 13h
+Enhanced Breeding Icon 1d 3h 45m	Mythical Island IconMythical
+Pinghound
+Pinghound
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Anglow Portrait
+Cataliszt and Anglow	Breeding Map Icon 1d 18h
+Enhanced Breeding Icon 1d 7h 30m	Mythical Island IconMythical
+Wheezel
+Wheezel
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Hyehehe Portrait
+Cataliszt and Hyehehe	Breeding Map Icon 1d 13h
+Enhanced Breeding Icon 1d 3h 45m	Mythical Island IconMythical
+Knurv
+Knurv
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Buzzinga Portrait
+Cataliszt and Buzzinga	Breeding Map Icon 1d 8h
+Enhanced Breeding Icon 1d	Mythical Island IconMythical
+ShLep
+shLep
+Dream ElementMythical Element	12	4	2x2
+2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Cherubble Portrait
+Cataliszt and Cherubble	Breeding Map Icon 1d 3h
+Enhanced Breeding Icon 20h 15m	Mythical Island IconMythical
+
+Mythical Island
+Talk
+15+
+
+Save
+View source
+This is the main article for Mythical Island. For the category, see Category:Mythical Island.
+
+Mythical Island
+Map Pin
+Icon
+Empty Island
+Obstacled Island
+Illuminated
+Wordmark
+Backdrop
+Map Pin
+Main Elements
+Dream Element	Mythical Element
+Release
+Statistics
+Teleporting Island
+Type	Available at
+Mythical	Level 12
+Requirement
+Fire Oasis Map Pin
+Fire Oasis
+Restrictions
+Mythical Monsters only
+Special Monsters
+Mythical
+Cataliszt
+Cataliszt
+Beds
+Maximum Available	Full Collection	Full Song
+200	135	51
+Collection
+Commons
+Common Monsters Icon	Rares
+Rare Monsters Icon	Epics
+Epic Monsters Icon
+15	15	12
+Costumes
+Costumes Icon
+9
+Related
+Previous Island	Next Island
+Fire Oasis Map Pin
+Fire Oasis	Light Island Map Pin
+Light Island
+Other Teleporting Islands
+Shugabush Island Map Pin
+Shugabush Island	Ethereal Island Map Pin
+Ethereal Island
+Magical Sanctum Map Pin
+Magical Sanctum	Seasonal Shanty Map Pin
+Seasonal Shanty
+Song Information
+110 BPM (Beats Per Minute)	D Major, D Mixolydian, D Harmonic Minor, D Lydian	6/8, 4/4 Compass
+“	In the Monster World, the moon is a central piece of imagery for the concept of fantastical travel and far-fetched aspirations. As such, it's no surprise that Mythical Island, the reification of the desire to assemble with one's kin, is so lunar-focused. The Lunapparatus, the site's most prominent landmark, is crafted from Hummatite, an 'impossible' substance that cannot occur naturally in the main dimension. With sufficient concentration and nourishment, Mythical Monsters can embark on a one-way journey here via the arcane art of dreamcraft. Here, they greet the personification of the power of dreams itself, the clever Cataliszt, who is essential in manifesting their wildest dreams in reality as fanciful 'Dreamythicals.'	”
+— In-game description	
+
+Contents
+1	About
+2	Song
+2.1	Chord Progressions
+2.2	Song Table
+3	Indigenous Monsters
+3.1	Common
+3.2	Rare
+3.3	Epic
+3.4	Upcoming Monsters
+4	Breeding
+4.1	Common
+4.2	Rare
+4.3	Epic
+4.3.1	Upcoming Epic Breeding Combos
+5	Special Features
+5.1	Obstacles
+5.2	Decorations and Structures
+6	Castle
+6.1	Sound
+6.2	Castles
+7	Strategy
+8	Version History
+9	Gallery
+10	Notes
+About
+Mythical Island Mythical Island Icon is a teleporting Island unlocked after purchasing Fire Oasis.
+
+It hosts all Mythical Monsters together in a single Island. When a Mythical Monster reaches Level 15, it can be teleported to this Island. They will reset their Level, and get sent to the Nursery, and will also stay there permanently, unless sold.
+
+On this Island, Core Mythicals found on the Natural and Fire Islands can breed with the exclusive Dream Single-Elemental Cataliszt to create brand new 'Dreamythicals' exclusive to Mythical Island. Each Mythical has its own Dreamythical counterpart.
+
+Mythical Island was released on September 28th, 2022 in Version 3.7.1.
+
+Song
+Official_Mythical_Island_Full_Song
+Official Mythical Island Full Song
+
+Composer(s): Tom Meikle
+
+Mythical Island’s song alternates between two main speeds: The first and fourth major portions of the song are in 165 beats per minute in 3/4 time, and the second portion and the transitional parts are in 110 beats per minute in 4/4 time. The third major portion has Monsters playing in both tempos, creating a polyrhythm. The song is in D Major, D Mixolydian, D Harmonic Minor and D Lydian.
+
+Mythical Island has an ambience that consists of wind and dream-like sparkles.
+
+Chord Progressions
+Pattern 1: D, Gm, A, Gm, A
+
+Pattern 2: D7 only
+
+Pattern 3: Gm, A
+
+Pattern 4: D, Eadd9, Bm, E
+
+Song Table
+This is a chart that shows where each Monster plays in the song. Each part is 16 beats long. The number next to each Monster indicates which track is being played at each part.
+
+Mythical Island Song Mythical Island Icon
+1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17
+Hummatite Castle 1	Cranchee 1		Hummatite Castle 1	Hummatite Castle 2	
+Yawstrich 1		Knurv 1	Knurv 2	Yawstrich 1		Yawstrich 2		Yawstrich 2	Knurv 2
+G'joob 1	Wheezel 1	Wheezel 2	G'joob 1	G'joob 2	Wheezel 2
+Strombonin 1	Strombonin 2				Strombonin 1	Strombonin 3	
+Cataliszt 1		Cataliszt 1			Cataliszt 2	Cataliszt 1		Cataliszt 1		Cataliszt 3	Cataliszt 2
+Pinghound 1	Sporerow 1	Sporerow 2	Sporerow 3	Sporerow 4	Sporerow 2
+Bleatnik 1		ShLep 1	Bleatnik 2	
+Cherubble 1	Cherubble 2
+Hyehehe 1	Hyehehe 2
+Anglow 1	Anglow 2
+Buzzinga 1	Buzzinga 2	Buzzinga 3
+Indigenous Monsters
+This is a list of all the Monsters indigenous to Mythical Island. It currently has the elements of Dream (Dream Element) and Mythical (Mythical Element).
+
+Common
+Monster	Level	Beds	Cost	Sells for	Element(s)
+(Class)
+Cataliszt
+Cataliszt	12	2	100,000 Coins	75,000 Coins	Dream Element
+(Mythical)
+G'joob
+G'joob	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Strombonin
+Strombonin	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Yawstrich
+Yawstrich	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Anglow
+Anglow	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Hyehehe
+Hyehehe	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Buzzinga
+Buzzinga	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Cherubble
+Cherubble	9	3	500 Diamonds	168,750 Coins	Mythical Element
+(Mythical)
+Bleatnik
+Bleatnik	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+Cranchee
+Cranchee	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+Sporerow
+Sporerow	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+Pinghound
+Pinghound	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+Wheezel
+Wheezel	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+Knurv
+Knurv	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+ShLep
+shLep	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
+(Mythical)
+Rare
+Epic
+Upcoming Monsters
+Main article: Upcoming Features
+More Epic Dreamythicals and Epic Cataliszt will be added to Mythical Island in future updates.
+
+Breeding
+On Mythical Island, the main difference in breeding mechanics between this Island and the Natural and Fire Islands is that Mythical Monsters can now breed, including their Rare variants.
+
+Single-Element Mythical Monsters can only be bred with Cataliszt to make Dreamythical Monsters, but breeding Monsters on Mythical Island can potentially gain breeding failures. Unlike Single-Element Mythicals, Dreamythicals are incapable of breeding with other Monsters.
+
+Breeding combinations for all Monsters exclusive to Mythical Island are listed below, provided that the Monster is available and the breeding is successful:
+
+Common
+Single Element Monsters cannot be bred and must either be bought from the Market or teleported from their Natural/Fire Island. Dreamythicals are bred by breeding Cataliszt and their corresponding Mythical Monster. Breeding Dreamythicals is not a guaranteed success.
+
+Breeding Combo	Result	Breeding Time
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	G'joob Portrait
+G'joob
+Mythical Element	=	Bleatnik Portrait
+Bleatnik
+Dream ElementMythical Element	Breeding Map Icon 1d 3h
+Enhanced Breeding Icon 20h 15m
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	Strombonin Portrait
+Strombonin
+Mythical Element	=	Cranchee Portrait
+Cranchee
+Dream ElementMythical Element	Breeding Map Icon 1d 8h
+Enhanced Breeding Icon 1d
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	Yawstrich Portrait
+Yawstrich
+Mythical Element	=	Sporerow Portrait
+Sporerow
+Dream ElementMythical Element	Breeding Map Icon 1d 13h
+Enhanced Breeding Icon 1d 3h 45m
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	Anglow Portrait
+Anglow
+Mythical Element	=	Pinghound Portrait
+Pinghound
+Dream ElementMythical Element	Breeding Map Icon 1d 18h
+Enhanced Breeding Icon 1d 7h 30m
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	Hyehehe Portrait
+Hyehehe
+Mythical Element	=	Wheezel Portrait
+Wheezel
+Dream ElementMythical Element	Breeding Map Icon 1d 13h
+Enhanced Breeding Icon 1d 3h 45m
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	Buzzinga Portrait
+Buzzinga
+Mythical Element	=	Knurv Portrait
+Knurv
+Dream ElementMythical Element	Breeding Map Icon 1d 8h
+Enhanced Breeding Icon 1d
+Cataliszt Portrait
+Cataliszt
+Dream Element	+	Cherubble Portrait
+Cherubble
+Mythical Element	=	ShLep Portrait
+shLep
+Dream ElementMythical Element	Breeding Map Icon 1d 3h
+Enhanced Breeding Icon 20h 15m
+
+Teleporting
+(Redirected from another page)
+Talk
+15+
+
+Save
+View source
+My Singing Monsters
+Dawn of Fire
+
+
+Teleport
+Teleport Icon
+Some Monsters can be teleported to another island when they are fed to a certain level. For most islands, the minimum level required for teleporting a Monster is level 15, with the exceptions of The Colossingum, which only requires level 5, and the Ethereal Islets, which only require level 14. When a Monster is teleported, it permanently leaves the island it was born on and is moved to the new island, turning back into an egg and going into the empty Nursery or Egg Cup on the destination island. This also resets the Monster's level down to 1 and removes the Monster from Gold Island, if it is placed there.
+
+At present, this process cannot be reversed. That is, after a Monster is teleported to another island, it can't be returned to its original home.
+
+Teleporting may also change a Monster's breeding and incubation times, as the destination islands have different features than the ones of the home islands, and may enable other characteristics not available on the monster's birthplace. However, a monster's nickname and costumes will remain unchanged on the new island.
+
+Teleporting eligible Monsters is also feasible on the Mirror Islands, which follow the same teleporting rules of the islands that they mirror. This makes Mirror Island breeding a great way to obtain Monsters to teleport, if one is preoccupied with breeding on the Natural or Magical Islands.
+
+
+Contents
+1	Shugabush Island Monsters
+2	Seasonal Shanty Monsters
+3	Ethereal Island Monsters
+4	Ethereal Islet Monsters
+5	Mythical Island Monsters
+6	Magical Sanctum Monsters
+7	The Colossingum Monsters
+7.1	Naturals
+7.2	Ethereals
+7.3	Core Seasonals
+8	Transposing
+8.1	Costs
+8.2	Monsters
+9	Alterations in Breeding Mechanics
+10	Notes
+Shugabush Island Monsters
+Eligible Monsters can only be teleported to Shugabush Island if they reside on the Natural Islands or their Mirror counterparts. If an elligible Monster resides on the Fire Islands, or the Magical Islands and their Mirror counterparts, it can not be teleported to Shugabush Island. It's unknown if that will be subject to change in the future.
+
+Monsters	Original Island
+Potbelly PortraitMammott PortraitOaktopus PortraitFurcorn PortraitShugabush Portrait
+Rare Potbelly PortraitRare Mammott PortraitRare Oaktopus PortraitRare Furcorn Portrait
+Epic Potbelly PortraitEpic Mammott PortraitEpic Oaktopus PortraitEpic Furcorn Portrait	Plant Island Icon
+Plant Island
+Potbelly PortraitMammott PortraitQuibble PortraitOaktopus PortraitFurcorn PortraitDeedge Portrait
+Rare Potbelly PortraitRare Mammott PortraitRare Quibble PortraitRare Oaktopus PortraitRare Furcorn PortraitRare Deedge Portrait
+Epic Potbelly PortraitEpic Mammott PortraitEpic Quibble PortraitEpic Oaktopus PortraitEpic Furcorn PortraitEpic Deedge Portrait	Cold Island Icon
+Cold Island
+Mammott PortraitQuibble PortraitPomPom Portrait
+Rare Mammott PortraitRare Quibble PortraitRare PomPom Portrait
+Epic Mammott PortraitEpic Quibble PortraitEpic PomPom Portrait	Air Island Icon
+Air Island
+Potbelly PortraitQuibble PortraitOaktopus Portrait
+Rare Potbelly PortraitRare Quibble PortraitRare Oaktopus Portrait
+Epic Potbelly PortraitEpic Quibble PortraitEpic Oaktopus Portrait	Water Island Icon
+Water Island
+Potbelly PortraitMammott PortraitFurcorn PortraitPomPom Portrait
+Rare Potbelly PortraitRare Mammott PortraitRare Furcorn PortraitRare PomPom Portrait
+Epic Potbelly PortraitEpic Mammott PortraitEpic Furcorn PortraitEpic PomPom Portrait	Earth Island Icon
+Earth Island
+Seasonal Shanty Monsters
+Seasonal Monsters (whether Core, Aux. or Seasonals) can be teleported to Seasonal Shanty from their "home Islands". Nevertheless, this doesn't include Viveine on Amber Island and Monculus on Wublin Island, and Jam Boree on Gold Island (where instead this monster may be placed if a level 15 Jam Boree is present on Seasonal Shanty).
+
+Monsters	Original Island(s)
+Punkleton PortraitRare Punkleton PortraitEpic Punkleton Portrait	Plant Island Icon
+Plant Island
+Yool PortraitRare Yool PortraitEpic Yool Portrait	Cold Island Icon
+Cold Island
+Schmoochle PortraitRare Schmoochle PortraitEpic Schmoochle Portrait
+Hoola PortraitRare Hoola PortraitEpic Hoola Portrait	Air Island Icon
+Air Island
+Blabbit PortraitRare Blabbit PortraitEpic Blabbit Portrait	Water Island Icon
+Water Island
+Hoola PortraitRare Hoola PortraitEpic Hoola Portrait	Earth Island Icon
+Earth Island
+Viveine PortraitRare Viveine PortraitEpic Viveine Portrait	Shugabush Island Icon
+Shugabush Island
+Monculus PortraitRare Monculus PortraitEpic Monculus Portrait	Ethereal Island Icon
+Ethereal Island
+Gobbleygourd PortraitRare Gobbleygourd PortraitEpic Gobbleygourd Portrait	Fire Haven Icon
+Fire Haven
+Gobbleygourd PortraitRare Gobbleygourd PortraitEpic Gobbleygourd Portrait
+Spurrit PortraitRare Spurrit PortraitEpic Spurrit Portrait	Fire Oasis Icon
+Fire Oasis
+Whiz-bang PortraitRare Whiz-bang PortraitEpic Whiz-bang Portrait	Light Island Icon
+Light Island
+Boo'qwurm PortraitRare Boo'qwurm PortraitEpic Boo'qwurm Portrait	Psychic Island Icon
+Psychic Island
+Ffidyll PortraitRare Ffidyll PortraitEpic Ffidyll Portrait	Faerie Island Icon
+Faerie Island
+Clavavera PortraitRare Clavavera PortraitEpic Clavavera Portrait	Bone Island Icon
+Bone Island
+Carillong PortraitRare Carillong PortraitEpic Carillong Portrait	Magical Sanctum Icon
+Magical Sanctum
+Ethereal Island Monsters
+“	Ethereal Monsters of a single element can only reach Ethereal Island through teleportation from their other islands.	”
+— Error message when trying to buy a Single-Element Ethereal via an Ethereal Island monster's "Like" tab (prior to update 3.1)	
+Monsters	Original Island(s)
+Ghazt PortraitRare Ghazt PortraitEpic Ghazt Portrait	Plant Island Icon
+Plant Island
+Grumpyre PortraitRare Grumpyre PortraitEpic Grumpyre Portrait	Cold Island Icon
+Cold Island
+Reebro PortraitRare Reebro PortraitEpic Reebro Portrait	Air Island Icon
+Air Island
+Jeeode PortraitRare Jeeode PortraitEpic Jeeode Portrait	Water Island Icon
+Water Island
+Humbug PortraitRare Humbug PortraitEpic Humbug Portrait	Earth Island Icon
+Earth Island
+Ethereal Islet Monsters
+Eligible Monsters can be teleported to the Ethereal Islets at level 14. The only Monsters eligible to Teleport to these Islands are Quad-Element Ethereals, which can be teleported from Ethereal Workshop. Other Monsters aren't eligible to be teleported.
+
+Monsters	Destination Island
+Whaill PortraitRare Whaill Portrait	Plasma Islet Icon
+Plasma Islet
+Vhenshun Portrait	Mech Islet Icon
+Mech Islet
+Pentumbra Portrait	Shadow Islet Icon
+Shadow Islet
+Rhysmuth Portrait	Placeholder Island Icon
+Crystal Islet
+(Upcoming)
+Oogiddy Portrait	Placeholder Island Icon
+Poison Islet
+(Upcoming)
+Mythical Island Monsters
+Monsters	Original Island
+G'joob PortraitRare G'joob PortraitEpic G'joob Portrait	Plant Island Icon
+Plant Island
+Strombonin PortraitRare Strombonin PortraitEpic Strombonin Portrait	Cold Island Icon
+Cold Island
+Yawstrich PortraitRare Yawstrich PortraitEpic Yawstrich Portrait	Air Island Icon
+Air Island
+Anglow PortraitRare Anglow PortraitEpic Anglow Portrait	Water Island Icon
+Water Island
+Hyehehe PortraitRare Hyehehe PortraitEpic Hyehehe Portrait	Earth Island Icon
+Earth Island
+Buzzinga PortraitRare Buzzinga PortraitEpic Buzzinga Portrait	Fire Haven Icon
+Fire Haven
+Cherubble PortraitRare Cherubble PortraitEpic Cherubble Portrait	Fire Oasis Icon
+Fire Oasis
+Magical Sanctum Monsters
+Monsters	Original Island
+Theremind PortraitRare Theremind Portrait	Psychic Island Icon
+Psychic Island
+Clackula PortraitRare Clackula PortraitEpic Clackula Portrait	Bone Island Icon
+Bone Island
+Fluoress PortraitRare Fluoress Portrait	Light Island Icon
+Light Island
+Floot Fly PortraitRare Floot Fly PortraitEpic Floot Fly Portrait	Faerie Island Icon
+Faerie Island
+The Colossingum Monsters
+As of Version 4.1.0, all 30 common Natural Monsters, the Single and Double Element Ethereals, and the 5 Core Seasonals can be teleported to The Colossingum upon reaching Level 5. These monsters can be teleported from any of the islands they are available on, which includes the Natural and Mirror Islands, the Fire Islands, the Magical Islands, Shugabush Island, Seasonal Shanty, Ethereal Island, and the Ethereal Islets. Monsters cannot be teleported anywhere after they are placed on The Colossingum.
+
+Naturals
+Monsters	Original Island
+Potbelly PortraitNoggin PortraitToe Jammer PortraitMammott PortraitShrubb Portrait
+Oaktopus PortraitFurcorn PortraitFwog PortraitDrumpler PortraitMaw Portrait
+Pummel PortraitClamble PortraitBowgart PortraitT-Rox PortraitEntbrat Portrait	Plant Island Icon
+Plant Island
+Tweedle PortraitPotbelly PortraitToe Jammer PortraitMammott PortraitDandidoo Portrait
+Quibble PortraitPango PortraitOaktopus PortraitFurcorn PortraitMaw Portrait
+Spunge PortraitThumpies PortraitCongle PortraitBowgart PortraitDeedge Portrait	Cold Island Icon
+Cold Island
+Tweedle PortraitNoggin PortraitToe Jammer PortraitMammott PortraitCybop Portrait
+Quibble PortraitPango PortraitFwog PortraitDrumpler PortraitMaw Portrait
+Scups PortraitPomPom PortraitCongle PortraitT-Rox PortraitRiff Portrait	Air Island Icon
+Air Island
+Tweedle PortraitPotbelly PortraitNoggin PortraitToe Jammer PortraitDandidoo Portrait
+Cybop PortraitQuibble PortraitShrubb PortraitOaktopus PortraitFwog Portrait
+Reedling PortraitSpunge PortraitScups PortraitPummel PortraitShellbeat Portrait	Water Island Icon
+Water Island
+Tweedle PortraitPotbelly PortraitNoggin PortraitMammott PortraitDandidoo Portrait
+Cybop PortraitPango PortraitShrubb PortraitFurcorn PortraitDrumpler Portrait
+Reedling PortraitThumpies PortraitPomPom PortraitClamble PortraitQuarrister Portrait	Earth Island Icon
+Earth Island
+Potbelly PortraitMammott PortraitQuibble PortraitOaktopus PortraitFurcorn Portrait
+PomPom PortraitDeedge Portrait	Shugabush Island Icon
+Shugabush Island
+Tweedle PortraitPotbelly PortraitNoggin PortraitDandidoo PortraitCybop Portrait
+Shrubb PortraitReedling Portrait	Fire Haven Icon
+Fire Haven
+Tweedle PortraitToe Jammer PortraitMammott PortraitQuibble PortraitPango Portrait
+Maw PortraitCongle Portrait	Fire Oasis Icon
+Fire Oasis
+Potbelly PortraitMammott PortraitFurcorn Portrait	Light Island Icon
+Light Island
+Potbelly PortraitToe Jammer PortraitOaktopus Portrait	Psychic Island Icon
+Psychic Island
+Noggin PortraitMammott PortraitDrumpler Portrait	Faerie Island Icon
+Faerie Island
+Noggin PortraitToe Jammer PortraitFwog Portrait	Bone Island Icon
+Bone Island
+Ethereals
+Monsters	Original Island
+Ghazt Portrait	Plant Island Icon
+Plant Island
+Grumpyre Portrait	Cold Island Icon
+Cold Island
+Reebro Portrait	Air Island Icon
+Air Island
+Jeeode Portrait	Water Island Icon
+Water Island
+Humbug Portrait	Earth Island Icon
+Earth Island
+Ghazt PortraitGrumpyre PortraitReebro PortraitJeeode PortraitHumbug Portrait
+Whisp PortraitNebulob PortraitSox PortraitJellbilly PortraitArackulele Portrait
+Boodoo PortraitKazilleon PortraitBellowfish PortraitDragong PortraitFung Pray Portrait	Ethereal Island Icon
+Ethereal Island
+Ghazt PortraitWhisp PortraitNebulob PortraitSox PortraitJellbilly Portrait	Plasma Islet Icon
+Plasma Islet
+Reebro PortraitNebulob PortraitArackulele PortraitBellowfish PortraitDragong Portrait	Mech Islet Icon
+Mech Islet
+Grumpyre PortraitWhisp PortraitArackulele PortraitBoodoo PortraitKazilleon Portrait	Shadow Islet Icon
+Shadow Islet
+Core Seasonals
+Monsters	Original Island
+Punkleton Portrait	Plant Island Icon
+Plant Island
+Yool Portrait	Cold Island Icon
+Cold Island
+Schmoochle PortraitHoola Portrait	Air Island Icon
+Air Island
+Blabbit Portrait	Water Island Icon
+Water Island
+Hoola Portrait	Earth Island Icon
+Earth Island
+Punkleton PortraitYool PortraitSchmoochle PortraitBlabbit PortraitHoola Portrait	Seasonal Shanty Icon
+Seasonal Shanty
+Transposing
+
+Transpose
+Magicals
+Paironormals
+Magicals
+Transposing is a mechanic in My Singing Monsters, introduced in Version 4.2.0, used to obtain Monsters on Magical Nexus and single element Paironormals on Paironormal Carnival. Transposing is similar to Teleporting. In order to be Transposed, a Monster on must be fed to at least Level 18, and Currency must be also spent. When a Monster is Transposed, it will be sent to the Stair Shaper on Magical Nexus / "Nursery" of the Beyond on the Paironormal Carnival depending on what you're transposing.
+With Paironormals, you can transpose both forms, however you can only hatch them in the same island mode the monster resonates with (Ex. transposing a Minor Owlesque will only be able to be placed on the Minor Mode of Paironormal Carnival). Looking at the egg from the opposite mode shows a yellow (Major Mode) / blue (Minor Mode) egg that looks similar to the Paironormal Projections and can't be hatched on that side.
+
+Costs
+It costs Coins to Transpose Common Monsters, and Diamonds to Transpose Rare & Epic Monsters.
+
+Common Single-Element Paironormals: 100,000 Coins
+Common Single-Element Magicals: 1,000,000 Coins
+Common Double-Element Magicals: 2,000,000 Coins
+Common Triple-Element Magicals: 4,000,000 Coins
+Common Quad-Element Magicals: 8,000,000 Coins
+Rare Single-Element Magicals: 5 Diamonds
+Rare Double-Element Magicals: 10 Diamonds
+Rare Triple-Element Magicals: 20 Diamonds
+Rare Quad-Element Magicals: 40 Diamonds
+Epic Single-Element Magicals: 10 Diamonds
+Epic Triple-Element Magicals: 40 Diamonds
+Monsters
+Monsters	Original Island
+Fluoress PortraitGob PortraitBulbo PortraitPluckbill Portrait
+Spytrap PortraitTooToo PortraitFiddlement PortraitBlow't Portrait
+Shhimmer (Major) Portrait / Shhimmer (Minor) Portrait
+Rare Fluoress PortraitRare Gob PortraitRare Bulbo PortraitRare Pluckbill Portrait
+Rare Spytrap PortraitRare TooToo PortraitRare Fiddlement PortraitRare Blow't Portrait
+Epic TooToo Portrait	Light Island Icon
+Light Island
+Mirror Light Island Icon
+Mirror Light Island
+Theremind PortraitBonkers PortraitPoppette PortraitYuggler Portrait
+Tapricorn PortraitRooba PortraitPeriscorp PortraitGloptic Portrait
+Hairionette (Major) Portrait / Hairionette (Minor) Portrait
+Rare Theremind PortraitRare Bonkers PortraitRare Poppette PortraitRare Yuggler Portrait
+Rare Tapricorn PortraitRare Rooba PortraitRare Periscorp PortraitRare Gloptic Portrait
+Epic Rooba Portrait	Psychic Island Icon
+Psychic Island
+Mirror Psychic Island Icon
+Mirror Psychic Island
+Floot Fly PortraitHippityHop PortraitSquot PortraitWimmzies Portrait
+Cantorell PortraitBridg-it PortraitClavi Gnat PortraitPladdie Portrait
+Owlesque (Major) Portrait / Owlesque (Minor) Portrait
+Rare Floot Fly PortraitRare HippityHop PortraitRare Squot PortraitRare Wimmzies Portrait
+Rare Cantorell PortraitRare Bridg-it PortraitRare Clavi Gnat PortraitRare Pladdie Portrait
+Epic Floot Fly Portrait	Faerie Island Icon
+Faerie Island
+Mirror Faerie Island Icon
+Mirror Faerie Island
+Clackula PortraitPeckidna PortraitDenchuhs PortraitHawlo Portrait
+Withur PortraitUuduk PortraitBanjaw PortraitPlinkajou Portrait
+Arcorina (Major) Portrait / Arcorina (Minor) Portrait
+Rare Clackula PortraitRare Peckidna PortraitRare Denchuhs PortraitRare Hawlo Portrait
+Rare Withur PortraitRare Uuduk PortraitRare Banjaw PortraitRare Plinkajou Portrait
+Epic Clackula Portrait	Bone Island Icon
+Bone Island
+Mirror Bone Island Icon
+Mirror Bone Island
+Alterations in Breeding Mechanics
+As the monsters' breeding capabilities may be altered after Teleportation, you may not be able to use the same breeding combinations available on the Natural Islands to obtain a Rare Monster. For example, on Cold Island, you can breed a Furcorn and a Quibble to get a Deedge. However, after the Furcorn and Quibble are teleported to Shugabush Island, they cannot be bred together; all breeding combinations on Shugabush Island must include Shugabush itself. A Deedge must either be fed to Level 15 on Cold or Mirror Cold Island and teleported or bought from the Market.
+
+The same change does not occur on Ethereal Island, Mythical Island, or Seasonal Shanty, as Ethereals, Mythicals, and Seasonals can't be used for breeding on their original islands in the first place.
+
+Notes
+Rare and Epic Monsters can be teleported exactly like Common Monsters, except to The Colossingum.
+Epic Ghazt was the first Epic Monster able to teleport.
+Natural Monsters on the Fire or Magical Islands can't be teleported to Shugabush Island. This is weird, considering that they can be teleported to The Colossingum from any island, and both it and Shugabush Island are located on the Seam.
+Transposing is named after the musical term of transposing

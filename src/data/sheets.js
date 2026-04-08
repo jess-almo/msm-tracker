@@ -179,9 +179,60 @@ const BASE_ISLAND_ALLOWED_CATEGORIES = new Set([
   "seasonal",
   "mythical",
   "legendary",
+  "dipster",
 ]);
 
-function shouldIncludeInIslandCollection(name, metadata, islandName)
+const NON_OPERATIONAL_ISLAND_COLLECTION_MONSTERS = new Set([
+  "Do",
+  "Re",
+  "Mi",
+  "Fa",
+  "Sol",
+  "La",
+  "Ti",
+  "Krillby",
+  "PongPing",
+  "Tuskski",
+  "Owlesque",
+  "Faesoddoid Fungus",
+]);
+
+const FAERIE_ISLAND_COLLECTION_ROSTER = [
+  { name: "Noggin" },
+  { name: "Mammott" },
+  { name: "Kayna" },
+  { name: "Floot Fly" },
+  { name: "Drumpler" },
+  { name: "Stogg" },
+  { name: "HippityHop" },
+  { name: "Boskus" },
+  { name: "Squot" },
+  { name: "Wimmzies" },
+  { name: "Ziggurab" },
+  { name: "Cantorell" },
+  { name: "Bridg-It" },
+  { name: "Clavi Gnat" },
+  { name: "Pladdie" },
+  { name: "Krillby", acquisitionType: "market_relics", showInOperations: false },
+  { name: "PongPing", acquisitionType: "market_relics", showInOperations: false },
+  { name: "Tuskski", acquisitionType: "market_relics", showInOperations: false },
+  { name: "Owlesque", acquisitionType: "special", showInOperations: false },
+  { name: "Faesoddoid Fungus", acquisitionType: "special", showInOperations: false },
+  { name: "Ffidyll", acquisitionType: "seasonal", showInOperations: false },
+  { name: "Do", acquisitionType: "keys", showInOperations: false },
+  { name: "Re", acquisitionType: "keys", showInOperations: false },
+  { name: "Mi", acquisitionType: "keys", showInOperations: false },
+  { name: "Fa", acquisitionType: "keys", showInOperations: false },
+  { name: "Sol", acquisitionType: "keys", showInOperations: false },
+  { name: "La", acquisitionType: "keys", showInOperations: false },
+  { name: "Ti", acquisitionType: "keys", showInOperations: false },
+];
+
+const ISLAND_COLLECTION_ROSTER_OVERRIDES = {
+  Faerie: FAERIE_ISLAND_COLLECTION_ROSTER,
+};
+
+function shouldIncludeInDerivedIslandCollection(name, metadata, islandName)
 {
   if (!metadata || !name || name.startsWith("Rare ") || name.startsWith("Epic ") || name.startsWith("Adult "))
   {
@@ -196,10 +247,91 @@ function shouldIncludeInIslandCollection(name, metadata, islandName)
   return getMonsterBreedingIslands(name).includes(islandName);
 }
 
+function getIslandCollectionAcquisitionType(name, metadata)
+{
+  if (NON_OPERATIONAL_ISLAND_COLLECTION_MONSTERS.has(name))
+  {
+    if (["Do", "Re", "Mi", "Fa", "Sol", "La", "Ti"].includes(name))
+    {
+      return "keys";
+    }
+
+    if (["Krillby", "PongPing", "Tuskski"].includes(name))
+    {
+      return "market_relics";
+    }
+
+    return "special";
+  }
+
+  if (metadata?.category === "dipster")
+  {
+    return "keys";
+  }
+
+  if (metadata?.category === "seasonal")
+  {
+    return "seasonal";
+  }
+
+  if (Array.isArray(metadata?.elements) && metadata.elements.length === 1 && metadata?.category !== "mythical")
+  {
+    return "market";
+  }
+
+  return "breed";
+}
+
+function shouldShowIslandCollectionMonsterInOperations(name, metadata, acquisitionType)
+{
+  if (acquisitionType !== "breed")
+  {
+    return false;
+  }
+
+  if (metadata?.category === "seasonal" || metadata?.category === "dipster")
+  {
+    return false;
+  }
+
+  return !NON_OPERATIONAL_ISLAND_COLLECTION_MONSTERS.has(name);
+}
+
+function createIslandCollectionMonster(name, islandName, overrides = {})
+{
+  const metadata = MONSTER_DIRECTORY[name] || null;
+  const acquisitionType = overrides.acquisitionType || getIslandCollectionAcquisitionType(name, metadata);
+  const showInOperations = typeof overrides.showInOperations === "boolean"
+    ? overrides.showInOperations
+    : shouldShowIslandCollectionMonsterInOperations(name, metadata, acquisitionType);
+
+  return {
+    name,
+    required: 1,
+    zapped: 0,
+    breeding: 0,
+    island: islandName,
+    requirementIsland: islandName,
+    breedingAssignments: {},
+    acquisitionType,
+    showInCollection: true,
+    showInOperations,
+  };
+}
+
 function createIslandCollectionMonsters(islandName)
 {
+  const explicitRoster = ISLAND_COLLECTION_ROSTER_OVERRIDES[islandName];
+
+  if (Array.isArray(explicitRoster) && explicitRoster.length > 0)
+  {
+    return explicitRoster.map((entry) =>
+      createIslandCollectionMonster(entry.name, islandName, entry)
+    );
+  }
+
   return Object.entries(MONSTER_DIRECTORY)
-    .filter(([name, metadata]) => shouldIncludeInIslandCollection(name, metadata, islandName))
+    .filter(([name, metadata]) => shouldIncludeInDerivedIslandCollection(name, metadata, islandName))
     .sort((a, b) =>
     {
       const aElements = Array.isArray(a[1].elements) ? a[1].elements.length : 0;
@@ -212,15 +344,7 @@ function createIslandCollectionMonsters(islandName)
 
       return a[0].localeCompare(b[0]);
     })
-    .map(([name]) => ({
-      name,
-      required: 1,
-      zapped: 0,
-      breeding: 0,
-      island: islandName,
-      requirementIsland: islandName,
-      breedingAssignments: {},
-    }));
+    .map(([name]) => createIslandCollectionMonster(name, islandName));
 }
 
 function createIslandCollectionSheet(islandName, priority)
