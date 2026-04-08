@@ -228,9 +228,53 @@ const FAERIE_ISLAND_COLLECTION_ROSTER = [
   { name: "Ti", acquisitionType: "keys", showInOperations: false },
 ];
 
+const LIGHT_ISLAND_COLLECTION_ROSTER = [
+  { name: "Potbelly" },
+  { name: "Mammott" },
+  { name: "Kayna" },
+  { name: "Fluoress" },
+  { name: "Furcorn" },
+  { name: "Flowah" },
+  { name: "Gob" },
+  { name: "Boskus" },
+  { name: "Bulbo" },
+  { name: "Pluckbill" },
+  { name: "Sooza" },
+  { name: "Spytrap" },
+  { name: "TooToo" },
+  { name: "Fiddlement" },
+  { name: "Blow't" },
+  { name: "Yelmut", acquisitionType: "market_relics", showInOperations: false },
+  { name: "Tiawa", acquisitionType: "market_relics", showInOperations: false },
+  { name: "Drummidary", acquisitionType: "market_relics", showInOperations: false },
+  { name: "Whiz-bang", acquisitionType: "seasonal", showInOperations: false },
+  { name: "Shhimmer", acquisitionType: "special", showInOperations: false },
+  { name: "Phosphoran Phlox", acquisitionType: "special", showInOperations: false },
+  { name: "Do", acquisitionType: "keys", showInOperations: false },
+  { name: "Re", acquisitionType: "keys", showInOperations: false },
+  { name: "Mi", acquisitionType: "keys", showInOperations: false },
+  { name: "Fa", acquisitionType: "keys", showInOperations: false },
+  { name: "Sol", acquisitionType: "keys", showInOperations: false },
+  { name: "La", acquisitionType: "keys", showInOperations: false },
+  { name: "Ti", acquisitionType: "keys", showInOperations: false },
+];
+
 const ISLAND_COLLECTION_ROSTER_OVERRIDES = {
   Faerie: FAERIE_ISLAND_COLLECTION_ROSTER,
+  Light: LIGHT_ISLAND_COLLECTION_ROSTER,
 };
+
+function getIslandCollectionRosterEntry(islandName, monsterName)
+{
+  const roster = ISLAND_COLLECTION_ROSTER_OVERRIDES[islandName];
+
+  if (!Array.isArray(roster))
+  {
+    return null;
+  }
+
+  return roster.find((entry) => entry.name === monsterName) || null;
+}
 
 function shouldIncludeInDerivedIslandCollection(name, metadata, islandName)
 {
@@ -345,6 +389,28 @@ function createIslandCollectionMonsters(islandName)
       return a[0].localeCompare(b[0]);
     })
     .map(([name]) => createIslandCollectionMonster(name, islandName));
+}
+
+export function resolveIslandCollectionMonsterPolicy(monster, islandName = "")
+{
+  const resolvedIslandName = islandName || monster?.requirementIsland || monster?.island || "";
+  const name = monster?.name || "";
+  const metadata = MONSTER_DIRECTORY[name] || null;
+  const rosterEntry = getIslandCollectionRosterEntry(resolvedIslandName, name);
+  const acquisitionType = rosterEntry?.acquisitionType
+    || monster?.acquisitionType
+    || getIslandCollectionAcquisitionType(name, metadata);
+  const showInOperations = typeof rosterEntry?.showInOperations === "boolean"
+    ? rosterEntry.showInOperations
+    : (typeof monster?.showInOperations === "boolean"
+      ? monster.showInOperations
+      : shouldShowIslandCollectionMonsterInOperations(name, metadata, acquisitionType));
+
+  return {
+    acquisitionType,
+    showInOperations,
+    requirementIsland: resolvedIslandName,
+  };
 }
 
 function createIslandCollectionSheet(islandName, priority)

@@ -4,271 +4,85 @@ Drop new raw research or wiki dumps below.
 
 Processed page dumps are automatically moved to `data-entry/inboxArchive.md` by `data-entry/parseInboxResearch.mjs`.
 
-Mythical Monsters
+Light Island
 Talk
 15+
+Edit
+Island
+Mirror
+This is the main article for Light Island. For the category, see Category:Light Island.
 
-Save
-View source
-This is the main article for Mythical Monsters. For the category, see Category:Mythical Monsters.
-This article is about the Mythical Class. For the Element, see Mythical Element.
-Island Icon
-Keep exploring the multiverse
-The following page is about the Mythical Monsters.
-For the Island, see Mythical Island.
-My Singing Monsters
-Dawn of Fire
-
-Mythical Monsters
-Common Mythicals
-Rare Mythicals
-Epic Mythicals
-Common Mythicals
-Element(s)
-Dream Element	Mythical Element
-Class
-Mythical
-Statistics
-Island(s)
-Plant Island IconPlant
-Cold Island IconCold
-Air Island IconAir
-Water Island IconWater
-Earth Island IconEarth
-Fire Haven IconHaven
-Fire Oasis IconOasis
-Mythical Island IconMythical
-Mirror Plant Island IconMirror Plant
-Mirror Cold Island IconMirror Cold
-Mirror Air Island IconMirror Air
-Mirror Water Island IconMirror Water
-Mirror Earth Island IconMirror Earth
-Available at Level 9 or 12	2 to 4 Beds Required
-In other Games
-Dawn of Fire
-Mythical Element (DoF)
-Mythical Monsters
-Mythical Monsters are a special class of Monsters that appear across multiple Islands. There are seven Monsters that manifest the Mythical (Mythical Element) Element, which are found on the five Natural Islands and both Fire Islands.
-All Mythicals from the Natural and Fire Islands can be teleported to Mythical Island once they reach level 15, a special Island featuring every Mythical, including new Mythicals exclusive to the Island. Cataliszt, the Dream (Dream Element) Single-Elemental, can breed with the Mythicals found on the Natural Islands to create brand-new Dreamythicals, hybrids of the Dream (Dream Element) and Mythical (Mythical Element) Elements.
-
-
-Contents
-1	History
-2	List of Mythical Monsters
-2.1	Single Element
-2.2	Double Element
-3	Rare Mythicals
-3.1	Rare Single Element
-3.2	Rare Double Element
-4	Epic Mythicals
-4.1	Epic Single Element
-4.2	Epic Double Element
-5	Mythterious
-5.1	Current Mythterious Events
-5.1.1	Yawstrich
-5.1.2	Buzzinga
-5.1.3	Strombonin
-5.1.4	Cherubble
-5.1.5	Anglow
-6	Notes
-7	References
-History
-The Mythical class was originally exclusive to the PlayStation®Vita version of My Singing Monsters. At the time, the class was known as "PlayStation Vita Exclusive" and its only members were G'joob and Yawstrich. The content exclusive to this version of the game remained so due to an exclusivity contract Big Blue Bubble Inc. had with Sony Interactive Entertainment.
-
-After support for the PlayStation®Vita ended in March 2019, the exclusivity deal expired, and the PlayStation®Vita Exclusive Monsters and Decorations became available in the main version of the game on September 5th, 2019.
-
-Throughout June 2022, an event called Month of the Mythical took place. In this event, the community could vote on various polls to help the Monster-Handlers develop the Cold Island Mythical. The result was Strombonin, which was revealed and released in Anniversary Month 2022.
-
-People who pledged for the Ultimate Creator Experience on the My Singing Monsters: The Board Game Kickstarter had an all-expenses-paid trip to Big Blue Bubble headquarters to design their very own Mythical Monster. These Mythicals, in order of release, are as follows:
-
-On November 23rd, 2022, Cherubble was released on Fire Oasis and Mythical Island. Its concept was created by EriktheCleric.
-
-On February 15th, 2023, Hyehehe was released on Earth Island and Mythical Island. Its concept was created by QuinnQwerty.
-
-On April 5th, 2023, Anglow was released on Water Island and Mythical Island. Its concept was created by Chris Wimberly (ChrisShark).
-
-The Monster-Handlers have stated that Anglow was the last of the Ultimate Creator Experience Mythicals, and the last Mythical on Fire Haven would not be designed by an Ultimate Creator (possibly due to the person who pledged the creation of the Fire Haven Mythical opting out). The Fire Haven Mythical, known as Buzzinga, was instead designed with the community by voting on various polls to determine its characteristics during the Month of the Mythical in June 2023, just like Strombonin. This time around, though, the community was not able to vote on the type of musical sound it plays, having already been chosen beforehand by the Monster-Handlers.
-
-On September 6th, 2023, Buzzinga was released on Fire Haven and Mythical Island. It was created by the community through a series of polls held by the Monster-Handlers on their social media pages.
-
-List of Mythical Monsters
-Mythical Singles can be split into two groups: Core Mythicals, which all have the Mythical Element, and Cataliszt, which has the Dream Element. Each Core Mythical can be obtained by breeding two specific Monsters together at any time of the year. Throughout the year, there can be Mythical Breeding Bonanzas that increase the odds of successfully breeding a Core Mythical Monster.
-
-Single Element
-Monster	Level	Beds	Size	Cost	Sells for	Breeding Combo(s)	Time	Island(s)
-Cataliszt
-Cataliszt
-Dream Element	12	2	3x3
-3 x 3	100,000 Coins	75,000 Coins	N/A	Breeding Map Icon 9h
-Enhanced Breeding Icon 6h 45m	Mythical Island IconMythical
-G'joob
-G'joob
-Mythical Element	9	3	2x2
-2 x 2	Plant Island Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Pummel Portrait + T-Rox Portrait
-Pummel and T-Rox	Breeding Map Icon 18h
-Enhanced Breeding Icon 13h 30m	Plant Island IconPlant
-Mythical Island IconMythical
-Mirror Map IconMirror
-Strombonin
-Strombonin
-Mythical Element	9	3	2x2
-2 x 2	Cold Island Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Spunge Portrait + Bowgart Portrait
-Spunge and Bowgart	Breeding Map Icon 23h
-Enhanced Breeding Icon 17h 15m	Cold Island IconCold
-Mythical Island IconMythical
-Mirror Map IconMirror
-Yawstrich
-Yawstrich
-Mythical Element	9	3	1x1
-1 x 1	Air Island Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Scups Portrait + T-Rox Portrait
-Scups and T-Rox	Breeding Map Icon 1d 4h
-Enhanced Breeding Icon 21h	Air Island IconAir
-Mythical Island IconMythical
-Mirror Map IconMirror
-Anglow
-Anglow
-Mythical Element	9	3	3x3
-3 x 3	Water Island Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Scups Portrait + Pummel Portrait
-Scups and Pummel	Breeding Map Icon 1d 9h
-Enhanced Breeding Icon 1d 45m	Water Island IconWater
-Mythical Island IconMythical
-Mirror Map IconMirror
-Hyehehe
-Hyehehe
-Mythical Element	9	3	2x2
-2 x 2	Earth Island Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Thumpies Portrait + PomPom Portrait
-Thumpies and PomPom	Breeding Map Icon 1d 4h
-Enhanced Breeding Icon 21h	Earth Island IconEarth
-Mythical Island IconMythical
-Mirror Map IconMirror
-Buzzinga
-Buzzinga
-Mythical Element	9	3	3x3
-3 x 3	Fire Haven Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Reedling Portrait + Barrb Portrait
-Reedling and Barrb	Breeding Map Icon 23h
-Enhanced Breeding Icon 17h 15m	Fire Haven IconHaven
-Mythical Island IconMythical
-Cherubble
-Cherubble
-Mythical Element	9	3	2x2
-2 x 2	Fire Oasis Icon 225 Diamonds
-Mythical Island Icon 500 Diamonds	168,750 Coins	Congle Portrait + Woolabee Portrait
-Congle and Woolabee	Breeding Map Icon 18h
-Enhanced Breeding Icon 13h 30m	Fire Oasis IconOasis
-Mythical Island IconMythical
-Double Element
-Double-Element Mythicals, known as "Dreamythicals", were added in Version 3.7.1 with the release of Mythical Island, at the end of Anniversary Month 2022.
-
-Monster	Level	Beds	Size	Cost	Sells for	Source(s)	Time	Island(s)
-Bleatnik
-Bleatnik
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + G'joob Portrait
-Cataliszt and G'joob	Breeding Map Icon 1d 3h
-Enhanced Breeding Icon 20h 15m	Mythical Island IconMythical
-Cranchee
-Cranchee
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Strombonin Portrait
-Cataliszt and Strombonin	Breeding Map Icon 1d 8h
-Enhanced Breeding Icon 1d	Mythical Island IconMythical
-Sporerow
-Sporerow
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Yawstrich Portrait
-Cataliszt and Yawstrich	Breeding Map Icon 1d 13h
-Enhanced Breeding Icon 1d 3h 45m	Mythical Island IconMythical
-Pinghound
-Pinghound
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Anglow Portrait
-Cataliszt and Anglow	Breeding Map Icon 1d 18h
-Enhanced Breeding Icon 1d 7h 30m	Mythical Island IconMythical
-Wheezel
-Wheezel
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Hyehehe Portrait
-Cataliszt and Hyehehe	Breeding Map Icon 1d 13h
-Enhanced Breeding Icon 1d 3h 45m	Mythical Island IconMythical
-Knurv
-Knurv
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Buzzinga Portrait
-Cataliszt and Buzzinga	Breeding Map Icon 1d 8h
-Enhanced Breeding Icon 1d	Mythical Island IconMythical
-ShLep
-shLep
-Dream ElementMythical Element	12	4	2x2
-2 x 2	750 Diamonds	562,500 Coins	Cataliszt Portrait + Cherubble Portrait
-Cataliszt and Cherubble	Breeding Map Icon 1d 3h
-Enhanced Breeding Icon 20h 15m	Mythical Island IconMythical
-
-Mythical Island
-Talk
-15+
-
-Save
-View source
-This is the main article for Mythical Island. For the category, see Category:Mythical Island.
-
-Mythical Island
+Light Island
 Map Pin
 Icon
 Empty Island
 Obstacled Island
-Illuminated
+Awake Titan
 Wordmark
 Backdrop
 Map Pin
 Main Elements
-Dream Element	Mythical Element
+Plant Element	Cold Element	Fire Element	Light Element
+Other Elements
+Air Element	Earth Element	Water Element	Depths Element
+SkyPainting Element	Dipster Element	Titansoul Element
 Release
 Statistics
-Teleporting Island
 Type	Available at
-Mythical	Level 12
+Magical	Level 9
 Requirement
-Fire Oasis Map Pin
-Fire Oasis
-Restrictions
-Mythical Monsters only
+Fire Haven Map Pin
+Fire Haven
+Cost
+1,000,000 Coins
+Titan's Name
+Phosphora
 Special Monsters
-Mythical
-Cataliszt
-Cataliszt
+Quad	Seasonal
+Blow't
+Blow't	Whiz-bang
+Whiz-bang
+Titansoul	Paironormal
+Phosphoran Phlox
+Phosphoran Phlox	Shhimmer (Major)
+Shhimmer (Major)
+Expansion Monsters
+Yelmut
+Yelmut	Tiawa
+Tiawa
+Drummidary
+Drummidary
 Beds
 Maximum Available	Full Collection	Full Song
-200	135	51
+180	133	57
 Collection
 Commons
 Common Monsters Icon	Rares
 Rare Monsters Icon	Epics
 Epic Monsters Icon
-15	15	12
-Costumes
+27	18	11
+Seasonals
+Seasonal Monsters Icon	Costumes
 Costumes Icon
-9
+3	97
 Related
 Previous Island	Next Island
-Fire Oasis Map Pin
-Fire Oasis	Light Island Map Pin
-Light Island
-Other Teleporting Islands
-Shugabush Island Map Pin
-Shugabush Island	Ethereal Island Map Pin
-Ethereal Island
-Magical Sanctum Map Pin
-Magical Sanctum	Seasonal Shanty Map Pin
-Seasonal Shanty
+Mythical Island Map Pin
+Mythical Island	Psychic Island Map Pin
+Psychic Island
+Mirror Version	Dawn of Fire
+Mirror Light Island Map Pin
+Mirror Light Island	Party Island Icon
+Party Island
+Other Magical Islands
+Psychic Island Map Pin
+Psychic Island	Faerie Island Map Pin
+Faerie Island
+Bone Island Map Pin
+Bone Island
 Song Information
-110 BPM (Beats Per Minute)	D Major, D Mixolydian, D Harmonic Minor, D Lydian	6/8, 4/4 Compass
-“	In the Monster World, the moon is a central piece of imagery for the concept of fantastical travel and far-fetched aspirations. As such, it's no surprise that Mythical Island, the reification of the desire to assemble with one's kin, is so lunar-focused. The Lunapparatus, the site's most prominent landmark, is crafted from Hummatite, an 'impossible' substance that cannot occur naturally in the main dimension. With sufficient concentration and nourishment, Mythical Monsters can embark on a one-way journey here via the arcane art of dreamcraft. Here, they greet the personification of the power of dreams itself, the clever Cataliszt, who is essential in manifesting their wildest dreams in reality as fanciful 'Dreamythicals.'	”
+80 BPM (Beats Per Minute)	B♭ major	4/4 Compass
+“	There's a special feeling one gets when beholding Light Island for the first time-some have described it as 'deLightful" or 'enLightening'-but we think that 'Light-headed' works best! Framed by the wondrous phenomenon of the Aurora Monstralis, the Magical Island's Titan, Phosphora does not reside in one place - instead it migrates around the Monster World! It is also suspected to hail from another dimension, one where the Magical Element of Light shares characteristics with other luminous residents. At rest, the Light Elementals are among the shyest and drabbest in the Monster World, but once they start singing, they and the visiting Natural and Fire Monsters harmonize to create an eye-popping, 'Light-hearted' chorale!	”
 — In-game description	
 
 Contents
@@ -285,10 +99,13 @@ Contents
 4.1	Common
 4.2	Rare
 4.3	Epic
-4.3.1	Upcoming Epic Breeding Combos
+4.3.1	Unused Epic Breeding Combos
+4.4	Special
 5	Special Features
 5.1	Obstacles
 5.2	Decorations and Structures
+5.3	Seasonal Event
+5.3.1	Gallery
 6	Castle
 6.1	Sound
 6.2	Castles
@@ -296,473 +113,1902 @@ Contents
 8	Version History
 9	Gallery
 10	Notes
+11	References
 About
-Mythical Island Mythical Island Icon is a teleporting Island unlocked after purchasing Fire Oasis.
-
-It hosts all Mythical Monsters together in a single Island. When a Mythical Monster reaches Level 15, it can be teleported to this Island. They will reset their Level, and get sent to the Nursery, and will also stay there permanently, unless sold.
-
-On this Island, Core Mythicals found on the Natural and Fire Islands can breed with the exclusive Dream Single-Elemental Cataliszt to create brand new 'Dreamythicals' exclusive to Mythical Island. Each Mythical has its own Dreamythical counterpart.
-
-Mythical Island was released on September 28th, 2022 in Version 3.7.1.
+Light Island Light Island Icon is available to purchase for 1,000,000 Coins Coins after unlocking Fire Haven. It is a Magical Island, featuring Magical Monsters and manifesting the Light Element Light Element. It was added to the game on September 30th, 2020 during Version 3.0.1. It is home to 59 Monsters and 97 Costumes.
 
 Song
-Official_Mythical_Island_Full_Song
-Official Mythical Island Full Song
+Composer(s): Dave Kerr, Christopher Pollard, Sam Clark (Light Element Monsters, Dipster Portrait), Tom Meikle (Whiz-bang Portrait, Yelmut Portrait, Tiawa Portrait, Drummidary Portrait), Dylan Cole (Yelmut Portrait, Tiawa Portrait, Drummidary Portrait)
 
-Composer(s): Tom Meikle
+Light Island’s song plays at a speed of 80 beats per minute and is in the key of B♭ major.
 
-Mythical Island’s song alternates between two main speeds: The first and fourth major portions of the song are in 165 beats per minute in 3/4 time, and the second portion and the transitional parts are in 110 beats per minute in 4/4 time. The third major portion has Monsters playing in both tempos, creating a polyrhythm. The song is in D Major, D Mixolydian, D Harmonic Minor and D Lydian.
+Light Island's core chord progression is based on three types of 4-bar cadential blocks interspersed throughout the song. Block A (i.e., Mammott's, Potbelly's, and Kayna's first track) consists of a prolonged B♭ chord. Block B (i.e., track 2) consists of a IV-I cadence (two bars of E♭ followed by two bars of B♭). Block C (i.e., track 3) consists of a V-I cadence (two bars of F followed by two bars of B♭). Altogether, they make up a variant of what is commonly known as the “12-Bar Blues”.
 
-Mythical Island has an ambience that consists of wind and dream-like sparkles.
+Non-chord tones are explored in a variety of contexts, and are prevalent in the majority of Light Island monsters, including ones expected to be responsible for chord expression.
+
+
+The song is also available to download via the My Singing Monsters Soundtrack volume 2.
 
 Chord Progressions
-Pattern 1: D, Gm, A, Gm, A
+Pattern 1: Bb only
 
-Pattern 2: D7 only
+Pattern 2: Eb, Eb, Bb, Bb
 
-Pattern 3: Gm, A
-
-Pattern 4: D, Eadd9, Bm, E
+Pattern 3: F, F, Bb, Bb
 
 Song Table
-This is a chart that shows where each Monster plays in the song. Each part is 16 beats long. The number next to each Monster indicates which track is being played at each part.
+This is a chart that shows where each Monster plays in the song. Each part is 16 beats long, meaning that one part is around 12 seconds long. The number next to each Monster indicates which track is being played at each part.
 
-Mythical Island Song Mythical Island Icon
-1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17
-Hummatite Castle 1	Cranchee 1		Hummatite Castle 1	Hummatite Castle 2	
-Yawstrich 1		Knurv 1	Knurv 2	Yawstrich 1		Yawstrich 2		Yawstrich 2	Knurv 2
-G'joob 1	Wheezel 1	Wheezel 2	G'joob 1	G'joob 2	Wheezel 2
-Strombonin 1	Strombonin 2				Strombonin 1	Strombonin 3	
-Cataliszt 1		Cataliszt 1			Cataliszt 2	Cataliszt 1		Cataliszt 1		Cataliszt 3	Cataliszt 2
-Pinghound 1	Sporerow 1	Sporerow 2	Sporerow 3	Sporerow 4	Sporerow 2
-Bleatnik 1		ShLep 1	Bleatnik 2	
-Cherubble 1	Cherubble 2
-Hyehehe 1	Hyehehe 2
-Anglow 1	Anglow 2
-Buzzinga 1	Buzzinga 2	Buzzinga 3
+Light Island Song Light Island Icon
+1	2	3	4	5	6	7	8	9	10	11
+Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 3	Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 3
+Mammott 1	Mammott 2	Mammott 1	Mammott 2	Mammott 3	Mammott 1	Mammott 2	Mammott 1	Mammott 2	Mammott 3
+Potbelly 1	Potbelly 2	Potbelly 1	Potbelly 2	Potbelly 3	Potbelly 1	Potbelly 2	Potbelly 1	Potbelly 2	Potbelly 3
+Kayna 1	Kayna 2	Kayna 1	Kayna 2	Kayna 3	Kayna 1	Kayna 2	Kayna 1	Kayna 2	Kayna 3
+Boskus 1	Boskus 2	Boskus 1	Boskus 3	Boskus 2	Boskus 1	Boskus 2	Boskus 1	Boskus 3
+Furcorn 1	Furcorn 2	Flowah 1	Flowah 2
+Fluoress 1	Fluoress 2	Spytrap 1	
+Gob 1	Gob 2	Gob 3	Gob 1	Gob 2	Gob 1	Gob 2	Gob 3
+Dipsters 1	Dipsters 2	Dipsters 3			Blow't 1	Blow't 2
+Bulbo 1
+Whiz-bang 1
+TooToo 1	TooToo 2	TooToo 1	TooToo 2	TooToo 3
+Fiddlement 1	Fiddlement 2	Fiddlement 1	Fiddlement 2	Fiddlement 3
+Shhimmer (Major) 1
+Sooza 1	Sooza 2
+Pluckbill 1	Pluckbill 2	Pluckbill 3	
+Yelmut 1
+Drummidary 1
+Tiawa 1		Tiawa 1
+Phosphoran Phlox 1	Phosphoran Phlox 2	Phosphoran Phlox 3	Phosphoran Phlox 4	Phosphoran Phlox 5	Phosphoran Phlox 6
 Indigenous Monsters
-This is a list of all the Monsters indigenous to Mythical Island. It currently has the elements of Dream (Dream Element) and Mythical (Mythical Element).
+The Monsters of Light Island are of the Plant (Plant Element), Cold (Cold Element), Fire (Fire Element), Light (Light Element), Depths (Depths Element), SkyPainting (SkyPainting Element), Dipster (Dipster Element), and Titansoul (Titansoul Element) elements. Since Light Island lacks the Air (Air Element), Water (Water Element), and Earth (Earth Element) elements, no Monster with those elements can exist on it (except for Yelmut, Tiawa, and Drummidary, who are not obtained through breeding). Just as with Fire Haven and Fire Oasis, there is also a difference with Monsters that have the Fire Element, as they take longer to breed and are more difficult to obtain because of their long absence from the Monster World. This also applies to the Magical Monsters.
+
+The list of indigenous Monsters is below with each Monster's class indicated in parenthesis.
 
 Common
 Monster	Level	Beds	Cost	Sells for	Element(s)
 (Class)
-Cataliszt
-Cataliszt	12	2	100,000 Coins	75,000 Coins	Dream Element
-(Mythical)
-G'joob
-G'joob	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Strombonin
-Strombonin	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Yawstrich
-Yawstrich	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Anglow
-Anglow	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Hyehehe
-Hyehehe	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Buzzinga
-Buzzinga	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Cherubble
-Cherubble	9	3	500 Diamonds	168,750 Coins	Mythical Element
-(Mythical)
-Bleatnik
-Bleatnik	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
-Cranchee
-Cranchee	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
-Sporerow
-Sporerow	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
-Pinghound
-Pinghound	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
-Wheezel
-Wheezel	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
-Knurv
-Knurv	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
-ShLep
-shLep	12	4	750 Diamonds	562,500 Coins	Dream ElementMythical Element
-(Mythical)
+Potbelly
+Potbelly	9	1	250 Coins	187 Coins	Plant Element
+(Natural)
+Mammott
+Mammott	2	1	300 Coins	225 Coins	Cold Element
+(Natural)
+Kayna
+Kayna	9	1	10 Relics	450,000 Coins	Fire Element
+(Fire)
+Fluoress
+Fluoress	9	1	30,000 Coins	22,500 Coins	Light Element
+(Magical)
+Furcorn
+Furcorn	9	2	30 Diamonds	7,500 Coins	Plant ElementCold Element
+(Natural)
+Flowah
+Flowah	9	2	50 Relics	112,500 Coins	Plant ElementFire Element
+(Fire)
+Gob
+Gob	9	2	150 Diamonds	84,375 Coins	Plant ElementLight Element
+(Magical)
+Boskus
+Boskus	9	2	50 Relics	112,500 Coins	Cold ElementFire Element
+(Fire)
+Bulbo
+Bulbo	9	2	150 Diamonds	84,375 Coins	Cold ElementLight Element
+(Magical)
+Pluckbill
+Pluckbill	9	2	150 Diamonds	84,375 Coins	Fire ElementLight Element
+(Magical)
+Sooza
+Sooza	9	3	100 Relics	225,000 Coins	Plant ElementCold ElementFire Element
+(Fire)
+Spytrap
+Spytrap	9	3	300 Diamonds	168,750 Coins	Plant ElementCold ElementLight Element
+(Magical)
+TooToo
+TooToo	9	3	300 Diamonds	168,750 Coins	Plant ElementFire ElementLight Element
+(Magical)
+Fiddlement
+Fiddlement	9	3	300 Diamonds	168,750 Coins	Cold ElementFire ElementLight Element
+(Magical)
+Blow't
+Blow't	9	4	600 Diamonds	337,500 Coins	Plant ElementCold ElementFire ElementLight Element
+(Magical)
+Yelmut
+Yelmut	9	4	300 Relics	337,500 Coins	Air ElementPlant ElementCold ElementFire Element
+(Fire)
+Tiawa
+Tiawa	9	4	300 Relics	337,500 Coins	Earth ElementWater ElementCold ElementFire Element
+(Fire)
+Drummidary
+Drummidary	9	5	500 Relics	562,500 Coins	Air ElementPlant ElementEarth ElementCold ElementFire Element
+(Fire)
+Shhimmer (Major)
+Shhimmer	9	2	500 Diamonds	7,500,000 Coins	Depths Element
+(Paironormal)
+Phosphoran Phlox
+Phosphoran Phlox	N/A	10	10,000,000 Coins	375,000 Coins	Titansoul Element
+(Titansoul)
+Whiz-bang
+Whiz-bang	9	1	225 Diamonds	168,750 Coins	SkyPainting Element
+(Seasonal)
+Dipsters
+Dipsters	10	0	6 Keys	7,500 Coins	Dipster Element
+(Dipster)
 Rare
+Monster	Level	Beds	Cost	Sells for	Element(s)
+(Class)
+Rare Potbelly
+Rare Potbelly	9	1	75 Diamonds	56,250 Coins	Plant Element
+(Rare (Natural))
+Rare Mammott
+Rare Mammott	4	1	75 Diamonds	56,250 Coins	Cold Element
+(Rare (Natural))
+Rare Kayna
+Rare Kayna	9	1	150 Diamonds	112,500 Coins	Fire Element
+(Rare (Fire))
+Rare Fluoress
+Rare Fluoress	4	1	150 Diamonds	112,500 Coins	Light Element
+(Rare (Magical))
+Rare Furcorn
+Rare Furcorn	9	2	40 Diamonds	30,000 Coins	Plant ElementCold Element
+(Rare (Natural))
+Rare Flowah
+Rare Flowah	9	2	250 Diamonds	187,500 Coins	Plant ElementFire Element
+(Rare (Fire))
+Rare Gob
+Rare Gob	9	2	250 Diamonds	187,500 Coins	Plant ElementLight Element
+(Rare (Magical))
+Rare Boskus
+Rare Boskus	9	2	250 Diamonds	187,500 Coins	Cold ElementFire Element
+(Rare (Fire))
+Rare Bulbo
+Rare Bulbo	9	2	250 Diamonds	187,500 Coins	Cold ElementLight Element
+(Rare (Magical))
+Rare Pluckbill
+Rare Pluckbill	9	2	250 Diamonds	187,500 Coins	Fire ElementLight Element
+(Rare (Magical))
+Rare Sooza
+Rare Sooza	9	3	500 Diamonds	375,000 Coins	Plant ElementCold ElementFire Element
+(Rare (Fire))
+Rare Spytrap
+Rare Spytrap	9	3	500 Diamonds	375,000 Coins	Plant ElementCold ElementLight Element
+(Rare (Magical))
+Rare TooToo
+Rare TooToo	9	3	500 Diamonds	375,000 Coins	Plant ElementFire ElementLight Element
+(Rare (Magical))
+Rare Fiddlement
+Rare Fiddlement	9	3	500 Diamonds	375,000 Coins	Cold ElementFire ElementLight Element
+(Rare (Magical))
+Rare Blow't
+Rare Blow't	9	4	750 Diamonds	562,500 Coins	Plant ElementCold ElementFire ElementLight Element
+(Rare (Magical))
+Rare Yelmut
+Rare Yelmut	9	4	10,000 Starpower	562,500 Coins	Air ElementPlant ElementCold ElementFire Element
+(Rare (Fire))
+Rare Tiawa
+Rare Tiawa	9	4	10,000 Starpower	562,500 Coins	Earth ElementWater ElementCold ElementFire Element
+(Rare (Fire))
+Rare Drummidary
+Rare Drummidary	9	5	15,000 Starpower	1,406,250 Coins	Air ElementPlant ElementEarth ElementCold ElementFire Element
+(Rare (Fire))
+Rare Whiz-bang
+Rare Whiz-bang	9	1	500 Diamonds	375,000 Coins	SkyPainting Element
+(Rare (Seasonal))
 Epic
+Monster	Level	Beds	Cost	Sells for	Element(s)
+(Class)
+Epic Potbelly
+Epic Potbelly	9	1	250 Diamonds	187,500 Coins	Plant Element
+(Epic (Natural))
+Epic Mammott
+Epic Mammott	4	1	250 Diamonds	187,500 Coins	Cold Element
+(Epic (Natural))
+Epic Kayna
+Epic Kayna	9	1	300 Diamonds	225,500 Coins	Fire Element
+(Epic (Fire))
+Epic Furcorn
+Epic Furcorn	9	2	150 Diamonds	112,500 Coins	Plant ElementCold Element
+(Epic (Natural))
+Epic Flowah
+Epic Flowah	9	2	500 Diamonds	375,000 Coins	Plant ElementFire Element
+(Epic (Fire))
+Epic Boskus
+Epic Boskus	9	2	500 Diamonds	375,000 Coins	Cold ElementFire Element
+(Epic (Fire))
+Epic Sooza
+Epic Sooza	9	3	750 Diamonds	562,500 Coins	Plant ElementCold ElementFire Element
+(Epic (Fire))
+Epic TooToo
+Epic TooToo	9	3	1,000 Diamonds	750,000 Coins	Plant ElementFire ElementLight Element
+(Epic (Magical))
+Epic Yelmut
+Epic Yelmut	9	4	1,250 Diamonds	937,500 Coins	Air ElementPlant ElementCold ElementFire Element
+(Epic (Fire))
+Epic Tiawa
+Epic Tiawa	9	4	1,250 Diamonds	937,500 Coins	Earth ElementWater ElementCold ElementFire Element
+(Epic (Fire))
+Epic Drummidary
+Epic Drummidary	9	5	1,750 Diamonds	1,312,500 Coins	Air ElementPlant ElementEarth ElementCold ElementFire Element
+(Epic (Fire))
+Epic Whiz-bang
+Epic Whiz-bang	9	1	1,000 Diamonds	750,000 Coins	SkyPainting Element
+(Epic (Seasonal))
 Upcoming Monsters
 Main article: Upcoming Features
-More Epic Dreamythicals and Epic Cataliszt will be added to Mythical Island in future updates.
+More Epic Magicals will come to Light Island in future updates.
 
+Upcoming
+Fluoress Portrait
+Epic Fluoress	Gob Portrait
+Epic Gob	Bulbo Portrait
+Epic Bulbo	Pluckbill Portrait
+Epic Pluckbill
+Spytrap Portrait
+Epic Spytrap	Fiddlement Portrait
+Epic Fiddlement	Blow't Portrait
+Epic Blow't	
 Breeding
-On Mythical Island, the main difference in breeding mechanics between this Island and the Natural and Fire Islands is that Mythical Monsters can now breed, including their Rare variants.
-
-Single-Element Mythical Monsters can only be bred with Cataliszt to make Dreamythical Monsters, but breeding Monsters on Mythical Island can potentially gain breeding failures. Unlike Single-Element Mythicals, Dreamythicals are incapable of breeding with other Monsters.
-
-Breeding combinations for all Monsters exclusive to Mythical Island are listed below, provided that the Monster is available and the breeding is successful:
+Breeding on Light Island is relatively simple, requiring two Monsters with the target Monsters elements. Multiple combinations can obtain the same Monster, so for simplicity, only one combination will be listed per Monster. Other combinations can be found on that Monster's page.
 
 Common
-Single Element Monsters cannot be bred and must either be bought from the Market or teleported from their Natural/Fire Island. Dreamythicals are bred by breeding Cataliszt and their corresponding Mythical Monster. Breeding Dreamythicals is not a guaranteed success.
+Single Element Monsters cannot be bred and must be bought from the Market. Doubles are bred with two Singles, Triples are bred with a Single and a Double, and Quads can be bred with two Doubles or a Triple and a Single, with the latter being more effective.
 
 Breeding Combo	Result	Breeding Time
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	G'joob Portrait
-G'joob
-Mythical Element	=	Bleatnik Portrait
-Bleatnik
-Dream ElementMythical Element	Breeding Map Icon 1d 3h
-Enhanced Breeding Icon 20h 15m
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	Strombonin Portrait
-Strombonin
-Mythical Element	=	Cranchee Portrait
-Cranchee
-Dream ElementMythical Element	Breeding Map Icon 1d 8h
+Potbelly Portrait
+Potbelly
+Plant Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Furcorn Portrait
+Furcorn
+Plant ElementCold Element	Breeding Map Icon 8h
+Enhanced Breeding Icon 6h
+Potbelly Portrait
+Potbelly
+Plant Element	+	Kayna Portrait
+Kayna
+Fire Element	=	Flowah Portrait
+Flowah
+Plant ElementFire Element	Breeding Map Icon 10h
+Enhanced Breeding Icon 7h 30m
+Mammott Portrait
+Mammott
+Cold Element	+	Kayna Portrait
+Kayna
+Fire Element	=	Boskus Portrait
+Boskus
+Cold ElementFire Element	Breeding Map Icon 10h
+Enhanced Breeding Icon 7h 30m
+Potbelly Portrait
+Potbelly
+Plant Element	+	Fluoress Portrait
+Fluoress
+Light Element	=	Gob Portrait
+Gob
+Plant ElementLight Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Mammott Portrait
+Mammott
+Cold Element	+	Fluoress Portrait
+Fluoress
+Light Element	=	Bulbo Portrait
+Bulbo
+Cold ElementLight Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Kayna Portrait
+Kayna
+Fire Element	+	Fluoress Portrait
+Fluoress
+Light Element	=	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Flowah Portrait
+Flowah
+Plant ElementFire Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	Breeding Map Icon 20h
+Enhanced Breeding Icon 15h
+Gob Portrait
+Gob
+Plant ElementLight Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	Breeding Map Icon 16h
+Enhanced Breeding Icon 12h
+Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	+	Potbelly Portrait
+Potbelly
+Plant Element	=	TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	Breeding Map Icon 16h
+Enhanced Breeding Icon 12h
+Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	Breeding Map Icon 16h
+Enhanced Breeding Icon 12h
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	Breeding Map Icon 1d 8h
 Enhanced Breeding Icon 1d
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	Yawstrich Portrait
-Yawstrich
-Mythical Element	=	Sporerow Portrait
-Sporerow
-Dream ElementMythical Element	Breeding Map Icon 1d 13h
-Enhanced Breeding Icon 1d 3h 45m
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	Anglow Portrait
-Anglow
-Mythical Element	=	Pinghound Portrait
-Pinghound
-Dream ElementMythical Element	Breeding Map Icon 1d 18h
-Enhanced Breeding Icon 1d 7h 30m
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	Hyehehe Portrait
-Hyehehe
-Mythical Element	=	Wheezel Portrait
-Wheezel
-Dream ElementMythical Element	Breeding Map Icon 1d 13h
-Enhanced Breeding Icon 1d 3h 45m
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	Buzzinga Portrait
-Buzzinga
-Mythical Element	=	Knurv Portrait
-Knurv
-Dream ElementMythical Element	Breeding Map Icon 1d 8h
-Enhanced Breeding Icon 1d
-Cataliszt Portrait
-Cataliszt
-Dream Element	+	Cherubble Portrait
-Cherubble
-Mythical Element	=	ShLep Portrait
-shLep
-Dream ElementMythical Element	Breeding Map Icon 1d 3h
-Enhanced Breeding Icon 20h 15m
+Rare
+Only Rare Single Element Monsters have different combinations than their Common variant. They are bred with two different Triples that share the same element as the Rare Single. They are only available during select times.
 
-Teleporting
-(Redirected from another page)
+Breeding Combo	Result	Breeding Time
+Prize Portrait
+Any Plant Triple
+Plant ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Plant Triple
+Plant ElementUnknown ElementUnknown Element	=	Rare Potbelly Portrait
+Rare Potbelly
+Plant Element	Breeding Map Icon 6h
+Enhanced Breeding Icon 4h 30m
+Prize Portrait
+Any Cold Triple
+Cold ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Cold Triple
+Cold ElementUnknown ElementUnknown Element	=	Rare Mammott Portrait
+Rare Mammott
+Cold Element	Breeding Map Icon 6h
+Enhanced Breeding Icon 4h 30m
+Prize Portrait
+Any Fire Triple
+Fire ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Fire Triple
+Fire ElementUnknown ElementUnknown Element	=	Rare Kayna Portrait
+Rare Kayna
+Fire Element	Breeding Map Icon 8h
+Enhanced Breeding Icon 6h
+Prize Portrait
+Any Light Triple
+Light ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Light Triple
+Light ElementUnknown ElementUnknown Element	=	Rare Fluoress Portrait
+Rare Fluoress
+Light Element	Breeding Map Icon 8h
+Enhanced Breeding Icon 6h
+Epic
+Only available for select times, they are much harder to get than Commons or Rares, and have special breeding combinations that do not follow consistent patterns.
+
+Breeding Combo	Result	Breeding Time
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Boskus Portrait
+Boskus
+Cold ElementFire Element	=	Epic Potbelly Portrait
+Epic Potbelly
+Plant Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Flowah Portrait
+Flowah
+Plant ElementFire Element	=	Epic Mammott Portrait
+Epic Mammott
+Cold Element	Breeding Map Icon 5h
+Enhanced Breeding Icon 3h 45m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Furcorn Portrait
+Furcorn
+Plant ElementCold Element	=	Epic Kayna Portrait
+Epic Kayna
+Fire Element	Breeding Map Icon 15h
+Enhanced Breeding Icon 11h 15m
+Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	+	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	=	Epic Furcorn Portrait
+Epic Furcorn
+Plant ElementCold Element	Breeding Map Icon 17h
+Enhanced Breeding Icon 12h 45m
+Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	+	Gob Portrait
+Gob
+Plant ElementLight Element	=	Epic Flowah Portrait
+Epic Flowah
+Plant ElementFire Element	Breeding Map Icon 17h
+Enhanced Breeding Icon 12h 45m
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Bulbo Portrait
+Bulbo
+Cold ElementLight Element	=	Epic Boskus Portrait
+Epic Boskus
+Cold ElementFire Element	Breeding Map Icon 19h
+Enhanced Breeding Icon 14h 15m
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Boskus Portrait
+Boskus
+Cold ElementFire Element	=	Epic Sooza Portrait
+Epic Sooza
+Plant ElementCold ElementFire Element	Breeding Map Icon 1d 3h
+Enhanced Breeding Icon 20h 15m
+Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	+	Flowah Portrait
+Flowah
+Plant ElementFire Element	=	Epic TooToo Portrait
+Epic TooToo
+Plant ElementFire ElementLight Element	Breeding Map Icon 2d 5h 5m
+Enhanced Breeding Icon 1d 15h 48m 45s
+Unused Epic Breeding Combos
+The following valid Epic breeding combinations are currently not used on Light Island, but will likely be used for future Epic Monsters.
+
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Gob Portrait
+Gob
+Plant ElementLight Element
+Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	+	Gob Portrait
+Gob
+Plant ElementLight Element
+Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	+	Bulbo Portrait
+Bulbo
+Cold ElementLight Element
+Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	+	Boskus Portrait
+Boskus
+Cold ElementFire Element
+Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	+	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Furcorn Portrait
+Furcorn
+Plant ElementCold Element
+Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	+	Furcorn Portrait
+Furcorn
+Plant ElementCold Element
+Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	+	Flowah Portrait
+Flowah
+Plant ElementFire Element
+Special
+Breedable Monsters that are not in the main selection of Monsters have special breeding combinations as well as special combinations for the Epics as well. Paironormals are particularly hard to breed. Seasonals are only available during their respective Seasonal Event, or during other promotions where they are available. Common and Rare Fire Expansion Monsters cannot be bred, but their Epic variants can be bred during their "Fire with Fire" promotions.
+
+Breeding Combo	Result	Breeding Time
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Prize Portrait
+Any Triple
+Unknown ElementUnknown ElementUnknown Element	=	Shhimmer (Major) Portrait
+Shhimmer
+Depths Element	Breeding Map Icon 1d 6h
+Enhanced Breeding Icon 22h 30m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	=	Whiz-bang Portrait
+Whiz-bang
+SkyPainting Element	Breeding Map Icon 1d 4h 6m
+Enhanced Breeding Icon 21h 4m 30s
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Bulbo Portrait
+Bulbo
+Cold ElementLight Element	=	Epic Whiz-bang Portrait
+Epic Whiz-bang
+SkyPainting Element	Breeding Map Icon 1d 6h 30m
+Enhanced Breeding Icon 22h 52m 30s
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Kayna Portrait
+Kayna
+Fire Element	=	Epic Yelmut Portrait
+Epic Yelmut
+Air ElementPlant ElementCold ElementFire Element	Breeding Map Icon 1d 15h
+Enhanced Breeding Icon 1d 5h 15m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Potbelly Portrait
+Potbelly
+Plant Element	=	Epic Tiawa Portrait
+Epic Tiawa
+Earth ElementWater ElementCold ElementFire Element	Breeding Map Icon 2d 1h
+Enhanced Breeding Icon 1d 12h 45m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	=	Epic Drummidary Portrait
+Epic Drummidary
+Air ElementPlant ElementEarth ElementCold ElementFire Element	Breeding Map Icon 2d 1h
+Enhanced Breeding Icon 1d 12h 45m
+
+Light Island
 Talk
 15+
+Edit
+Island
+Mirror
+This is the main article for Light Island. For the category, see Category:Light Island.
 
-Save
-View source
+Light Island
+Map Pin
+Icon
+Empty Island
+Obstacled Island
+Awake Titan
+Wordmark
+Backdrop
+Map Pin
+Main Elements
+Plant Element	Cold Element	Fire Element	Light Element
+Other Elements
+Air Element	Earth Element	Water Element	Depths Element
+SkyPainting Element	Dipster Element	Titansoul Element
+Release
+Statistics
+Type	Available at
+Magical	Level 9
+Requirement
+Fire Haven Map Pin
+Fire Haven
+Cost
+1,000,000 Coins
+Titan's Name
+Phosphora
+Special Monsters
+Quad	Seasonal
+Blow't
+Blow't	Whiz-bang
+Whiz-bang
+Titansoul	Paironormal
+Phosphoran Phlox
+Phosphoran Phlox	Shhimmer (Major)
+Shhimmer (Major)
+Expansion Monsters
+Yelmut
+Yelmut	Tiawa
+Tiawa
+Drummidary
+Drummidary
+Beds
+Maximum Available	Full Collection	Full Song
+180	133	57
+Collection
+Commons
+Common Monsters Icon	Rares
+Rare Monsters Icon	Epics
+Epic Monsters Icon
+27	18	11
+Seasonals
+Seasonal Monsters Icon	Costumes
+Costumes Icon
+3	97
+Related
+Previous Island	Next Island
+Mythical Island Map Pin
+Mythical Island	Psychic Island Map Pin
+Psychic Island
+Mirror Version	Dawn of Fire
+Mirror Light Island Map Pin
+Mirror Light Island	Party Island Icon
+Party Island
+Other Magical Islands
+Psychic Island Map Pin
+Psychic Island	Faerie Island Map Pin
+Faerie Island
+Bone Island Map Pin
+Bone Island
+Song Information
+80 BPM (Beats Per Minute)	B♭ major	4/4 Compass
+“	There's a special feeling one gets when beholding Light Island for the first time-some have described it as 'deLightful" or 'enLightening'-but we think that 'Light-headed' works best! Framed by the wondrous phenomenon of the Aurora Monstralis, the Magical Island's Titan, Phosphora does not reside in one place - instead it migrates around the Monster World! It is also suspected to hail from another dimension, one where the Magical Element of Light shares characteristics with other luminous residents. At rest, the Light Elementals are among the shyest and drabbest in the Monster World, but once they start singing, they and the visiting Natural and Fire Monsters harmonize to create an eye-popping, 'Light-hearted' chorale!	”
+— In-game description	
+
+Contents
+1	About
+2	Song
+2.1	Chord Progressions
+2.2	Song Table
+3	Indigenous Monsters
+3.1	Common
+3.2	Rare
+3.3	Epic
+3.4	Upcoming Monsters
+4	Breeding
+4.1	Common
+4.2	Rare
+4.3	Epic
+4.3.1	Unused Epic Breeding Combos
+4.4	Special
+5	Special Features
+5.1	Obstacles
+5.2	Decorations and Structures
+5.3	Seasonal Event
+5.3.1	Gallery
+6	Castle
+6.1	Sound
+6.2	Castles
+7	Strategy
+8	Version History
+9	Gallery
+10	Notes
+11	References
+About
+Light Island Light Island Icon is available to purchase for 1,000,000 Coins Coins after unlocking Fire Haven. It is a Magical Island, featuring Magical Monsters and manifesting the Light Element Light Element. It was added to the game on September 30th, 2020 during Version 3.0.1. It is home to 59 Monsters and 97 Costumes.
+
+Song
+Composer(s): Dave Kerr, Christopher Pollard, Sam Clark (Light Element Monsters, Dipster Portrait), Tom Meikle (Whiz-bang Portrait, Yelmut Portrait, Tiawa Portrait, Drummidary Portrait), Dylan Cole (Yelmut Portrait, Tiawa Portrait, Drummidary Portrait)
+
+Light Island’s song plays at a speed of 80 beats per minute and is in the key of B♭ major.
+
+Light Island's core chord progression is based on three types of 4-bar cadential blocks interspersed throughout the song. Block A (i.e., Mammott's, Potbelly's, and Kayna's first track) consists of a prolonged B♭ chord. Block B (i.e., track 2) consists of a IV-I cadence (two bars of E♭ followed by two bars of B♭). Block C (i.e., track 3) consists of a V-I cadence (two bars of F followed by two bars of B♭). Altogether, they make up a variant of what is commonly known as the “12-Bar Blues”.
+
+Non-chord tones are explored in a variety of contexts, and are prevalent in the majority of Light Island monsters, including ones expected to be responsible for chord expression.
+
+
+The song is also available to download via the My Singing Monsters Soundtrack volume 2.
+
+Chord Progressions
+Pattern 1: Bb only
+
+Pattern 2: Eb, Eb, Bb, Bb
+
+Pattern 3: F, F, Bb, Bb
+
+Song Table
+This is a chart that shows where each Monster plays in the song. Each part is 16 beats long, meaning that one part is around 12 seconds long. The number next to each Monster indicates which track is being played at each part.
+
+Light Island Song Light Island Icon
+1	2	3	4	5	6	7	8	9	10	11
+Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 3	Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 1	Carved Confettite Castle 2	Carved Confettite Castle 3
+Mammott 1	Mammott 2	Mammott 1	Mammott 2	Mammott 3	Mammott 1	Mammott 2	Mammott 1	Mammott 2	Mammott 3
+Potbelly 1	Potbelly 2	Potbelly 1	Potbelly 2	Potbelly 3	Potbelly 1	Potbelly 2	Potbelly 1	Potbelly 2	Potbelly 3
+Kayna 1	Kayna 2	Kayna 1	Kayna 2	Kayna 3	Kayna 1	Kayna 2	Kayna 1	Kayna 2	Kayna 3
+Boskus 1	Boskus 2	Boskus 1	Boskus 3	Boskus 2	Boskus 1	Boskus 2	Boskus 1	Boskus 3
+Furcorn 1	Furcorn 2	Flowah 1	Flowah 2
+Fluoress 1	Fluoress 2	Spytrap 1	
+Gob 1	Gob 2	Gob 3	Gob 1	Gob 2	Gob 1	Gob 2	Gob 3
+Dipsters 1	Dipsters 2	Dipsters 3			Blow't 1	Blow't 2
+Bulbo 1
+Whiz-bang 1
+TooToo 1	TooToo 2	TooToo 1	TooToo 2	TooToo 3
+Fiddlement 1	Fiddlement 2	Fiddlement 1	Fiddlement 2	Fiddlement 3
+Shhimmer (Major) 1
+Sooza 1	Sooza 2
+Pluckbill 1	Pluckbill 2	Pluckbill 3	
+Yelmut 1
+Drummidary 1
+Tiawa 1		Tiawa 1
+Phosphoran Phlox 1	Phosphoran Phlox 2	Phosphoran Phlox 3	Phosphoran Phlox 4	Phosphoran Phlox 5	Phosphoran Phlox 6
+Indigenous Monsters
+The Monsters of Light Island are of the Plant (Plant Element), Cold (Cold Element), Fire (Fire Element), Light (Light Element), Depths (Depths Element), SkyPainting (SkyPainting Element), Dipster (Dipster Element), and Titansoul (Titansoul Element) elements. Since Light Island lacks the Air (Air Element), Water (Water Element), and Earth (Earth Element) elements, no Monster with those elements can exist on it (except for Yelmut, Tiawa, and Drummidary, who are not obtained through breeding). Just as with Fire Haven and Fire Oasis, there is also a difference with Monsters that have the Fire Element, as they take longer to breed and are more difficult to obtain because of their long absence from the Monster World. This also applies to the Magical Monsters.
+
+The list of indigenous Monsters is below with each Monster's class indicated in parenthesis.
+
+Common
+Monster	Level	Beds	Cost	Sells for	Element(s)
+(Class)
+Potbelly
+Potbelly	9	1	250 Coins	187 Coins	Plant Element
+(Natural)
+Mammott
+Mammott	2	1	300 Coins	225 Coins	Cold Element
+(Natural)
+Kayna
+Kayna	9	1	10 Relics	450,000 Coins	Fire Element
+(Fire)
+Fluoress
+Fluoress	9	1	30,000 Coins	22,500 Coins	Light Element
+(Magical)
+Furcorn
+Furcorn	9	2	30 Diamonds	7,500 Coins	Plant ElementCold Element
+(Natural)
+Flowah
+Flowah	9	2	50 Relics	112,500 Coins	Plant ElementFire Element
+(Fire)
+Gob
+Gob	9	2	150 Diamonds	84,375 Coins	Plant ElementLight Element
+(Magical)
+Boskus
+Boskus	9	2	50 Relics	112,500 Coins	Cold ElementFire Element
+(Fire)
+Bulbo
+Bulbo	9	2	150 Diamonds	84,375 Coins	Cold ElementLight Element
+(Magical)
+Pluckbill
+Pluckbill	9	2	150 Diamonds	84,375 Coins	Fire ElementLight Element
+(Magical)
+Sooza
+Sooza	9	3	100 Relics	225,000 Coins	Plant ElementCold ElementFire Element
+(Fire)
+Spytrap
+Spytrap	9	3	300 Diamonds	168,750 Coins	Plant ElementCold ElementLight Element
+(Magical)
+TooToo
+TooToo	9	3	300 Diamonds	168,750 Coins	Plant ElementFire ElementLight Element
+(Magical)
+Fiddlement
+Fiddlement	9	3	300 Diamonds	168,750 Coins	Cold ElementFire ElementLight Element
+(Magical)
+Blow't
+Blow't	9	4	600 Diamonds	337,500 Coins	Plant ElementCold ElementFire ElementLight Element
+(Magical)
+Yelmut
+Yelmut	9	4	300 Relics	337,500 Coins	Air ElementPlant ElementCold ElementFire Element
+(Fire)
+Tiawa
+Tiawa	9	4	300 Relics	337,500 Coins	Earth ElementWater ElementCold ElementFire Element
+(Fire)
+Drummidary
+Drummidary	9	5	500 Relics	562,500 Coins	Air ElementPlant ElementEarth ElementCold ElementFire Element
+(Fire)
+Shhimmer (Major)
+Shhimmer	9	2	500 Diamonds	7,500,000 Coins	Depths Element
+(Paironormal)
+Phosphoran Phlox
+Phosphoran Phlox	N/A	10	10,000,000 Coins	375,000 Coins	Titansoul Element
+(Titansoul)
+Whiz-bang
+Whiz-bang	9	1	225 Diamonds	168,750 Coins	SkyPainting Element
+(Seasonal)
+Dipsters
+Dipsters	10	0	6 Keys	7,500 Coins	Dipster Element
+(Dipster)
+Rare
+Monster	Level	Beds	Cost	Sells for	Element(s)
+(Class)
+Rare Potbelly
+Rare Potbelly	9	1	75 Diamonds	56,250 Coins	Plant Element
+(Rare (Natural))
+Rare Mammott
+Rare Mammott	4	1	75 Diamonds	56,250 Coins	Cold Element
+(Rare (Natural))
+Rare Kayna
+Rare Kayna	9	1	150 Diamonds	112,500 Coins	Fire Element
+(Rare (Fire))
+Rare Fluoress
+Rare Fluoress	4	1	150 Diamonds	112,500 Coins	Light Element
+(Rare (Magical))
+Rare Furcorn
+Rare Furcorn	9	2	40 Diamonds	30,000 Coins	Plant ElementCold Element
+(Rare (Natural))
+Rare Flowah
+Rare Flowah	9	2	250 Diamonds	187,500 Coins	Plant ElementFire Element
+(Rare (Fire))
+Rare Gob
+Rare Gob	9	2	250 Diamonds	187,500 Coins	Plant ElementLight Element
+(Rare (Magical))
+Rare Boskus
+Rare Boskus	9	2	250 Diamonds	187,500 Coins	Cold ElementFire Element
+(Rare (Fire))
+Rare Bulbo
+Rare Bulbo	9	2	250 Diamonds	187,500 Coins	Cold ElementLight Element
+(Rare (Magical))
+Rare Pluckbill
+Rare Pluckbill	9	2	250 Diamonds	187,500 Coins	Fire ElementLight Element
+(Rare (Magical))
+Rare Sooza
+Rare Sooza	9	3	500 Diamonds	375,000 Coins	Plant ElementCold ElementFire Element
+(Rare (Fire))
+Rare Spytrap
+Rare Spytrap	9	3	500 Diamonds	375,000 Coins	Plant ElementCold ElementLight Element
+(Rare (Magical))
+Rare TooToo
+Rare TooToo	9	3	500 Diamonds	375,000 Coins	Plant ElementFire ElementLight Element
+(Rare (Magical))
+Rare Fiddlement
+Rare Fiddlement	9	3	500 Diamonds	375,000 Coins	Cold ElementFire ElementLight Element
+(Rare (Magical))
+Rare Blow't
+Rare Blow't	9	4	750 Diamonds	562,500 Coins	Plant ElementCold ElementFire ElementLight Element
+(Rare (Magical))
+Rare Yelmut
+Rare Yelmut	9	4	10,000 Starpower	562,500 Coins	Air ElementPlant ElementCold ElementFire Element
+(Rare (Fire))
+Rare Tiawa
+Rare Tiawa	9	4	10,000 Starpower	562,500 Coins	Earth ElementWater ElementCold ElementFire Element
+(Rare (Fire))
+Rare Drummidary
+Rare Drummidary	9	5	15,000 Starpower	1,406,250 Coins	Air ElementPlant ElementEarth ElementCold ElementFire Element
+(Rare (Fire))
+Rare Whiz-bang
+Rare Whiz-bang	9	1	500 Diamonds	375,000 Coins	SkyPainting Element
+(Rare (Seasonal))
+Epic
+Monster	Level	Beds	Cost	Sells for	Element(s)
+(Class)
+Epic Potbelly
+Epic Potbelly	9	1	250 Diamonds	187,500 Coins	Plant Element
+(Epic (Natural))
+Epic Mammott
+Epic Mammott	4	1	250 Diamonds	187,500 Coins	Cold Element
+(Epic (Natural))
+Epic Kayna
+Epic Kayna	9	1	300 Diamonds	225,500 Coins	Fire Element
+(Epic (Fire))
+Epic Furcorn
+Epic Furcorn	9	2	150 Diamonds	112,500 Coins	Plant ElementCold Element
+(Epic (Natural))
+Epic Flowah
+Epic Flowah	9	2	500 Diamonds	375,000 Coins	Plant ElementFire Element
+(Epic (Fire))
+Epic Boskus
+Epic Boskus	9	2	500 Diamonds	375,000 Coins	Cold ElementFire Element
+(Epic (Fire))
+Epic Sooza
+Epic Sooza	9	3	750 Diamonds	562,500 Coins	Plant ElementCold ElementFire Element
+(Epic (Fire))
+Epic TooToo
+Epic TooToo	9	3	1,000 Diamonds	750,000 Coins	Plant ElementFire ElementLight Element
+(Epic (Magical))
+Epic Yelmut
+Epic Yelmut	9	4	1,250 Diamonds	937,500 Coins	Air ElementPlant ElementCold ElementFire Element
+(Epic (Fire))
+Epic Tiawa
+Epic Tiawa	9	4	1,250 Diamonds	937,500 Coins	Earth ElementWater ElementCold ElementFire Element
+(Epic (Fire))
+Epic Drummidary
+Epic Drummidary	9	5	1,750 Diamonds	1,312,500 Coins	Air ElementPlant ElementEarth ElementCold ElementFire Element
+(Epic (Fire))
+Epic Whiz-bang
+Epic Whiz-bang	9	1	1,000 Diamonds	750,000 Coins	SkyPainting Element
+(Epic (Seasonal))
+Upcoming Monsters
+Main article: Upcoming Features
+More Epic Magicals will come to Light Island in future updates.
+
+Upcoming
+Fluoress Portrait
+Epic Fluoress	Gob Portrait
+Epic Gob	Bulbo Portrait
+Epic Bulbo	Pluckbill Portrait
+Epic Pluckbill
+Spytrap Portrait
+Epic Spytrap	Fiddlement Portrait
+Epic Fiddlement	Blow't Portrait
+Epic Blow't	
+Breeding
+Breeding on Light Island is relatively simple, requiring two Monsters with the target Monsters elements. Multiple combinations can obtain the same Monster, so for simplicity, only one combination will be listed per Monster. Other combinations can be found on that Monster's page.
+
+Common
+Single Element Monsters cannot be bred and must be bought from the Market. Doubles are bred with two Singles, Triples are bred with a Single and a Double, and Quads can be bred with two Doubles or a Triple and a Single, with the latter being more effective.
+
+Breeding Combo	Result	Breeding Time
+Potbelly Portrait
+Potbelly
+Plant Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Furcorn Portrait
+Furcorn
+Plant ElementCold Element	Breeding Map Icon 8h
+Enhanced Breeding Icon 6h
+Potbelly Portrait
+Potbelly
+Plant Element	+	Kayna Portrait
+Kayna
+Fire Element	=	Flowah Portrait
+Flowah
+Plant ElementFire Element	Breeding Map Icon 10h
+Enhanced Breeding Icon 7h 30m
+Mammott Portrait
+Mammott
+Cold Element	+	Kayna Portrait
+Kayna
+Fire Element	=	Boskus Portrait
+Boskus
+Cold ElementFire Element	Breeding Map Icon 10h
+Enhanced Breeding Icon 7h 30m
+Potbelly Portrait
+Potbelly
+Plant Element	+	Fluoress Portrait
+Fluoress
+Light Element	=	Gob Portrait
+Gob
+Plant ElementLight Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Mammott Portrait
+Mammott
+Cold Element	+	Fluoress Portrait
+Fluoress
+Light Element	=	Bulbo Portrait
+Bulbo
+Cold ElementLight Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Kayna Portrait
+Kayna
+Fire Element	+	Fluoress Portrait
+Fluoress
+Light Element	=	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Flowah Portrait
+Flowah
+Plant ElementFire Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	Breeding Map Icon 20h
+Enhanced Breeding Icon 15h
+Gob Portrait
+Gob
+Plant ElementLight Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	Breeding Map Icon 16h
+Enhanced Breeding Icon 12h
+Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	+	Potbelly Portrait
+Potbelly
+Plant Element	=	TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	Breeding Map Icon 16h
+Enhanced Breeding Icon 12h
+Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	Breeding Map Icon 16h
+Enhanced Breeding Icon 12h
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Mammott Portrait
+Mammott
+Cold Element	=	Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	Breeding Map Icon 1d 8h
+Enhanced Breeding Icon 1d
+Rare
+Only Rare Single Element Monsters have different combinations than their Common variant. They are bred with two different Triples that share the same element as the Rare Single. They are only available during select times.
+
+Breeding Combo	Result	Breeding Time
+Prize Portrait
+Any Plant Triple
+Plant ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Plant Triple
+Plant ElementUnknown ElementUnknown Element	=	Rare Potbelly Portrait
+Rare Potbelly
+Plant Element	Breeding Map Icon 6h
+Enhanced Breeding Icon 4h 30m
+Prize Portrait
+Any Cold Triple
+Cold ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Cold Triple
+Cold ElementUnknown ElementUnknown Element	=	Rare Mammott Portrait
+Rare Mammott
+Cold Element	Breeding Map Icon 6h
+Enhanced Breeding Icon 4h 30m
+Prize Portrait
+Any Fire Triple
+Fire ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Fire Triple
+Fire ElementUnknown ElementUnknown Element	=	Rare Kayna Portrait
+Rare Kayna
+Fire Element	Breeding Map Icon 8h
+Enhanced Breeding Icon 6h
+Prize Portrait
+Any Light Triple
+Light ElementUnknown ElementUnknown Element	+	Prize Portrait
+Any Light Triple
+Light ElementUnknown ElementUnknown Element	=	Rare Fluoress Portrait
+Rare Fluoress
+Light Element	Breeding Map Icon 8h
+Enhanced Breeding Icon 6h
+Epic
+Only available for select times, they are much harder to get than Commons or Rares, and have special breeding combinations that do not follow consistent patterns.
+
+Breeding Combo	Result	Breeding Time
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Boskus Portrait
+Boskus
+Cold ElementFire Element	=	Epic Potbelly Portrait
+Epic Potbelly
+Plant Element	Breeding Map Icon 9h
+Enhanced Breeding Icon 6h 45m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Flowah Portrait
+Flowah
+Plant ElementFire Element	=	Epic Mammott Portrait
+Epic Mammott
+Cold Element	Breeding Map Icon 5h
+Enhanced Breeding Icon 3h 45m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Furcorn Portrait
+Furcorn
+Plant ElementCold Element	=	Epic Kayna Portrait
+Epic Kayna
+Fire Element	Breeding Map Icon 15h
+Enhanced Breeding Icon 11h 15m
+Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	+	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	=	Epic Furcorn Portrait
+Epic Furcorn
+Plant ElementCold Element	Breeding Map Icon 17h
+Enhanced Breeding Icon 12h 45m
+Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	+	Gob Portrait
+Gob
+Plant ElementLight Element	=	Epic Flowah Portrait
+Epic Flowah
+Plant ElementFire Element	Breeding Map Icon 17h
+Enhanced Breeding Icon 12h 45m
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Bulbo Portrait
+Bulbo
+Cold ElementLight Element	=	Epic Boskus Portrait
+Epic Boskus
+Cold ElementFire Element	Breeding Map Icon 19h
+Enhanced Breeding Icon 14h 15m
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Boskus Portrait
+Boskus
+Cold ElementFire Element	=	Epic Sooza Portrait
+Epic Sooza
+Plant ElementCold ElementFire Element	Breeding Map Icon 1d 3h
+Enhanced Breeding Icon 20h 15m
+Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	+	Flowah Portrait
+Flowah
+Plant ElementFire Element	=	Epic TooToo Portrait
+Epic TooToo
+Plant ElementFire ElementLight Element	Breeding Map Icon 2d 5h 5m
+Enhanced Breeding Icon 1d 15h 48m 45s
+Unused Epic Breeding Combos
+The following valid Epic breeding combinations are currently not used on Light Island, but will likely be used for future Epic Monsters.
+
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Gob Portrait
+Gob
+Plant ElementLight Element
+Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	+	Gob Portrait
+Gob
+Plant ElementLight Element
+Sooza Portrait
+Sooza
+Plant ElementCold ElementFire Element	+	Bulbo Portrait
+Bulbo
+Cold ElementLight Element
+Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	+	Boskus Portrait
+Boskus
+Cold ElementFire Element
+Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	+	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element
+TooToo Portrait
+TooToo
+Plant ElementFire ElementLight Element	+	Furcorn Portrait
+Furcorn
+Plant ElementCold Element
+Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	+	Furcorn Portrait
+Furcorn
+Plant ElementCold Element
+Fiddlement Portrait
+Fiddlement
+Cold ElementFire ElementLight Element	+	Flowah Portrait
+Flowah
+Plant ElementFire Element
+Special
+Breedable Monsters that are not in the main selection of Monsters have special breeding combinations as well as special combinations for the Epics as well. Paironormals are particularly hard to breed. Seasonals are only available during their respective Seasonal Event, or during other promotions where they are available. Common and Rare Fire Expansion Monsters cannot be bred, but their Epic variants can be bred during their "Fire with Fire" promotions.
+
+Breeding Combo	Result	Breeding Time
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Prize Portrait
+Any Triple
+Unknown ElementUnknown ElementUnknown Element	=	Shhimmer (Major) Portrait
+Shhimmer
+Depths Element	Breeding Map Icon 1d 6h
+Enhanced Breeding Icon 22h 30m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Spytrap Portrait
+Spytrap
+Plant ElementCold ElementLight Element	=	Whiz-bang Portrait
+Whiz-bang
+SkyPainting Element	Breeding Map Icon 1d 4h 6m
+Enhanced Breeding Icon 21h 4m 30s
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Bulbo Portrait
+Bulbo
+Cold ElementLight Element	=	Epic Whiz-bang Portrait
+Epic Whiz-bang
+SkyPainting Element	Breeding Map Icon 1d 6h 30m
+Enhanced Breeding Icon 22h 52m 30s
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Kayna Portrait
+Kayna
+Fire Element	=	Epic Yelmut Portrait
+Epic Yelmut
+Air ElementPlant ElementCold ElementFire Element	Breeding Map Icon 1d 15h
+Enhanced Breeding Icon 1d 5h 15m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Potbelly Portrait
+Potbelly
+Plant Element	=	Epic Tiawa Portrait
+Epic Tiawa
+Earth ElementWater ElementCold ElementFire Element	Breeding Map Icon 2d 1h
+Enhanced Breeding Icon 1d 12h 45m
+Blow't Portrait
+Blow't
+Plant ElementCold ElementFire ElementLight Element	+	Pluckbill Portrait
+Pluckbill
+Fire ElementLight Element	=	Epic Drummidary Portrait
+Epic Drummidary
+Air ElementPlant ElementEarth ElementCold ElementFire Element	Breeding Map Icon 2d 1h
+Enhanced Breeding Icon 1d 12h 45m
+
+Yelmut
+Talk
+15+
+Edit
 My Singing Monsters
 Dawn of Fire
 
-
-Teleport
-Teleport Icon
-Some Monsters can be teleported to another island when they are fed to a certain level. For most islands, the minimum level required for teleporting a Monster is level 15, with the exceptions of The Colossingum, which only requires level 5, and the Ethereal Islets, which only require level 14. When a Monster is teleported, it permanently leaves the island it was born on and is moved to the new island, turning back into an egg and going into the empty Nursery or Egg Cup on the destination island. This also resets the Monster's level down to 1 and removes the Monster from Gold Island, if it is placed there.
-
-At present, this process cannot be reversed. That is, after a Monster is teleported to another island, it can't be returned to its original home.
-
-Teleporting may also change a Monster's breeding and incubation times, as the destination islands have different features than the ones of the home islands, and may enable other characteristics not available on the monster's birthplace. However, a monster's nickname and costumes will remain unchanged on the new island.
-
-Teleporting eligible Monsters is also feasible on the Mirror Islands, which follow the same teleporting rules of the islands that they mirror. This makes Mirror Island breeding a great way to obtain Monsters to teleport, if one is preoccupied with breeding on the Natural or Magical Islands.
-
+Yelmut
+Idle
+Playing
+Vessel
+Idle
+Element(s)
+Air Element	Plant Element	Cold Element	Fire Element
+Class
+Fire
+Egg(s)
+Yelmut-egg
+Portrait(s)
+Yelmut Portrait
+Release
+Statistics
+Island(s)
+Light Island IconLight
+Amber Island IconAmber
+Mirror Light Island IconMirror Light
+Available at Level 9	4 Beds Required	2x2
+2 x 2 Size Required
+Breeding/Incubation Time
+Default:	Enhanced:
+1d 16h	1d 6h
+Skin Boost:	Enhanced and Boosted:
+1d 12h	1d 2h
+Likes
+Monsters Who Like It
+Required Inventory
+Buying Price
+300 Relics	Amber:
+30 Relics
+Buying Price (Discounted)
+Selling Price
+675,000
+50% Off:
+337,500 Coins	Amber:
+15 Relics
+Costumes
+Placement XP
+180,000 XP
+First Discovered By
+Dichi
+Variants
+Rare	Epic
+Rare Yelmut
+Rare Yelmut	Epic Yelmut
+Epic Yelmut
+In other Games
+Dawn of Fire
+Yelmut (Young)
+Yelmut
+“	Don't let the diminutive size of the Yelmut fool you - it's a Quad-Element Monster and has the pipes to prove it. That said, the Monster often takes full advantage of its pint-sized stature and gelatinous body to squeeze through cracks and crevices you would never expect it to fit through. The only thing that Yelmut has to be mindful of is not attempting to squeeze through any space in which its decorative headgear may get stuck - don't you dare call it a hat, now! Still a touchy subject.	”
+— Monster Bio	
 
 Contents
-1	Shugabush Island Monsters
-2	Seasonal Shanty Monsters
-3	Ethereal Island Monsters
-4	Ethereal Islet Monsters
-5	Mythical Island Monsters
-6	Magical Sanctum Monsters
-7	The Colossingum Monsters
-7.1	Naturals
-7.2	Ethereals
-7.3	Core Seasonals
-8	Transposing
-8.1	Costs
-8.2	Monsters
-9	Alterations in Breeding Mechanics
-10	Notes
-Shugabush Island Monsters
-Eligible Monsters can only be teleported to Shugabush Island if they reside on the Natural Islands or their Mirror counterparts. If an elligible Monster resides on the Fire Islands, or the Magical Islands and their Mirror counterparts, it can not be teleported to Shugabush Island. It's unknown if that will be subject to change in the future.
+1	Description
+2	Song
+3	Breeding
+4	Likes
+5	Monsters Who Like It
+6	Costumes
+7	Revitalizing
+7.1	Filling In
+8	Statistics
+8.1	Earning Rate and Maximum Income
+8.1.1	Light Island
+8.1.2	Amber Island
+8.2	Feeding Monsters
+9	Possible Names
+10	Gallery
+10.1	In-Game
+10.2	Parodies
+10.3	Other
+11	Notes
+12	References
+Quick Answers
+fandom logo
+What is the incubation time for a Yelmut?toggle section
+How can you obtain a Yelmut in the game?toggle section
+What is the Coin production of Yelmut on Light Island compared to other monsters?toggle section
+What are the select times when Yelmut is available for purchase?toggle section
+Description
+Yelmut is a Quad-Element Fire Monster that is found on Light Island and Amber Island. It was added alongside Epic Boskus on February 9th, 2022, during version 3.4.0. As a Quad-Element Fire Monster on a Magical Island, Yelmut is only available at select times. When available, it is obtained by purchasing in the Market for 300 Relics (Relics). By default, its incubation time is 1 day and 16 hours long. Yelmut has a high Coin production on Light Island, comparable to Blow't and Tiawa. The Goal for placing your first Yelmut rewards the player with 100,000 Coins (Coins) and 4 Relics.
 
-Monsters	Original Island
-Potbelly PortraitMammott PortraitOaktopus PortraitFurcorn PortraitShugabush Portrait
-Rare Potbelly PortraitRare Mammott PortraitRare Oaktopus PortraitRare Furcorn Portrait
-Epic Potbelly PortraitEpic Mammott PortraitEpic Oaktopus PortraitEpic Furcorn Portrait	Plant Island Icon
-Plant Island
-Potbelly PortraitMammott PortraitQuibble PortraitOaktopus PortraitFurcorn PortraitDeedge Portrait
-Rare Potbelly PortraitRare Mammott PortraitRare Quibble PortraitRare Oaktopus PortraitRare Furcorn PortraitRare Deedge Portrait
-Epic Potbelly PortraitEpic Mammott PortraitEpic Quibble PortraitEpic Oaktopus PortraitEpic Furcorn PortraitEpic Deedge Portrait	Cold Island Icon
-Cold Island
-Mammott PortraitQuibble PortraitPomPom Portrait
-Rare Mammott PortraitRare Quibble PortraitRare PomPom Portrait
-Epic Mammott PortraitEpic Quibble PortraitEpic PomPom Portrait	Air Island Icon
-Air Island
-Potbelly PortraitQuibble PortraitOaktopus Portrait
-Rare Potbelly PortraitRare Quibble PortraitRare Oaktopus Portrait
-Epic Potbelly PortraitEpic Quibble PortraitEpic Oaktopus Portrait	Water Island Icon
-Water Island
-Potbelly PortraitMammott PortraitFurcorn PortraitPomPom Portrait
-Rare Potbelly PortraitRare Mammott PortraitRare Furcorn PortraitRare PomPom Portrait
-Epic Potbelly PortraitEpic Mammott PortraitEpic Furcorn PortraitEpic PomPom Portrait	Earth Island Icon
-Earth Island
-Seasonal Shanty Monsters
-Seasonal Monsters (whether Core, Aux. or Seasonals) can be teleported to Seasonal Shanty from their "home Islands". Nevertheless, this doesn't include Viveine on Amber Island and Monculus on Wublin Island, and Jam Boree on Gold Island (where instead this monster may be placed if a level 15 Jam Boree is present on Seasonal Shanty).
+On Amber Island, Yelmut is only available at select times. When available, it is obtained by purchasing in the Market for 30 Relics as a Vessel, which then can be revitalized by zapping eggs into it. As a Fire Quad-Elemental, Yelmut has an excellent Relic production.
 
-Monsters	Original Island(s)
-Punkleton PortraitRare Punkleton PortraitEpic Punkleton Portrait	Plant Island Icon
-Plant Island
-Yool PortraitRare Yool PortraitEpic Yool Portrait	Cold Island Icon
-Cold Island
-Schmoochle PortraitRare Schmoochle PortraitEpic Schmoochle Portrait
-Hoola PortraitRare Hoola PortraitEpic Hoola Portrait	Air Island Icon
-Air Island
-Blabbit PortraitRare Blabbit PortraitEpic Blabbit Portrait	Water Island Icon
-Water Island
-Hoola PortraitRare Hoola PortraitEpic Hoola Portrait	Earth Island Icon
-Earth Island
-Viveine PortraitRare Viveine PortraitEpic Viveine Portrait	Shugabush Island Icon
-Shugabush Island
-Monculus PortraitRare Monculus PortraitEpic Monculus Portrait	Ethereal Island Icon
-Ethereal Island
-Gobbleygourd PortraitRare Gobbleygourd PortraitEpic Gobbleygourd Portrait	Fire Haven Icon
-Fire Haven
-Gobbleygourd PortraitRare Gobbleygourd PortraitEpic Gobbleygourd Portrait
-Spurrit PortraitRare Spurrit PortraitEpic Spurrit Portrait	Fire Oasis Icon
-Fire Oasis
-Whiz-bang PortraitRare Whiz-bang PortraitEpic Whiz-bang Portrait	Light Island Icon
+Song
+Audio sample: 
+
+Voice actor: (Amber Island - from archival footage): Erick Desjardins, (Light Island): Tom Meikle[1]
+
+Yelmut's song is a powerful vocal ensemble consisting of prolonged notes in a "loose" harmony.
+
+On Amber Island, Yelmut's sound is identical to its sound on the Continent. However, it has been pitch shifted up to a B natural, unlike the B flat in its original sound. It sings alongside Floogull, Glowl, Stogg, and others in the sections before PongPing's parts.
+
+On Light Island, Yelmut sings alongside the rest of the Monsters (except Furcorn, Fluoress, and the Dipsters) near the end of the song.
+
+On Mirror Light Island, Yelmut plays at the beginning of the song with Pluckbill, Flowah, Drummidary, and Sooza.
+
+Breeding
+Unlike in Dawn of Fire, Yelmut cannot be bred. Instead, it must be purchased from the Market. On Amber Island, it must be purchased as an inactive Vessel and revitalized by zapping eggs.
+
+Likes
+Every Monster has different things that they like. For every unique object that they like that's placed near the Monster, the Monster's happiness will increase by 25%. Placing more than one of the same liked item near a Monster won't increase its happiness by an additional amount. If there's a Unity Tree or a Primordial Monster of the same rarity on the Island, items don't need to be near the Monster. Below are the things liked by Yelmut:
+
+Flowah
+Flowah
+(requires level 9)
+Phangler
+Phangler
+(level 9)
+(Amber Island Icon)
+Stogg
+Stogg
+(level 9)
+(Amber Island Icon)
+Tring
+Tring
+(level 9)
+(Mystery Like,Amber Island Icon)
+Mount Knottshurr
+Mount Knottshurr
+(level 16)
+(Light Island Icon)
+Bingo Bango Bongos
+Bingo Bango Bongos
+(level 7)
+(Light Island Icon)
+The Thunker
+The Thunker
+(level 30)
+(Mystery Like,Light Island Icon)
+See the Likes page to view a complete list of all Monsters' likes.
+
+Note: On Amber Island, all of Yelmut's likes are only obtainable for a limited time. Amber Vessels must be revitalized before they count towards Yelmut's happiness.
+
+Monsters Who Like It
+The following Monster(s) will increase their happiness by 25% when being placed near Yelmut or when Yelmut and a Unity Tree are on the Island. These may or may not also be Yelmut's likes as well:
+
+Stogg
+Stogg
+(Amber Island Icon)
+Flowah
+Flowah
+(Amber Island Icon)
+Floogull
+Floogull
+(Amber Island Icon)
+Rare Yelmut
+Rare Yelmut
+Rare Kayna
+Rare Kayna
+(Amber Island Icon)
+Rare Woolabee
+Rare Woolabee
+(Amber Island Icon)
+Rare Ziggurab
+Rare Ziggurab
+(Amber Island Icon)
+Rare Krillby
+Rare Krillby
+(Amber Island Icon)
+Rare Tuskski
+Rare Tuskski
+(Amber Island Icon)
+Epic Stogg
+Epic Stogg
+(Amber Island Icon)
+Epic Thrumble
+Epic Thrumble
+(Amber Island Icon)
+Epic Incisaur
+Epic Incisaur
+(Amber Island Icon)
+Epic Bowhead
+Epic Bowhead
+(Amber Island Icon)
+Costumes
+Main article: Costumes
+Costume	Cost
+Yelmut (Apt Apriarist)
+Apt Apriarist
+Echoes of Eco SeriesEchoes of Eco	30 Diamonds
+Revitalizing
+On Amber Island, Yelmut must be powered up rather than being bred. Unlike Wublins and Celestials, the allotted time to fill a Vessel does not start when the first egg is zapped, but instead are only available to purchase and fill at select times. The inventory must be completed in this time. When a purchased vessel is incomplete after the time, it will disappear and half of the relics spent will be given back. You will also get the option to revive Yelmut by purchasing the missing eggs with Diamonds. Eggs can be zapped from Mirror Islands instead of, or in conjunction with Natural and Magical Islands.
+
+Egg	Time	Islands to Breed On
+Gloptic-eggx1	1d 8h
+(1d)	Psychic Island Icon
+Thumpies-eggx2	12h
+(9h)	Cold Island IconEarth Island Icon
+Clamble-eggx2	12h
+(9h)	Plant Island IconEarth Island Icon
+Sooza-eggx1	20h
+(15h)	Light Island Icon
+Ziggurab-eggx2	20h
+(15h)	Faerie Island Icon
+Tapricorn-eggx2	16h
+(12h)	Psychic Island Icon
+Dandidoo-eggx3	8h
+(6h)	Cold Island IconWater Island IconEarth Island IconFire Haven Icon
+Furcorn-eggx4	8h
+(6h)	Plant Island IconCold Island IconEarth Island IconShugabush Island IconLight Island Icon
+Glowl-eggx3	10h
+(7h 30m)	Fire Haven IconFire Oasis Icon
+Flowah-eggx3	10h
+(7h 30m)	Fire Haven IconLight Island IconPsychic Island Icon
+Wimmzies-eggx3	9h
+(6h 45m)	Faerie Island Icon
+Kayna-eggx2	7h
+(5h 15m)	Fire Haven IconFire Oasis IconLight Island IconPsychic Island IconFaerie Island IconBone Island Icon
+Filling In
+Like other Monsters on Amber Island, Yelmut can instead be filled in with Diamonds. Each egg can be filled in for 40Diamonds. Yelmut requires a total of 1,120Diamonds for all eggs to be filled.
+
+Since all eggs have an equal Diamond fill cost, it is best to save your Diamonds for the Monsters that are harder to obtain. And oftentimes, it is cheaper to speed up eggs to zap from the Breeding Structure instead.
+
+Wildcards may also be used when filling in a Yelmut's inventory with 1 Wildcards per egg for a total of 50 Wildcards for all eggs to be filled. Similarly, it's best to save them for harder to obtain Monsters
+
+Tiawa
+Talk
+15+
+Edit
+My Singing Monsters
+Dawn of Fire
+
+Tiawa
+Normal
+Vessel
+Normal
+Element(s)
+Earth Element	Water Element	Cold Element	Fire Element
+Class
+Fire
+Egg(s)
+Tiawa-egg
+Portrait(s)
+Tiawa Portrait
+Release
+Statistics
+Island(s)
+Light Island IconLight
+Amber Island IconAmber
+Mirror Light Island IconMirror Light
+Available at Level 9	4 Beds Required	3x3
+3 x 3 Size Required
+Breeding/Incubation Time
+Default:	Enhanced:
+1d 16h	1d 6h
+Skin Boost:	Enhanced and Boosted:
+1d 12h	1d 2h
+Likes
+Monsters Who Like It
+Required Inventory
+Buying Price
+300 Relics	Amber:
+30 Relics
+Buying Price (Discounted)
+Selling Price
+675,000
+50% Off:
+337,500 Coins	Amber:
+15 Relics
+Costumes
+Placement XP
+180,000 XP
+First Discovered By
+luisjose20023l
+Variants
+Rare	Epic
+Rare Tiawa
+Rare Tiawa	Epic Tiawa
+Epic Tiawa
+In other Games
+Dawn of Fire
+Tiawa (Young)
+Tiawa
+“	Proven as a keen leader, the Tiawa's very presence suggests a soothing sageness. In the face of adversity, the queenly Quad simply flourishes its crown of planks, and undertakes any situation or challenge with the help of its noble hearts (it grows a second one alongside a second eye as it ages). For many years, Monsters have followed the knowledgeable beat of Tiawa's drumming digits as it crafts subtle melodies. Even today, Tiawa continues to give priceless counsel to anyone, and will for generations to come.	”
+— Monster Bio	
+
+Contents
+1	Description
+2	Song
+2.1	VSTs
+3	Breeding
+4	Likes
+5	Monsters Who Like It
+6	Costumes
+7	Revitalizing
+7.1	Filling In
+7.2	Availability
+8	Statistics
+8.1	Earning Rate and Maximum Income
+8.1.1	Light Island
+8.1.2	Amber Island
+8.2	Feeding Monsters
+9	Possible Monster Names
+10	Gallery
+10.1	In-Game
+10.2	Other
+11	Notes
+Description
+Tiawa is a Quad-Element Fire Monster that is found on Light Island and Amber Island. It was added alongside Candelavra on August 3rd, 2022, during version 3.6.0. As a Quad-Element Fire Monster on a Magical Island, Tiawa is only available at select times. When available, it is obtained by purchasing in the Market for 300 Relics. By default, its incubation time is 1 day and 16 hours long. Tiawa has a high Coin production on Light Island, comparable to Yelmut and Blow't. The Goal for placing your first Tiawa rewards the player with 100,000 Coins (Coins) and 4 Relics (Relics).
+
+On Amber Island, Tiawa is only available at select times. When available, it is obtained by purchasing in the Market for 30 Relics as a Vessel, which then can be revitalized by zapping eggs into it. As a Fire Quad-Elemental, Tiawa has an excellent Relic production.
+
+Song
+Audio Sample: 
+
+Instrument: Marimba
+
+Like its Dawn of Fire counterpart, Tiawa plays a marimba with an occasional trill. On Amber Island, it plays alongside Woolabee and PongPing, in both the first verse with Wynq and the second verse with Flowah.
+
+On Light Island, it plays alongside Fluoress, Furcorn, and the Dipsters, as well as near the end of the song with Yelmut, Drummidary, and Pluckbill.
+
+On Mirror Light Island, it plays in verses with TooToo, Boskus, and Potbelly, and cuts out right before the very end.
+
+VSTs
+Main article: VSTs
+Virtual Studio Technology (VST) is a plugin format that allows audio software to integrate with digital audio workstations (DAWs). VST plugins come in two main forms: instruments (VSTi), which generate sounds, such as synthesizers and sample libraries, and effects, which process audio, through tools like reverb or distortion. Individual sounds within these plugins may be referred to as patches, presets, samples, or articulations, depending on the plugin. The Monster-Handlers utilize several VST plugins to create the sounds of instrumental and sometimes vocal Monsters. Note that many pages incorrectly label patches as "SoundFonts", an unrelated audio format.
+
+VST: PLAY
+Sound library: EastWest Hollywood Orchestral Percussion Diamond
+Path: Wood
+SoundFonts: Marimba Rolls and Marimba Lite
+
+Breeding
+Unlike in Dawn of Fire, Tiawa cannot be bred. Instead, it must be purchased from the Market. On Amber Island, it must be purchased as an inactive Vessel and revitalized by zapping eggs.
+
+Likes
+Every Monster has different things that they like. For every unique object that they like that's placed near the Monster, the Monster's happiness will increase by 25%. Placing more than one of the same liked item near a Monster won't increase its happiness by an additional amount. If there's a Unity Tree or a Primordial Monster of the same rarity on the Island, items don't need to be near the Monster. Below are the things liked by Tiawa:
+
+Flowah
+Flowah
+(requires level 9)
+Whaddle
+Whaddle
+(level 9)
+(Amber Island Icon)
+Woolabee
+Woolabee
+(level 9)
+(Amber Island Icon)
+Gnarls
+Gnarls
+(level 9)
+(Mystery Like,Amber Island Icon)
+Cold Globe
+Cold Globe
+(level 16)
+(Light Island Icon)
+Swurlee Tree
+Swurlee Tree
+(level 17)
+(Light Island Icon)
+Spatial Sapling
+Spatial Sapling
+(level 21)
+(Mystery Like,Light Island Icon)
+See the Likes page to view a complete list of all Monsters' likes.
+
+Note: On Amber Island, all of Tiawa's likes are only obtainable for a limited time. Amber Vessels must be revitalized before they count towards Tiawa's happiness.
+
+Monsters Who Like It
+The following Monster(s) will increase their happiness by 25% when being placed near Tiawa or when Tiawa and a Unity Tree are on the Island. These may or may not also be Tiawa's likes as well:
+
+Repatillo
+Repatillo
+(Amber Island Icon)
+Edamimi
+Edamimi
+(Amber Island Icon)
+Gnarls
+Gnarls
+(Amber Island Icon)
+Rare Tiawa
+Rare Tiawa
+Rare Boskus
+Rare Boskus
+(Amber Island Icon)
+Rare Thrumble
+Rare Thrumble
+(Amber Island Icon)
+Rare Tring
+Rare Tring
+(Amber Island Icon)
+Rare Incisaur
+Rare Incisaur
+(Amber Island Icon)
+Epic Glowl
+Epic Glowl
+(Amber Island Icon)
+Epic Sneyser
+Epic Sneyser
+(Amber Island Icon)
+Epic Krillby
+Epic Krillby
+(Amber Island Icon)
+Epic Edamimi
+Epic Edamimi
+(Amber Island Icon)
+Costumes
+Main article: Costumes
+Costume	Cost
+Tiawa (Flash Prance)
+Flash Prance
+SkyPainting SeriesSkyPainting	30 Diamonds
+Revitalizing
+On Amber Island, Tiawa must be powered up rather than being bred. Unlike Wublins and Celestials, the allotted time to fill a Vessel does not start when the first egg is zapped, but instead are only available to purchase and fill at select times. The inventory must be completed in this time. When a purchased vessel is incomplete after the time, it will disappear and half of the relics spent will be given back. You will also get the option to revive Tiawa by purchasing the missing eggs with Diamonds. Eggs can be zapped from Mirror Islands instead of, or in conjunction with Natural and Magical Islands.
+
+Egg	Time	Islands to Breed On
+Pladdie-eggx1	1d 8h
+(1d)	Faerie Island Icon
+PomPom-eggx5	12h
+(9h)	Air Island IconEarth Island IconShugabush Island Icon
+Bowgart-eggx5	12h
+(9h)	Plant Island IconCold Island Icon
+Floogull-eggx1	20h
+(15h)	Fire Haven Icon
+Wynq-eggx2	20h
+(15h)	Fire Oasis Icon
+Spytrap-eggx1	16h
+(12h)	Light Island Icon
+Quibble-eggx7	8h
+(6h)	Cold Island IconAir Island IconWater Island IconShugabush Island IconFire Oasis Icon
+Maw-eggx7	30m
+(22m 30s)	Plant Island IconCold Island IconAir Island IconFire Oasis Icon
+Phangler-eggx4	10h
+(7h 30m)	Fire Oasis IconPsychic Island IconBone Island Icon
+Peckidna-eggx2	9h
+(6h 45m)	Bone Island Icon
+Pluckbill-eggx2	9h
+(6h 45m)	Light Island Icon
+Kayna-eggx2	7h
+(5h 15m)	Fire Haven IconFire Oasis IconLight Island IconPsychic Island IconFaerie Island IconBone Island Icon
+Filling In
+Like other Monsters on Amber Island, Tiawa can instead be filled in with Diamonds. Each egg can be filled in for 40Diamonds. Tiawa requires a total of 1,560Diamonds for all eggs to be filled.
+
+Since all eggs have an equal Diamond fill cost, it is best to save your Diamonds for the Monsters that are harder to obtain. And oftentimes, it is cheaper to speed up eggs to zap from the Breeding Structure instead.
+
+Wildcards may also be used when filling in a Tiawa's inventory with 1 Wildcards per egg for a total of 58 Wildcards for all eggs to be filled. Similarly, it's best to save them for harder to obtain Monsters
+
+Drummidary
+Talk
+15+
+Edit
+My Singing Monsters
+Dawn of Fire
+
+Drummidary
+Normal
+Vessel
+Normal
+Element(s)
+Air Element	Plant Element	Earth Element	Cold Element	Fire Element
+Class
+Fire
+Egg(s)
+Drummidary-egg
+Portrait(s)
+Drummidary Portrait
+Release
+Statistics
+Island(s)
+Light Island IconLight
+Amber Island IconAmber
+Mirror Light Island IconMirror Light
+Available at Level 9	5 Beds Required	3x3
+3 x 3 Size Required
+Breeding/Incubation Time
+Default:	Enhanced:
+3d 8h	2d 12h
+Skin Boost:	Enhanced and Boosted:
+3d	2d 4h
+Likes
+Monsters Who Like It
+Required Inventory
+Buying Price
+500 Relics	Amber:
+40 Relics
+Buying Price (Discounted)
+Selling Price
+1,125,000
+50% Off
+562,500 Coins	Amber:
+20 Relics
+Costumes
+Placement XP
+360,000 XP
+First Discovered By
+Ryan Wilson
+Variants
+Rare	Epic
+Rare Drummidary
+Rare Drummidary	Epic Drummidary
+Epic Drummidary
+In other Games
+Dawn of Fire
+Drummidary (Young)
+Drummidary
+“	Even from afar, the rhythmic booms of the Drummidary can be heard. The Earth Top Boss is perfectly adapted to thrive in the harshest climates imaginable, because it's able to safeguard any supplies or food it may need in its four hump-drums. Over the course of its lifetime, the Drummidary never stops growing, and some specimens in the contemporary era have grown to considerable size - even though the Quint-Element Monster can be sentimental and hold on to keepsakes of its humble upbringing, like its training wheels. Sometimes, it'll gather other percussion Monsters around, and whirl on those same wheels to perform impressive breakdance routines, all while cranking out beastly beats!	”
+— Monster Bio	
+
+Contents
+1	Description
+2	Song
+2.1	VSTs
+3	Breeding
+4	Likes
+5	Monsters Who Like It
+6	Costumes
+7	Revitalizing
+7.1	Filling In
+7.2	Availability
+8	Statistics
+8.1	Earning Rate and Maximum Income
+8.1.1	Light Island
+8.1.2	Amber Island
+8.2	Feeding Monsters
+9	Possible Monster Names
+10	Gallery
+10.1	In-Game
+10.2	Other
+11	Notes
+Quick Answers
+fandom logo
+What is the significance of Drummidary being a Quint-Element Fire Monster?toggle section
+How can one obtain Drummidary in the game?toggle section
+What is the incubation time for Drummidary?toggle section
+How does Drummidary's coin production compare to other characters on Light Island?toggle section
+What was the version update when Drummidary was added to the game?toggle section
+Description
+Drummidary is a Quint-Element Fire Monster that is found on Light Island and Amber Island. It was added alongside Rare Krillby on February 8th, 2023, during version 3.8.2. As a Quint-Element Fire Monster on a Magical Island, Drummidary is only available at select times. When available, it is obtained by purchasing in the Market for 500 Relics (Relics). By default, its incubation time is 3 days and 8 hours long. As a Quint-Elemental, Drummidary has excellent Coin production on Light Island, , although Quads and their variants are more efficient in maximum income per bed. The Goal for placing your first Drummidary rewards the player with 250,000 Coins (Coins) and 5 Relics.
+
+On Amber Island, Drummidary is only available at select times. When available, it is obtained by purchasing in the Market for 40 Relics as a Vessel, which then can be revitalized by zapping eggs into it. As a Fire Quint-Elemental, Drummidary has a superb Relic production.
+
+Song
+Sample: 
+
+Instrument: Nagadō-daiko (Taiko Drum)
+
+On Amber Island, Drummidary plays its sound on PongPing's first verse, and then plays a thud two times on Candelavra's verse. It also plays at the end of the song with Repatillo, Rootitoot, Flum Ox, Glowl, and Gnarls, and plays a thud in the final measure.
+
+On Light Island, Drummidary plays alongside Blow't, Yelmut, Pluckbill, Tiawa, and other Monsters near the end of the song.
+
+On Mirror Light Island, Drummidary plays at the beginning of the song with Yelmut, Pluckbill, Flowah, and Sooza.
+
+VSTs
+Main article: VSTs
+Virtual Studio Technology (VST) is a plugin format that allows audio software to integrate with digital audio workstations (DAWs). VST plugins come in two main forms: instruments (VSTi), which generate sounds, such as synthesizers and sample libraries, and effects, which process audio, through tools like reverb or distortion. Individual sounds within these plugins may be referred to as patches, presets, samples, or articulations, depending on the plugin. The Monster-Handlers utilize several VST plugins to create the sounds of instrumental and sometimes vocal Monsters. Note that many pages incorrectly label patches as "SoundFonts", an unrelated audio format.
+
+VST: PLAY
+Sound library: EastWest Stormdrum 3
+Path: Taiko Family
+
+Amber Island/Clacks on Light Island
+SoundFont: 38in Nagado Daiko
+
 Light Island
-Boo'qwurm PortraitRare Boo'qwurm PortraitEpic Boo'qwurm Portrait	Psychic Island Icon
-Psychic Island
-Ffidyll PortraitRare Ffidyll PortraitEpic Ffidyll Portrait	Faerie Island Icon
-Faerie Island
-Clavavera PortraitRare Clavavera PortraitEpic Clavavera Portrait	Bone Island Icon
-Bone Island
-Carillong PortraitRare Carillong PortraitEpic Carillong Portrait	Magical Sanctum Icon
-Magical Sanctum
-Ethereal Island Monsters
-“	Ethereal Monsters of a single element can only reach Ethereal Island through teleportation from their other islands.	”
-— Error message when trying to buy a Single-Element Ethereal via an Ethereal Island monster's "Like" tab (prior to update 3.1)	
-Monsters	Original Island(s)
-Ghazt PortraitRare Ghazt PortraitEpic Ghazt Portrait	Plant Island Icon
-Plant Island
-Grumpyre PortraitRare Grumpyre PortraitEpic Grumpyre Portrait	Cold Island Icon
-Cold Island
-Reebro PortraitRare Reebro PortraitEpic Reebro Portrait	Air Island Icon
-Air Island
-Jeeode PortraitRare Jeeode PortraitEpic Jeeode Portrait	Water Island Icon
-Water Island
-Humbug PortraitRare Humbug PortraitEpic Humbug Portrait	Earth Island Icon
-Earth Island
-Ethereal Islet Monsters
-Eligible Monsters can be teleported to the Ethereal Islets at level 14. The only Monsters eligible to Teleport to these Islands are Quad-Element Ethereals, which can be teleported from Ethereal Workshop. Other Monsters aren't eligible to be teleported.
+SoundFont: 46in 800lb Nagado Daiko
 
-Monsters	Destination Island
-Whaill PortraitRare Whaill Portrait	Plasma Islet Icon
-Plasma Islet
-Vhenshun Portrait	Mech Islet Icon
-Mech Islet
-Pentumbra Portrait	Shadow Islet Icon
-Shadow Islet
-Rhysmuth Portrait	Placeholder Island Icon
-Crystal Islet
-(Upcoming)
-Oogiddy Portrait	Placeholder Island Icon
-Poison Islet
-(Upcoming)
-Mythical Island Monsters
-Monsters	Original Island
-G'joob PortraitRare G'joob PortraitEpic G'joob Portrait	Plant Island Icon
-Plant Island
-Strombonin PortraitRare Strombonin PortraitEpic Strombonin Portrait	Cold Island Icon
-Cold Island
-Yawstrich PortraitRare Yawstrich PortraitEpic Yawstrich Portrait	Air Island Icon
-Air Island
-Anglow PortraitRare Anglow PortraitEpic Anglow Portrait	Water Island Icon
-Water Island
-Hyehehe PortraitRare Hyehehe PortraitEpic Hyehehe Portrait	Earth Island Icon
-Earth Island
-Buzzinga PortraitRare Buzzinga PortraitEpic Buzzinga Portrait	Fire Haven Icon
-Fire Haven
-Cherubble PortraitRare Cherubble PortraitEpic Cherubble Portrait	Fire Oasis Icon
-Fire Oasis
-Magical Sanctum Monsters
-Monsters	Original Island
-Theremind PortraitRare Theremind Portrait	Psychic Island Icon
-Psychic Island
-Clackula PortraitRare Clackula PortraitEpic Clackula Portrait	Bone Island Icon
-Bone Island
-Fluoress PortraitRare Fluoress Portrait	Light Island Icon
-Light Island
-Floot Fly PortraitRare Floot Fly PortraitEpic Floot Fly Portrait	Faerie Island Icon
-Faerie Island
-The Colossingum Monsters
-As of Version 4.1.0, all 30 common Natural Monsters, the Single and Double Element Ethereals, and the 5 Core Seasonals can be teleported to The Colossingum upon reaching Level 5. These monsters can be teleported from any of the islands they are available on, which includes the Natural and Mirror Islands, the Fire Islands, the Magical Islands, Shugabush Island, Seasonal Shanty, Ethereal Island, and the Ethereal Islets. Monsters cannot be teleported anywhere after they are placed on The Colossingum.
 
-Naturals
-Monsters	Original Island
-Potbelly PortraitNoggin PortraitToe Jammer PortraitMammott PortraitShrubb Portrait
-Oaktopus PortraitFurcorn PortraitFwog PortraitDrumpler PortraitMaw Portrait
-Pummel PortraitClamble PortraitBowgart PortraitT-Rox PortraitEntbrat Portrait	Plant Island Icon
-Plant Island
-Tweedle PortraitPotbelly PortraitToe Jammer PortraitMammott PortraitDandidoo Portrait
-Quibble PortraitPango PortraitOaktopus PortraitFurcorn PortraitMaw Portrait
-Spunge PortraitThumpies PortraitCongle PortraitBowgart PortraitDeedge Portrait	Cold Island Icon
-Cold Island
-Tweedle PortraitNoggin PortraitToe Jammer PortraitMammott PortraitCybop Portrait
-Quibble PortraitPango PortraitFwog PortraitDrumpler PortraitMaw Portrait
-Scups PortraitPomPom PortraitCongle PortraitT-Rox PortraitRiff Portrait	Air Island Icon
-Air Island
-Tweedle PortraitPotbelly PortraitNoggin PortraitToe Jammer PortraitDandidoo Portrait
-Cybop PortraitQuibble PortraitShrubb PortraitOaktopus PortraitFwog Portrait
-Reedling PortraitSpunge PortraitScups PortraitPummel PortraitShellbeat Portrait	Water Island Icon
-Water Island
-Tweedle PortraitPotbelly PortraitNoggin PortraitMammott PortraitDandidoo Portrait
-Cybop PortraitPango PortraitShrubb PortraitFurcorn PortraitDrumpler Portrait
-Reedling PortraitThumpies PortraitPomPom PortraitClamble PortraitQuarrister Portrait	Earth Island Icon
-Earth Island
-Potbelly PortraitMammott PortraitQuibble PortraitOaktopus PortraitFurcorn Portrait
-PomPom PortraitDeedge Portrait	Shugabush Island Icon
-Shugabush Island
-Tweedle PortraitPotbelly PortraitNoggin PortraitDandidoo PortraitCybop Portrait
-Shrubb PortraitReedling Portrait	Fire Haven Icon
-Fire Haven
-Tweedle PortraitToe Jammer PortraitMammott PortraitQuibble PortraitPango Portrait
-Maw PortraitCongle Portrait	Fire Oasis Icon
-Fire Oasis
-Potbelly PortraitMammott PortraitFurcorn Portrait	Light Island Icon
-Light Island
-Potbelly PortraitToe Jammer PortraitOaktopus Portrait	Psychic Island Icon
-Psychic Island
-Noggin PortraitMammott PortraitDrumpler Portrait	Faerie Island Icon
-Faerie Island
-Noggin PortraitToe Jammer PortraitFwog Portrait	Bone Island Icon
-Bone Island
-Ethereals
-Monsters	Original Island
-Ghazt Portrait	Plant Island Icon
-Plant Island
-Grumpyre Portrait	Cold Island Icon
-Cold Island
-Reebro Portrait	Air Island Icon
-Air Island
-Jeeode Portrait	Water Island Icon
-Water Island
-Humbug Portrait	Earth Island Icon
-Earth Island
-Ghazt PortraitGrumpyre PortraitReebro PortraitJeeode PortraitHumbug Portrait
-Whisp PortraitNebulob PortraitSox PortraitJellbilly PortraitArackulele Portrait
-Boodoo PortraitKazilleon PortraitBellowfish PortraitDragong PortraitFung Pray Portrait	Ethereal Island Icon
-Ethereal Island
-Ghazt PortraitWhisp PortraitNebulob PortraitSox PortraitJellbilly Portrait	Plasma Islet Icon
-Plasma Islet
-Reebro PortraitNebulob PortraitArackulele PortraitBellowfish PortraitDragong Portrait	Mech Islet Icon
-Mech Islet
-Grumpyre PortraitWhisp PortraitArackulele PortraitBoodoo PortraitKazilleon Portrait	Shadow Islet Icon
-Shadow Islet
-Core Seasonals
-Monsters	Original Island
-Punkleton Portrait	Plant Island Icon
-Plant Island
-Yool Portrait	Cold Island Icon
-Cold Island
-Schmoochle PortraitHoola Portrait	Air Island Icon
-Air Island
-Blabbit Portrait	Water Island Icon
-Water Island
-Hoola Portrait	Earth Island Icon
-Earth Island
-Punkleton PortraitYool PortraitSchmoochle PortraitBlabbit PortraitHoola Portrait	Seasonal Shanty Icon
-Seasonal Shanty
-Transposing
 
-Transpose
-Magicals
-Paironormals
-Magicals
-Transposing is a mechanic in My Singing Monsters, introduced in Version 4.2.0, used to obtain Monsters on Magical Nexus and single element Paironormals on Paironormal Carnival. Transposing is similar to Teleporting. In order to be Transposed, a Monster on must be fed to at least Level 18, and Currency must be also spent. When a Monster is Transposed, it will be sent to the Stair Shaper on Magical Nexus / "Nursery" of the Beyond on the Paironormal Carnival depending on what you're transposing.
-With Paironormals, you can transpose both forms, however you can only hatch them in the same island mode the monster resonates with (Ex. transposing a Minor Owlesque will only be able to be placed on the Minor Mode of Paironormal Carnival). Looking at the egg from the opposite mode shows a yellow (Major Mode) / blue (Minor Mode) egg that looks similar to the Paironormal Projections and can't be hatched on that side.
+Breeding
+Unlike in Dawn of Fire, Drummidary cannot be bred. Instead, it must be purchased from the Market. On Amber Island, it must be purchased as an inactive Vessel and revitalized by zapping eggs.
 
-Costs
-It costs Coins to Transpose Common Monsters, and Diamonds to Transpose Rare & Epic Monsters.
+Likes
+Every Monster has different things that they like. For every unique object that they like that's placed near the Monster, the Monster's happiness will increase by 25%. Placing more than one of the same liked item near a Monster won't increase its happiness by an additional amount. If there's a Unity Tree or a Primordial Monster of the same rarity on the Island, items don't need to be near the Monster. Below are the things liked by Drummidary:
 
-Common Single-Element Paironormals: 100,000 Coins
-Common Single-Element Magicals: 1,000,000 Coins
-Common Double-Element Magicals: 2,000,000 Coins
-Common Triple-Element Magicals: 4,000,000 Coins
-Common Quad-Element Magicals: 8,000,000 Coins
-Rare Single-Element Magicals: 5 Diamonds
-Rare Double-Element Magicals: 10 Diamonds
-Rare Triple-Element Magicals: 20 Diamonds
-Rare Quad-Element Magicals: 40 Diamonds
-Epic Single-Element Magicals: 10 Diamonds
-Epic Triple-Element Magicals: 40 Diamonds
-Monsters
-Monsters	Original Island
-Fluoress PortraitGob PortraitBulbo PortraitPluckbill Portrait
-Spytrap PortraitTooToo PortraitFiddlement PortraitBlow't Portrait
-Shhimmer (Major) Portrait / Shhimmer (Minor) Portrait
-Rare Fluoress PortraitRare Gob PortraitRare Bulbo PortraitRare Pluckbill Portrait
-Rare Spytrap PortraitRare TooToo PortraitRare Fiddlement PortraitRare Blow't Portrait
-Epic TooToo Portrait	Light Island Icon
-Light Island
-Mirror Light Island Icon
-Mirror Light Island
-Theremind PortraitBonkers PortraitPoppette PortraitYuggler Portrait
-Tapricorn PortraitRooba PortraitPeriscorp PortraitGloptic Portrait
-Hairionette (Major) Portrait / Hairionette (Minor) Portrait
-Rare Theremind PortraitRare Bonkers PortraitRare Poppette PortraitRare Yuggler Portrait
-Rare Tapricorn PortraitRare Rooba PortraitRare Periscorp PortraitRare Gloptic Portrait
-Epic Rooba Portrait	Psychic Island Icon
-Psychic Island
-Mirror Psychic Island Icon
-Mirror Psychic Island
-Floot Fly PortraitHippityHop PortraitSquot PortraitWimmzies Portrait
-Cantorell PortraitBridg-it PortraitClavi Gnat PortraitPladdie Portrait
-Owlesque (Major) Portrait / Owlesque (Minor) Portrait
-Rare Floot Fly PortraitRare HippityHop PortraitRare Squot PortraitRare Wimmzies Portrait
-Rare Cantorell PortraitRare Bridg-it PortraitRare Clavi Gnat PortraitRare Pladdie Portrait
-Epic Floot Fly Portrait	Faerie Island Icon
-Faerie Island
-Mirror Faerie Island Icon
-Mirror Faerie Island
-Clackula PortraitPeckidna PortraitDenchuhs PortraitHawlo Portrait
-Withur PortraitUuduk PortraitBanjaw PortraitPlinkajou Portrait
-Arcorina (Major) Portrait / Arcorina (Minor) Portrait
-Rare Clackula PortraitRare Peckidna PortraitRare Denchuhs PortraitRare Hawlo Portrait
-Rare Withur PortraitRare Uuduk PortraitRare Banjaw PortraitRare Plinkajou Portrait
-Epic Clackula Portrait	Bone Island Icon
-Bone Island
-Mirror Bone Island Icon
-Mirror Bone Island
-Alterations in Breeding Mechanics
-As the monsters' breeding capabilities may be altered after Teleportation, you may not be able to use the same breeding combinations available on the Natural Islands to obtain a Rare Monster. For example, on Cold Island, you can breed a Furcorn and a Quibble to get a Deedge. However, after the Furcorn and Quibble are teleported to Shugabush Island, they cannot be bred together; all breeding combinations on Shugabush Island must include Shugabush itself. A Deedge must either be fed to Level 15 on Cold or Mirror Cold Island and teleported or bought from the Market.
+Blow't
+Blow't
+(requires level 9)
+(Light Island Icon)
+Phangler
+Phangler
+(level 9)
+(Amber Island Icon)
+Ziggurab
+Ziggurab
+(level 9)
+(Amber Island Icon)
+Thrumble
+Thrumble
+(level 9)
+(Amber Island Icon)
+Tuskski
+Tuskski
+(level 9)
+(Mystery Like,Amber Island Icon)
+Bingo Bango Bongos
+Bingo Bango Bongos
+(level 7)
+(Light Island Icon)
+Smunkit
+Smunkit
+(level 11)
+(Light Island Icon)
+Sweetstreamz Tree
+Sweetstreamz Tree
+(level 23)
+(Mystery Like,Light Island Icon)
+See the Likes page to view a complete list of all Monsters' likes.
 
-The same change does not occur on Ethereal Island, Mythical Island, or Seasonal Shanty, as Ethereals, Mythicals, and Seasonals can't be used for breeding on their original islands in the first place.
+Note: On Amber Island, all of Drummidary's likes are only obtainable for a limited time. Amber Vessels must be revitalized before they count towards Drummidary's happiness.
 
-Notes
-Rare and Epic Monsters can be teleported exactly like Common Monsters, except to The Colossingum.
-Epic Ghazt was the first Epic Monster able to teleport.
-Natural Monsters on the Fire or Magical Islands can't be teleported to Shugabush Island. This is weird, considering that they can be teleported to The Colossingum from any island, and both it and Shugabush Island are located on the Seam.
-Transposing is named after the musical term of transposing
+Monsters Who Like It
+The following Monster(s) will increase their happiness by 25% when being placed near Drummidary or when Drummidary and a Unity Tree are on the Island. These may or may not also be Drummidary's likes as well:
+
+Stogg
+Stogg
+(Amber Island Icon)
+Boskus
+Boskus
+(Amber Island Icon)
+Glowl
+Glowl
+(Amber Island Icon)
+Tring
+Tring
+(Amber Island Icon)
+Bowhead
+Bowhead
+(Amber Island Icon)
+Rare Drummidary
+Rare Drummidary
+Rare Phangler
+Rare Phangler
+(Amber Island Icon)
+Rare Wynq
+Rare Wynq
+(Amber Island Icon)
+Rare Bisonorus
+Rare Bisonorus
+(Amber Island Icon)
+Epic Stogg
+Epic Stogg
+(Amber Island Icon)
+Epic Woolabee
+Epic Woolabee
+(Amber Island Icon)
+Epic Sneyser
+Epic Sneyser
+(Amber Island Icon)
+Epic Flum Ox
+Epic Flum Ox
+(Amber Island Icon)
+Epic Candelavra
+Epic Candelavra
+(Amber Island Icon)
+Costumes
+Main article: Costumes
+Costume	Cost
+Drummidary (Get the Hook)
+Get the Hook
+Creator SeriesCreator	25,000Coins
+Revitalizing
+On Amber Island, Drummidary must be powered up rather than being bred. Unlike Wublins and Celestials, the allotted time to fill a Vessel does not start when the first egg is zapped, but instead are only available to purchase and fill at select times. The inventory must be completed in this time. When a purchased vessel is incomplete after the time, it will disappear and half of the relics spent will be given back. You will also get the option to revive Drummidary by purchasing the missing eggs with Diamonds. Eggs can be zapped from Mirror Islands instead of, or in conjunction with Natural and Magical Islands.
+
+Egg	Time	Islands to Breed On
+Shellbeat-eggx1	1d
+(18h)	Water Island Icon
+Quarrister-eggx2	1d
+(18h)	Earth Island Icon
+Riff-eggx1	1d
+(18h)	Air Island Icon
+Entbrat-eggx1	1d
+(18h)	Plant Island Icon
+Tring-eggx1	1d 16h
+(1d 6h)	Fire Haven Icon
+Plinkajou-eggx1	1d 8h
+(1d)	Bone Island Icon
+Pladdie-eggx1	1d 8h
+(1d)	Faerie Island Icon
+Reedling-eggx1	12h
+(9h)	Water Island IconEarth Island IconFire Haven Icon
+Scups-eggx1	12h
+(9h)	Air Island IconWater Island Icon
+PomPom-eggx1	12h
+(9h)	Air Island IconEarth Island IconShugabush Island Icon
+Pummel-eggx1	12h
+(9h)	Plant Island IconWater Island Icon
+Clamble-eggx1	12h
+(9h)	Plant Island IconEarth Island Icon
+T-Rox-eggx1	8h
+(6h)	Plant Island IconAir Island Icon
+Floogull-eggx1	20h
+(15h)	Fire Haven Icon
+Repatillo-eggx1	20h
+(15h)	Fire Haven Icon
+Thrumble-eggx1	20h
+(15h)	Bone Island Icon
+Ziggurab-eggx1	20h
+(15h)	Faerie Island Icon
+Withur-eggx1	16h
+(12h)	Bone Island Icon
+Cantorell-eggx1	16h
+(12h)	Faerie Island Icon
+Uuduk-eggx1	16h
+(12h)	Bone Island Icon
+Bridg-it-eggx1	16h
+(12h)	Faerie Island Icon
+Cybop-eggx3	8h
+(6h)	Air Island IconWater Island IconEarth Island IconFire Haven Icon
+Shrubb-eggx3	8h
+(6h)	Plant Island IconWater Island IconEarth Island IconFire Haven Icon
+Fwog-eggx3	30m
+(22m 30s)	Plant Island IconAir Island IconWater Island IconBone Island Icon
+Drumpler-eggx3	30m
+(22m 30s)	Plant Island IconAir Island IconEarth Island IconFaerie Island Icon
+Stogg-eggx3	10h
+(7h 30m)	Fire Haven IconFaerie Island IconBone Island Icon
+Peckidna-eggx2	9h
+(6h 45m)	Bone Island Icon
+HippityHop-eggx2	9h
+(6h 45m)	Faerie Island Icon
+Kayna-eggx2	7h
+(5h 15m)	Fire Haven IconFire Oasis IconLight Island IconPsychic Island IconFaerie Island IconBone Island Icon
+Filling In
+Like other Monsters on Amber Island, Drummidary can instead be filled in with Diamonds. Each egg can be filled in for 40Diamonds. Drummidary requires a total of 1,720Diamonds for all eggs to be filled.
+
+Since all eggs have an equal Diamond fill cost, it is best to save your Diamonds for the Monsters that are harder to obtain. And oftentimes, it is cheaper to speed up eggs to zap from the Breeding Structure instead.
+
+Wildcards may also be used when filling in a Drummidary's inventory with 1 Wildcards per egg for a total of 75 Wildcards for all eggs to be filled. Similarly, it's best to save them for harder to obtain Monsters.

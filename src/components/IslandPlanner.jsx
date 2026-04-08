@@ -1146,21 +1146,6 @@ function IslandCard({
                     </button>
                   )}
 
-                  {(
-                    (Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0)
-                    || (Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0)
-                  ) && (
-                    <button
-                      style={{
-                        ...compactActionStyle,
-                        background: "rgba(245,158,11,0.16)",
-                      }}
-                      onClick={() => onResetIslandLiveBoard?.(island.island)}
-                    >
-                      Testing: Clear Island Board
-                    </button>
-                  )}
-
                   {(canReduceBreedingStructures || canReduceNurseries || canUpgradeBreedingStructures || canUpgradeNurseries) && (
                     <button
                       style={{
@@ -2357,7 +2342,7 @@ export default function IslandPlanner({
               }}
               onClick={() => onClearAllIslandLiveBoards?.()}
             >
-              Testing: Clear All Live Boards
+              Clear All Live Boards
             </button>
           </div>
         )}

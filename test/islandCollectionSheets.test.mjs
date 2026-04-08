@@ -156,3 +156,112 @@ test("Faerie island card still shows collection gaps from inactive island sheets
 
   assert.ok(plannerNames.includes("Ziggurab"));
 });
+
+test("Light collection uses the explicit roster with collection-only special entries", () =>
+{
+  const lightSheet = getIslandCollectionSheet("Light");
+  const names = lightSheet.monsters.map((monster) => monster.name);
+  const boskus = lightSheet.monsters.find((monster) => monster.name === "Boskus");
+  const yelmut = lightSheet.monsters.find((monster) => monster.name === "Yelmut");
+  const whizBang = lightSheet.monsters.find((monster) => monster.name === "Whiz-bang");
+  const doDipster = lightSheet.monsters.find((monster) => monster.name === "Do");
+  const phlox = lightSheet.monsters.find((monster) => monster.name === "Phosphoran Phlox");
+
+  assert.ok(lightSheet, "Light collection sheet should exist");
+  assert.ok(names.includes("Boskus"));
+  assert.ok(names.includes("Bulbo"));
+  assert.ok(names.includes("Blow't"));
+  assert.ok(names.includes("Yelmut"));
+  assert.ok(names.includes("Tiawa"));
+  assert.ok(names.includes("Drummidary"));
+  assert.ok(names.includes("Whiz-bang"));
+  assert.ok(names.includes("Phosphoran Phlox"));
+  assert.ok(names.includes("Do"));
+  assert.ok(names.includes("Ti"));
+  assert.equal(boskus.showInOperations, true);
+  assert.equal(yelmut.showInOperations, false);
+  assert.equal(yelmut.acquisitionType, "market_relics");
+  assert.equal(whizBang.showInOperations, false);
+  assert.equal(whizBang.acquisitionType, "seasonal");
+  assert.equal(doDipster.showInOperations, false);
+  assert.equal(doDipster.acquisitionType, "keys");
+  assert.equal(phlox.showInOperations, false);
+});
+
+test("Light planner demand skips collection-only monsters", () =>
+{
+  const lightSheet = getIslandCollectionSheet("Light");
+  const planner = buildIslandPlannerData(
+    [lightSheet],
+    [
+      {
+        name: "Light",
+        group: "magical",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    []
+  );
+  const lightEntry = planner.find((entry) => entry.island === "Light");
+  const plannerNames = lightEntry.collectionMissing.map((item) => item.name);
+
+  assert.ok(plannerNames.includes("Boskus"));
+  assert.ok(plannerNames.includes("Bulbo"));
+  assert.ok(plannerNames.includes("Blow't"));
+  assert.ok(!plannerNames.includes("Yelmut"));
+  assert.ok(!plannerNames.includes("Tiawa"));
+  assert.ok(!plannerNames.includes("Drummidary"));
+  assert.ok(!plannerNames.includes("Whiz-bang"));
+  assert.ok(!plannerNames.includes("Do"));
+  assert.ok(!plannerNames.includes("Ti"));
+  assert.ok(!plannerNames.includes("Phosphoran Phlox"));
+});
+
+test("Light planner still skips collection-only monsters when saved sheet flags are stale", () =>
+{
+  const lightSheet = getIslandCollectionSheet("Light");
+  const staleSavedLightSheet = {
+    ...lightSheet,
+    monsters: lightSheet.monsters.map((monster) =>
+    {
+      if (!["Yelmut", "Tiawa", "Drummidary"].includes(monster.name))
+      {
+        return monster;
+      }
+
+      return {
+        ...monster,
+        showInOperations: true,
+        acquisitionType: "breed",
+      };
+    }),
+  };
+
+  const planner = buildIslandPlannerData(
+    [staleSavedLightSheet],
+    [
+      {
+        name: "Light",
+        group: "magical",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    []
+  );
+  const lightEntry = planner.find((entry) => entry.island === "Light");
+  const plannerNames = lightEntry.collectionMissing.map((item) => item.name);
+
+  assert.ok(!plannerNames.includes("Yelmut"));
+  assert.ok(!plannerNames.includes("Tiawa"));
+  assert.ok(!plannerNames.includes("Drummidary"));
+});

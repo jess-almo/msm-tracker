@@ -2517,19 +2517,21 @@ export default function App()
               </button>
             )}
 
-            <button
-              onClick={() => toggleSheetActive(selectedSheet.key)}
-              style={{
-                ...buttonBaseStyle,
-                background: selectedSheet.isActive
-                  ? "rgba(245,158,11,0.2)"
-                  : "rgba(34,197,94,0.2)",
-              }}
-            >
-              {selectedSheet.isActive
-                ? `Remove Focus from ${getSheetDisplayName(selectedSheet)}`
-                : `Add ${getSheetDisplayName(selectedSheet)} to Focus`}
-            </button>
+            {getSheetType(selectedSheet) !== "island" && (
+              <button
+                onClick={() => toggleSheetActive(selectedSheet.key)}
+                style={{
+                  ...buttonBaseStyle,
+                  background: selectedSheet.isActive
+                    ? "rgba(245,158,11,0.2)"
+                    : "rgba(34,197,94,0.2)",
+                }}
+              >
+                {selectedSheet.isActive
+                  ? `Remove Focus from ${getSheetDisplayName(selectedSheet)}`
+                  : `Add ${getSheetDisplayName(selectedSheet)} to Focus`}
+              </button>
+            )}
 
             <button
               onClick={() => toggleSheetCollected(selectedSheet.key)}
