@@ -223,7 +223,6 @@ export default function SheetMonsterCard({
             ? "linear-gradient(180deg, rgba(34,197,94,0.12), rgba(255,255,255,0.035))"
             : "rgba(255,255,255,0.035)",
           boxShadow: "0 10px 24px rgba(0,0,0,0.12)",
-          opacity: isComplete ? 0.82 : 1,
           display: "grid",
           gap: "10px",
         }}

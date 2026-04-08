@@ -40,7 +40,7 @@ import {
   serializeBackupPayload,
   STORAGE_KEYS,
 } from "./utils/persistence";
-import { applyCollectionEntryStatus } from "./utils/collectionStatus";
+import { applyCollectionEntryStatus, getCollectionEntryStatus } from "./utils/collectionStatus";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
 const APP_VERSION = packageJson.version;
@@ -171,7 +171,7 @@ function ScreenLoadingFallback({ label = "Loading screen..." })
 
 function getSheetProgress(sheet)
 {
-  if (sheet.isCollected)
+  if (getSheetType(sheet) !== "island" && sheet.isCollected)
   {
     return 100;
   }
@@ -210,6 +210,11 @@ function hasSheetProgress(sheet)
 
 function isSheetComplete(sheet)
 {
+  if (getSheetType(sheet) === "island")
+  {
+    return sheet.monsters.every((monster) => (monster.zapped || 0) >= monster.required);
+  }
+
   return (
     sheet.isCollected ||
     sheet.monsters.every((monster) => (monster.zapped || 0) >= monster.required)
@@ -338,6 +343,45 @@ function getNextSheetInstanceNumber(sheet, sheets)
 function getSheetActivationOrderValue(sheet)
 {
   return typeof sheet?.activatedAt === "string" ? sheet.activatedAt : "";
+}
+
+function isValidCollectionEntry(entry)
+{
+  return Boolean(entry && typeof entry === "object" && typeof entry.name === "string" && entry.name.trim());
+}
+
+function getCollectionWorldStatusSortRank(status)
+{
+  const order = {
+    active: 0,
+    in_progress: 1,
+    not_started: 2,
+    complete: 3,
+  };
+
+  return Number.isFinite(order[status]) ? order[status] : 9;
+}
+
+function getVesselFamilyKey(sheet)
+{
+  const collectionKey = sheet?.collectionKey || "";
+
+  if (collectionKey.includes("amber"))
+  {
+    return "amber";
+  }
+
+  if (collectionKey.includes("wublin"))
+  {
+    return "wublin";
+  }
+
+  if (collectionKey.includes("celestial"))
+  {
+    return "celestial";
+  }
+
+  return "other";
 }
 
 function getSheetFocusRankValue(sheet)
@@ -603,6 +647,16 @@ export default function App()
     () => sheets.filter((sheet) => getSheetType(sheet) === "island"),
     [sheets]
   );
+  const vesselSheets = useMemo(
+    () => sheets.filter((sheet) => getSheetType(sheet) === "vessel"),
+    [sheets]
+  );
+  const collectionsByKey = useMemo(
+    () => new Map((Array.isArray(collectionsData) && collectionsData.length > 0 ? collectionsData : COLLECTIONS)
+      .filter((collection) => collection && typeof collection === "object")
+      .map((collection) => [collection.key, collection])),
+    [collectionsData]
+  );
   const islandCollectionProgress = useMemo(() =>
   {
     const total = islandCollectionSheets.length;
@@ -614,6 +668,142 @@ export default function App()
       percent: total ? Math.round((complete / total) * 100) : 0,
     };
   }, [islandCollectionSheets]);
+  const collectionWorldHighlights = useMemo(() =>
+  {
+    const islandHighlights = islandCollectionSheets.map((sheet) =>
+    {
+      const progress = getSheetProgress(sheet);
+      const trackedProgress = getSheetTrackedProgress(sheet);
+      const islandState = islandStates.find((entry) => entry.name === sheet.island);
+      const isLocked = islandState?.isUnlocked === false;
+      const groupLabel = islandState?.group
+        ? islandState.group[0].toUpperCase() + islandState.group.slice(1).replace(/_/g, " ")
+        : "Island";
+      const status = isLocked
+        ? "not_started"
+        : sheet.isActive
+          ? "active"
+          : isSheetComplete(sheet)
+            ? "complete"
+            : trackedProgress > 0 || progress > 0
+              ? "in_progress"
+              : "not_started";
+
+      return {
+        key: `sheet:${sheet.key}`,
+        kind: "sheet",
+        targetKey: sheet.key,
+        title: sheet.island,
+        status,
+        isLocked,
+        progressPercent: progress,
+        trackedPercent: trackedProgress,
+        summaryValue: `${sheet.monsters.reduce((sum, monster) => sum + Number(monster.zapped || 0), 0)} / ${sheet.monsters.reduce((sum, monster) => sum + Number(monster.required || 0), 0)}`,
+        summaryLabel: "collected",
+        chips: [
+          groupLabel,
+          ...(sheet.island.includes("Mirror") ? ["Mirror"] : []),
+          ...(sheet.island === "Seasonal Shanty" ? ["Seasonal"] : []),
+        ],
+        supportingCopy: isLocked
+          ? "Unlock in Island Manager first."
+          : `${trackedProgress}% tracked across this checklist.`,
+      };
+    });
+
+    const specialDefinitions = [
+      {
+        key: "amber_island",
+        familyKey: "amber",
+        collectionKey: "amber_island",
+        title: "Amber Island",
+        chips: ["Vessels", "Relics", "Limited"],
+      },
+      {
+        key: "wublin_island",
+        familyKey: "wublin",
+        collectionKey: "wublins",
+        title: "Wublin Island",
+        chips: ["Zap", "Statues", "Timed"],
+      },
+      {
+        key: "celestial_island",
+        familyKey: "celestial",
+        collectionKey: "celestials",
+        title: "Celestial Island",
+        chips: ["Zap", "Monthly", "Celestials"],
+      },
+    ];
+
+    const specialHighlights = specialDefinitions.map((definition) =>
+    {
+      const entries = (collectionsByKey.get(definition.collectionKey)?.entries || []).filter(isValidCollectionEntry);
+      const familySheets = vesselSheets.filter((sheet) => getVesselFamilyKey(sheet) === definition.familyKey);
+      const statuses = entries.map((entry) =>
+      {
+        const instances = familySheets.filter((sheet) =>
+        {
+          const candidateName =
+            sheet.templateName || sheet.monsterName || sheet.displayName || sheet.sheetTitle || "";
+          return candidateName === entry.name;
+        });
+
+        return getCollectionEntryStatus(entry, instances);
+      });
+      const completeCount = statuses.filter((status) => status === "complete").length;
+      const trackedCount = statuses.filter((status) => status !== "not_started").length;
+      const activeCount = statuses.filter((status) => status === "active").length;
+      const inProgressCount = statuses.filter((status) => status === "in_progress").length;
+      const status = activeCount > 0
+        ? "active"
+        : inProgressCount > 0
+          ? "in_progress"
+          : entries.length > 0 && completeCount === entries.length
+            ? "complete"
+            : "not_started";
+
+      return {
+        key: `world:${definition.key}`,
+        kind: "world",
+        targetKey: definition.key,
+        title: definition.title,
+        status,
+        isLocked: false,
+        progressPercent: entries.length ? Math.round((completeCount / entries.length) * 100) : 0,
+        trackedPercent: entries.length ? Math.round((trackedCount / entries.length) * 100) : 0,
+        summaryValue: `${completeCount} / ${entries.length}`,
+        summaryLabel: "species complete",
+        chips: definition.chips,
+        supportingCopy: trackedCount > 0
+          ? `${trackedCount} species tracked across this world.`
+          : "No tracked species here yet.",
+      };
+    }).filter((world) => !world.isLocked && world.summaryValue !== "0 / 0");
+
+    return [...islandHighlights, ...specialHighlights]
+      .sort((a, b) =>
+      {
+        if (a.isLocked !== b.isLocked)
+        {
+          return a.isLocked ? 1 : -1;
+        }
+
+        const statusDelta = getCollectionWorldStatusSortRank(a.status) - getCollectionWorldStatusSortRank(b.status);
+
+        if (statusDelta !== 0)
+        {
+          return statusDelta;
+        }
+
+        if (a.progressPercent !== b.progressPercent)
+        {
+          return a.progressPercent - b.progressPercent;
+        }
+
+        return a.title.localeCompare(b.title);
+      })
+      .slice(0, 4);
+  }, [collectionsByKey, islandCollectionSheets, islandStates, vesselSheets]);
   const islandCapacitySummary = useMemo(() =>
   {
     const unlockedIslands = islandPlannerData.filter((island) => island.isUnlocked);
@@ -693,7 +883,16 @@ export default function App()
     });
   };
 
-  const openCollections = () => setView({ screen: "collections" });
+  const openCollections = (worldKey = "") =>
+  {
+    const normalizedWorldKey = typeof worldKey === "string" ? worldKey : "";
+
+    setView(
+      normalizedWorldKey
+        ? { screen: "collections", worldKey: normalizedWorldKey }
+        : { screen: "collections" }
+    );
+  };
   const openQueue = () => setView({ screen: "queue" });
   const openIslandPlanner = () => setView({ screen: "planner" });
   const openDirectory = () => setView({ screen: "directory" });
@@ -2157,6 +2356,11 @@ export default function App()
       return;
     }
 
+    if (getSheetType(targetSheet) === "island")
+    {
+      return;
+    }
+
     const templateIdentity = getSheetTemplateIdentity(targetSheet);
     const nextCollected = !getCollectionUnlockedAcrossTemplate(targetSheet, sheets);
 
@@ -2401,7 +2605,7 @@ export default function App()
             ...buttonBaseStyle,
             background: view.screen === "collections" ? "rgba(255,255,255,0.18)" : buttonBaseStyle.background,
           }}
-          onClick={openCollections}
+          onClick={() => openCollections()}
         >
           Collections
         </button>
@@ -2450,9 +2654,11 @@ export default function App()
             islandCapacitySummary={islandCapacitySummary}
             topReadyQueueItems={topReadyQueueItems}
             topBlockedQueueItems={topBlockedQueueItems}
+            collectionWorldHighlights={collectionWorldHighlights}
             onOpenIslandPlanner={openIslandPlanner}
             onOpenActiveSheets={openActiveSheets}
             onOpenCollections={openCollections}
+            onOpenCollectionWorld={openCollections}
             onOpenQueue={openQueue}
             onOpenSheet={openSheet}
             onExportBackup={handleExportBackup}
@@ -2485,6 +2691,9 @@ export default function App()
               sheets={sheets}
               collectionsData={collectionsData}
               islandStates={islandStates}
+              initialWorldKey={view.worldKey || ""}
+              onClearInitialWorldKey={() => setView({ screen: "collections" })}
+              onOpenCollectionWorld={openCollections}
               getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
               onOpenSheet={openSheet}
               onCreateAnotherSheetInstance={createAnotherSheetInstance}
@@ -2534,17 +2743,19 @@ export default function App()
               </button>
             )}
 
-            <button
-              onClick={() => toggleSheetCollected(selectedSheet.key)}
-              style={{
-                ...buttonBaseStyle,
-                background: selectedSheet.isCollected
-                  ? "rgba(239,68,68,0.2)"
-                  : "rgba(34,197,94,0.2)",
-              }}
-            >
-              {selectedSheet.isCollected ? "Remove Collected" : "Mark Collected"}
-            </button>
+            {getSheetType(selectedSheet) !== "island" && (
+              <button
+                onClick={() => toggleSheetCollected(selectedSheet.key)}
+                style={{
+                  ...buttonBaseStyle,
+                  background: selectedSheet.isCollected
+                    ? "rgba(239,68,68,0.2)"
+                    : "rgba(34,197,94,0.2)",
+                }}
+              >
+                {selectedSheet.isCollected ? "Remove Collected" : "Mark Collected"}
+              </button>
+            )}
 
             {selectedSheet.isActive && hasSheetProgress(selectedSheet) && (
               <button

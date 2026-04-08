@@ -19,6 +19,18 @@ const statButtonStyle = {
   width: "100%",
 };
 
+const worldCardStyle = {
+  border: "1px solid rgba(255,255,255,0.12)",
+  borderRadius: "16px",
+  padding: "16px",
+  background: "rgba(255,255,255,0.035)",
+  color: "inherit",
+  cursor: "pointer",
+  textAlign: "left",
+  display: "grid",
+  gap: "10px",
+};
+
 function DashboardActionCard({
   label,
   value,
@@ -176,6 +188,93 @@ function BackupPanel({
   );
 }
 
+function DashboardCollectionWorldCard({
+  world,
+  onOpenCollectionWorld,
+  onOpenSheet,
+})
+{
+  const handleClick = () =>
+  {
+    if (world.kind === "sheet")
+    {
+      onOpenSheet(world.targetKey);
+      return;
+    }
+
+    onOpenCollectionWorld(world.targetKey);
+  };
+
+  return (
+    <button
+      type="button"
+      className="focus-goal-card"
+      onClick={handleClick}
+      style={worldCardStyle}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ fontSize: "20px", fontWeight: 700 }}>{world.title}</div>
+        <div
+          style={{
+            padding: "6px 12px",
+            borderRadius: "999px",
+            border: "1px solid rgba(255,255,255,0.1)",
+            background: "rgba(255,255,255,0.08)",
+            fontSize: "12px",
+            fontWeight: 700,
+          }}
+        >
+          {world.status === "active"
+            ? "Active"
+            : world.status === "in_progress"
+              ? "In Progress"
+              : world.status === "complete"
+                ? "Complete"
+                : "Ready"}
+        </div>
+      </div>
+
+      <div style={{ fontSize: "14px", opacity: 0.84 }}>
+        {world.summaryValue} {world.summaryLabel}
+      </div>
+
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+        {world.chips.slice(0, 3).map((chip) => (
+          <span
+            key={`${world.key}:${chip}`}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.06)",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            {chip}
+          </span>
+        ))}
+      </div>
+
+      <div style={{ fontSize: "13px", opacity: 0.72 }}>
+        {world.supportingCopy}
+      </div>
+
+      <div style={{ fontSize: "12px", opacity: 0.62 }}>
+        {world.kind === "sheet" ? "Open checklist sheet" : "Open collection world"}
+      </div>
+    </button>
+  );
+}
+
 export default function HomeDashboard({
   needNowIslandCount,
   breedableIslandCount,
@@ -187,9 +286,11 @@ export default function HomeDashboard({
   islandCapacitySummary,
   topReadyQueueItems,
   topBlockedQueueItems,
+  collectionWorldHighlights,
   onOpenIslandPlanner,
   onOpenActiveSheets,
   onOpenCollections,
+  onOpenCollectionWorld,
   onOpenQueue,
   onOpenSheet,
   onExportBackup,
@@ -260,6 +361,37 @@ export default function HomeDashboard({
         <div style={{ fontSize: "13px", opacity: 0.68 }}>
           If you just opened the app on mobile, start with <strong>Island Manager</strong> for live capacity, then drop into <strong>Active Sheets</strong> when you need the exact row-level work.
         </div>
+      </div>
+
+      <div className="responsive-page-card" style={{ ...pageCardStyle, display: "grid", gap: "14px" }}>
+        <div>
+          <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
+            COLLECTION WORLDS
+          </div>
+          <div style={{ marginTop: "6px", fontSize: "24px", fontWeight: 700 }}>
+            Where collection pressure is piling up
+          </div>
+          <div style={{ marginTop: "8px", opacity: 0.76 }}>
+            Jump straight into the worlds that are furthest behind or currently driving the collection side of the tracker.
+          </div>
+        </div>
+
+        {collectionWorldHighlights.length === 0 ? (
+          <div style={{ opacity: 0.72 }}>
+            No collection worlds need attention right now.
+          </div>
+        ) : (
+          <div className="dashboard-stat-grid" style={{ alignItems: "start" }}>
+            {collectionWorldHighlights.map((world) => (
+              <DashboardCollectionWorldCard
+                key={world.key}
+                world={world}
+                onOpenCollectionWorld={onOpenCollectionWorld}
+                onOpenSheet={onOpenSheet}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="dashboard-stat-grid">
