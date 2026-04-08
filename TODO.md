@@ -13,18 +13,22 @@ Do not let this turn into a graveyard of every idea. Move finished work to [`CHA
 
 ## Now
 
-- Audit and simplify Island Manager before adding more planner features:
-  - keep island card order stable and use focus order only inside each island card
-  - make planner `Breed` / `Zap` flows feel trustworthy again
-  - reduce testing/debug controls in the primary planner action lane
-- Decide the planner tracking model:
-  - preserve strong sheet-level `tracked` progress
-  - separate sheet coverage truth from live island-board truth
-  - keep the top 5 focus window for operational urgency without reordering whole regions
-- Keep pushing Collections toward the true collection-first model:
-  - one collection item per monster identity
-  - Rare and Epic variants stay separate entries
-  - collection status should describe collection progress, not just sheet/run state
+- Finish the island-collection truth pass beyond Faerie:
+  - move more islands off broad `breedableOn` inference and onto explicit collection rosters
+  - separate `showInCollection` from `showInOperations`
+  - keep Dipsters, relic-bought monsters, and other non-breeding collection entries visible in Collections without leaking into planner demand
+- Tighten island collection operations rules:
+  - seasonal monsters stay in collection but only enter operations when marked available
+  - Owlesque and other time-gated cases need explicit availability handling instead of generic always-on routing
+  - verify mythical behavior and design Mythical Island as a special teleport/breeding system instead of forcing it into standard island logic
+- Keep refining Island Manager around normal island collections:
+  - collection gaps should stay visible until the monster is actually hatched/placed
+  - nursery/placement truth should read more clearly for regular island collections
+  - reduce leftover testing/debug controls in the primary planner action lane
+- Polish the compact island collection sheet workflow:
+  - keep cards dense and checklist-first
+  - simplify remaining copy that still sounds like planner math
+  - make quick collected toggles and any future hatch/placement actions feel obvious
 - Tighten cross-screen consistency across Collections, Dashboard, Island Manager, Active Sheets, and Monster Library so the app feels like one design system.
 - Keep improving correction and reconciliation flows for wrong zaps, wrong assignments, and tracker drift during real play.
 
@@ -88,6 +92,7 @@ npm run android:package-debug
 - Keep improving reconciliation so tracker drift can be repaired from game truth instead of manual unraveling.
 - Expand data coverage where it materially improves the live app, not just for encyclopedia completeness.
 - Keep the lightweight persistence tests healthy as shared save/load helpers evolve.
+- Treat island collection membership as curated game-truth data, not something that can be inferred safely from broad breeding metadata alone.
 
 ## Later
 
