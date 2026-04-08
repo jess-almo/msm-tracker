@@ -6,6 +6,8 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-08
+
 ### Changed
 
 - Reworked island collection truth so Faerie now uses an explicit collection roster instead of broad `breedableOn` inference, allowing collection-only entries like Dipsters and relic-bought monsters to stay visible in collection tracking without polluting Island Manager and queue operations.
@@ -31,7 +33,6 @@ Do not create a fake release for every tiny edit.
 - Reworked Active Sheets into a more operational workbench with inline section counts, overview cards for `Need Now`, `In Motion`, `Ready to Start`, and total remaining work, plus clearer separation between live work and already collected active sheets.
 - Renamed the Breeding Queue mode labels from the older `Zap Run` / `Breed Run` wording to clearer action-first `Ready to Zap` / `Ready to Breed` language, and updated the supporting copy to talk about hatching and board-clearing more naturally.
 - Finished the visible Collections shift toward the real collection catalog by rendering Amber, Wublin, and Celestial entries from `collectionsData`, giving each monster its own collection card, and adding collection-level `Mark Partial`, `Mark Collected`, and `Clear Status` controls even when no live run sheet exists yet.
-
 ## [0.4.0] - 2026-04-06
 
 ### Changed
