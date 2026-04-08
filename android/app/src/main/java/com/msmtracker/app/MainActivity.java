@@ -1,4 +1,4 @@
-package com.jessealmo.msmtracker;
+package com.msmtracker.app;
 
 import com.getcapacitor.BridgeActivity;
 

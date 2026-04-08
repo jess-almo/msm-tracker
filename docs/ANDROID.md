@@ -6,7 +6,7 @@ MSM Tracker now has a first Android wrapper path using Capacitor.
 
 - Capacitor config: [`capacitor.config.json`](../capacitor.config.json)
 - Native Android project: [`android`](../android)
-- App ID: `com.jessealmo.msmtracker`
+- App ID: `com.msmtracker.app`
 - App name: `MSM Tracker`
 - Web build source: `dist`
 - Emulator install path has been verified with the current debug build workflow
