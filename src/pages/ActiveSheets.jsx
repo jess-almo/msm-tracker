@@ -143,6 +143,7 @@ function renderFocusedGoalCard(goal, onOpenSheet, onMoveGoalUp, onMoveGoalDown, 
 {
   const tone = getGoalCardTone(goal);
   const statusLabel = getGoalOperationalLabel(goal);
+  const isOperationalWindow = Number(goal.focusRank || 0) > 0 && Number(goal.focusRank || 0) <= Number(goal.focusLimit || 0);
 
   return (
     <div
@@ -177,6 +178,19 @@ function renderFocusedGoalCard(goal, onOpenSheet, onMoveGoalUp, onMoveGoalDown, 
               }}
             >
               Focus #{goal.focusRank || "—"}
+            </div>
+            <div
+              style={{
+                padding: "5px 10px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: isOperationalWindow ? "rgba(59,130,246,0.14)" : "rgba(255,255,255,0.06)",
+                fontSize: "11px",
+                fontWeight: 700,
+                opacity: isOperationalWindow ? 1 : 0.76,
+              }}
+            >
+              {isOperationalWindow ? "Operational" : "Queued Later"}
             </div>
           </div>
           <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
@@ -298,10 +312,10 @@ export default function ActiveSheetsPage({
               NEED NOW
             </div>
             <div style={{ marginTop: "8px", fontSize: "24px", fontWeight: 700 }}>
-              {focusedGoalCount} / {focusLimit}
+              {focusedGoalCount}
             </div>
             <div style={{ marginTop: "6px", opacity: 0.72 }}>
-              focused operational sheets in rotation
+              focused goals total · top {focusLimit} drive queue and island work
             </div>
           </div>
 
@@ -370,7 +384,7 @@ export default function ActiveSheetsPage({
                 ? <div style={{ opacity: 0.64 }}>No active vessel sheets right now.</div>
                 : vesselGoals.map((goal, index) =>
                   renderFocusedGoalCard(
-                    goal,
+                    { ...goal, focusLimit },
                     onOpenSheet,
                     onMoveGoalUp,
                     onMoveGoalDown,
@@ -393,7 +407,7 @@ export default function ActiveSheetsPage({
                 ? <div style={{ opacity: 0.64 }}>No active island collection sheets right now.</div>
                 : islandGoals.map((goal, index) =>
                   renderFocusedGoalCard(
-                    goal,
+                    { ...goal, focusLimit },
                     onOpenSheet,
                     onMoveGoalUp,
                     onMoveGoalDown,

@@ -17,8 +17,10 @@ import {
 } from "../src/utils/persistence.js";
 import {
   buildBlockedBreedingQueue,
+  buildBreedingNowEntriesFromSessions,
   buildBreedingQueue,
   buildIslandPlannerData,
+  FOCUSED_OPERATIONAL_LIMIT,
   buildReadyBreedingQueue,
 } from "../src/utils/queue.js";
 
@@ -424,6 +426,322 @@ test("background island collection sheets still feed the ready queue without usi
   assert.equal(readyQueue.length, 1);
   assert.equal(readyQueue[0].sheetKey, "plant_collection");
   assert.equal(readyQueue[0].island, "Plant");
+});
+
+test("buildReadyBreedingQueue only uses the top focused operational window", () =>
+{
+  const sheets = Array.from({ length: FOCUSED_OPERATIONAL_LIMIT + 1 }, (_, index) =>
+    createDefaultSheet({
+      key: `sheet_${index + 1}`,
+      sheetTitle: `Sheet ${index + 1}`,
+      priority: index + 1,
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: index + 1,
+      monsters: [
+        {
+          name: "Bowgart",
+          required: 1,
+          zapped: 0,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    })
+  );
+
+  const readyQueue = buildReadyBreedingQueue(
+    sheets,
+    [
+      {
+        island: "Plant",
+        isUnlocked: true,
+        freeSlots: 2,
+        supportsStandardBreeding: true,
+        orderIndex: 1,
+      },
+    ]
+  );
+
+  assert.equal(readyQueue.length, FOCUSED_OPERATIONAL_LIMIT);
+  assert.deepEqual(
+    readyQueue.map((entry) => entry.sheetKey),
+    sheets.slice(0, FOCUSED_OPERATIONAL_LIMIT).map((sheet) => sheet.key)
+  );
+});
+
+test("island planner keeps stable island order while sorting need-now rows by focus", () =>
+{
+  const sheets = [
+    {
+      key: "top_vessel",
+      type: "island",
+      island: "Plant",
+      sheetTitle: "Top Plant Collection",
+      priority: 50,
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: 1,
+      monsters: [
+        {
+          name: "Shrubb",
+          required: 1,
+          zapped: 0,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    },
+    {
+      key: "later_vessel",
+      type: "island",
+      island: "Plant",
+      sheetTitle: "Later Plant Collection",
+      priority: 1,
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: 2,
+      monsters: [
+        {
+          name: "Oaktopus",
+          required: 1,
+          zapped: 0,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    },
+  ];
+  const islandStates = [
+    {
+      name: "Plant",
+      group: "natural",
+      unlocked: true,
+      breedingStructures: 2,
+      maxBreedingStructures: 2,
+      nurseries: 2,
+      maxNurseries: 2,
+    },
+    {
+      name: "Air",
+      group: "natural",
+      unlocked: true,
+      breedingStructures: 2,
+      maxBreedingStructures: 2,
+      nurseries: 2,
+      maxNurseries: 2,
+    },
+  ];
+
+  const planner = buildIslandPlannerData(sheets, islandStates, []);
+  const plannerIslandOrder = planner.map((entry) => entry.island);
+  const plantEntry = planner.find((entry) => entry.island === "Plant");
+
+  assert.ok(plannerIslandOrder.includes("Air"));
+  assert.ok(plannerIslandOrder.includes("Plant"));
+  assert.ok(plannerIslandOrder.indexOf("Plant") < plannerIslandOrder.indexOf("Air"));
+  assert.deepEqual(
+    plantEntry.collectionMissing.map((item) => item.sheetKey),
+    ["top_vessel", "later_vessel"]
+  );
+});
+
+test("unassigned zap targets prefer the highest focused matching sheet", () =>
+{
+  const sheets = [
+    createDefaultSheet({
+      key: "sheet_b",
+      sheetTitle: "Later Goal",
+      priority: 1,
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: 2,
+      monsters: [
+        {
+          name: "Congle",
+          required: 2,
+          zapped: 0,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    }),
+    createDefaultSheet({
+      key: "sheet_a",
+      sheetTitle: "Top Goal",
+      priority: 50,
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: 1,
+      monsters: [
+        {
+          name: "Congle",
+          required: 2,
+          zapped: 0,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    }),
+  ];
+  const breedingSessions = [
+    {
+      id: "manual_1",
+      monsterId: "Congle",
+      islandId: "Plant",
+      source: "manual",
+      sheetId: null,
+      status: "breeding",
+      createdAt: 1,
+    },
+  ];
+
+  const entries = buildBreedingNowEntriesFromSessions(breedingSessions, sheets);
+
+  assert.equal(entries.length, 1);
+  assert.deepEqual(
+    entries[0].zapTargets.map((target) => target.key),
+    ["sheet_a", "sheet_b"]
+  );
+});
+
+test("island planner keeps linked session identity for sheets outside the operational window", () =>
+{
+  const sheets = [
+    ...Array.from({ length: FOCUSED_OPERATIONAL_LIMIT }, (_, index) =>
+      createDefaultSheet({
+        key: `focused_${index + 1}`,
+        sheetTitle: `Focused ${index + 1}`,
+        status: "ACTIVE",
+        isActive: true,
+        focusRank: index + 1,
+        monsters: [
+          {
+            name: "Congle",
+            required: 1,
+            zapped: 0,
+            breeding: 0,
+            breedingAssignments: {},
+            island: "Plant",
+            requirementIsland: "Plant",
+          },
+        ],
+      })
+    ),
+    createDefaultSheet({
+      key: "queued_later_sheet",
+      sheetTitle: "Queued Later Sheet",
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: FOCUSED_OPERATIONAL_LIMIT + 1,
+      monsters: [
+        {
+          name: "Boskus",
+          required: 1,
+          zapped: 0,
+          breeding: 1,
+          breedingAssignments: {
+            Plant: 1,
+          },
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    }),
+  ];
+  const islandStates = [
+    {
+      name: "Plant",
+      group: "natural",
+      isUnlocked: true,
+      breedingStructures: 2,
+      maxBreedingStructures: 2,
+      nurseries: 2,
+      maxNurseries: 2,
+    },
+  ];
+  const breedingSessions = [
+    {
+      id: "assigned_boskus_1",
+      monsterId: "Boskus",
+      islandId: "Plant",
+      source: "assigned",
+      sheetId: "queued_later_sheet",
+      sheetTitle: "Queued Later Sheet",
+      status: "breeding",
+      createdAt: 1,
+    },
+  ];
+
+  const planner = buildIslandPlannerData(
+    sheets.slice(0, FOCUSED_OPERATIONAL_LIMIT),
+    islandStates,
+    breedingSessions,
+    sheets
+  );
+  const plantEntry = planner.find((entry) => entry.island === "Plant");
+
+  assert.equal(plantEntry.currentlyBreeding.length, 1);
+  assert.equal(plantEntry.currentlyBreeding[0].name, "Boskus");
+  assert.equal(plantEntry.currentlyBreeding[0].sheetKey, "queued_later_sheet");
+  assert.equal(plantEntry.currentlyBreeding[0].sheetTitle, "Queued Later Sheet");
+});
+
+test("island planner preserves original sheet indexes from operational subsets", () =>
+{
+  const sheets = [
+    createDefaultSheet({
+      key: "inactive_sheet",
+      sheetTitle: "Inactive Sheet",
+      status: "ACTIVE",
+      isActive: false,
+      monsters: [
+        {
+          name: "Mammott",
+          required: 1,
+          zapped: 0,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    }),
+    createDefaultSheet({
+      key: "target_sheet",
+      sheetTitle: "Target Sheet",
+      status: "ACTIVE",
+      isActive: true,
+      focusRank: 1,
+      monsters: [
+        {
+          name: "Entbrat",
+          required: 3,
+          zapped: 2,
+          breeding: 0,
+          breedingAssignments: {},
+          island: "Plant",
+          requirementIsland: "Plant",
+        },
+      ],
+    }),
+  ].map((sheet, sheetIndex) => ({ ...sheet, sheetIndex }));
+  const planner = buildIslandPlannerData([sheets[1]], [], [], sheets);
+  const plantEntry = planner.find((entry) => entry.island === "Plant");
+
+  assert.equal(plantEntry.needNow.length, 1);
+  assert.equal(plantEntry.needNow[0].sheetKey, "target_sheet");
+  assert.equal(plantEntry.needNow[0].sheetIndex, 1);
 });
 
 test("loadInitialAppState falls back to the latest snapshot when live keys are missing", () =>
