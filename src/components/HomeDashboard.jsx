@@ -180,11 +180,13 @@ export default function HomeDashboard({
   needNowIslandCount,
   breedableIslandCount,
   activeIslandSessionCount,
-  queuePressureCount,
+  readyQueuePressureCount,
+  blockedQueuePressureCount,
   activeVesselSummary,
   islandCollectionProgress,
   islandCapacitySummary,
-  topQueueItems,
+  topReadyQueueItems,
+  topBlockedQueueItems,
   onOpenIslandPlanner,
   onOpenActiveSheets,
   onOpenCollections,
@@ -242,9 +244,15 @@ export default function HomeDashboard({
             onClick={onOpenIslandPlanner}
           />
           <DashboardActionCard
-            label="QUEUE PRESSURE"
-            value={queuePressureCount}
-            description="tracked eggs still needed across the top queue"
+            label="READY NOW"
+            value={readyQueuePressureCount}
+            description="breedable eggs currently actionable in queue order"
+            onClick={onOpenQueue}
+          />
+          <DashboardActionCard
+            label="BLOCKED"
+            value={blockedQueuePressureCount}
+            description="needed eggs currently stuck behind island constraints"
             onClick={onOpenQueue}
           />
         </div>
@@ -345,54 +353,117 @@ export default function HomeDashboard({
           </div>
         </div>
 
-        {topQueueItems.length === 0 ? (
+        {topReadyQueueItems.length === 0 && topBlockedQueueItems.length === 0 ? (
           <div style={{ opacity: 0.72 }}>No active breeding pressure right now.</div>
         ) : (
-          <div style={{ display: "grid", gap: "10px" }}>
-            {topQueueItems.map((item) => (
-              <button
-                key={item.name}
-                type="button"
-                className="focus-goal-card"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "12px",
-                  flexWrap: "wrap",
-                  padding: "14px 16px",
-                  borderRadius: "14px",
-                  background: "rgba(255,255,255,0.035)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: "inherit",
-                  cursor: "pointer",
-                  textAlign: "left",
-                }}
-                onClick={() => handleOpenQueueItem(item)}
-              >
-                <div>
-                  <div style={{ fontSize: "18px", fontWeight: 700 }}>{item.name}</div>
-                  <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-                    {(item.islands || []).join(" / ")}
-                  </div>
-                  <div style={{ marginTop: "6px", fontSize: "12px", opacity: 0.62 }}>
-                    {item.sheetTitle ? `Open ${item.sheetTitle}` : "Open Breeding Queue"}
-                  </div>
-                </div>
+          <div className="dashboard-stat-grid" style={{ alignItems: "start" }}>
+            <div style={{ display: "grid", gap: "10px" }}>
+              <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                READY NOW
+              </div>
+              {topReadyQueueItems.length === 0 ? (
+                <div style={{ opacity: 0.68 }}>Nothing breedable is ready on an open island yet.</div>
+              ) : (
+                topReadyQueueItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="focus-goal-card"
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "12px",
+                      flexWrap: "wrap",
+                      padding: "14px 16px",
+                      borderRadius: "14px",
+                      background: "rgba(245,158,11,0.08)",
+                      border: "1px solid rgba(245,158,11,0.12)",
+                      color: "inherit",
+                      cursor: "pointer",
+                      textAlign: "left",
+                    }}
+                    onClick={() => handleOpenQueueItem(item)}
+                  >
+                    <div>
+                      <div style={{ fontSize: "18px", fontWeight: 700 }}>{item.name}</div>
+                      <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
+                        {item.island || (item.islands || []).join(" / ")}
+                      </div>
+                      <div style={{ marginTop: "6px", fontSize: "12px", opacity: 0.62 }}>
+                        {item.sheetTitle ? `Open ${item.sheetTitle}` : "Open Breeding Queue"}
+                      </div>
+                    </div>
 
-                <div
-                  style={{
-                    padding: "6px 12px",
-                    borderRadius: "999px",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    background: "rgba(255,255,255,0.08)",
-                    fontSize: "12px",
-                    fontWeight: 700,
-                  }}
-                >
-                  Need {item.actualRemaining}
-                </div>
-              </button>
-            ))}
+                    <div
+                      style={{
+                        padding: "6px 12px",
+                        borderRadius: "999px",
+                        border: "1px solid rgba(245,158,11,0.14)",
+                        background: "rgba(245,158,11,0.14)",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                      }}
+                    >
+                      Need {item.actualRemaining}
+                    </div>
+                  </button>
+                ))
+              )}
+            </div>
+
+            <div style={{ display: "grid", gap: "10px" }}>
+              <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
+                BLOCKED PIPELINE
+              </div>
+              {topBlockedQueueItems.length === 0 ? (
+                <div style={{ opacity: 0.68 }}>No tracked demand is blocked right now.</div>
+              ) : (
+                topBlockedQueueItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="focus-goal-card"
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "12px",
+                      flexWrap: "wrap",
+                      padding: "14px 16px",
+                      borderRadius: "14px",
+                      background: "rgba(239,68,68,0.08)",
+                      border: "1px solid rgba(239,68,68,0.12)",
+                      color: "inherit",
+                      cursor: "pointer",
+                      textAlign: "left",
+                    }}
+                    onClick={() => handleOpenQueueItem(item)}
+                  >
+                    <div>
+                      <div style={{ fontSize: "18px", fontWeight: 700 }}>{item.name}</div>
+                      <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
+                        {item.blockReason}
+                      </div>
+                      <div style={{ marginTop: "6px", fontSize: "12px", opacity: 0.62 }}>
+                        {item.sheetTitle ? `Open ${item.sheetTitle}` : "Open Breeding Queue"}
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: "6px 12px",
+                        borderRadius: "999px",
+                        border: "1px solid rgba(239,68,68,0.14)",
+                        background: "rgba(239,68,68,0.14)",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                      }}
+                    >
+                      Need {item.actualRemaining}
+                    </div>
+                  </button>
+                ))
+              )}
+            </div>
           </div>
         )}
       </div>

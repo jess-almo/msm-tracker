@@ -139,10 +139,117 @@ function renderGoalCard(goal, onOpenSheet)
   );
 }
 
+function renderFocusedGoalCard(goal, onOpenSheet, onMoveGoalUp, onMoveGoalDown, canMoveUp, canMoveDown)
+{
+  const tone = getGoalCardTone(goal);
+  const statusLabel = getGoalOperationalLabel(goal);
+
+  return (
+    <div
+      key={goal.key}
+      style={{
+        border: tone.border,
+        borderRadius: "16px",
+        padding: "16px",
+        background: tone.background,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "12px",
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+        }}
+      >
+        <div>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+            <div style={{ fontSize: "22px", fontWeight: 700 }}>{goal.name}</div>
+            <div
+              style={{
+                padding: "5px 10px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.08)",
+                fontSize: "11px",
+                fontWeight: 700,
+              }}
+            >
+              Focus #{goal.focusRank || "—"}
+            </div>
+          </div>
+          <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
+            {goal.collectionName} · {goal.title}
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: "6px 12px",
+            borderRadius: "999px",
+            border: "1px solid rgba(255,255,255,0.1)",
+            background: tone.chipBackground,
+            fontSize: "12px",
+            fontWeight: 700,
+          }}
+        >
+          {goal.complete ? "Complete" : statusLabel}
+        </div>
+      </div>
+
+      <div style={{ marginTop: "12px", display: "grid", gap: "6px", fontSize: "14px", opacity: 0.84 }}>
+        <div>{goal.remaining} left</div>
+        <div>{goal.progress}% fulfilled · {goal.trackedProgress}% tracked</div>
+      </div>
+
+      <div className="screen-card-actions" style={{ marginTop: "14px", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <button
+            type="button"
+            style={{
+              ...actionButtonStyle,
+              opacity: canMoveUp ? 1 : 0.5,
+              cursor: canMoveUp ? "pointer" : "not-allowed",
+            }}
+            onClick={() => onMoveGoalUp?.(goal.key)}
+            disabled={!canMoveUp}
+          >
+            Move Up
+          </button>
+          <button
+            type="button"
+            style={{
+              ...actionButtonStyle,
+              opacity: canMoveDown ? 1 : 0.5,
+              cursor: canMoveDown ? "pointer" : "not-allowed",
+            }}
+            onClick={() => onMoveGoalDown?.(goal.key)}
+            disabled={!canMoveDown}
+          >
+            Move Down
+          </button>
+        </div>
+
+        <button
+          type="button"
+          style={actionButtonStyle}
+          onClick={() => onOpenSheet(goal.key)}
+        >
+          Open Sheet
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ActiveSheetsPage({
   goals = [],
   onOpenSheet,
   onOpenCollections,
+  onMoveGoalUp,
+  onMoveGoalDown,
+  focusLimit = 5,
 })
 {
   const vesselGoals = useMemo(
@@ -173,6 +280,7 @@ export default function ActiveSheetsPage({
     () => incompleteGoals.reduce((sum, goal) => sum + Number(goal.remaining || 0), 0),
     [incompleteGoals]
   );
+  const focusedGoalCount = goals.length;
 
   return (
     <div className="page-surface">
@@ -190,10 +298,10 @@ export default function ActiveSheetsPage({
               NEED NOW
             </div>
             <div style={{ marginTop: "8px", fontSize: "24px", fontWeight: 700 }}>
-              {incompleteGoals.length}
+              {focusedGoalCount} / {focusLimit}
             </div>
             <div style={{ marginTop: "6px", opacity: 0.72 }}>
-              active sheets still needing work
+              focused operational sheets in rotation
             </div>
           </div>
 
@@ -260,7 +368,16 @@ export default function ActiveSheetsPage({
             <div className="collections-card-grid" style={{ marginTop: "12px" }}>
               {vesselGoals.length === 0
                 ? <div style={{ opacity: 0.64 }}>No active vessel sheets right now.</div>
-                : vesselGoals.map((goal) => renderGoalCard(goal, onOpenSheet))}
+                : vesselGoals.map((goal, index) =>
+                  renderFocusedGoalCard(
+                    goal,
+                    onOpenSheet,
+                    onMoveGoalUp,
+                    onMoveGoalDown,
+                    index > 0,
+                    index < vesselGoals.length - 1
+                  )
+                )}
             </div>
           </div>
 
@@ -274,7 +391,16 @@ export default function ActiveSheetsPage({
             <div className="collections-card-grid" style={{ marginTop: "12px" }}>
               {islandGoals.length === 0
                 ? <div style={{ opacity: 0.64 }}>No active island collection sheets right now.</div>
-                : islandGoals.map((goal) => renderGoalCard(goal, onOpenSheet))}
+                : islandGoals.map((goal, index) =>
+                  renderFocusedGoalCard(
+                    goal,
+                    onOpenSheet,
+                    onMoveGoalUp,
+                    onMoveGoalDown,
+                    vesselGoals.length + index > 0,
+                    vesselGoals.length + index < goals.length - 1
+                  )
+                )}
             </div>
           </div>
 

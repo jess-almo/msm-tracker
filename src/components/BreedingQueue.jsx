@@ -7,7 +7,7 @@ import {
 import {
   buildBreedingNowEntriesFromSessions,
   buildBlockedBreedingQueue,
-  buildBreedingQueue,
+  buildReadyBreedingQueue,
 } from "../utils/queue";
 
 const cardStyle = {
@@ -172,7 +172,10 @@ export default function BreedingQueue({
   onBreedFromQueue,
 })
 {
-  const queueEntries = useMemo(() => buildBreedingQueue(sheets), [sheets]);
+  const readyQueueEntries = useMemo(
+    () => buildReadyBreedingQueue(sheets, islandPlannerData),
+    [sheets, islandPlannerData]
+  );
   const blockedQueueEntries = useMemo(
     () => buildBlockedBreedingQueue(sheets, islandPlannerData),
     [sheets, islandPlannerData]
@@ -186,13 +189,13 @@ export default function BreedingQueue({
     [islandPlannerData]
   );
 
-  const enrichedQueueEntries = useMemo(() =>
+  const enrichedReadyItems = useMemo(() =>
   {
-    return queueEntries.map((entry) => ({
+    return readyQueueEntries.map((entry) => ({
       ...entry,
       metadata: getMonsterMetadata(entry.name),
     }));
-  }, [queueEntries]);
+  }, [readyQueueEntries]);
   const enrichedBlockedItems = useMemo(() =>
   {
     return blockedQueueEntries.map((entry) => ({
@@ -219,38 +222,8 @@ export default function BreedingQueue({
     [enrichedBreedingNow]
   );
   const breedItems = useMemo(
-    () =>
-      enrichedQueueEntries
-        .flatMap((entry) =>
-        {
-          const eligibleIslands = Array.isArray(entry.validBreedingIslands) && entry.validBreedingIslands.length > 0
-            ? entry.validBreedingIslands
-            : entry.islands;
-
-          return Array.from(new Set(eligibleIslands))
-            .map((islandName) =>
-            {
-              const islandEntry = islandPlannerByName.get(islandName);
-              const isBreedable = Boolean(
-                islandEntry && islandEntry.isUnlocked && islandEntry.freeSlots > 0
-              );
-
-              if (!isBreedable)
-              {
-                return null;
-              }
-
-              return {
-                ...entry,
-                id: `${entry.id}::${islandName}`,
-                island: islandName,
-                islandOrder: islandEntry.orderIndex ?? 999,
-              };
-            })
-            .filter(Boolean);
-        })
-        .sort(compareOperationalItems),
-    [enrichedQueueEntries, islandPlannerByName]
+    () => [...enrichedReadyItems].sort(compareOperationalItems),
+    [enrichedReadyItems]
   );
   const blockedItems = useMemo(
     () => [...enrichedBlockedItems].sort(compareOperationalItems),

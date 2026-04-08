@@ -1,5 +1,5 @@
 import { getIslandOperationalProfile } from "../data/islands.js";
-import { getMonsterBreedingIslands } from "./monsterMetadata.js";
+import { getMonsterBreedingIslands, getMonsterMetadata } from "./monsterMetadata.js";
 
 function getLockedRoutingIsland(sheet, monster, validBreedingIslands)
 {
@@ -53,25 +53,69 @@ function normalizeSessions(sessions)
   return Array.isArray(sessions) ? sessions : [];
 }
 
-function getActiveSheetsInOrder(sheets)
+function getFocusRankValue(sheet)
 {
-  const activeSheets = normalizeSheets(sheets)
-    .map((sheet, sheetIndex) => ({ ...sheet, sheetIndex }))
-    .filter((sheet) => sheet.status === "ACTIVE" && sheet.isActive);
+  const parsedRank = Number(sheet?.focusRank);
 
-  return [...activeSheets].sort((a, b) =>
+  return Number.isFinite(parsedRank) ? parsedRank : Number.MAX_SAFE_INTEGER;
+}
+
+function isBackgroundOperationalSheet(sheet)
+{
+  return Boolean(sheet && sheet.status === "ACTIVE" && sheet.type === "island");
+}
+
+function isOperationalSheet(sheet)
+{
+  return Boolean(sheet && sheet.status === "ACTIVE" && (sheet.isActive || isBackgroundOperationalSheet(sheet)));
+}
+
+function compareFocusedOperationalSheets(a, b)
+{
+  const focusRankDelta = getFocusRankValue(a) - getFocusRankValue(b);
+
+  if (focusRankDelta !== 0)
   {
-    const aActivatedAt = a.activatedAt || "";
-    const bActivatedAt = b.activatedAt || "";
+    return focusRankDelta;
+  }
 
-    if (aActivatedAt && bActivatedAt && aActivatedAt !== bActivatedAt)
+  const aActivatedAt = a.activatedAt || "";
+  const bActivatedAt = b.activatedAt || "";
+
+  if (aActivatedAt && bActivatedAt && aActivatedAt !== bActivatedAt)
+  {
+    return aActivatedAt.localeCompare(bActivatedAt);
+  }
+
+  if (aActivatedAt !== bActivatedAt)
+  {
+    return aActivatedAt ? -1 : 1;
+  }
+
+  if ((a.priority ?? 999) !== (b.priority ?? 999))
+  {
+    return (a.priority ?? 999) - (b.priority ?? 999);
+  }
+
+  return a.sheetIndex - b.sheetIndex;
+}
+
+function getOperationalSheetsInOrder(sheets)
+{
+  const operationalSheets = normalizeSheets(sheets)
+    .map((sheet, sheetIndex) => ({ ...sheet, sheetIndex }))
+    .filter((sheet) => isOperationalSheet(sheet));
+
+  return [...operationalSheets].sort((a, b) =>
+  {
+    if (Boolean(a.isActive) !== Boolean(b.isActive))
     {
-      return aActivatedAt.localeCompare(bActivatedAt);
+      return a.isActive ? -1 : 1;
     }
 
-    if (aActivatedAt !== bActivatedAt)
+    if (a.isActive && b.isActive)
     {
-      return aActivatedAt ? -1 : 1;
+      return compareFocusedOperationalSheets(a, b);
     }
 
     if ((a.priority ?? 999) !== (b.priority ?? 999))
@@ -90,6 +134,23 @@ function getActivationOrderByKey(activeSheets)
 
 function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
 {
+  if (sheet?.type === "island")
+  {
+    const metadata = getMonsterMetadata(monster?.name);
+    const isAllowedBackgroundCategory = ["natural", "fire", "magical", "ethereal"].includes(metadata?.category);
+
+    if (
+      !monster?.name ||
+      monster.name.startsWith("Rare ") ||
+      monster.name.startsWith("Epic ") ||
+      monster.name.startsWith("Adult ") ||
+      !isAllowedBackgroundCategory
+    )
+    {
+      return null;
+    }
+  }
+
   const required = Number(monster.required || 0);
   const zapped = Number(monster.zapped || 0);
   const breeding = Number(monster.breeding || 0);
@@ -409,10 +470,10 @@ function sortSessionEntries(entries)
 
 export function buildToBreedEntries(sheets)
 {
-  const activeSheets = getActiveSheetsInOrder(sheets);
-  const activationOrderByKey = getActivationOrderByKey(activeSheets);
+  const operationalSheets = getOperationalSheetsInOrder(sheets);
+  const activationOrderByKey = getActivationOrderByKey(operationalSheets);
 
-  return activeSheets
+  return operationalSheets
     .flatMap((sheet) =>
       sheet.monsters
         .map((monster, monsterIndex) =>
@@ -431,6 +492,42 @@ export function buildToBreedEntries(sheets)
 export function buildBreedingQueue(sheets)
 {
   return buildToBreedEntries(sheets);
+}
+
+export function buildReadyBreedingQueue(sheets, islandPlannerData = [])
+{
+  const plannerByIsland = new Map(
+    (Array.isArray(islandPlannerData) ? islandPlannerData : []).map((island) => [island.island, island])
+  );
+
+  return buildBreedingQueue(sheets)
+    .flatMap((entry) =>
+    {
+      const eligibleBreedingIslands = getEligibleBreedingIslands(entry);
+
+      return eligibleBreedingIslands
+        .map((islandName) =>
+        {
+          const islandEntry = plannerByIsland.get(islandName);
+          const isBreedable = Boolean(
+            islandEntry && islandEntry.isUnlocked && islandEntry.freeSlots > 0
+          );
+
+          if (!isBreedable)
+          {
+            return null;
+          }
+
+          return {
+            ...entry,
+            id: `${entry.id}::${islandName}`,
+            island: islandName,
+            islandOrder: islandEntry.orderIndex ?? 999,
+          };
+        })
+        .filter(Boolean);
+    })
+    .sort(compareEntries);
 }
 
 export function buildBlockedBreedingQueue(sheets, islandPlannerData = [])
@@ -489,7 +586,7 @@ export function buildBreedingNowEntriesFromSessions(breedingSessions, sheets)
     sheetIndex: sheet.sheetIndex ?? sheetIndex,
   }));
   const activationOrderByKey = getActivationOrderByKey(
-    getActiveSheetsInOrder(normalizedSheets)
+    getOperationalSheetsInOrder(normalizedSheets)
   );
   const sheetByKey = new Map(normalizedSheets.map((sheet) => [sheet.key, sheet]));
   const groups = new Map();
@@ -628,7 +725,7 @@ export function buildIslandPlannerData(activeSheets, islandStates = [], breeding
     );
   });
 
-  const activationOrderByKey = getActivationOrderByKey(getActiveSheetsInOrder(activeSheets));
+  const activationOrderByKey = getActivationOrderByKey(getOperationalSheetsInOrder(activeSheets));
   const indexedSheets = normalizeSheets(activeSheets).map((sheet, fallbackIndex) => ({
     ...sheet,
     sheetIndex: sheet.sheetIndex ?? fallbackIndex,
