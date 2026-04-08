@@ -1,6 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ISLAND_GROUPS, ISLAND_STATE_DEFAULTS } from "../data/islands";
 import { COLLECTIONS } from "../data/collections";
+import {
+  getCollectionEntryStatus,
+  getSheetProgressState,
+} from "../utils/collectionStatus";
 
 const pageCardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -84,44 +88,21 @@ const VESSEL_FAMILY_FILTER_OPTIONS = [
   { key: "other", label: "Other" },
 ];
 
-function getSheetProgress(sheet)
+function isValidCollectionEntry(entry)
 {
-  const total = sheet.monsters.reduce((sum, monster) => sum + Number(monster.required || 0), 0);
-  const done = sheet.monsters.reduce((sum, monster) => sum + Number(monster.zapped || 0), 0);
-
-  return {
-    done,
-    total,
-    percent: total ? Math.round((done / total) * 100) : 0,
-  };
-}
-
-function getSheetState(sheet)
-{
-  const progress = getSheetProgress(sheet);
-  const tracked = sheet.monsters.reduce(
-    (sum, monster) => sum + Number(monster.zapped || 0) + Number(monster.breeding || 0),
-    0
-  );
-
-  return {
-    ...progress,
-    tracked,
-    trackedPercent: progress.total ? Math.round((tracked / progress.total) * 100) : 0,
-    complete: progress.total > 0 && progress.done >= progress.total,
-  };
+  return Boolean(entry && typeof entry === "object" && typeof entry.name === "string" && entry.name.trim());
 }
 
 function getDerivedSheetStatus(sheet)
 {
-  const progress = getSheetState(sheet);
+  const progress = getSheetProgressState(sheet);
 
   if (sheet.isActive)
   {
     return "active";
   }
 
-  if (progress.complete || sheet.isCollected)
+  if (progress.complete)
   {
     return "complete";
   }
@@ -370,19 +351,26 @@ function getVesselGroupLabel(groupKey)
 
 function getCollectionEntriesForFamily(familyKey, collectionsByKey)
 {
+  const normalizeEntries = (collectionKey) =>
+  {
+    const rawEntries = collectionsByKey.get(collectionKey)?.entries;
+
+    return Array.isArray(rawEntries) ? rawEntries.filter(isValidCollectionEntry) : [];
+  };
+
   if (familyKey === "amber")
   {
-    return collectionsByKey.get("amber_island")?.entries || [];
+    return normalizeEntries("amber_island");
   }
 
   if (familyKey === "wublin")
   {
-    return collectionsByKey.get("wublins")?.entries || [];
+    return normalizeEntries("wublins");
   }
 
   if (familyKey === "celestial")
   {
-    return collectionsByKey.get("celestials")?.entries || [];
+    return normalizeEntries("celestials");
   }
 
   return [];
@@ -460,29 +448,12 @@ function compareCollectionEntryGroups(a, b)
   return (a.entry?.name || "").localeCompare(b.entry?.name || "");
 }
 
-function canActivateSheet(sheet)
-{
-  const status = getDerivedSheetStatus(sheet);
-
-  return status !== "complete" && !sheet.isActive;
-}
-
-function getActivationButtonLabel(sheet)
-{
-  if (sheet.isActive)
-  {
-    return "Deactivate";
-  }
-
-  return getDerivedSheetStatus(sheet) === "in_progress" ? "Activate Run" : "Activate";
-}
-
 function getVesselTemplateProgress(instances)
 {
   const totals = instances.reduce(
     (summary, sheet) =>
     {
-      const progress = getSheetState(sheet);
+      const progress = getSheetProgressState(sheet);
       const sheetStatus = getDerivedSheetStatus(sheet);
 
       return {
@@ -517,41 +488,6 @@ function getVesselTemplateProgress(instances)
     },
     hasCompletedInstance: totals.completeCount > 0,
   };
-}
-
-function getCollectionEntryStatus(entry, instances)
-{
-  if (entry?.collected)
-  {
-    return "complete";
-  }
-
-  if (instances.some((sheet) => sheet.isCollected || getSheetState(sheet).complete))
-  {
-    return "complete";
-  }
-
-  if (instances.some((sheet) => sheet.isActive))
-  {
-    return "active";
-  }
-
-  if (
-    entry?.status === "in_progress"
-    || entry?.status === "partial"
-    || entry?.status === "partially_complete"
-    || instances.some((sheet) =>
-    {
-      const progress = getSheetState(sheet);
-
-      return progress.done > 0 || progress.tracked > 0;
-    })
-  )
-  {
-    return "in_progress";
-  }
-
-  return "not_started";
 }
 
 function getVisibleTemplateInstanceLabel(sheet, visibleInstances)
@@ -604,13 +540,11 @@ function VesselSheetCard({
   sheet,
   onOpenSheet,
   onCreateAnotherSheetInstance,
-  onToggleSheetActive,
 })
 {
-  const progress = getSheetState(sheet);
+  const progress = getSheetProgressState(sheet);
   const status = getDerivedSheetStatus(sheet);
   const visualStyle = getStatusVisualStyle(status);
-  const showActivationButton = status !== "complete";
 
   return (
     <div
@@ -684,21 +618,6 @@ function VesselSheetCard({
         </div>
 
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {showActivationButton && (
-            <button
-              style={{
-                ...actionButtonStyle,
-                background: sheet.isActive ? "rgba(245,158,11,0.18)" : "rgba(34,197,94,0.16)",
-                border: sheet.isActive
-                  ? "1px solid rgba(245,158,11,0.22)"
-                  : "1px solid rgba(34,197,94,0.18)",
-              }}
-              onClick={() => onToggleSheetActive?.(sheet.key)}
-            >
-              {getActivationButtonLabel(sheet)}
-            </button>
-          )}
-
           {sheet.supportsMultipleInstances && (
             <button
               style={actionButtonStyle}
@@ -728,15 +647,12 @@ function VesselTemplateCard({
   onCreateAnotherSheetInstance,
   onDeleteSheetInstance,
   getDeleteInstanceBlockState,
-  onToggleSheetActive,
   onUpdateCollectionEntryStatus,
 })
 {
-  const [confirmDeactivateKey, setConfirmDeactivateKey] = useState(null);
   const sortedInstances = [...instances].sort(sortSheetsByOperationalOrder);
   const primaryInstance = sortedInstances[0] || null;
   const activeInstance = sortedInstances.find((sheet) => sheet.isActive) || null;
-  const activatableInstance = sortedInstances.find((sheet) => canActivateSheet(sheet)) || null;
   const totals = getVesselTemplateProgress(sortedInstances);
   const familyKey = getCollectionFamilyKey(collectionKey);
   const familyLabel = getVesselGroupLabel(familyKey);
@@ -854,7 +770,7 @@ function VesselTemplateCard({
           {sortedInstances.map((sheet) =>
           {
             const instanceStatus = getDerivedSheetStatus(sheet);
-            const instanceProgress = getSheetState(sheet);
+            const instanceProgress = getSheetProgressState(sheet);
             const instanceVisualStyle = getStatusVisualStyle(instanceStatus);
             const instanceLabel = getVisibleTemplateInstanceLabel(sheet, sortedInstances);
             const deleteBlockState = getDeleteInstanceBlockState?.(sheet.key) || {
@@ -866,7 +782,6 @@ function VesselTemplateCard({
             const shouldShowDeleteWarning = deleteBlockReason
               && deleteBlockState.kind !== "last_instance"
               && deleteBlockState.kind !== "active";
-            const isConfirmingDeactivate = confirmDeactivateKey === sheet.key;
 
             return (
               <div
@@ -898,69 +813,22 @@ function VesselTemplateCard({
                 </div>
 
                 <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-                  {instanceStatus === "active" ? (
-                    isConfirmingDeactivate ? (
-                      <>
-                        <button
-                          style={{
-                            ...compactActionButtonStyle,
-                            background: "rgba(239,68,68,0.16)",
-                          }}
-                          onClick={() =>
-                          {
-                            onToggleSheetActive?.(sheet.key);
-                            setConfirmDeactivateKey(null);
-                          }}
-                        >
-                          Confirm Deactivate
-                        </button>
-                        <button
-                          style={compactActionButtonStyle}
-                          onClick={() => setConfirmDeactivateKey(null)}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        style={{
-                          ...compactActionButtonStyle,
-                          border: "1px solid rgba(245,158,11,0.2)",
-                          background: instanceVisualStyle.chipBackground,
-                        }}
-                        onClick={() => setConfirmDeactivateKey(sheet.key)}
-                        title="Deactivate this active instance"
-                      >
-                        Active
-                      </button>
-                    )
-                  ) : instanceStatus === "not_started" ? (
-                    <button
-                      style={{
-                        ...compactActionButtonStyle,
-                        border: "1px solid rgba(34,197,94,0.2)",
-                        background: "rgba(34,197,94,0.16)",
-                      }}
-                      onClick={() => onToggleSheetActive?.(sheet.key)}
-                      title="Activate this tracked instance"
-                    >
-                      Activate
-                    </button>
-                  ) : (
-                    <div
-                      style={{
-                        display: "inline-flex",
-                        padding: "5px 9px",
-                        borderRadius: "999px",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        background: instanceVisualStyle.chipBackground,
-                        fontSize: "11px",
-                        fontWeight: 700,
-                      }}
-                    >
-                      {getStatusLabel(instanceStatus)}
-                    </div>
-                  )}
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      padding: "5px 9px",
+                      borderRadius: "999px",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: instanceVisualStyle.chipBackground,
+                      fontSize: "11px",
+                      fontWeight: 700,
+                    }}
+                    title={instanceStatus === "active"
+                      ? "This run is already driving operational work."
+                      : "This run stays tracked as part of the collection catalog."}
+                  >
+                    {instanceStatus === "not_started" ? "Tracked" : getStatusLabel(instanceStatus)}
+                  </div>
 
                   <button
                     style={compactActionButtonStyle}
@@ -1020,16 +888,12 @@ function VesselTemplateCard({
             >
               Open Active
             </button>
-          ) : activatableInstance ? (
+          ) : primaryInstance ? (
             <button
-              style={{
-                ...actionButtonStyle,
-                background: "rgba(34,197,94,0.16)",
-                border: "1px solid rgba(34,197,94,0.18)",
-              }}
-              onClick={() => onToggleSheetActive?.(activatableInstance.key)}
+              style={actionButtonStyle}
+              onClick={() => onOpenSheet(primaryInstance.key)}
             >
-              Activate Next Run
+              Open Run
             </button>
           ) : null}
 
@@ -1081,13 +945,11 @@ function VesselTemplateCard({
 function IslandSheetCard({
   sheet,
   onOpenSheet,
-  onToggleSheetActive,
 })
 {
-  const progress = getSheetState(sheet);
+  const progress = getSheetProgressState(sheet);
   const status = getDerivedSheetStatus(sheet);
   const visualStyle = getStatusVisualStyle(status);
-  const showActivationButton = status !== "complete";
 
   return (
     <div
@@ -1152,25 +1014,10 @@ function IslandSheetCard({
         }}
       >
         <div style={{ fontSize: "13px", opacity: 0.72 }}>
-          {sheet.isActive ? "Active collection sheet" : "Collection tracker"}
+          {sheet.isActive ? "Currently driving operational work" : "Collection sheet stays tracked here"}
         </div>
 
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {showActivationButton && (
-            <button
-              style={{
-                ...actionButtonStyle,
-                background: sheet.isActive ? "rgba(245,158,11,0.18)" : "rgba(34,197,94,0.16)",
-                border: sheet.isActive
-                  ? "1px solid rgba(245,158,11,0.22)"
-                  : "1px solid rgba(34,197,94,0.18)",
-              }}
-              onClick={() => onToggleSheetActive?.(sheet.key)}
-            >
-              {getActivationButtonLabel(sheet)}
-            </button>
-          )}
-
           <button
             style={actionButtonStyle}
             onClick={() => onOpenSheet(sheet.key)}
@@ -1190,7 +1037,6 @@ export default function Collections({
   onCreateAnotherSheetInstance,
   onDeleteSheetInstance,
   getDeleteInstanceBlockState,
-  onToggleSheetActive,
   onUpdateCollectionEntryStatus,
 })
 {
@@ -1198,6 +1044,10 @@ export default function Collections({
   const [statusFilter, setStatusFilter] = useState("all");
   const [vesselFamilyFilter, setVesselFamilyFilter] = useState("all");
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const safeSheets = Array.isArray(sheets) ? sheets.filter(Boolean) : [];
+  const safeCollectionsData = Array.isArray(collectionsData)
+    ? collectionsData.filter((collection) => collection && typeof collection === "object")
+    : [];
 
   useEffect(() =>
   {
@@ -1221,17 +1071,17 @@ export default function Collections({
   }
 
   const vesselSheets = useMemo(
-    () => sheets.filter((sheet) => (sheet.type || "vessel") === "vessel"),
-    [sheets]
+    () => safeSheets.filter((sheet) => (sheet.type || "vessel") === "vessel"),
+    [safeSheets]
   );
   const islandSheets = useMemo(
-    () => sheets.filter((sheet) => sheet.type === "island"),
-    [sheets]
+    () => safeSheets.filter((sheet) => sheet.type === "island"),
+    [safeSheets]
   );
 
   const collectionsByKey = useMemo(
-    () => new Map((collectionsData || []).map((collection) => [collection.key, collection])),
-    [collectionsData]
+    () => new Map(safeCollectionsData.map((collection) => [collection.key, collection])),
+    [safeCollectionsData]
   );
 
   const vesselGroups = useMemo(() =>
@@ -1332,7 +1182,6 @@ export default function Collections({
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onToggleSheetActive={onToggleSheetActive}
             onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
@@ -1352,7 +1201,6 @@ export default function Collections({
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onToggleSheetActive={onToggleSheetActive}
             onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
@@ -1372,7 +1220,6 @@ export default function Collections({
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onToggleSheetActive={onToggleSheetActive}
             onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
@@ -1392,7 +1239,6 @@ export default function Collections({
             onCreateAnotherSheetInstance={onCreateAnotherSheetInstance}
             onDeleteSheetInstance={onDeleteSheetInstance}
             getDeleteInstanceBlockState={getDeleteInstanceBlockState}
-            onToggleSheetActive={onToggleSheetActive}
             onUpdateCollectionEntryStatus={onUpdateCollectionEntryStatus}
           />
         )),
@@ -1413,7 +1259,6 @@ export default function Collections({
     onDeleteSheetInstance,
     getDeleteInstanceBlockState,
     onOpenSheet,
-    onToggleSheetActive,
     onUpdateCollectionEntryStatus,
     vesselFamilyFilter,
     vesselCollectionEntryGroups,
@@ -1442,7 +1287,7 @@ export default function Collections({
           Collections
         </div>
         <div style={{ marginTop: "8px", opacity: 0.75 }}>
-          Track vessels and island completion without leaving the main sheet system.
+          Browse standing collection entries and their tracked runs without leaving the main sheet system.
         </div>
 
         <div className="collections-filter-stack">
@@ -1539,7 +1384,7 @@ export default function Collections({
             </div>
 
             <div style={{ fontSize: "13px", opacity: 0.64 }}>
-              Collections consolidate each species once here, while keeping duplicate tracked runs nested underneath it.
+              Collections keep every species present here as a standing catalog entry, while duplicate tracked runs stay nested underneath it.
             </div>
           </>
         )}
@@ -1620,7 +1465,6 @@ export default function Collections({
                       key={sheet.key}
                       sheet={sheet}
                       onOpenSheet={onOpenSheet}
-                      onToggleSheetActive={onToggleSheetActive}
                     />
                   ))}
                 </div>

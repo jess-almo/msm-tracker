@@ -6,6 +6,7 @@ import {
 } from "../utils/monsterMetadata";
 import {
   buildBreedingNowEntriesFromSessions,
+  buildBlockedBreedingQueue,
   buildBreedingQueue,
 } from "../utils/queue";
 
@@ -77,6 +78,7 @@ function QueueCard({
   actionTone,
   onAction,
   statusLine,
+  detailLine,
 })
 {
   return (
@@ -122,19 +124,41 @@ function QueueCard({
           <div style={{ marginTop: "8px", fontSize: "14px", opacity: 0.72 }}>
             {statusLine}
           </div>
+
+          {detailLine && (
+            <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.64 }}>
+              {detailLine}
+            </div>
+          )}
         </div>
 
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          <button
+        {actionLabel && onAction ? (
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <button
+              style={{
+                ...actionButtonStyle,
+                background: actionTone,
+              }}
+              onClick={onAction}
+            >
+              {actionLabel}
+            </button>
+          </div>
+        ) : (
+          <div
             style={{
-              ...actionButtonStyle,
-              background: actionTone,
+              display: "inline-flex",
+              padding: "8px 12px",
+              borderRadius: "999px",
+              border: "1px solid rgba(239,68,68,0.16)",
+              background: "rgba(239,68,68,0.1)",
+              fontSize: "12px",
+              fontWeight: 700,
             }}
-            onClick={onAction}
           >
-            {actionLabel}
-          </button>
-        </div>
+            Blocked
+          </div>
+        )}
       </div>
     </div>
   );
@@ -149,6 +173,10 @@ export default function BreedingQueue({
 })
 {
   const queueEntries = useMemo(() => buildBreedingQueue(sheets), [sheets]);
+  const blockedQueueEntries = useMemo(
+    () => buildBlockedBreedingQueue(sheets, islandPlannerData),
+    [sheets, islandPlannerData]
+  );
   const breedingNowEntries = useMemo(
     () => buildBreedingNowEntriesFromSessions(breedingSessions, sheets),
     [breedingSessions, sheets]
@@ -165,6 +193,14 @@ export default function BreedingQueue({
       metadata: getMonsterMetadata(entry.name),
     }));
   }, [queueEntries]);
+  const enrichedBlockedItems = useMemo(() =>
+  {
+    return blockedQueueEntries.map((entry) => ({
+      ...entry,
+      metadata: getMonsterMetadata(entry.name),
+      islandOrder: islandPlannerByName.get(entry.island)?.orderIndex ?? entry.islandOrder ?? 999,
+    }));
+  }, [blockedQueueEntries, islandPlannerByName]);
 
   const enrichedBreedingNow = useMemo(() =>
   {
@@ -216,6 +252,10 @@ export default function BreedingQueue({
         .sort(compareOperationalItems),
     [enrichedQueueEntries, islandPlannerByName]
   );
+  const blockedItems = useMemo(
+    () => [...enrichedBlockedItems].sort(compareOperationalItems),
+    [enrichedBlockedItems]
+  );
   const nurseryCount = useMemo(
     () =>
       enrichedBreedingNow
@@ -230,11 +270,20 @@ export default function BreedingQueue({
         .reduce((total, entry) => total + entry.count, 0),
     [enrichedBreedingNow]
   );
-  const defaultMode = zapItems.length > 0 ? "zap" : "breed";
+  const defaultMode = zapItems.length > 0
+    ? "zap"
+    : breedItems.length > 0
+      ? "breed"
+      : "blocked";
   const [activeMode, setActiveMode] = useState(defaultMode);
   const showingZapRun = activeMode === "zap";
-  const currentEntries = showingZapRun ? zapItems : breedItems;
-  const currentModeLabel = showingZapRun ? "Ready to Zap" : "Ready to Breed";
+  const showingBreedRun = activeMode === "breed";
+  const currentEntries = showingZapRun ? zapItems : showingBreedRun ? breedItems : blockedItems;
+  const currentModeLabel = showingZapRun
+    ? "Ready to Zap"
+    : showingBreedRun
+      ? "Ready to Breed"
+      : "Pipeline Blocked";
 
   return (
     <div
@@ -283,6 +332,15 @@ export default function BreedingQueue({
         >
           Ready to Breed ({breedItems.length})
         </button>
+        <button
+          style={{
+            ...tabStyle,
+            background: activeMode === "blocked" ? "rgba(239,68,68,0.16)" : tabStyle.background,
+          }}
+          onClick={() => setActiveMode("blocked")}
+        >
+          Pipeline Blocked ({blockedItems.length})
+        </button>
       </div>
 
       <div style={{ marginTop: "16px", fontSize: "18px", fontWeight: 700 }}>
@@ -301,7 +359,9 @@ export default function BreedingQueue({
         <div style={{ marginTop: "16px", opacity: 0.75 }}>
           {showingZapRun
             ? "No tracked breeder-side eggs are ready to clear right now."
-            : "No tracked queue work is currently ready to breed on an open island."}
+            : showingBreedRun
+              ? "No tracked queue work is currently ready to breed on an open island."
+              : "Nothing is currently blocked once valid breeding islands and open slots are checked."}
         </div>
       ) : (
         <div style={{ marginTop: "16px", display: "grid", gap: "12px" }}>
@@ -316,16 +376,25 @@ export default function BreedingQueue({
                   statusLine={`Breeder egg ready${entry.count > 1 ? ` · ${entry.count} eggs grouped` : ""} · Zapped ${entry.zapped}/${entry.required}`}
                 />
               ))
-            : currentEntries.map((entry) => (
-                <QueueCard
-                  key={entry.id}
-                  entry={entry}
-                  actionLabel="Breed"
-                  actionTone="rgba(245,158,11,0.14)"
-                  onAction={() => onBreedFromQueue(entry)}
-                  statusLine={`Need ${entry.remaining} more · Zapped ${entry.zapped}/${entry.required} · Breeding ${entry.breeding}/${entry.required}`}
-                />
-              ))}
+            : showingBreedRun
+              ? currentEntries.map((entry) => (
+                  <QueueCard
+                    key={entry.id}
+                    entry={entry}
+                    actionLabel="Breed"
+                    actionTone="rgba(245,158,11,0.14)"
+                    onAction={() => onBreedFromQueue(entry)}
+                    statusLine={`Need ${entry.remaining} more · Zapped ${entry.zapped}/${entry.required} · Breeding ${entry.breeding}/${entry.required}`}
+                  />
+                ))
+              : currentEntries.map((entry) => (
+                  <QueueCard
+                    key={entry.id}
+                    entry={entry}
+                    statusLine={`Need ${entry.remaining} more · ${entry.blockReason}`}
+                    detailLine={entry.blockDetails}
+                  />
+                ))}
         </div>
       )}
     </div>

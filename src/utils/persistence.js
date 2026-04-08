@@ -15,10 +15,16 @@ export const STORAGE_KEYS = {
   islandState: "msmTrackerIslandState",
   breedingSessions: "msmTrackerBreedingSessions",
   legacyIslandSlots: "msmTrackerIslandSlots",
+  snapshotHistory: "msmTrackerSnapshotHistory",
+  activityLog: "msmTrackerActivityLog",
 };
 
 export const BACKUP_SCHEMA_VERSION = 1;
+export const PERSISTENCE_SCHEMA_VERSION = 1;
+export const SNAPSHOT_HISTORY_LIMIT = 8;
+export const ACTIVITY_LOG_LIMIT = 250;
 export const DEFAULT_VIEW = { screen: "home" };
+const PERSISTED_VALUE_MARKER = "__msmTrackerEnvelope";
 
 function getStorageHandle(storage = globalThis.localStorage)
 {
@@ -34,6 +40,31 @@ function getStorageHandle(storage = globalThis.localStorage)
   return storage;
 }
 
+function wrapPersistedValue(value)
+{
+  return {
+    [PERSISTED_VALUE_MARKER]: true,
+    schemaVersion: PERSISTENCE_SCHEMA_VERSION,
+    savedAt: new Date().toISOString(),
+    value,
+  };
+}
+
+function unwrapPersistedValue(parsedValue)
+{
+  if (
+    parsedValue
+    && typeof parsedValue === "object"
+    && parsedValue[PERSISTED_VALUE_MARKER] === true
+    && Object.prototype.hasOwnProperty.call(parsedValue, "value")
+  )
+  {
+    return parsedValue.value;
+  }
+
+  return parsedValue;
+}
+
 export function clamp(value, min, max)
 {
   return Math.max(min, Math.min(max, value));
@@ -47,6 +78,11 @@ export function deepClone(value)
 export function createBreedingSessionId()
 {
   return `breed_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+export function createActivityLogEntryId()
+{
+  return `log_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
 export function normalizeMonsterLookupKey(name)
@@ -93,7 +129,7 @@ function readJsonValue(key, storage = globalThis.localStorage)
     return null;
   }
 
-  return JSON.parse(rawValue);
+  return unwrapPersistedValue(JSON.parse(rawValue));
 }
 
 export function saveJsonValue(key, value, storage = globalThis.localStorage)
@@ -105,7 +141,112 @@ export function saveJsonValue(key, value, storage = globalThis.localStorage)
     return;
   }
 
-  storageHandle.setItem(key, JSON.stringify(value));
+  storageHandle.setItem(key, JSON.stringify(wrapPersistedValue(value)));
+}
+
+function isSnapshotPayload(value)
+{
+  return Boolean(
+    value
+    && typeof value === "object"
+    && Array.isArray(value.sheets)
+    && Array.isArray(value.collectionsData)
+    && Array.isArray(value.islandStates)
+    && Array.isArray(value.breedingSessions)
+  );
+}
+
+export function loadSnapshotHistory(storage = globalThis.localStorage)
+{
+  try
+  {
+    const storedHistory = readJsonValue(STORAGE_KEYS.snapshotHistory, storage);
+
+    if (!Array.isArray(storedHistory))
+    {
+      return [];
+    }
+
+    return storedHistory.filter(isSnapshotPayload);
+  }
+  catch (error)
+  {
+    console.error("Failed to parse snapshot history", error);
+    return [];
+  }
+}
+
+export function loadLatestSnapshot(storage = globalThis.localStorage)
+{
+  const snapshotHistory = loadSnapshotHistory(storage);
+
+  return snapshotHistory.length > 0
+    ? snapshotHistory[snapshotHistory.length - 1]
+    : null;
+}
+
+function normalizeActivityLogEntry(entry)
+{
+  if (!entry || typeof entry !== "object")
+  {
+    return null;
+  }
+
+  const type = typeof entry.type === "string" ? entry.type.trim() : "";
+  const message = typeof entry.message === "string" ? entry.message.trim() : "";
+
+  if (!type || !message)
+  {
+    return null;
+  }
+
+  return {
+    id: typeof entry.id === "string" && entry.id ? entry.id : createActivityLogEntryId(),
+    at: typeof entry.at === "string" && entry.at ? entry.at : new Date().toISOString(),
+    type,
+    message,
+    details: entry.details && typeof entry.details === "object" && !Array.isArray(entry.details)
+      ? entry.details
+      : {},
+  };
+}
+
+export function loadActivityLog(storage = globalThis.localStorage)
+{
+  try
+  {
+    const storedLog = readJsonValue(STORAGE_KEYS.activityLog, storage);
+
+    if (!Array.isArray(storedLog))
+    {
+      return [];
+    }
+
+    return storedLog
+      .map(normalizeActivityLogEntry)
+      .filter(Boolean)
+      .slice(-ACTIVITY_LOG_LIMIT);
+  }
+  catch (error)
+  {
+    console.error("Failed to parse activity log", error);
+    return [];
+  }
+}
+
+export function appendActivityLogEntry(entry, storage = globalThis.localStorage)
+{
+  const normalizedEntry = normalizeActivityLogEntry(entry);
+
+  if (!normalizedEntry)
+  {
+    return null;
+  }
+
+  const nextLog = [...loadActivityLog(storage), normalizedEntry].slice(-ACTIVITY_LOG_LIMIT);
+  saveJsonValue(STORAGE_KEYS.activityLog, nextLog, storage);
+
+  return normalizedEntry;
 }
 
 export function normalizeBreedingSession(session)
@@ -299,6 +440,38 @@ export function buildDefaultSheetForSavedSheet(savedSheet)
   return deepClone(savedSheet);
 }
 
+function resolveSavedSheets(defaultSheets, savedSheets)
+{
+  const fallbackSheets = Array.isArray(defaultSheets) ? defaultSheets : [];
+
+  if (!Array.isArray(savedSheets) || savedSheets.length === 0)
+  {
+    return fallbackSheets.map((sheet) => mergeSheetWithDefaults(sheet, null));
+  }
+
+  const defaultSheetKeys = new Set(fallbackSheets.map((sheet) => sheet.key));
+  const savedByKey = Object.fromEntries(
+    savedSheets.map((sheet) => [sheet.key, sheet])
+  );
+
+  const mergedDefaultSheets = fallbackSheets.map((defaultSheet) =>
+    mergeSheetWithDefaults(defaultSheet, savedByKey[defaultSheet.key])
+  );
+  const extraSavedSheets = savedSheets
+    .filter((sheet) => !defaultSheetKeys.has(sheet.key))
+    .map((savedSheet) =>
+    {
+      const defaultSheet = buildDefaultSheetForSavedSheet(savedSheet);
+
+      return mergeSheetWithDefaults(defaultSheet || savedSheet, savedSheet);
+    });
+
+  return [
+    ...mergedDefaultSheets,
+    ...extraSavedSheets,
+  ];
+}
+
 export function mergeSheetWithDefaults(defaultSheet, savedSheet)
 {
   if (!savedSheet)
@@ -370,59 +543,48 @@ function trimBreedingAssignments(assignments, maxAssigned)
 
 export function loadView(storage = globalThis.localStorage)
 {
+  const snapshotView = loadLatestSnapshot(storage)?.view;
+  const fallbackView = snapshotView && typeof snapshotView === "object"
+    ? snapshotView
+    : DEFAULT_VIEW;
+
   try
   {
-    return readJsonValue(STORAGE_KEYS.view, storage) || DEFAULT_VIEW;
+    return readJsonValue(STORAGE_KEYS.view, storage) || fallbackView;
   }
   catch (error)
   {
     console.error("Failed to parse saved view", error);
-    return DEFAULT_VIEW;
+    return fallbackView;
   }
 }
 
 export function loadSheets(defaultSheets, storage = globalThis.localStorage)
 {
+  const snapshotSheets = loadLatestSnapshot(storage)?.sheets;
+
   try
   {
     const parsed = readJsonValue(STORAGE_KEYS.sheets, storage);
 
     if (!parsed)
     {
-      return defaultSheets.map((sheet) => mergeSheetWithDefaults(sheet, null));
+      return resolveSavedSheets(defaultSheets, snapshotSheets);
     }
 
-    const defaultSheetKeys = new Set(defaultSheets.map((sheet) => sheet.key));
-    const savedByKey = Object.fromEntries(
-      parsed.map((sheet) => [sheet.key, sheet])
-    );
-
-    const mergedDefaultSheets = defaultSheets.map((defaultSheet) =>
-      mergeSheetWithDefaults(defaultSheet, savedByKey[defaultSheet.key])
-    );
-    const extraSavedSheets = parsed
-      .filter((sheet) => !defaultSheetKeys.has(sheet.key))
-      .map((savedSheet) =>
-      {
-        const defaultSheet = buildDefaultSheetForSavedSheet(savedSheet);
-
-        return mergeSheetWithDefaults(defaultSheet || savedSheet, savedSheet);
-      });
-
-    return [
-      ...mergedDefaultSheets,
-      ...extraSavedSheets,
-    ];
+    return resolveSavedSheets(defaultSheets, parsed);
   }
   catch (error)
   {
     console.error("Failed to load saved sheets", error);
-    return defaultSheets.map((sheet) => mergeSheetWithDefaults(sheet, null));
+    return resolveSavedSheets(defaultSheets, snapshotSheets);
   }
 }
 
 export function loadIslandStates(storage = globalThis.localStorage)
 {
+  const snapshotIslandStates = loadLatestSnapshot(storage)?.islandStates;
+
   try
   {
     const savedStates = readJsonValue(STORAGE_KEYS.islandState, storage);
@@ -432,7 +594,7 @@ export function loadIslandStates(storage = globalThis.localStorage)
     {
       return mergeIslandStates(
         ISLAND_STATE_DEFAULTS,
-        [],
+        Array.isArray(snapshotIslandStates) ? snapshotIslandStates : [],
         legacySlotCounts
       );
     }
@@ -446,7 +608,11 @@ export function loadIslandStates(storage = globalThis.localStorage)
   catch (error)
   {
     console.error("Failed to parse island state", error);
-    return ISLAND_STATE_DEFAULTS;
+    return mergeIslandStates(
+      ISLAND_STATE_DEFAULTS,
+      Array.isArray(snapshotIslandStates) ? snapshotIslandStates : [],
+      {}
+    );
   }
 }
 
@@ -487,13 +653,15 @@ export function mergeCollectionsWithDefaults(defaultCollections, savedCollection
 
 export function loadCollections(defaultCollections, storage = globalThis.localStorage)
 {
+  const snapshotCollections = loadLatestSnapshot(storage)?.collectionsData;
+
   try
   {
     const savedCollections = readJsonValue(STORAGE_KEYS.collections, storage);
 
     if (!savedCollections)
     {
-      return defaultCollections;
+      return mergeCollectionsWithDefaults(defaultCollections, snapshotCollections);
     }
 
     return mergeCollectionsWithDefaults(defaultCollections, savedCollections);
@@ -501,19 +669,23 @@ export function loadCollections(defaultCollections, storage = globalThis.localSt
   catch (error)
   {
     console.error("Failed to parse saved collections", error);
-    return defaultCollections;
+    return mergeCollectionsWithDefaults(defaultCollections, snapshotCollections);
   }
 }
 
 export function loadBreedingSessions(seedSheets, storage = globalThis.localStorage)
 {
+  const snapshotSessions = loadLatestSnapshot(storage)?.breedingSessions;
+
   try
   {
     const savedSessions = readJsonValue(STORAGE_KEYS.breedingSessions, storage);
 
     if (!savedSessions)
     {
-      return buildAssignedBreedingSessionsFromSheets(seedSheets);
+      return Array.isArray(snapshotSessions) && snapshotSessions.length > 0
+        ? reconcileBreedingSessions(snapshotSessions, seedSheets)
+        : buildAssignedBreedingSessionsFromSheets(seedSheets);
     }
 
     return reconcileBreedingSessions(savedSessions, seedSheets);
@@ -521,7 +693,9 @@ export function loadBreedingSessions(seedSheets, storage = globalThis.localStora
   catch (error)
   {
     console.error("Failed to parse breeding sessions", error);
-    return buildAssignedBreedingSessionsFromSheets(seedSheets);
+    return Array.isArray(snapshotSessions) && snapshotSessions.length > 0
+      ? reconcileBreedingSessions(snapshotSessions, seedSheets)
+      : buildAssignedBreedingSessionsFromSheets(seedSheets);
   }
 }
 
@@ -564,6 +738,22 @@ export function buildBackupPayload({
   };
 }
 
+export function saveAppSnapshot(context, storage = globalThis.localStorage)
+{
+  const storageHandle = getStorageHandle(storage);
+
+  if (!storageHandle)
+  {
+    return;
+  }
+
+  const nextSnapshot = buildBackupPayload(context);
+  const snapshotHistory = loadSnapshotHistory(storage);
+  const nextHistory = [...snapshotHistory, nextSnapshot].slice(-SNAPSHOT_HISTORY_LIMIT);
+
+  saveJsonValue(STORAGE_KEYS.snapshotHistory, nextHistory, storage);
+}
+
 export function serializeBackupPayload(context)
 {
   return JSON.stringify(buildBackupPayload(context), null, 2);
@@ -592,31 +782,7 @@ export function parseBackupPayload(rawPayload, {
 
   const fallbackSheets = Array.isArray(defaultSheets) ? defaultSheets : [];
   const fallbackCollections = Array.isArray(defaultCollections) ? defaultCollections : [];
-  const sheets = Array.isArray(parsedPayload.sheets)
-    ? (() =>
-    {
-      const fallbackSheetKeys = new Set(fallbackSheets.map((sheet) => sheet.key));
-      const savedByKey = Object.fromEntries(
-        parsedPayload.sheets.map((sheet) => [sheet.key, sheet])
-      );
-      const mergedDefaultSheets = fallbackSheets.map((defaultSheet) =>
-        mergeSheetWithDefaults(defaultSheet, savedByKey[defaultSheet.key])
-      );
-      const extraSavedSheets = parsedPayload.sheets
-        .filter((sheet) => !fallbackSheetKeys.has(sheet.key))
-        .map((savedSheet) =>
-        {
-          const defaultSheet = buildDefaultSheetForSavedSheet(savedSheet);
-
-          return mergeSheetWithDefaults(defaultSheet || savedSheet, savedSheet);
-        });
-
-      return [
-        ...mergedDefaultSheets,
-        ...extraSavedSheets,
-      ];
-    })()
-    : fallbackSheets.map((sheet) => mergeSheetWithDefaults(sheet, null));
+  const sheets = resolveSavedSheets(fallbackSheets, parsedPayload.sheets);
 
   const collectionsData = mergeCollectionsWithDefaults(
     fallbackCollections,
