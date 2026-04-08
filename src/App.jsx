@@ -8,7 +8,11 @@ import {
   getIslandOperationalProfile,
   ISLAND_STATE_DEFAULTS,
 } from "./data/islands";
-import { buildBreedingQueue, buildIslandPlannerData } from "./utils/queue";
+import {
+  buildBlockedBreedingQueue,
+  buildIslandPlannerData,
+  buildReadyBreedingQueue,
+} from "./utils/queue";
 import { COLLECTIONS } from "./data/collections";
 import {
   addBreedingAssignment,
@@ -39,6 +43,7 @@ import { applyCollectionEntryStatus } from "./utils/collectionStatus";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
 const APP_VERSION = packageJson.version;
+const MAX_FOCUSED_SHEETS = 5;
 const BreedingQueue = lazy(() => import("./components/BreedingQueue"));
 const IslandPlanner = lazy(() => import("./components/IslandPlanner"));
 const MonsterDirectory = lazy(() => import("./components/MonsterDirectory"));
@@ -335,6 +340,13 @@ function getSheetActivationOrderValue(sheet)
   return typeof sheet?.activatedAt === "string" ? sheet.activatedAt : "";
 }
 
+function getSheetFocusRankValue(sheet)
+{
+  const parsedRank = Number(sheet?.focusRank);
+
+  return Number.isFinite(parsedRank) ? parsedRank : Number.MAX_SAFE_INTEGER;
+}
+
 function getSheetSortPriorityValue(sheet)
 {
   const parsedPriority = Number(sheet?.priority);
@@ -371,6 +383,13 @@ function compareActiveSheetsByActivationOrder(a, b)
     return aComplete ? 1 : -1;
   }
 
+  const focusRankDelta = getSheetFocusRankValue(a) - getSheetFocusRankValue(b);
+
+  if (focusRankDelta !== 0)
+  {
+    return focusRankDelta;
+  }
+
   const aActivatedAt = getSheetActivationOrderValue(a);
   const bActivatedAt = getSheetActivationOrderValue(b);
 
@@ -385,6 +404,41 @@ function compareActiveSheetsByActivationOrder(a, b)
   }
 
   return compareSheetsByOperationalFallback(a, b);
+}
+
+function isBackgroundOperationalSheet(sheet)
+{
+  return getSheetType(sheet) === "island" && sheet?.status === "ACTIVE";
+}
+
+function isOperationalSheet(sheet)
+{
+  return Boolean(sheet && sheet.status === "ACTIVE" && (sheet.isActive || isBackgroundOperationalSheet(sheet)));
+}
+
+function normalizeFocusedSheetRanks(nextSheets)
+{
+  const orderedFocusedSheets = [...nextSheets.filter((sheet) => sheet.isActive)]
+    .sort(compareActiveSheetsByActivationOrder);
+  const focusRankByKey = new Map(
+    orderedFocusedSheets.map((sheet, index) => [sheet.key, index + 1])
+  );
+
+  return nextSheets.map((sheet) =>
+  {
+    if (!sheet.isActive)
+    {
+      return {
+        ...sheet,
+        focusRank: null,
+      };
+    }
+
+    return {
+      ...sheet,
+      focusRank: focusRankByKey.get(sheet.key) ?? null,
+    };
+  });
 }
 
 function getIslandCapacityBounds(islandState)
@@ -444,22 +498,29 @@ export default function App()
     () => [...sheets.filter((sheet) => sheet.isActive)].sort(compareActiveSheetsByActivationOrder),
     [sheets]
   );
-  const indexedActiveSheets = useMemo(
+  const indexedOperationalSheets = useMemo(
     () =>
       sheets
         .map((sheet, sheetIndex) => ({ ...sheet, sheetIndex }))
-        .filter((sheet) => sheet.isActive),
+        .filter((sheet) => isOperationalSheet(sheet)),
     [sheets]
   );
 
-  const queue = useMemo(() => buildBreedingQueue(sheets), [sheets]);
   const islandPlannerData = useMemo(
-    () => buildIslandPlannerData(indexedActiveSheets, islandStates, breedingSessions),
-    [indexedActiveSheets, islandStates, breedingSessions]
+    () => buildIslandPlannerData(indexedOperationalSheets, islandStates, breedingSessions),
+    [indexedOperationalSheets, islandStates, breedingSessions]
   );
   const islandPlannerByName = useMemo(
     () => new Map(islandPlannerData.map((entry) => [entry.island, entry])),
     [islandPlannerData]
+  );
+  const readyQueue = useMemo(
+    () => buildReadyBreedingQueue(sheets, islandPlannerData),
+    [sheets, islandPlannerData]
+  );
+  const blockedQueue = useMemo(
+    () => buildBlockedBreedingQueue(sheets, islandPlannerData),
+    [sheets, islandPlannerData]
   );
 
   const selectedSheet = useMemo(() => 
@@ -530,6 +591,7 @@ export default function App()
       trackedProgress: getSheetTrackedProgress(sheet),
       remaining: getRemainingCount(sheet),
       complete: isSheetComplete(sheet),
+      focusRank: getSheetFocusRankValue(sheet),
     }));
   }, [activeSheets]);
 
@@ -580,7 +642,8 @@ export default function App()
     };
   }, [islandPlannerData]);
 
-  const topQueueItems = queue.slice(0, 5);
+  const topReadyQueueItems = readyQueue.slice(0, 5);
+  const topBlockedQueueItems = blockedQueue.slice(0, 5);
 
   useEffect(() => 
 {
@@ -1864,25 +1927,100 @@ export default function App()
 
     const nextActive = !targetSheet.isActive;
 
-    updateSheet(sheetKey, (sheet) => 
-{
-      sheet.isActive = nextActive;
+    if (nextActive && getSheetType(targetSheet) !== "island")
+    {
+      const focusedSheetCount = sheets.filter((sheet) =>
+        sheet.isActive && getSheetType(sheet) !== "island"
+      ).length;
 
-      if (nextActive)
+      if (focusedSheetCount >= MAX_FOCUSED_SHEETS)
       {
-        sheet.activatedAt = new Date().toISOString();
+        window.alert(`Focus is capped at ${MAX_FOCUSED_SHEETS} sheets. Reorder or remove one first.`);
+        return;
       }
+    }
 
-      return sheet;
-    });
+    setSheets((prev) =>
+      normalizeFocusedSheetRanks(
+        prev.map((sheet) =>
+        {
+          if (sheet.key !== sheetKey)
+          {
+            return sheet;
+          }
+
+          return {
+            ...sheet,
+            isActive: nextActive,
+            activatedAt: nextActive ? (sheet.activatedAt || new Date().toISOString()) : "",
+            focusRank: nextActive ? sheet.focusRank : null,
+          };
+        })
+      )
+    );
 
     recordActivity(
       nextActive ? "sheet_activated" : "sheet_deactivated",
-      `${nextActive ? "Activated" : "Deactivated"} ${getSheetDisplayName(targetSheet)}.`,
+      `${nextActive ? "Focused" : "Removed focus from"} ${getSheetDisplayName(targetSheet)}.`,
       {
         sheetKey,
         sheetType: getSheetType(targetSheet),
         nextActive,
+      }
+    );
+  };
+
+  const moveFocusedSheet = (sheetKey, direction) =>
+  {
+    const focusedSheets = [...sheets.filter((sheet) => sheet.isActive)].sort(compareActiveSheetsByActivationOrder);
+    const currentIndex = focusedSheets.findIndex((sheet) => sheet.key === sheetKey);
+
+    if (currentIndex === -1)
+    {
+      return;
+    }
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+
+    if (targetIndex < 0 || targetIndex >= focusedSheets.length)
+    {
+      return;
+    }
+
+    const currentSheet = focusedSheets[currentIndex];
+    const targetSheet = focusedSheets[targetIndex];
+
+    setSheets((prev) =>
+      normalizeFocusedSheetRanks(
+        prev.map((sheet) =>
+        {
+          if (sheet.key === currentSheet.key)
+          {
+            return {
+              ...sheet,
+              focusRank: targetSheet.focusRank ?? targetIndex + 1,
+            };
+          }
+
+          if (sheet.key === targetSheet.key)
+          {
+            return {
+              ...sheet,
+              focusRank: currentSheet.focusRank ?? currentIndex + 1,
+            };
+          }
+
+          return sheet;
+        })
+      )
+    );
+
+    recordActivity(
+      "sheet_focus_reordered",
+      `Moved ${getSheetDisplayName(currentSheet)} ${direction} in focus order.`,
+      {
+        sheetKey,
+        direction,
       }
     );
   };
@@ -2072,7 +2210,11 @@ export default function App()
       + Number(island.nurserySessions?.length || 0),
     0
   );
-  const queuePressureCount = topQueueItems.reduce(
+  const readyQueuePressureCount = readyQueue.reduce(
+    (sum, item) => sum + Number(item.actualRemaining || 0),
+    0
+  );
+  const blockedQueuePressureCount = blockedQueue.reduce(
     (sum, item) => sum + Number(item.actualRemaining || 0),
     0
   );
@@ -2219,11 +2361,13 @@ export default function App()
             needNowIslandCount={needNowIslandCount}
             breedableIslandCount={breedableIslandCount}
             activeIslandSessionCount={activeIslandSessionCount}
-            queuePressureCount={queuePressureCount}
+            readyQueuePressureCount={readyQueuePressureCount}
+            blockedQueuePressureCount={blockedQueuePressureCount}
             activeVesselSummary={activeVesselSummary}
             islandCollectionProgress={islandCollectionProgress}
             islandCapacitySummary={islandCapacitySummary}
-            topQueueItems={topQueueItems}
+            topReadyQueueItems={topReadyQueueItems}
+            topBlockedQueueItems={topBlockedQueueItems}
             onOpenIslandPlanner={openIslandPlanner}
             onOpenActiveSheets={openActiveSheets}
             onOpenCollections={openCollections}
@@ -2244,6 +2388,9 @@ export default function App()
               goals={homeGoals}
               onOpenSheet={openSheet}
               onOpenCollections={openCollections}
+              onMoveGoalUp={(sheetKey) => moveFocusedSheet(sheetKey, "up")}
+              onMoveGoalDown={(sheetKey) => moveFocusedSheet(sheetKey, "down")}
+              focusLimit={MAX_FOCUSED_SHEETS}
             />
           </Suspense>
         </ScreenErrorBoundary>
@@ -2298,8 +2445,8 @@ export default function App()
               }}
             >
               {selectedSheet.isActive
-                ? `Deactivate ${getSheetDisplayName(selectedSheet)}`
-                : `Activate ${getSheetDisplayName(selectedSheet)}`}
+                ? `Remove Focus from ${getSheetDisplayName(selectedSheet)}`
+                : `Add ${getSheetDisplayName(selectedSheet)} to Focus`}
             </button>
 
             <button

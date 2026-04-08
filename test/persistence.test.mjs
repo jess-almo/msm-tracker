@@ -19,6 +19,7 @@ import {
   buildBlockedBreedingQueue,
   buildBreedingQueue,
   buildIslandPlannerData,
+  buildReadyBreedingQueue,
 } from "../src/utils/queue.js";
 
 function createDefaultSheet(overrides = {})
@@ -340,6 +341,89 @@ test("buildBlockedBreedingQueue skips entries when a valid island has open breed
   );
 
   assert.equal(blockedQueue.length, 0);
+});
+
+test("buildReadyBreedingQueue returns only islands with open breeders", () =>
+{
+  const sheet = createDefaultSheet({
+    status: "ACTIVE",
+    isActive: true,
+    monsters: [
+      {
+        name: "Congle",
+        required: 2,
+        zapped: 0,
+        breeding: 0,
+        breedingAssignments: {},
+        island: "Plant",
+        requirementIsland: "Plant",
+      },
+    ],
+  });
+
+  const readyQueue = buildReadyBreedingQueue(
+    [sheet],
+    [
+      {
+        island: "Plant",
+        isUnlocked: false,
+        freeSlots: 1,
+        supportsStandardBreeding: true,
+        orderIndex: 1,
+      },
+      {
+        island: "Cold",
+        isUnlocked: true,
+        freeSlots: 1,
+        supportsStandardBreeding: true,
+        orderIndex: 2,
+      },
+    ]
+  );
+
+  assert.equal(readyQueue.length, 1);
+  assert.equal(readyQueue[0].island, "Cold");
+});
+
+test("background island collection sheets still feed the ready queue without using focus", () =>
+{
+  const sheet = {
+    key: "plant_collection",
+    type: "island",
+    island: "Plant",
+    sheetTitle: "Plant Collection",
+    priority: 200,
+    status: "ACTIVE",
+    isActive: false,
+    monsters: [
+      {
+        name: "Bowgart",
+        required: 1,
+        zapped: 0,
+        breeding: 0,
+        breedingAssignments: {},
+        island: "Plant",
+        requirementIsland: "Plant",
+      },
+    ],
+  };
+
+  const readyQueue = buildReadyBreedingQueue(
+    [sheet],
+    [
+      {
+        island: "Plant",
+        isUnlocked: true,
+        freeSlots: 1,
+        supportsStandardBreeding: true,
+        orderIndex: 1,
+      },
+    ]
+  );
+
+  assert.equal(readyQueue.length, 1);
+  assert.equal(readyQueue[0].sheetKey, "plant_collection");
+  assert.equal(readyQueue[0].island, "Plant");
 });
 
 test("loadInitialAppState falls back to the latest snapshot when live keys are missing", () =>
