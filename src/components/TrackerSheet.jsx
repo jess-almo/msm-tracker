@@ -82,7 +82,7 @@ export default function TrackerSheet({
       style={{
         maxWidth:"960px",
         margin:"0 auto",
-        opacity: data.isActive ? 1 : 0.45,
+        opacity: data.isActive || isIslandSheet ? 1 : 0.45,
         transition: "opacity 160ms ease",
       }}
     >

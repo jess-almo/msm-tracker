@@ -1394,6 +1394,9 @@ export default function Collections({
   sheets,
   collectionsData,
   islandStates,
+  initialWorldKey = "",
+  onClearInitialWorldKey,
+  onOpenCollectionWorld,
   onOpenSheet,
   onCreateAnotherSheetInstance,
   onDeleteSheetInstance,
@@ -1401,7 +1404,6 @@ export default function Collections({
   onUpdateCollectionEntryStatus,
 })
 {
-  const [selectedWorldKey, setSelectedWorldKey] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [showScrollTop, setShowScrollTop] = useState(false);
   const safeSheets = Array.isArray(sheets) ? sheets.filter(Boolean) : [];
@@ -1715,17 +1717,9 @@ export default function Collections({
   );
 
   const selectedWorld = useMemo(
-    () => allCollectionWorlds.find((world) => world.key === selectedWorldKey) || null,
-    [allCollectionWorlds, selectedWorldKey]
+    () => allCollectionWorlds.find((world) => world.key === initialWorldKey) || null,
+    [allCollectionWorlds, initialWorldKey]
   );
-
-  useEffect(() =>
-  {
-    if (selectedWorldKey && !selectedWorld)
-    {
-      setSelectedWorldKey("");
-    }
-  }, [selectedWorld, selectedWorldKey]);
 
   return (
     <div className="page-surface">
@@ -1743,7 +1737,10 @@ export default function Collections({
             {selectedWorld && (
               <button
                 style={{ ...actionButtonStyle, width: "fit-content" }}
-                onClick={() => setSelectedWorldKey("")}
+                onClick={() =>
+                {
+                  onClearInitialWorldKey?.();
+                }}
               >
                 Back to Collection Worlds
               </button>
@@ -1882,7 +1879,7 @@ export default function Collections({
                     <CollectionWorldCard
                       key={world.key}
                       world={world}
-                      onOpenWorld={setSelectedWorldKey}
+                      onOpenWorld={onOpenCollectionWorld}
                       onOpenSheet={onOpenSheet}
                     />
                   ))}
