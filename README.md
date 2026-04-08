@@ -4,15 +4,17 @@
 
 Track My Singing Monsters breeding work with one app that keeps long-term goals, live breeder occupancy, and island-by-island execution tied together.
 
+MSM Tracker is a local-first companion for players who want one place to manage collection progress, active breeding pressure, and live island state without bouncing between spreadsheets, notes, and memory.
+
 ## Status
 
 - Current version: `0.4.0`
 - Current release tag: `v0.4.0`
 - Web app is working and actively used
-- Android wrapper path is now set up with Capacitor
+- Android wrapper is set up through Capacitor
 - Current breeding-data target is operationally complete for tracked requirement monsters
-- Backup export/import is now built into the app
-- Lint, build, and a lightweight persistence test layer are all passing
+- Backup export/import is built into the app
+- Build and test checks are passing
 
 ## What This App Does
 
@@ -34,11 +36,9 @@ That gives the app a practical workflow:
 
 ### Goal Tracking
 
-- shared sheet system for:
-  - vessel sheets
-  - island collection sheets
+- shared sheet system for vessel sheets and island collection sheets
 - Active Sheets view for currently relevant work only
-- Collections view for browsing tracked goals without leaving the sheet model
+- collection-world browser for browsing tracked goals without leaving the sheet model
 - Wublin multi-instance support with separate tracked identity per instance
 
 ### Operational Workflow
@@ -145,7 +145,7 @@ The app is meant to feel like a practical companion, not a spreadsheet with pret
 
 ## Android Path
 
-The repo now has a first Android wrapper path using Capacitor.
+The repo now has an Android wrapper path using Capacitor.
 
 What is already done:
 
