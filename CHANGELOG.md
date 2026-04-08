@@ -8,6 +8,11 @@ Do not create a fake release for every tiny edit.
 
 ### Changed
 
+- Reworked island collection truth so Faerie now uses an explicit collection roster instead of broad `breedableOn` inference, allowing collection-only entries like Dipsters and relic-bought monsters to stay visible in collection tracking without polluting Island Manager and queue operations.
+- Added island-collection operation flags and first-pass acquisition typing so keys, relic purchases, seasonal entries, and normal breeding targets can follow different collection-vs-operations rules instead of all being treated like standard breeding demand.
+- Tightened Island Manager collection demand so regular island collection gaps now stay visible until the monster is actually collected, even if it is already planned or breeding, which better matches how standard island collection progress works in-game.
+- Restored island-card `COLLECTION MISSING` demand from the full island collection sheet set instead of only the focused operational sheet slice, so normal collection monsters still appear on island cards even when those sheets are not focused.
+- Compact island collection sheets now behave more like dense checklist views: quick collected toggles are surfaced directly, planner buttons are removed from the compact card variant, and collection-only rows stop pretending they are generic multi-island breeding targets.
 - Added a working planner-model note under `docs/PLANNER_MODEL.md` so the next Island Manager refactor has one explicit source of truth for stable island ordering, focus-driven in-card lists, and the split between sheet coverage progress, live island-board state, and operational priority.
 - Added a lightweight local activity log for major tracker mutations like activating sheets, creating/deleting tracked runs, resetting sheets, and changing collection-entry status so recovery work has human-readable breadcrumbs alongside the automatic snapshot history.
 - Wrapped local persistence values in a versioned save envelope and added rolling automatic full-state snapshots so the tracker can fall back to recent saved state if an active-development change or malformed slice knocks out one of the primary localStorage keys.
