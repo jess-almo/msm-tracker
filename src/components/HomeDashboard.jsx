@@ -31,6 +31,179 @@ const worldCardStyle = {
   gap: "10px",
 };
 
+function getActionCardAccent(label)
+{
+  switch (label)
+  {
+    case "NEED NOW":
+      return {
+        border: "rgba(59,130,246,0.26)",
+        background: "linear-gradient(180deg, rgba(59,130,246,0.12), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(37,99,235,0.12)",
+      };
+    case "BREEDABLE":
+      return {
+        border: "rgba(16,185,129,0.24)",
+        background: "linear-gradient(180deg, rgba(16,185,129,0.12), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(5,150,105,0.12)",
+      };
+    case "ACTIVE EGGS":
+      return {
+        border: "rgba(168,85,247,0.24)",
+        background: "linear-gradient(180deg, rgba(168,85,247,0.11), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(147,51,234,0.11)",
+      };
+    case "READY NOW":
+      return {
+        border: "rgba(245,158,11,0.26)",
+        background: "linear-gradient(180deg, rgba(245,158,11,0.12), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(217,119,6,0.13)",
+      };
+    case "BLOCKED":
+      return {
+        border: "rgba(239,68,68,0.24)",
+        background: "linear-gradient(180deg, rgba(239,68,68,0.11), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(220,38,38,0.11)",
+      };
+    case "ACTIVE VESSELS":
+      return {
+        border: "rgba(245,158,11,0.22)",
+        background: "linear-gradient(180deg, rgba(245,158,11,0.1), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(180,83,9,0.1)",
+      };
+    case "ISLAND COLLECTIONS":
+      return {
+        border: "rgba(34,197,94,0.24)",
+        background: "linear-gradient(180deg, rgba(34,197,94,0.1), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(22,163,74,0.11)",
+      };
+    case "BREEDER SPACE":
+      return {
+        border: "rgba(14,165,233,0.22)",
+        background: "linear-gradient(180deg, rgba(14,165,233,0.1), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(2,132,199,0.1)",
+      };
+    case "NURSERY SPACE":
+      return {
+        border: "rgba(99,102,241,0.22)",
+        background: "linear-gradient(180deg, rgba(99,102,241,0.1), rgba(255,255,255,0.03))",
+        glow: "0 14px 34px rgba(79,70,229,0.1)",
+      };
+    default:
+      return {
+        border: "rgba(255,255,255,0.12)",
+        background: pageCardStyle.background,
+        glow: pageCardStyle.boxShadow,
+      };
+  }
+}
+
+function getWorldCardAccent(world)
+{
+  const chips = new Set(world.chips || []);
+
+  if (chips.has("Natural"))
+  {
+    return {
+      border: "rgba(34,197,94,0.28)",
+      background: "linear-gradient(180deg, rgba(34,197,94,0.12), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(22,163,74,0.11)",
+    };
+  }
+
+  if (chips.has("Fire"))
+  {
+    return {
+      border: "rgba(249,115,22,0.28)",
+      background: "linear-gradient(180deg, rgba(249,115,22,0.12), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(194,65,12,0.12)",
+    };
+  }
+
+  if (chips.has("Magical"))
+  {
+    return {
+      border: "rgba(168,85,247,0.28)",
+      background: "linear-gradient(180deg, rgba(168,85,247,0.11), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(147,51,234,0.11)",
+    };
+  }
+
+  if (chips.has("Ethereal"))
+  {
+    return {
+      border: "rgba(45,212,191,0.26)",
+      background: "linear-gradient(180deg, rgba(45,212,191,0.1), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(13,148,136,0.11)",
+    };
+  }
+
+  if (chips.has("Mirror") || chips.has("Mirror Islands"))
+  {
+    return {
+      border: "rgba(96,165,250,0.24)",
+      background: "linear-gradient(180deg, rgba(96,165,250,0.1), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(59,130,246,0.1)",
+    };
+  }
+
+  if (chips.has("Zap") || world.title.includes("Wublin"))
+  {
+    return {
+      border: "rgba(45,212,191,0.28)",
+      background: "linear-gradient(180deg, rgba(20,184,166,0.11), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(13,148,136,0.11)",
+    };
+  }
+
+  if (chips.has("Vessels") || world.title.includes("Amber"))
+  {
+    return {
+      border: "rgba(245,158,11,0.28)",
+      background: "linear-gradient(180deg, rgba(245,158,11,0.11), rgba(255,255,255,0.03))",
+      glow: "0 16px 36px rgba(180,83,9,0.11)",
+    };
+  }
+
+  return {
+    border: "rgba(255,255,255,0.12)",
+    background: worldCardStyle.background,
+    glow: "0 14px 34px rgba(0,0,0,0.16)",
+  };
+}
+
+function getSectionTone(kind)
+{
+  switch (kind)
+  {
+    case "command":
+      return {
+        border: "1px solid rgba(96,165,250,0.16)",
+        background: "linear-gradient(180deg, rgba(96,165,250,0.07), rgba(255,255,255,0.025))",
+      };
+    case "collections":
+      return {
+        border: "1px solid rgba(34,197,94,0.16)",
+        background: "linear-gradient(180deg, rgba(34,197,94,0.06), rgba(255,255,255,0.025))",
+      };
+    case "focus":
+      return {
+        border: "1px solid rgba(245,158,11,0.16)",
+        background: "linear-gradient(180deg, rgba(245,158,11,0.06), rgba(255,255,255,0.025))",
+      };
+    case "queue":
+      return {
+        border: "1px solid rgba(168,85,247,0.16)",
+        background: "linear-gradient(180deg, rgba(168,85,247,0.06), rgba(255,255,255,0.025))",
+      };
+    default:
+      return {
+        border: pageCardStyle.border,
+        background: pageCardStyle.background,
+      };
+  }
+}
+
 function DashboardActionCard({
   label,
   value,
@@ -38,11 +211,18 @@ function DashboardActionCard({
   onClick,
 })
 {
+  const accent = getActionCardAccent(label);
+
   return (
     <button
       type="button"
       className="dashboard-action-card"
-      style={statButtonStyle}
+      style={{
+        ...statButtonStyle,
+        border: `1px solid ${accent.border}`,
+        background: accent.background,
+        boxShadow: accent.glow,
+      }}
       onClick={onClick}
     >
       <div style={{ fontSize: "13px", opacity: 0.7, letterSpacing: "0.06em" }}>
@@ -194,6 +374,7 @@ function DashboardCollectionWorldCard({
   onOpenSheet,
 })
 {
+  const accent = getWorldCardAccent(world);
   const handleClick = () =>
   {
     if (world.kind === "sheet")
@@ -210,7 +391,12 @@ function DashboardCollectionWorldCard({
       type="button"
       className="focus-goal-card"
       onClick={handleClick}
-      style={worldCardStyle}
+      style={{
+        ...worldCardStyle,
+        border: `1px solid ${accent.border}`,
+        background: accent.background,
+        boxShadow: accent.glow,
+      }}
     >
       <div
         style={{
@@ -299,6 +485,11 @@ export default function HomeDashboard({
   isImporting,
 })
 {
+  const commandTone = getSectionTone("command");
+  const collectionTone = getSectionTone("collections");
+  const focusTone = getSectionTone("focus");
+  const queueTone = getSectionTone("queue");
+
   function handleOpenQueueItem(item)
   {
     if (item?.sheetKey)
@@ -312,7 +503,15 @@ export default function HomeDashboard({
 
   return (
     <div className="page-surface" style={{ gap: "16px" }}>
-      <div className="responsive-page-card" style={{ ...pageCardStyle, display: "grid", gap: "16px" }}>
+      <div
+        className="responsive-page-card"
+        style={{
+          ...pageCardStyle,
+          ...commandTone,
+          display: "grid",
+          gap: "16px",
+        }}
+      >
         <div>
           <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
             RIGHT NOW
@@ -363,7 +562,15 @@ export default function HomeDashboard({
         </div>
       </div>
 
-      <div className="responsive-page-card" style={{ ...pageCardStyle, display: "grid", gap: "14px" }}>
+      <div
+        className="responsive-page-card"
+        style={{
+          ...pageCardStyle,
+          ...collectionTone,
+          display: "grid",
+          gap: "14px",
+        }}
+      >
         <div>
           <div style={{ fontSize: "14px", opacity: 0.7, letterSpacing: "0.06em" }}>
             COLLECTION WORLDS
@@ -432,7 +639,15 @@ export default function HomeDashboard({
         onImportBackup={onImportBackup}
       />
 
-      <div className="responsive-page-card" style={{ ...pageCardStyle, display: "grid", gap: "14px" }}>
+      <div
+        className="responsive-page-card"
+        style={{
+          ...pageCardStyle,
+          ...focusTone,
+          display: "grid",
+          gap: "14px",
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -467,7 +682,15 @@ export default function HomeDashboard({
         )}
       </div>
 
-      <div className="responsive-page-card" style={{ ...pageCardStyle, display: "grid", gap: "14px" }}>
+      <div
+        className="responsive-page-card"
+        style={{
+          ...pageCardStyle,
+          ...queueTone,
+          display: "grid",
+          gap: "14px",
+        }}
+      >
         <div
           style={{
             display: "flex",
