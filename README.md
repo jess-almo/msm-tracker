@@ -75,6 +75,42 @@ That gives the app a practical workflow:
 - export/import backup flow is available from the Dashboard
 - a lightweight Node test layer now validates the persistence and reconciliation helpers
 
+## Screenshots
+
+### Dashboard
+
+Dashboard now acts like a launchpad, not just a stats page. It links into live board work, collection worlds, backup flow, and focus sheets.
+
+![Dashboard overview](docs/screenshots/dashboard-overview.png)
+
+![Dashboard backup and focus](docs/screenshots/dashboard-backup-focus.png)
+
+### Collections
+
+Collections is now organized around collection worlds instead of old implementation buckets, so standard islands and special worlds read more like the game itself.
+
+![Collections home](docs/screenshots/collections-home.png)
+
+### Island Manager
+
+Island Manager handles live breeder capacity, what needs attention next, and what is already breeding on the board.
+
+![Island Manager need now](docs/screenshots/island-manager-need-now.png)
+
+![Island Manager live board](docs/screenshots/island-manager-live-board.png)
+
+### Breeding Queue
+
+The queue separates what is actionable right now from what is blocked, so pressure is easier to read honestly.
+
+![Breeding Queue blocked pipeline](docs/screenshots/breeding-queue-blocked.png)
+
+### Monster Library
+
+Monster Library gives you searchable monster metadata, filters, and audit-friendly breeding reference in one place.
+
+![Monster Library](docs/screenshots/monster-library.png)
+
 ## Main Screens
 
 - `Dashboard`
