@@ -1,4 +1,5 @@
 import { getIslandOperationalProfile } from "../data/islands.js";
+import { resolveIslandCollectionMonsterPolicy } from "../data/sheets.js";
 import { getMonsterBreedingIslands, getMonsterMetadata } from "./monsterMetadata.js";
 
 export const FOCUSED_OPERATIONAL_LIMIT = 5;
@@ -143,10 +144,13 @@ function getActivationOrderByKey(activeSheets)
 function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
 {
   const isIslandCollectionSheet = sheet?.type === "island";
+  const islandCollectionPolicy = isIslandCollectionSheet
+    ? resolveIslandCollectionMonsterPolicy(monster, sheet?.island || "")
+    : null;
 
   if (isIslandCollectionSheet)
   {
-    if (monster?.showInOperations === false)
+    if (islandCollectionPolicy?.showInOperations === false)
     {
       return null;
     }
@@ -201,7 +205,7 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
     actualRemaining,
     queueRemaining,
     remaining: plannerRemaining,
-    acquisitionType: monster?.acquisitionType || "breed",
+    acquisitionType: islandCollectionPolicy?.acquisitionType || monster?.acquisitionType || "breed",
   };
 }
 
