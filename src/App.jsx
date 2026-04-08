@@ -2484,6 +2484,7 @@ export default function App()
             <CollectionsPage
               sheets={sheets}
               collectionsData={collectionsData}
+              islandStates={islandStates}
               getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
               onOpenSheet={openSheet}
               onCreateAnotherSheetInstance={createAnotherSheetInstance}

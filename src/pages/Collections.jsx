@@ -200,6 +200,36 @@ function getIslandCompletionPalette(islandName = "")
 {
   const normalizedName = String(islandName || "").toLowerCase();
 
+  if (normalizedName.includes("amber"))
+  {
+    return {
+      glow: "rgba(251,191,36,0.26)",
+      accent: "rgba(245,158,11,0.24)",
+      border: "rgba(245,158,11,0.34)",
+      wash: "rgba(180,83,9,0.12)",
+    };
+  }
+
+  if (normalizedName.includes("wublin"))
+  {
+    return {
+      glow: "rgba(45,212,191,0.24)",
+      accent: "rgba(20,184,166,0.22)",
+      border: "rgba(20,184,166,0.34)",
+      wash: "rgba(13,148,136,0.12)",
+    };
+  }
+
+  if (normalizedName.includes("celestial"))
+  {
+    return {
+      glow: "rgba(251,207,232,0.24)",
+      accent: "rgba(192,132,252,0.22)",
+      border: "rgba(216,180,254,0.34)",
+      wash: "rgba(168,85,247,0.12)",
+    };
+  }
+
   if (normalizedName.includes("plant"))
   {
     return {
@@ -240,7 +270,17 @@ function getIslandCompletionPalette(islandName = "")
     };
   }
 
-  if (normalizedName.includes("earth") || normalizedName.includes("bone"))
+  if (normalizedName.includes("bone"))
+  {
+    return {
+      glow: "rgba(221,214,254,0.24)",
+      accent: "rgba(196,181,253,0.22)",
+      border: "rgba(196,181,253,0.34)",
+      wash: "rgba(139,92,246,0.12)",
+    };
+  }
+
+  if (normalizedName.includes("earth"))
   {
     return {
       glow: "rgba(251,191,36,0.22)",
@@ -263,30 +303,40 @@ function getIslandCompletionPalette(islandName = "")
   if (normalizedName.includes("light"))
   {
     return {
-      glow: "rgba(253,224,71,0.24)",
-      accent: "rgba(250,204,21,0.22)",
-      border: "rgba(250,204,21,0.34)",
-      wash: "rgba(234,179,8,0.12)",
+      glow: "rgba(253,224,71,0.28)",
+      accent: "rgba(250,204,21,0.24)",
+      border: "rgba(250,204,21,0.36)",
+      wash: "rgba(234,179,8,0.15)",
     };
   }
 
   if (normalizedName.includes("psychic"))
   {
     return {
-      glow: "rgba(196,181,253,0.24)",
-      accent: "rgba(167,139,250,0.22)",
-      border: "rgba(167,139,250,0.34)",
-      wash: "rgba(124,58,237,0.12)",
+      glow: "rgba(192,132,252,0.28)",
+      accent: "rgba(168,85,247,0.24)",
+      border: "rgba(168,85,247,0.36)",
+      wash: "rgba(126,34,206,0.16)",
     };
   }
 
   if (normalizedName.includes("faerie"))
   {
     return {
-      glow: "rgba(244,114,182,0.24)",
-      accent: "rgba(244,114,182,0.22)",
-      border: "rgba(244,114,182,0.34)",
-      wash: "rgba(219,39,119,0.12)",
+      glow: "rgba(244,114,182,0.28)",
+      accent: "rgba(244,114,182,0.24)",
+      border: "rgba(244,114,182,0.36)",
+      wash: "rgba(219,39,119,0.15)",
+    };
+  }
+
+  if (normalizedName.includes("sanctum"))
+  {
+    return {
+      glow: "rgba(129,140,248,0.24)",
+      accent: "rgba(99,102,241,0.22)",
+      border: "rgba(129,140,248,0.34)",
+      wash: "rgba(67,56,202,0.12)",
     };
   }
 
@@ -321,22 +371,64 @@ function getIslandCompletionPalette(islandName = "")
 function getIslandCardVisualStyle(sheet, status)
 {
   const baseStyle = getStatusVisualStyle(status);
+  const palette = getIslandCompletionPalette(sheet?.island || "");
+  const isLocked = Boolean(sheet?.isLocked);
 
-  if (status !== "complete")
+  if (isLocked)
   {
-    return baseStyle;
+    return {
+      border: "1px solid rgba(148,163,184,0.16)",
+      background: "linear-gradient(180deg, rgba(71,85,105,0.14), rgba(255,255,255,0.02))",
+      boxShadow: "0 10px 24px rgba(0,0,0,0.1)",
+      chipBackground: "rgba(100,116,139,0.16)",
+      opacity: 0.68,
+    };
   }
 
-  const palette = getIslandCompletionPalette(sheet?.island || "");
+  if (status === "complete")
+  {
+    return {
+      ...baseStyle,
+      border: `1px solid ${palette.border}`,
+      background: `linear-gradient(180deg, ${palette.wash}, rgba(255,255,255,0.045))`,
+      boxShadow: `0 0 0 1px ${palette.accent}, 0 0 34px ${palette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
+      chipBackground: `linear-gradient(180deg, ${palette.accent}, rgba(255,255,255,0.06))`,
+      opacity: 1,
+    };
+  }
+
+  const statusWashByState = {
+    active: "rgba(255,255,255,0.02)",
+    in_progress: "rgba(255,255,255,0.03)",
+    not_started: "rgba(255,255,255,0.015)",
+  };
+  const statusEdgeByState = {
+    active: "rgba(255,255,255,0.1)",
+    in_progress: "rgba(255,255,255,0.08)",
+    not_started: "rgba(255,255,255,0.06)",
+  };
 
   return {
-    ...baseStyle,
     border: `1px solid ${palette.border}`,
-    background: `linear-gradient(180deg, ${palette.wash}, rgba(255,255,255,0.045))`,
-    boxShadow: `0 0 0 1px ${palette.accent}, 0 0 34px ${palette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
+    background: `linear-gradient(180deg, ${palette.wash}, ${statusWashByState[status] || "rgba(255,255,255,0.02)"})`,
+    boxShadow: `0 0 0 1px ${statusEdgeByState[status] || "rgba(255,255,255,0.06)"}, 0 0 26px ${palette.glow}, 0 16px 32px rgba(0,0,0,0.16)`,
     chipBackground: `linear-gradient(180deg, ${palette.accent}, rgba(255,255,255,0.06))`,
     opacity: 1,
   };
+}
+
+function getCollectionWorldGroupSortRank(groupKey)
+{
+  const order = {
+    natural: 0,
+    fire: 1,
+    magical: 2,
+    ethereal: 3,
+    other: 4,
+    mirror: 5,
+  };
+
+  return Number.isFinite(order[groupKey]) ? order[groupKey] : 99;
 }
 
 function getSheetSortPriority(sheet)
@@ -1179,15 +1271,20 @@ function CollectionWorldCard({
   onOpenSheet,
 })
 {
-  const visualStyle = world.kind === "island"
-    ? getIslandCardVisualStyle({ island: world.name }, world.status)
-    : getStatusVisualStyle(world.status);
+  const visualStyle = getIslandCardVisualStyle(
+    { island: world.name || world.title, isLocked: world.isLocked },
+    world.status
+  );
 
   const primaryAction = world.kind === "island"
     ? () => onOpenSheet(world.sheetKey)
     : () => onOpenWorld(world.key);
 
-  const primaryLabel = world.kind === "island" ? "Open Collection" : "Open World";
+  const primaryLabel = world.isLocked
+    ? "Locked"
+    : world.kind === "island"
+      ? "Open Collection"
+      : "Open World";
 
   return (
     <div
@@ -1231,7 +1328,7 @@ function CollectionWorldCard({
               marginBottom: "8px",
             }}
           >
-            {getStatusLabel(world.status)}
+            {world.isLocked ? "Locked" : getStatusLabel(world.status)}
           </div>
           <div style={{ fontSize: "14px", fontWeight: 700 }}>
             {world.summaryValue}
@@ -1284,6 +1381,7 @@ function CollectionWorldCard({
         <button
           style={actionButtonStyle}
           onClick={primaryAction}
+          disabled={world.isLocked}
         >
           {primaryLabel}
         </button>
@@ -1295,6 +1393,7 @@ function CollectionWorldCard({
 export default function Collections({
   sheets,
   collectionsData,
+  islandStates,
   onOpenSheet,
   onCreateAnotherSheetInstance,
   onDeleteSheetInstance,
@@ -1397,6 +1496,14 @@ export default function Collections({
     () => new Map(ISLAND_STATE_DEFAULTS.map((island) => [island.name, island])),
     []
   );
+  const islandStateByName = useMemo(
+    () => new Map(
+      (Array.isArray(islandStates) ? islandStates : [])
+        .filter((island) => island && typeof island === "object" && island.name)
+        .map((island) => [island.name, island])
+    ),
+    [islandStates]
+  );
   const islandGroupLabelByKey = useMemo(
     () => new Map(ISLAND_GROUPS.map((group) => [group.key, group.label])),
     []
@@ -1451,6 +1558,7 @@ export default function Collections({
         sectionKey,
         sectionTitle,
         status: worldStatus,
+        isLocked: islandStateByName.get(title)?.isUnlocked === false,
         count: groups.length,
         summaryValue: `${completeCount} / ${groups.length}`,
         summaryLabel: "species complete",
@@ -1481,8 +1589,8 @@ export default function Collections({
         title: "Amber Island",
         subtitle: "Relic-fueled vessel collection with tracked runs nested under each monster.",
         chips: ["Vessels", "Relics", "Limited"],
-        sectionKey: "worlds",
-        sectionTitle: "Collection Worlds",
+        sectionKey: "special",
+        sectionTitle: "Special Islands",
       }),
       buildWorld({
         key: "wublin_island",
@@ -1521,9 +1629,17 @@ export default function Collections({
       .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
       .sort((a, b) =>
       {
+        const aLocked = islandStateByName.get(a.island)?.isUnlocked === false;
+        const bLocked = islandStateByName.get(b.island)?.isUnlocked === false;
+
+        if (aLocked !== bLocked)
+        {
+          return aLocked ? 1 : -1;
+        }
+
         const groupDelta =
-          (ISLAND_GROUPS.findIndex((group) => group.key === islandGroupByName.get(a.island))
-            - ISLAND_GROUPS.findIndex((group) => group.key === islandGroupByName.get(b.island)));
+          getCollectionWorldGroupSortRank(islandGroupByName.get(a.island))
+          - getCollectionWorldGroupSortRank(islandGroupByName.get(b.island));
 
         if (groupDelta !== 0)
         {
@@ -1538,6 +1654,8 @@ export default function Collections({
         const groupKey = islandGroupByName.get(sheet.island) || "other";
         const groupLabel = islandGroupLabelByKey.get(groupKey) || "Other";
         const islandProfile = islandProfileByName.get(sheet.island);
+        const islandState = islandStateByName.get(sheet.island);
+        const isLocked = islandState?.isUnlocked === false;
         const chips = [
           groupLabel,
           ...(sheet.island?.includes("Mirror") ? ["Mirror"] : []),
@@ -1556,9 +1674,12 @@ export default function Collections({
           sectionKey: "worlds",
           sectionTitle: "Collection Worlds",
           status: getDerivedSheetStatus(sheet),
+          isLocked,
           summaryValue: `${progress.done} / ${progress.total}`,
           summaryLabel: "collected",
-          supportingCopy: `${progress.trackedPercent}% tracked across the standing collection sheet.`,
+          supportingCopy: isLocked
+            ? "Unlock this island in Island Manager to start tracking it here."
+            : `${progress.trackedPercent}% tracked across the standing collection sheet.`,
         };
       });
 
@@ -1582,6 +1703,7 @@ export default function Collections({
     islandGroupByName,
     islandGroupLabelByKey,
     islandProfileByName,
+    islandStateByName,
     islandSheets,
     specialWorlds,
     statusFilter,
