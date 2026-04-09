@@ -755,6 +755,7 @@ function renderSectionHeader({
       style={{
         display: "grid",
         gap: "6px",
+        textAlign: "left",
       }}
     >
       <div
@@ -1300,6 +1301,7 @@ function CollectionWorldCard({
   const chipsAfterPin = worldArt?.pin
     ? world.chips.slice(Math.ceil(world.chips.length / 2))
     : [];
+  const showCenteredWorldArt = Boolean(worldArt?.pin);
 
   return (
     <div
@@ -1310,14 +1312,15 @@ function CollectionWorldCard({
         background: visualStyle.background,
         boxShadow: visualStyle.boxShadow,
         opacity: visualStyle.opacity ?? 1,
-        minHeight: "336px",
+        minHeight: "292px",
         display: "grid",
         gridTemplateRows: "auto auto auto 1fr auto",
-        gap: "14px",
+        gap: "12px",
         position: "relative",
         overflow: "hidden",
         cursor: isClickable ? "pointer" : "default",
         transition: "transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease",
+        textAlign: "left",
       }}
       onClick={isClickable ? primaryAction : undefined}
       onKeyDown={isClickable
@@ -1336,14 +1339,14 @@ function CollectionWorldCard({
       <div
         style={{
           display: "grid",
-          gap: "8px",
+          gap: "6px",
           alignContent: "start",
         }}
       >
         <div style={{ fontSize: "26px", fontWeight: 800, lineHeight: 1.02 }}>
           {world.title}
         </div>
-        <div style={{ fontSize: "14px", opacity: 0.76, minHeight: "44px", lineHeight: 1.45 }}>
+        <div style={{ fontSize: "14px", opacity: 0.76, lineHeight: 1.4 }}>
           {world.subtitle}
         </div>
       </div>
@@ -1398,14 +1401,14 @@ function CollectionWorldCard({
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: showCenteredWorldArt ? "center" : "flex-start",
           gap: "8px",
           alignItems: "center",
           flexWrap: "wrap",
-          minHeight: "56px",
+          minHeight: showCenteredWorldArt ? "124px" : "0",
         }}
       >
-        {chipsBeforePin.map((chip) => (
+        {!showCenteredWorldArt && chipsBeforePin.map((chip) => (
           <span
             key={`${world.key}:${chip}`}
             style={{
@@ -1420,11 +1423,11 @@ function CollectionWorldCard({
             {chip}
           </span>
         ))}
-        {worldArt?.pin && (
+        {showCenteredWorldArt && (
           <div
             style={{
-              width: "145px",
-              height: "145px",
+              width: "160px",
+              height: "160px",
               borderRadius: "999px",
               background: "rgba(255,255,255,0.07)",
               border: "1px solid rgba(255,255,255,0.12)",
@@ -1439,8 +1442,8 @@ function CollectionWorldCard({
               src={worldArt.pin}
               alt={`${world.title} pin`}
               style={{
-                width: "100px",
-                height: "100px",
+                width: "112px",
+                height: "112px",
                 objectFit: "contain",
                 transform: "scale(1.28)",
                 transformOrigin: "center",
@@ -1448,7 +1451,7 @@ function CollectionWorldCard({
             />
           </div>
         )}
-        {chipsAfterPin.map((chip) => (
+        {!showCenteredWorldArt && chipsAfterPin.map((chip) => (
           <span
             key={`${world.key}:${chip}`}
             style={{
@@ -1467,29 +1470,26 @@ function CollectionWorldCard({
 
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
+          display: "grid",
           gap: "12px",
-          alignItems: "center",
-          flexWrap: "wrap",
+          alignContent: "end",
         }}
       >
         <div
           style={{
             fontSize: "14px",
             opacity: 0.76,
-            minHeight: "38px",
+            minHeight: "36px",
             display: "grid",
             alignContent: "center",
-            flex: "1 1 100%",
-            textAlign: "center",
+            textAlign: "left",
           }}
         >
           {world.supportingCopy}
         </div>
 
         <button
-          style={actionButtonStyle}
+          style={{ ...actionButtonStyle, justifySelf: "start" }}
           onClick={(event) =>
           {
             event.stopPropagation();
@@ -1852,17 +1852,24 @@ export default function Collections({
       <div className="responsive-page-card" style={pageCardStyle}>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
+            display: "grid",
             gap: "16px",
-            alignItems: "flex-start",
-            flexWrap: "wrap",
+            justifyItems: "center",
           }}
         >
-          <div style={{ display: "grid", gap: "8px" }}>
+          <div
+            style={{
+              display: "grid",
+              gap: "8px",
+              textAlign: "center",
+              maxWidth: selectedWorld ? "760px" : "860px",
+              width: "100%",
+              justifyItems: "center",
+            }}
+          >
             {selectedWorld && (
               <button
-                style={{ ...actionButtonStyle, width: "fit-content" }}
+                style={{ ...actionButtonStyle, width: "fit-content", justifySelf: "center" }}
                 onClick={() =>
                 {
                   onClearInitialWorldKey?.();
@@ -1875,7 +1882,7 @@ export default function Collections({
             <div style={{ fontSize: "32px", fontWeight: 800, letterSpacing: "-0.02em" }}>
               {selectedWorld ? selectedWorld.title : "Collections"}
             </div>
-            <div style={{ opacity: 0.75, maxWidth: "720px" }}>
+            <div style={{ opacity: 0.75, maxWidth: "860px", lineHeight: 1.45 }}>
               {selectedWorld
                 ? selectedWorld.subtitle
                 : "Browse by collection world first, then jump into the mechanic-heavy surfaces that need their own nested views."}
@@ -1883,7 +1890,7 @@ export default function Collections({
           </div>
 
           {selectedWorld && (
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
               {selectedWorld.chips.map((chip) => (
                 <span
                   key={`${selectedWorld.key}:hero:${chip}`}
@@ -1915,6 +1922,7 @@ export default function Collections({
               display: "grid",
               placeItems: "center",
               boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
+              justifySelf: "center",
             }}
           >
             <img
@@ -1963,7 +1971,7 @@ export default function Collections({
             </div>
           </div>
 
-          <div style={{ fontSize: "13px", opacity: 0.64 }}>
+          <div style={{ fontSize: "13px", opacity: 0.64, textAlign: "left" }}>
             {selectedWorld
               ? "Species stay collection-first here, while duplicate tracked runs remain nested underneath when that world needs them."
               : "Standard islands jump into their checklist sheet. Special worlds like Amber and Wublin stay here with their own nested interfaces."}
@@ -1990,13 +1998,13 @@ export default function Collections({
       {selectedWorld ? (
         <div style={{ display: "grid", gap: "16px" }}>
           {!selectedWorld.cards || selectedWorld.cards.length === 0 ? (
-            <div style={sectionCardStyle}>
+            <div className="responsive-section-card" style={sectionCardStyle}>
               <div style={{ opacity: 0.68 }}>
                 {getEmptyStateCopy(statusFilter)}
               </div>
             </div>
           ) : (
-            <div style={sectionCardStyle}>
+            <div className="responsive-section-card" style={sectionCardStyle}>
               {renderSectionHeader({
                 title: selectedWorld.title,
                 subtitle: selectedWorld.supportingCopy,
@@ -2012,21 +2020,21 @@ export default function Collections({
       ) : (
         <div style={{ display: "grid", gap: "16px" }}>
           {collectionWorldSections.length === 0 ? (
-            <div style={sectionCardStyle}>
+            <div className="responsive-section-card" style={sectionCardStyle}>
               <div style={{ opacity: 0.68 }}>
                 {getEmptyStateCopy(statusFilter)}
               </div>
             </div>
           ) : (
             collectionWorldSections.map((section) => (
-              <div key={section.key} style={sectionCardStyle}>
+              <div key={section.key} className="responsive-section-card" style={sectionCardStyle}>
                 {renderSectionHeader({
                   title: section.title,
                   subtitle: section.subtitle,
                   count: section.worlds.length,
                 })}
 
-                <div className="collections-card-grid" style={{ marginTop: "12px" }}>
+                <div className="collection-world-grid" style={{ marginTop: "12px" }}>
                   {section.worlds.map((world) => (
                     <CollectionWorldCard
                       key={world.key}
