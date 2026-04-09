@@ -74,8 +74,69 @@ const compactDangerButtonStyle = {
 
 const COLLECTION_WORLD_ART = {
   Plant: {
-    icon: "/monsters/portraits/plant-island-icon.png",
-    pin: "/monsters/portraits/plant-island-map-pin.png",
+    icon: "/monsters/worlds/icons/plant.png",
+    pin: "/monsters/worlds/pins/plant.png",
+    pinScale: 1.28,
+  },
+  Cold: {
+    icon: "/monsters/worlds/icons/cold.png",
+    pin: "/monsters/worlds/pins/cold.png",
+    pinScale: 1.42,
+  },
+  Air: {
+    icon: "/monsters/worlds/icons/air.png",
+    pin: "/monsters/worlds/pins/air.png",
+    pinScale: 1.28,
+  },
+  Water: {
+    icon: "/monsters/worlds/icons/water.png",
+    pin: "/monsters/worlds/pins/water.png",
+    pinScale: 1.28,
+  },
+  Earth: {
+    icon: "/monsters/worlds/icons/earth.png",
+    pin: "/monsters/worlds/pins/earth.png",
+    pinScale: 1.28,
+  },
+  "Fire Haven": {
+    icon: "/monsters/worlds/icons/fire-haven.png",
+    pin: "/monsters/worlds/pins/fire-haven.png",
+    pinScale: 1.3,
+  },
+  "Fire Oasis": {
+    icon: "/monsters/worlds/icons/fire-oasis.png",
+    pin: "/monsters/worlds/pins/fire-oasis.png",
+    pinScale: 1.3,
+  },
+  Light: {
+    icon: "/monsters/worlds/icons/light.png",
+    pin: "/monsters/worlds/pins/light.png",
+    pinScale: 1.3,
+  },
+  Psychic: {
+    icon: "/monsters/worlds/icons/psychic.png",
+    pin: "/monsters/worlds/pins/psychic.png",
+    pinScale: 1.3,
+  },
+  Faerie: {
+    icon: "/monsters/worlds/icons/faerie.png",
+    pin: "/monsters/worlds/pins/faerie.png",
+    pinScale: 1.3,
+  },
+  Bone: {
+    icon: "/monsters/worlds/icons/bone.png",
+    pin: "/monsters/worlds/pins/bone.png",
+    pinScale: 1.3,
+  },
+  "Magical Sanctum": {
+    icon: "/monsters/worlds/icons/magical-sanctum.png",
+    pin: "/monsters/worlds/pins/magical-sanctum.png",
+    pinScale: 1.3,
+  },
+  "Ethereal Island": {
+    icon: "/monsters/worlds/icons/ethereal-island.png",
+    pin: "/monsters/worlds/pins/ethereal-island.png",
+    pinScale: 1.3,
   },
 };
 
@@ -1284,24 +1345,25 @@ function CollectionWorldCard({
     world.status
   );
   const worldArt = COLLECTION_WORLD_ART[world.title] || null;
+  const pinScale = worldArt?.pinScale || 1.28;
 
   const primaryAction = world.kind === "island"
     ? () => onOpenSheet(world.sheetKey)
     : () => onOpenWorld(world.key);
-
-  const primaryLabel = world.isLocked
-    ? "Locked"
-    : world.kind === "island"
-      ? "Open Collection"
-      : "Open World";
-  const isClickable = !world.isLocked;
+  const isClickable = true;
   const chipsBeforePin = worldArt?.pin
     ? world.chips.slice(0, Math.ceil(world.chips.length / 2))
     : world.chips;
   const chipsAfterPin = worldArt?.pin
     ? world.chips.slice(Math.ceil(world.chips.length / 2))
     : [];
-  const showCenteredWorldArt = Boolean(worldArt?.pin);
+  const showCenteredWorldArt = world.kind === "island" && Boolean(worldArt?.pin);
+  const showWorldChips = world.kind !== "island";
+  const statusLabel = world.isLocked
+    ? "Locked"
+    : world.kind === "island"
+      ? (world.status === "complete" ? "Complete" : "Active")
+      : getStatusLabel(world.status);
 
   return (
     <div
@@ -1393,14 +1455,14 @@ function CollectionWorldCard({
               fontWeight: 700,
             }}
           >
-            {world.isLocked ? "Locked" : getStatusLabel(world.status)}
+            {statusLabel}
           </div>
         </div>
       </div>
 
       <div
         style={{
-          display: "flex",
+          display: showWorldChips || showCenteredWorldArt ? "flex" : "none",
           justifyContent: showCenteredWorldArt ? "center" : "flex-start",
           gap: "8px",
           alignItems: "center",
@@ -1408,7 +1470,7 @@ function CollectionWorldCard({
           minHeight: showCenteredWorldArt ? "124px" : "0",
         }}
       >
-        {!showCenteredWorldArt && chipsBeforePin.map((chip) => (
+        {showWorldChips && !showCenteredWorldArt && chipsBeforePin.map((chip) => (
           <span
             key={`${world.key}:${chip}`}
             style={{
@@ -1445,13 +1507,13 @@ function CollectionWorldCard({
                 width: "112px",
                 height: "112px",
                 objectFit: "contain",
-                transform: "scale(1.28)",
+                transform: `scale(${pinScale})`,
                 transformOrigin: "center",
               }}
             />
           </div>
         )}
-        {!showCenteredWorldArt && chipsAfterPin.map((chip) => (
+        {showWorldChips && !showCenteredWorldArt && chipsAfterPin.map((chip) => (
           <span
             key={`${world.key}:${chip}`}
             style={{
@@ -1471,7 +1533,7 @@ function CollectionWorldCard({
       <div
         style={{
           display: "grid",
-          gap: "12px",
+          gap: "10px",
           alignContent: "end",
         }}
       >
@@ -1487,18 +1549,17 @@ function CollectionWorldCard({
         >
           {world.supportingCopy}
         </div>
-
-        <button
-          style={{ ...actionButtonStyle, justifySelf: "start" }}
-          onClick={(event) =>
-          {
-            event.stopPropagation();
-            primaryAction();
+        <div
+          style={{
+            fontSize: "13px",
+            fontWeight: 700,
+            opacity: 0.68,
+            textAlign: "center",
+            justifySelf: "center",
           }}
-          disabled={world.isLocked}
         >
-          {primaryLabel}
-        </button>
+          {world.isLocked ? "Tap to preview" : "Tap to open"}
+        </div>
       </div>
     </div>
   );
@@ -1742,7 +1803,6 @@ export default function Collections({
   const collectionWorldSections = useMemo(() =>
   {
     const islandWorlds = islandSheets
-      .filter((sheet) => matchesStatusFilter(sheet, statusFilter))
       .sort((a, b) =>
       {
         const aLocked = islandStateByName.get(a.island)?.isUnlocked === false;
@@ -1772,18 +1832,11 @@ export default function Collections({
         const islandProfile = islandProfileByName.get(sheet.island);
         const islandState = islandStateByName.get(sheet.island);
         const isLocked = islandState?.isUnlocked === false;
-        const hasManualCollectionFocus = Array.isArray(sheet.monsters)
-          && sheet.monsters.some((monster) => Number.isInteger(Number(monster?.collectionFocusRank)) && Number(monster.collectionFocusRank) > 0);
-        const hasTrackedWork = progress.done > 0 || progress.trackedPercent > 0;
         const islandWorldStatus = isLocked
           ? "not_started"
           : progress.total > 0 && progress.done >= progress.total
             ? "complete"
-            : hasManualCollectionFocus || sheet.isActive
-              ? "active"
-              : hasTrackedWork
-                ? "in_progress"
-                : "not_started";
+            : "active";
         const chips = [
           groupLabel,
           ...(sheet.island?.includes("Mirror") ? ["Mirror"] : []),
@@ -1809,7 +1862,8 @@ export default function Collections({
             ? "Unlock this island in Island Manager to start tracking it here."
             : `${progress.trackedPercent}% tracked across the standing collection sheet.`,
         };
-      });
+      })
+      .filter((world) => matchesStatusFilter(world.status, statusFilter));
 
     const groupedSections = [
       {

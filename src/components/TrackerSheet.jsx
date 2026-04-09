@@ -2,6 +2,22 @@ import React, { useMemo } from "react";
 import { buildVesselFeasibilityEstimate } from "../utils/vesselFeasibility";
 import SheetMonsterCard from "./SheetMonsterCard";
 
+const ISLAND_COLLECTION_ART = {
+  Plant: "/monsters/worlds/icons/plant.png",
+  Cold: "/monsters/worlds/icons/cold.png",
+  Air: "/monsters/worlds/icons/air.png",
+  Water: "/monsters/worlds/icons/water.png",
+  Earth: "/monsters/worlds/icons/earth.png",
+  "Fire Haven": "/monsters/worlds/icons/fire-haven.png",
+  "Fire Oasis": "/monsters/worlds/icons/fire-oasis.png",
+  Light: "/monsters/worlds/icons/light.png",
+  Psychic: "/monsters/worlds/icons/psychic.png",
+  Faerie: "/monsters/worlds/icons/faerie.png",
+  Bone: "/monsters/worlds/icons/bone.png",
+  "Magical Sanctum": "/monsters/worlds/icons/magical-sanctum.png",
+  "Ethereal Island": "/monsters/worlds/icons/ethereal-island.png",
+};
+
 export default function TrackerSheet({
   data,
   islandStates = [],
@@ -17,6 +33,7 @@ export default function TrackerSheet({
 })
 {
   const isIslandSheet = data.type === "island";
+  const islandCollectionIcon = isIslandSheet ? ISLAND_COLLECTION_ART[data.island] || "" : "";
   const totals = useMemo(() =>
   {
     const required = data.monsters.reduce((s, m) => s + m.required, 0);
@@ -88,6 +105,36 @@ export default function TrackerSheet({
       }}
     >
       <h2>{data.sheetTitle}</h2>
+      {islandCollectionIcon && (
+        <div
+          style={{
+            marginTop: "8px",
+            marginBottom: "10px",
+            width: "84px",
+            height: "84px",
+            borderRadius: "24px",
+            border: "1px solid rgba(255,255,255,0.1)",
+            background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0.04))",
+            display: "grid",
+            placeItems: "center",
+            boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
+            justifySelf: "center",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <img
+            src={islandCollectionIcon}
+            alt={`${data.island} icon`}
+            style={{
+              width: "62px",
+              height: "62px",
+              objectFit: "contain",
+              display: "block",
+            }}
+          />
+        </div>
+      )}
             <div style={{marginTop:"8px", marginBottom:"18px"}}>
         <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", gap:"12px", flexWrap:"wrap", marginBottom:"10px"}}>
           <div style={{fontSize:"18px", opacity:0.9}}>

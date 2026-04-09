@@ -71,7 +71,7 @@ const buttonBaseStyle = {
   boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
 };
 
-const APP_ICON_SRC = "/monsters/portraits/icon.png";
+const APP_ICON_SRC = "/branding/app-icon.png";
 
 const SCREEN_OPTIONS = [
   { key: "home", label: "Dashboard" },
