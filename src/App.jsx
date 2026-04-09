@@ -71,6 +71,8 @@ const buttonBaseStyle = {
   boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
 };
 
+const APP_ICON_SRC = "/monsters/portraits/icon.png";
+
 const SCREEN_OPTIONS = [
   { key: "home", label: "Dashboard" },
   { key: "active", label: "Active Sheets" },
@@ -483,6 +485,35 @@ function normalizeFocusedSheetRanks(nextSheets)
       focusRank: focusRankByKey.get(sheet.key) ?? null,
     };
   });
+}
+
+function normalizeIslandCollectionMonsterFocus(monsters)
+{
+  const normalizedMonsters = Array.isArray(monsters) ? monsters : [];
+  const focusedMonsters = normalizedMonsters
+    .map((monster, monsterIndex) => ({
+      monster,
+      monsterIndex,
+      focusRank: getIslandCollectionMonsterFocusRank(monster?.collectionFocusRank),
+    }))
+    .filter(({ focusRank }) => focusRank !== null)
+    .sort((a, b) => a.focusRank - b.focusRank || a.monsterIndex - b.monsterIndex)
+    .slice(0, 3);
+  const focusRankByIndex = new Map(
+    focusedMonsters.map(({ monsterIndex }, index) => [monsterIndex, index + 1])
+  );
+
+  return normalizedMonsters.map((monster, monsterIndex) => ({
+    ...monster,
+    collectionFocusRank: focusRankByIndex.get(monsterIndex) ?? null,
+  }));
+}
+
+function getIslandCollectionMonsterFocusRank(value)
+{
+  const parsedValue = Number(value);
+
+  return Number.isInteger(parsedValue) && parsedValue > 0 ? parsedValue : null;
 }
 
 function getIslandCapacityBounds(islandState)
@@ -1171,6 +1202,11 @@ export default function App()
               options.islandName || ""
             );
           }
+
+          if ((next.type || "vessel") === "island" && nextZapped >= monster.required)
+          {
+            monster.collectionFocusRank = null;
+          }
         }
         else if (field === "breeding")
         {
@@ -1223,6 +1259,11 @@ export default function App()
             monster.breedingAssignments,
             monster.breeding
           );
+        }
+
+        if ((next.type || "vessel") === "island")
+        {
+          next.monsters = normalizeIslandCollectionMonsterFocus(next.monsters);
         }
 
         return next;
@@ -2178,6 +2219,73 @@ export default function App()
     updateMonster(selectedSheetIndex, monsterIndex, field, delta, options);
   };
 
+  const toggleSelectedSheetMonsterFocus = (monsterIndex) =>
+  {
+    if (!selectedSheet || selectedSheetIndex < 0 || getSheetType(selectedSheet) !== "island")
+    {
+      return;
+    }
+
+    const targetMonster = selectedSheet.monsters?.[monsterIndex];
+
+    if (!targetMonster)
+    {
+      return;
+    }
+
+    const isCurrentlyFocused = getIslandCollectionMonsterFocusRank(targetMonster.collectionFocusRank) !== null;
+
+    updateSheet(selectedSheet.key, (sheet) =>
+    {
+      const monsters = Array.isArray(sheet.monsters) ? [...sheet.monsters] : [];
+      const nextTargetMonster = monsters[monsterIndex];
+
+      if (!nextTargetMonster)
+      {
+        return sheet;
+      }
+
+      if (getIslandCollectionMonsterFocusRank(nextTargetMonster.collectionFocusRank) !== null)
+      {
+        monsters[monsterIndex] = {
+          ...nextTargetMonster,
+          collectionFocusRank: null,
+        };
+      }
+      else
+      {
+        const focusedMonsterCount = monsters.filter(
+          (monster) => getIslandCollectionMonsterFocusRank(monster?.collectionFocusRank) !== null
+        ).length;
+
+        if (focusedMonsterCount >= 3)
+        {
+          return sheet;
+        }
+
+        monsters[monsterIndex] = {
+          ...nextTargetMonster,
+          collectionFocusRank: focusedMonsterCount + 1,
+        };
+      }
+
+      return {
+        ...sheet,
+        monsters: normalizeIslandCollectionMonsterFocus(monsters),
+      };
+    });
+
+    recordActivity(
+      isCurrentlyFocused ? "collection_focus_removed" : "collection_focus_added",
+      `${isCurrentlyFocused ? "Removed focus from" : "Focused"} ${targetMonster.name} in ${selectedSheet.sheetTitle}.`,
+      {
+        sheetKey: selectedSheet.key,
+        monsterName: targetMonster.name,
+        nextFocused: !isCurrentlyFocused,
+      }
+    );
+  };
+
   const breedSelectedSheetMonsterOnIsland = (monsterIndex, islandName) =>
   {
     if (!selectedSheet || selectedSheetIndex < 0 || !selectedSheet.isActive)
@@ -2539,17 +2647,54 @@ export default function App()
         width: "100%",
       }}
     >
-      <h1
-        className="app-title"
+      <div
         style={{
-          fontSize: "clamp(40px, 8vw, 68px)",
-          lineHeight: 0.95,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "14px",
+          width: "100%",
           margin: "0 0 10px",
-          letterSpacing: "-0.04em",
+          flexWrap: "wrap",
         }}
       >
-        MSM Tracker
-      </h1>
+        <div
+          style={{
+            width: "clamp(56px, 8vw, 76px)",
+            height: "clamp(56px, 8vw, 76px)",
+            borderRadius: "22px",
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0.04))",
+            display: "grid",
+            placeItems: "center",
+            boxShadow: "0 16px 34px rgba(0,0,0,0.2)",
+            overflow: "hidden",
+            flexShrink: 0,
+          }}
+        >
+          <img
+            src={APP_ICON_SRC}
+            alt="MSM Tracker icon"
+            style={{
+              width: "78%",
+              height: "78%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+
+        <h1
+          className="app-title"
+          style={{
+            fontSize: "clamp(40px, 8vw, 68px)",
+            lineHeight: 0.95,
+            margin: 0,
+            letterSpacing: "-0.04em",
+          }}
+        >
+          MSM Tracker
+        </h1>
+      </div>
 
       <div style={{ fontSize: "16px", opacity: 0.72, marginBottom: "4px" }}>
         Wublin egg chaos, but dressed better.
@@ -2783,6 +2928,7 @@ export default function App()
                 breedingSessions={breedingSessions}
                 assignableSessions={selectedSheetAssignableSessions}
                 onAdjustMonster={adjustSelectedSheetMonster}
+                onToggleCollectionFocus={toggleSelectedSheetMonsterFocus}
                 onBreedOnIsland={breedSelectedSheetMonsterOnIsland}
                 onZapReady={zapSelectedSheetMonsterReady}
                 onAssignExistingBreeding={(sessionId) =>

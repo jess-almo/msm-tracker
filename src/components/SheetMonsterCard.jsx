@@ -3,6 +3,7 @@ import {
   getElementChipStyle,
   getMonsterBreedingIslands,
   getMonsterMetadata,
+  getMonsterPortrait,
   isRealBreedingIsland,
 } from "../utils/monsterMetadata";
 
@@ -45,6 +46,13 @@ const secondaryButtonStyle = {
   background: "rgba(255,255,255,0.06)",
   fontWeight: 600,
 };
+
+function getCollectionFocusRankValue(value)
+{
+  const parsedValue = Number(value);
+
+  return Number.isInteger(parsedValue) && parsedValue > 0 ? parsedValue : null;
+}
 
 function getBreedAvailability({
   isSheetActive,
@@ -145,6 +153,7 @@ export default function SheetMonsterCard({
   breedingSessions,
   islandPlannerByName,
   onAdjustMonster,
+  onToggleCollectionFocus,
   onBreedOnIsland,
   onZapReady,
 })
@@ -158,8 +167,11 @@ export default function SheetMonsterCard({
     : 0;
   const isComplete = monster.zapped >= monster.required;
   const metadata = getMonsterMetadata(monster.name);
+  const portraitSrc = getMonsterPortrait(monster.name);
   const validBreedingIslands = getMonsterBreedingIslands(monster.name);
   const acquisitionType = monster.acquisitionType || "breed";
+  const collectionFocusRank = getCollectionFocusRankValue(monster.collectionFocusRank);
+  const isCollectionFocused = collectionFocusRank !== null;
   const showInOperations = monster.showInOperations !== false;
   const collectionIslandLabel = isRealBreedingIsland(monster.requirementIsland)
     ? monster.requirementIsland
@@ -216,13 +228,17 @@ export default function SheetMonsterCard({
       <div
         className="sheet-monster-card"
         style={{
-          border: "1px solid rgba(255,255,255,0.1)",
+          border: isCollectionFocused
+            ? "1px solid rgba(251,191,36,0.55)"
+            : "1px solid rgba(255,255,255,0.1)",
           borderRadius: "16px",
           padding: "14px",
           background: isComplete
             ? "linear-gradient(180deg, rgba(34,197,94,0.12), rgba(255,255,255,0.035))"
             : "rgba(255,255,255,0.035)",
-          boxShadow: "0 10px 24px rgba(0,0,0,0.12)",
+          boxShadow: isCollectionFocused
+            ? "0 14px 28px rgba(0,0,0,0.16), 0 0 0 1px rgba(251,191,36,0.12)"
+            : "0 10px 24px rgba(0,0,0,0.12)",
           display: "grid",
           gap: "10px",
         }}
@@ -235,27 +251,95 @@ export default function SheetMonsterCard({
             alignItems: "flex-start",
           }}
         >
-          <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: "22px", fontWeight: 700, lineHeight: 1.08 }}>
-              {monster.name}
-            </div>
-            <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.66 }}>
-              {metadataValue}
+          <div style={{ minWidth: 0, display: "flex", gap: "14px", alignItems: "center" }}>
+            {portraitSrc && (
+              <div
+                style={{
+                  width: "76px",
+                  height: "76px",
+                  borderRadius: "18px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.03))",
+                  display: "grid",
+                  placeItems: "center",
+                  overflow: "hidden",
+                  boxShadow: "0 10px 20px rgba(0,0,0,0.14)",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={portraitSrc}
+                  alt={monster.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    padding: "5px",
+                  }}
+                />
+              </div>
+            )}
+
+            <div style={{ fontSize: "22px", fontWeight: 700, lineHeight: 1.08, minWidth: 0 }}>
+              <div>{monster.name}</div>
+              <div style={{ marginTop: "4px", fontSize: "12px", opacity: 0.66, fontWeight: 500 }}>
+                {metadataValue}
+              </div>
             </div>
           </div>
 
           <div
             style={{
-              padding: "6px 10px",
-              borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              background: isComplete ? "rgba(34,197,94,0.16)" : "rgba(255,255,255,0.08)",
-              fontSize: "12px",
-              fontWeight: 700,
-              whiteSpace: "nowrap",
+              display: "grid",
+              gap: "8px",
+              justifyItems: "end",
             }}
           >
-            {isComplete ? "Collected" : `${actualRemaining} left`}
+            {isCollectionFocused && (
+              <button
+                type="button"
+                style={{
+                  ...secondaryButtonStyle,
+                  padding: "6px 10px",
+                  borderRadius: "999px",
+                  background: "rgba(251,191,36,0.16)",
+                  border: "1px solid rgba(251,191,36,0.35)",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                }}
+                onClick={() => onToggleCollectionFocus?.(monsterIndex)}
+              >
+                Focus #{collectionFocusRank}
+              </button>
+            )}
+            {!isCollectionFocused && (
+              <button
+                type="button"
+                style={{
+                  ...secondaryButtonStyle,
+                  padding: "6px 10px",
+                  borderRadius: "999px",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                }}
+                onClick={() => onToggleCollectionFocus?.(monsterIndex)}
+              >
+                Focus
+              </button>
+            )}
+            <div
+              style={{
+                padding: "6px 10px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: isComplete ? "rgba(34,197,94,0.16)" : "rgba(255,255,255,0.08)",
+                fontSize: "12px",
+                fontWeight: 700,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {isComplete ? "Collected" : `${actualRemaining} left`}
+            </div>
           </div>
         </div>
 
@@ -275,6 +359,7 @@ export default function SheetMonsterCard({
             : `${monster.zapped}/${monster.required} collected`}
           {!isComplete && monster.breeding > 0 ? ` · ${monster.breeding} waiting to hatch` : ""}
           {!isComplete && monster.breeding <= 0 ? ` · ${actualRemaining} left to place` : ""}
+          {isCollectionFocused ? ` · in island focus` : ""}
         </div>
 
         <div
@@ -299,17 +384,33 @@ export default function SheetMonsterCard({
         </div>
 
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          <button
-            type="button"
-            style={{
-              ...primaryButtonStyle,
-              padding: "8px 12px",
-              background: isComplete ? "rgba(239,68,68,0.14)" : "rgba(34,197,94,0.14)",
-            }}
-            onClick={() => onAdjustMonster?.(monsterIndex, "zapped", isComplete ? -1 : 1)}
-          >
-            {isComplete ? "Clear Collected" : "Mark Collected"}
-          </button>
+          {!isComplete && (
+            <button
+              type="button"
+              style={{
+                ...primaryButtonStyle,
+                padding: "8px 12px",
+                background: "rgba(34,197,94,0.16)",
+              }}
+              onClick={() => onAdjustMonster?.(monsterIndex, "zapped", 1)}
+            >
+              Mark Collected
+            </button>
+          )}
+          {isComplete && (
+            <button
+              type="button"
+              style={{
+                ...secondaryButtonStyle,
+                padding: "6px 10px",
+                background: "rgba(239,68,68,0.1)",
+                fontSize: "12px",
+              }}
+              onClick={() => onAdjustMonster?.(monsterIndex, "zapped", -1)}
+            >
+              Undo
+            </button>
+          )}
         </div>
       </div>
     );

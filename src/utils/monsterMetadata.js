@@ -388,3 +388,63 @@ export function getElementChipStyle(element)
     background: ELEMENT_COLORS[element] || "rgba(255,255,255,0.08)",
   };
 }
+
+function normalizeMonsterAssetName(name)
+{
+  return String(name || "")
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const AVAILABLE_MONSTER_PORTRAITS = new Set([
+  "bowgart",
+  "clamble",
+  "do",
+  "drumpler",
+  "entbrat",
+  "fa",
+  "furcorn",
+  "fwog",
+  "ghazt",
+  "gjoob",
+  "la",
+  "mammot",
+  "maw",
+  "mi",
+  "noggin",
+  "oaktopus",
+  "parlsona",
+  "potbelly",
+  "pummel",
+  "punkleton",
+  "re",
+  "shrubb",
+  "shugabush",
+  "sol",
+  "t-rox",
+  "tawker",
+  "ti",
+  "toe-jammer",
+  "wubbox",
+]);
+
+const MONSTER_PORTRAIT_ALIASES = {
+  "g-joob": "gjoob",
+  mammott: "mammot",
+};
+
+export function getMonsterPortrait(name)
+{
+  const assetKey = normalizeMonsterAssetName(name);
+  const resolvedAssetKey = MONSTER_PORTRAIT_ALIASES[assetKey] || assetKey;
+
+  if (!AVAILABLE_MONSTER_PORTRAITS.has(resolvedAssetKey))
+  {
+    return "";
+  }
+
+  return `/monsters/portraits/${resolvedAssetKey}.png`;
+}

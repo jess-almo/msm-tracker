@@ -72,6 +72,13 @@ const compactDangerButtonStyle = {
   background: "rgba(239,68,68,0.12)",
 };
 
+const COLLECTION_WORLD_ART = {
+  Plant: {
+    icon: "/monsters/portraits/plant-island-icon.png",
+    pin: "/monsters/portraits/plant-island-map-pin.png",
+  },
+};
+
 const STATUS_FILTER_OPTIONS = [
   { key: "all", label: "All" },
   { key: "active", label: "Active" },
@@ -1275,6 +1282,7 @@ function CollectionWorldCard({
     { island: world.name || world.title, isLocked: world.isLocked },
     world.status
   );
+  const worldArt = COLLECTION_WORLD_ART[world.title] || null;
 
   const primaryAction = world.kind === "island"
     ? () => onOpenSheet(world.sheetKey)
@@ -1285,6 +1293,13 @@ function CollectionWorldCard({
     : world.kind === "island"
       ? "Open Collection"
       : "Open World";
+  const isClickable = !world.isLocked;
+  const chipsBeforePin = worldArt?.pin
+    ? world.chips.slice(0, Math.ceil(world.chips.length / 2))
+    : world.chips;
+  const chipsAfterPin = worldArt?.pin
+    ? world.chips.slice(Math.ceil(world.chips.length / 2))
+    : [];
 
   return (
     <div
@@ -1295,27 +1310,75 @@ function CollectionWorldCard({
         background: visualStyle.background,
         boxShadow: visualStyle.boxShadow,
         opacity: visualStyle.opacity ?? 1,
+        minHeight: "336px",
+        display: "grid",
+        gridTemplateRows: "auto auto auto 1fr auto",
+        gap: "14px",
+        position: "relative",
+        overflow: "hidden",
+        cursor: isClickable ? "pointer" : "default",
+        transition: "transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease",
       }}
+      onClick={isClickable ? primaryAction : undefined}
+      onKeyDown={isClickable
+        ? (event) =>
+        {
+          if (event.key === "Enter" || event.key === " ")
+          {
+            event.preventDefault();
+            primaryAction();
+          }
+        }
+        : undefined}
+      role={isClickable ? "button" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
     >
+      <div
+        style={{
+          display: "grid",
+          gap: "8px",
+          alignContent: "start",
+        }}
+      >
+        <div style={{ fontSize: "26px", fontWeight: 800, lineHeight: 1.02 }}>
+          {world.title}
+        </div>
+        <div style={{ fontSize: "14px", opacity: 0.76, minHeight: "44px", lineHeight: 1.45 }}>
+          {world.subtitle}
+        </div>
+      </div>
+
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           gap: "12px",
-          alignItems: "flex-start",
+          alignItems: "start",
           flexWrap: "wrap",
         }}
       >
-        <div style={{ display: "grid", gap: "6px", flex: "1 1 220px" }}>
-          <div style={{ fontSize: "22px", fontWeight: 800 }}>
-            {world.title}
+        <div
+          style={{
+            display: "grid",
+            gap: "4px",
+            minWidth: "110px",
+          }}
+        >
+          <div style={{ fontSize: "30px", fontWeight: 800, lineHeight: 1 }}>
+            {world.summaryValue}
           </div>
-          <div style={{ fontSize: "13px", opacity: 0.72 }}>
-            {world.subtitle}
+          <div style={{ fontSize: "14px", opacity: 0.76 }}>
+            {world.summaryLabel}
           </div>
         </div>
 
-        <div style={{ textAlign: "right" }}>
+        <div
+          style={{
+            display: "grid",
+            alignContent: "start",
+            justifyItems: "end",
+          }}
+        >
           <div
             style={{
               display: "inline-flex",
@@ -1323,31 +1386,26 @@ function CollectionWorldCard({
               borderRadius: "999px",
               border: "1px solid rgba(255,255,255,0.1)",
               background: visualStyle.chipBackground,
-              fontSize: "12px",
+              fontSize: "13px",
               fontWeight: 700,
-              marginBottom: "8px",
             }}
           >
             {world.isLocked ? "Locked" : getStatusLabel(world.status)}
-          </div>
-          <div style={{ fontSize: "14px", fontWeight: 700 }}>
-            {world.summaryValue}
-          </div>
-          <div style={{ marginTop: "4px", fontSize: "13px", opacity: 0.72 }}>
-            {world.summaryLabel}
           </div>
         </div>
       </div>
 
       <div
         style={{
-          marginTop: "14px",
           display: "flex",
+          justifyContent: "center",
           gap: "8px",
+          alignItems: "center",
           flexWrap: "wrap",
+          minHeight: "56px",
         }}
       >
-        {world.chips.map((chip) => (
+        {chipsBeforePin.map((chip) => (
           <span
             key={`${world.key}:${chip}`}
             style={{
@@ -1355,7 +1413,50 @@ function CollectionWorldCard({
               borderRadius: "999px",
               border: "1px solid rgba(255,255,255,0.1)",
               background: "rgba(255,255,255,0.06)",
-              fontSize: "12px",
+              fontSize: "13px",
+              fontWeight: 700,
+            }}
+          >
+            {chip}
+          </span>
+        ))}
+        {worldArt?.pin && (
+          <div
+            style={{
+              width: "145px",
+              height: "145px",
+              borderRadius: "999px",
+              background: "rgba(255,255,255,0.07)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              display: "grid",
+              placeItems: "center",
+              boxShadow: "0 10px 24px rgba(0,0,0,0.14)",
+              backdropFilter: "blur(6px)",
+              flexShrink: 0,
+            }}
+          >
+            <img
+              src={worldArt.pin}
+              alt={`${world.title} pin`}
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "contain",
+                transform: "scale(1.28)",
+                transformOrigin: "center",
+              }}
+            />
+          </div>
+        )}
+        {chipsAfterPin.map((chip) => (
+          <span
+            key={`${world.key}:${chip}`}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "999px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "rgba(255,255,255,0.06)",
+              fontSize: "13px",
               fontWeight: 700,
             }}
           >
@@ -1366,21 +1467,34 @@ function CollectionWorldCard({
 
       <div
         style={{
-          marginTop: "16px",
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
           gap: "12px",
           alignItems: "center",
           flexWrap: "wrap",
         }}
       >
-        <div style={{ fontSize: "13px", opacity: 0.72 }}>
+        <div
+          style={{
+            fontSize: "14px",
+            opacity: 0.76,
+            minHeight: "38px",
+            display: "grid",
+            alignContent: "center",
+            flex: "1 1 100%",
+            textAlign: "center",
+          }}
+        >
           {world.supportingCopy}
         </div>
 
         <button
           style={actionButtonStyle}
-          onClick={primaryAction}
+          onClick={(event) =>
+          {
+            event.stopPropagation();
+            primaryAction();
+          }}
           disabled={world.isLocked}
         >
           {primaryLabel}
@@ -1658,11 +1772,23 @@ export default function Collections({
         const islandProfile = islandProfileByName.get(sheet.island);
         const islandState = islandStateByName.get(sheet.island);
         const isLocked = islandState?.isUnlocked === false;
+        const hasManualCollectionFocus = Array.isArray(sheet.monsters)
+          && sheet.monsters.some((monster) => Number.isInteger(Number(monster?.collectionFocusRank)) && Number(monster.collectionFocusRank) > 0);
+        const hasTrackedWork = progress.done > 0 || progress.trackedPercent > 0;
+        const islandWorldStatus = isLocked
+          ? "not_started"
+          : progress.total > 0 && progress.done >= progress.total
+            ? "complete"
+            : hasManualCollectionFocus || sheet.isActive
+              ? "active"
+              : hasTrackedWork
+                ? "in_progress"
+                : "not_started";
         const chips = [
           groupLabel,
           ...(sheet.island?.includes("Mirror") ? ["Mirror"] : []),
           ...((sheet.island === "Seasonal Shanty") ? ["Seasonal"] : []),
-          ...getIslandOperationalProfile(sheet.island, islandProfile?.type).capabilityTags.slice(0, 2),
+          "Checklist",
         ].filter(Boolean);
 
         return {
@@ -1675,7 +1801,7 @@ export default function Collections({
           chips,
           sectionKey: "worlds",
           sectionTitle: "Collection Worlds",
-          status: getDerivedSheetStatus(sheet),
+          status: islandWorldStatus,
           isLocked,
           summaryValue: `${progress.done} / ${progress.total}`,
           summaryLabel: "collected",
@@ -1776,6 +1902,32 @@ export default function Collections({
             </div>
           )}
         </div>
+
+        {selectedWorld && COLLECTION_WORLD_ART[selectedWorld.title]?.icon && (
+          <div
+            style={{
+              marginTop: "4px",
+              width: "78px",
+              height: "78px",
+              borderRadius: "22px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0.04))",
+              display: "grid",
+              placeItems: "center",
+              boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
+            }}
+          >
+            <img
+              src={COLLECTION_WORLD_ART[selectedWorld.title].icon}
+              alt={`${selectedWorld.title} icon`}
+              style={{
+                width: "58px",
+                height: "58px",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        )}
 
         <div className="collections-filter-stack">
           <div>

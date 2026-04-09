@@ -36,7 +36,7 @@ test("Faerie collection uses the explicit roster with collection-only special en
   assert.equal(ffidyll.acquisitionType, "seasonal");
 });
 
-test("Faerie planner demand skips collection-only monsters", () =>
+test("Faerie planner demand shows up to three operational monsters and skips collection-only entries", () =>
 {
   const faerieSheet = getIslandCollectionSheet("Faerie");
   const planner = buildIslandPlannerData(
@@ -58,14 +58,112 @@ test("Faerie planner demand skips collection-only monsters", () =>
   const faerieEntry = planner.find((entry) => entry.island === "Faerie");
   const plannerNames = faerieEntry.collectionMissing.map((item) => item.name);
 
-  assert.ok(plannerNames.includes("Boskus"));
-  assert.ok(plannerNames.includes("Ziggurab"));
+  assert.equal(plannerNames.length, 3);
+  assert.deepEqual(plannerNames, ["Drumpler", "Stogg", "HippityHop"]);
   assert.ok(!plannerNames.includes("Krillby"));
   assert.ok(!plannerNames.includes("PongPing"));
   assert.ok(!plannerNames.includes("Tuskski"));
   assert.ok(!plannerNames.includes("Ffidyll"));
   assert.ok(!plannerNames.includes("Do"));
   assert.ok(!plannerNames.includes("Ti"));
+});
+
+test("Faerie collection demand prefers manual focus picks before fallback recommendations", () =>
+{
+  const faerieSheet = getIslandCollectionSheet("Faerie");
+  const sheetWithFocusedBoskusAndZiggurab = {
+    ...faerieSheet,
+    monsters: faerieSheet.monsters.map((monster) =>
+    {
+      if (monster.name === "Boskus")
+      {
+        return {
+          ...monster,
+          collectionFocusRank: 1,
+        };
+      }
+
+      if (monster.name === "Ziggurab")
+      {
+        return {
+          ...monster,
+          collectionFocusRank: 2,
+        };
+      }
+
+      return monster;
+    }),
+  };
+
+  const planner = buildIslandPlannerData(
+    [sheetWithFocusedBoskusAndZiggurab],
+    [
+      {
+        name: "Faerie",
+        group: "magical",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    []
+  );
+  const faerieEntry = planner.find((entry) => entry.island === "Faerie");
+  const plannerNames = faerieEntry.collectionMissing.map((item) => item.name);
+
+  assert.deepEqual(plannerNames, ["Boskus", "Ziggurab", "Drumpler"]);
+});
+
+test("invalid island collection focus ranks do not count as real focus slots", () =>
+{
+  const faerieSheet = getIslandCollectionSheet("Faerie");
+  const sheetWithInvalidFocusRanks = {
+    ...faerieSheet,
+    monsters: faerieSheet.monsters.map((monster) =>
+    {
+      if (monster.name === "Boskus")
+      {
+        return {
+          ...monster,
+          collectionFocusRank: 0,
+        };
+      }
+
+      if (monster.name === "Ziggurab")
+      {
+        return {
+          ...monster,
+          collectionFocusRank: null,
+        };
+      }
+
+      return monster;
+    }),
+  };
+
+  const planner = buildIslandPlannerData(
+    [sheetWithInvalidFocusRanks],
+    [
+      {
+        name: "Faerie",
+        group: "magical",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    []
+  );
+  const faerieEntry = planner.find((entry) => entry.island === "Faerie");
+  const plannerNames = faerieEntry.collectionMissing.map((item) => item.name);
+
+  assert.deepEqual(plannerNames, ["Drumpler", "Stogg", "HippityHop"]);
 });
 
 test("Faerie collection demand stays on the island card until the monster is collected", () =>
@@ -84,6 +182,7 @@ test("Faerie collection demand stays on the island card until the monster is col
         ...monster,
         zapped: 0,
         breeding: 1,
+        collectionFocusRank: 1,
       };
     }),
   };
@@ -130,6 +229,7 @@ test("Faerie island card still shows collection gaps from inactive island sheets
         ...monster,
         zapped: 0,
         breeding: 0,
+        collectionFocusRank: 1,
       };
     }),
   };
@@ -188,7 +288,7 @@ test("Light collection uses the explicit roster with collection-only special ent
   assert.equal(phlox.showInOperations, false);
 });
 
-test("Light planner demand skips collection-only monsters", () =>
+test("Light planner demand shows up to three operational monsters and skips collection-only entries", () =>
 {
   const lightSheet = getIslandCollectionSheet("Light");
   const planner = buildIslandPlannerData(
@@ -210,9 +310,8 @@ test("Light planner demand skips collection-only monsters", () =>
   const lightEntry = planner.find((entry) => entry.island === "Light");
   const plannerNames = lightEntry.collectionMissing.map((item) => item.name);
 
-  assert.ok(plannerNames.includes("Boskus"));
-  assert.ok(plannerNames.includes("Bulbo"));
-  assert.ok(plannerNames.includes("Blow't"));
+  assert.equal(plannerNames.length, 3);
+  assert.deepEqual(plannerNames, ["Furcorn", "Flowah", "Gob"]);
   assert.ok(!plannerNames.includes("Yelmut"));
   assert.ok(!plannerNames.includes("Tiawa"));
   assert.ok(!plannerNames.includes("Drummidary"));

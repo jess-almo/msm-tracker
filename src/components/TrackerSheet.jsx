@@ -9,6 +9,7 @@ export default function TrackerSheet({
   breedingSessions = [],
   assignableSessions = [],
   onAdjustMonster,
+  onToggleCollectionFocus,
   onBreedOnIsland,
   onZapReady,
   onAssignExistingBreeding,
@@ -261,6 +262,7 @@ export default function TrackerSheet({
             breedingSessions={breedingSessions}
             islandPlannerByName={islandPlannerByName}
             onAdjustMonster={onAdjustMonster}
+            onToggleCollectionFocus={onToggleCollectionFocus}
             onBreedOnIsland={onBreedOnIsland}
             onZapReady={onZapReady}
           />

@@ -3,6 +3,14 @@ import { resolveIslandCollectionMonsterPolicy } from "../data/sheets.js";
 import { getMonsterBreedingIslands, getMonsterMetadata } from "./monsterMetadata.js";
 
 export const FOCUSED_OPERATIONAL_LIMIT = 5;
+export const ISLAND_COLLECTION_OPERATIONAL_LIMIT = 3;
+
+function getCollectionFocusRankValue(value)
+{
+  const parsedValue = Number(value);
+
+  return Number.isInteger(parsedValue) && parsedValue > 0 ? parsedValue : null;
+}
 
 function getLockedRoutingIsland(sheet, monster, validBreedingIslands)
 {
@@ -23,6 +31,14 @@ function getLockedRoutingIsland(sheet, monster, validBreedingIslands)
 
 function compareEntries(a, b)
 {
+  const aCollectionFocusRank = getCollectionFocusRankValue(a.collectionFocusRank) ?? 999;
+  const bCollectionFocusRank = getCollectionFocusRankValue(b.collectionFocusRank) ?? 999;
+
+  if (aCollectionFocusRank !== bCollectionFocusRank)
+  {
+    return aCollectionFocusRank - bCollectionFocusRank;
+  }
+
   if ((a.activatedOrder ?? 999) !== (b.activatedOrder ?? 999))
   {
     return (a.activatedOrder ?? 999) - (b.activatedOrder ?? 999);
@@ -206,7 +222,44 @@ function buildRemainingEntry(monster, monsterIndex, sheet, activatedOrder)
     queueRemaining,
     remaining: plannerRemaining,
     acquisitionType: islandCollectionPolicy?.acquisitionType || monster?.acquisitionType || "breed",
+    collectionFocusRank: getCollectionFocusRankValue(monster.collectionFocusRank),
   };
+}
+
+function limitIslandCollectionOperationalEntries(entries, limit = ISLAND_COLLECTION_OPERATIONAL_LIMIT)
+{
+  const groupedBySheet = new Map();
+  const passthrough = [];
+
+  entries.forEach((entry) =>
+  {
+    if (entry?.sheetType !== "island")
+    {
+      passthrough.push(entry);
+      return;
+    }
+
+    const group = groupedBySheet.get(entry.sheetKey) || [];
+    group.push(entry);
+    groupedBySheet.set(entry.sheetKey, group);
+  });
+
+  const limitedIslandEntries = Array.from(groupedBySheet.values()).flatMap((group) =>
+  {
+    const focused = group
+      .filter((entry) => getCollectionFocusRankValue(entry.collectionFocusRank) !== null)
+      .sort(compareEntries)
+      .slice(0, limit);
+    const focusedIds = new Set(focused.map((entry) => entry.id));
+    const fallback = group
+      .filter((entry) => !focusedIds.has(entry.id))
+      .sort(compareEntries)
+      .slice(0, Math.max(0, limit - focused.length));
+
+    return [...focused, ...fallback];
+  });
+
+  return [...passthrough, ...limitedIslandEntries];
 }
 
 // Planner demand should fan out across every valid breeding island while
@@ -538,7 +591,7 @@ export function buildToBreedEntries(sheets)
 
 export function buildBreedingQueue(sheets)
 {
-  return buildToBreedEntries(sheets);
+  return limitIslandCollectionOperationalEntries(buildToBreedEntries(sheets));
 }
 
 export function buildReadyBreedingQueue(sheets, islandPlannerData = [])
@@ -885,7 +938,7 @@ export function buildIslandPlannerData(
       freeSlots: Math.max(0, Number(entry.breedingStructures || 0) - entry.occupiedSlots),
       freeNurseries: Math.max(0, Number(entry.nurseries || 0) - entry.nurseryOccupancy),
       needNow: sortPlannerItems(entry.needNow),
-      collectionMissing: sortPlannerItems(entry.collectionMissing),
+      collectionMissing: limitIslandCollectionOperationalEntries(sortPlannerItems(entry.collectionMissing)),
       currentlyBreeding: sortSessionEntries(entry.currentlyBreeding),
       nurserySessions: sortSessionEntries(entry.nurserySessions),
     }))
