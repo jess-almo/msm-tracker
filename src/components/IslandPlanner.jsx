@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ISLAND_GROUPS } from "../data/islands";
 import { MONSTER_DATABASE } from "../data/monsterDatabase";
 import {
@@ -92,6 +92,311 @@ const AVAILABILITY_FILTER_OPTIONS = [
   { key: "active", label: "Active" },
   { key: "capacity_limited", label: "Capacity Limited" },
 ];
+
+const PLANNER_WORLD_ART = {
+  Plant: {
+    icon: "/monsters/worlds/icons/plant.png",
+    pin: "/monsters/worlds/pins/plant.png",
+    pinScale: 1.22,
+  },
+  Cold: {
+    icon: "/monsters/worlds/icons/cold.png",
+    pin: "/monsters/worlds/pins/cold.png",
+    pinScale: 1.34,
+  },
+  Air: {
+    icon: "/monsters/worlds/icons/air.png",
+    pin: "/monsters/worlds/pins/air.png",
+    pinScale: 1.24,
+  },
+  Water: {
+    icon: "/monsters/worlds/icons/water.png",
+    pin: "/monsters/worlds/pins/water.png",
+    pinScale: 1.24,
+  },
+  Earth: {
+    icon: "/monsters/worlds/icons/earth.png",
+    pin: "/monsters/worlds/pins/earth.png",
+    pinScale: 1.24,
+  },
+  "Fire Haven": {
+    icon: "/monsters/worlds/icons/fire-haven.png",
+    pin: "/monsters/worlds/pins/fire-haven.png",
+    pinScale: 1.26,
+  },
+  "Fire Oasis": {
+    icon: "/monsters/worlds/icons/fire-oasis.png",
+    pin: "/monsters/worlds/pins/fire-oasis.png",
+    pinScale: 1.26,
+  },
+  "Amber Island": {
+    icon: "/monsters/worlds/icons/amber-island.png",
+    pin: "/monsters/worlds/pins/amber-island.png",
+    pinScale: 1.32,
+  },
+  Light: {
+    icon: "/monsters/worlds/icons/light.png",
+    pin: "/monsters/worlds/pins/light.png",
+    pinScale: 1.26,
+  },
+  Psychic: {
+    icon: "/monsters/worlds/icons/psychic.png",
+    pin: "/monsters/worlds/pins/psychic.png",
+    pinScale: 1.26,
+  },
+  Faerie: {
+    icon: "/monsters/worlds/icons/faerie.png",
+    pin: "/monsters/worlds/pins/faerie.png",
+    pinScale: 1.26,
+  },
+  Bone: {
+    icon: "/monsters/worlds/icons/bone.png",
+    pin: "/monsters/worlds/pins/bone.png",
+    pinScale: 1.26,
+  },
+  "Magical Sanctum": {
+    icon: "/monsters/worlds/icons/magical-sanctum.png",
+    pin: "/monsters/worlds/pins/magical-sanctum.png",
+    pinScale: 1.26,
+  },
+  "Magical Nexus": {
+    icon: "/monsters/worlds/icons/magical-sanctum.png",
+    pin: "/monsters/worlds/pins/magical-sanctum.png",
+    pinScale: 1.26,
+  },
+  "Ethereal Island": {
+    icon: "/monsters/worlds/icons/ethereal-island.png",
+    pin: "/monsters/worlds/pins/ethereal-island.png",
+    pinScale: 1.26,
+  },
+  "Ethereal Workshop": {
+    icon: "/monsters/worlds/icons/ethereal-island.png",
+    pin: "/monsters/worlds/pins/ethereal-island.png",
+    pinScale: 1.26,
+  },
+  "Ethereal Islets": {
+    icon: "/monsters/worlds/icons/ethereal-island.png",
+    pin: "/monsters/worlds/pins/ethereal-island.png",
+    pinScale: 1.26,
+  },
+  Shugabush: {
+    icon: "/monsters/worlds/icons/shugabush.png",
+    pin: "/monsters/worlds/pins/shugabush.png",
+    pinScale: 1.3,
+  },
+  "Seasonal Shanty": {
+    icon: "/monsters/worlds/icons/seasonal-shanty.png",
+    pin: "/monsters/worlds/pins/seasonal-shanty.png",
+    pinScale: 1.3,
+  },
+  "Wublin Island": {
+    icon: "/monsters/worlds/icons/wublin-island.png",
+    pin: "/monsters/worlds/pins/wublin-island.png",
+    pinScale: 1.3,
+  },
+  "Celestial Island": {
+    icon: "/monsters/worlds/icons/ethereal-island.png",
+    pin: "/monsters/worlds/pins/ethereal-island.png",
+    pinScale: 1.3,
+  },
+  "Mirror Plant": {
+    icon: "/monsters/worlds/icons/mirror-plant.png",
+    pin: "/monsters/worlds/pins/mirror-plant.png",
+    pinScale: 1.28,
+  },
+  "Mirror Cold": {
+    icon: "/monsters/worlds/icons/mirror-cold.png",
+    pin: "/monsters/worlds/pins/mirror-cold.png",
+    pinScale: 1.3,
+  },
+  "Mirror Air": {
+    icon: "/monsters/worlds/icons/mirror-air.png",
+    pin: "/monsters/worlds/pins/mirror-air.png",
+    pinScale: 1.28,
+  },
+  "Mirror Water": {
+    icon: "/monsters/worlds/icons/mirror-water.png",
+    pin: "/monsters/worlds/pins/mirror-water.png",
+    pinScale: 1.28,
+  },
+  "Mirror Earth": {
+    icon: "/monsters/worlds/icons/mirror-earth.png",
+    pin: "/monsters/worlds/pins/mirror-earth.png",
+    pinScale: 1.28,
+  },
+  "Mirror Light": {
+    icon: "/monsters/worlds/icons/mirror-light.png",
+    pin: "/monsters/worlds/pins/mirror-light.png",
+    pinScale: 1.28,
+  },
+  "Mirror Psychic": {
+    icon: "/monsters/worlds/icons/mirror-psychic.png",
+    pin: "/monsters/worlds/pins/mirror-psychic.png",
+    pinScale: 1.28,
+  },
+  "Mirror Faerie": {
+    icon: "/monsters/worlds/icons/mirror-faerie.png",
+    pin: "/monsters/worlds/pins/mirror-faerie.png",
+    pinScale: 1.28,
+  },
+  "Mirror Bone": {
+    icon: "/monsters/worlds/icons/mirror-bone.png",
+    pin: "/monsters/worlds/pins/mirror-bone.png",
+    pinScale: 1.28,
+  },
+};
+
+function getPlannerIslandPalette(islandName = "")
+{
+  const normalizedName = String(islandName || "").toLowerCase();
+
+  if (normalizedName.includes("amber"))
+  {
+    return {
+      glow: "rgba(251,191,36,0.28)",
+      border: "rgba(245,158,11,0.34)",
+      wash: "rgba(180,83,9,0.18)",
+      accent: "rgba(251,191,36,0.18)",
+    };
+  }
+
+  if (normalizedName.includes("wublin"))
+  {
+    return {
+      glow: "rgba(45,212,191,0.24)",
+      border: "rgba(20,184,166,0.32)",
+      wash: "rgba(15,118,110,0.18)",
+      accent: "rgba(45,212,191,0.16)",
+    };
+  }
+
+  if (normalizedName.includes("plant"))
+  {
+    return {
+      glow: "rgba(74,222,128,0.26)",
+      border: "rgba(74,222,128,0.32)",
+      wash: "rgba(21,128,61,0.2)",
+      accent: "rgba(74,222,128,0.18)",
+    };
+  }
+
+  if (normalizedName.includes("cold"))
+  {
+    return {
+      glow: "rgba(125,211,252,0.24)",
+      border: "rgba(125,211,252,0.3)",
+      wash: "rgba(14,116,144,0.18)",
+      accent: "rgba(125,211,252,0.16)",
+    };
+  }
+
+  if (normalizedName.includes("air"))
+  {
+    return {
+      glow: "rgba(191,219,254,0.22)",
+      border: "rgba(147,197,253,0.3)",
+      wash: "rgba(59,130,246,0.16)",
+      accent: "rgba(191,219,254,0.14)",
+    };
+  }
+
+  if (normalizedName.includes("water"))
+  {
+    return {
+      glow: "rgba(96,165,250,0.24)",
+      border: "rgba(96,165,250,0.32)",
+      wash: "rgba(30,64,175,0.18)",
+      accent: "rgba(96,165,250,0.16)",
+    };
+  }
+
+  if (normalizedName.includes("earth"))
+  {
+    return {
+      glow: "rgba(251,191,36,0.22)",
+      border: "rgba(245,158,11,0.3)",
+      wash: "rgba(120,53,15,0.18)",
+      accent: "rgba(245,158,11,0.15)",
+    };
+  }
+
+  if (normalizedName.includes("fire"))
+  {
+    return {
+      glow: "rgba(251,146,60,0.24)",
+      border: "rgba(249,115,22,0.32)",
+      wash: "rgba(154,52,18,0.18)",
+      accent: "rgba(249,115,22,0.16)",
+    };
+  }
+
+  if (normalizedName.includes("light"))
+  {
+    return {
+      glow: "rgba(253,224,71,0.28)",
+      border: "rgba(250,204,21,0.34)",
+      wash: "rgba(161,98,7,0.18)",
+      accent: "rgba(250,204,21,0.18)",
+    };
+  }
+
+  if (normalizedName.includes("psychic"))
+  {
+    return {
+      glow: "rgba(192,132,252,0.26)",
+      border: "rgba(168,85,247,0.32)",
+      wash: "rgba(107,33,168,0.18)",
+      accent: "rgba(168,85,247,0.16)",
+    };
+  }
+
+  if (normalizedName.includes("faerie"))
+  {
+    return {
+      glow: "rgba(244,114,182,0.26)",
+      border: "rgba(244,114,182,0.32)",
+      wash: "rgba(157,23,77,0.18)",
+      accent: "rgba(244,114,182,0.16)",
+    };
+  }
+
+  if (normalizedName.includes("bone"))
+  {
+    return {
+      glow: "rgba(221,214,254,0.24)",
+      border: "rgba(196,181,253,0.3)",
+      wash: "rgba(91,33,182,0.16)",
+      accent: "rgba(196,181,253,0.15)",
+    };
+  }
+
+  if (normalizedName.includes("mirror"))
+  {
+    return {
+      glow: "rgba(226,232,240,0.22)",
+      border: "rgba(203,213,225,0.28)",
+      wash: "rgba(71,85,105,0.18)",
+      accent: "rgba(226,232,240,0.14)",
+    };
+  }
+
+  if (normalizedName.includes("ethereal"))
+  {
+    return {
+      glow: "rgba(94,234,212,0.24)",
+      border: "rgba(45,212,191,0.3)",
+      wash: "rgba(17,94,89,0.18)",
+      accent: "rgba(45,212,191,0.14)",
+    };
+  }
+
+  return {
+    glow: "rgba(148,163,184,0.22)",
+    border: "rgba(148,163,184,0.26)",
+    wash: "rgba(51,65,85,0.18)",
+    accent: "rgba(148,163,184,0.12)",
+  };
+}
 
 function getTabLabel(group)
 {
@@ -616,6 +921,8 @@ function NurseryRow({ item, onHatch, onUnassign })
 
 function IslandCard({
   island,
+  isSelected = false,
+  selectionMode = "single",
   unlockIsland,
   unlockIslandBreedingStructure,
   unlockIslandNursery,
@@ -793,6 +1100,8 @@ function IslandCard({
     island.supportsNursery || Number(island.nurserySessions?.length || 0) > 0;
   const canMaxCapacity = canUpgradeBreedingStructures || canUpgradeNurseries;
   const capacitySummaryParts = [];
+  const islandPalette = getPlannerIslandPalette(island.island);
+  const islandArt = PLANNER_WORLD_ART[island.island] || null;
 
   if (island.supportsStandardBreeding)
   {
@@ -939,15 +1248,14 @@ function IslandCard({
         ...cardStyle,
         opacity: island.isUnlocked ? 1 : 0.68,
         background: island.isUnlocked
-          ? isFullyUpgraded
-            ? "linear-gradient(180deg, rgba(250,204,21,0.12), rgba(255,255,255,0.035))"
-            : cardStyle.background
+          ? `linear-gradient(180deg, ${islandPalette.wash}, rgba(255,255,255,0.035))`
           : "linear-gradient(180deg, rgba(127,29,29,0.18), rgba(255,255,255,0.02))",
-        border: isFullyUpgraded
-          ? "1px solid rgba(250,204,21,0.35)"
-          : island.isUnlocked
-            ? cardStyle.border
-            : "1px solid rgba(248,113,113,0.24)",
+        border: island.isUnlocked
+          ? `1px solid ${isFullyUpgraded ? "rgba(250,204,21,0.35)" : islandPalette.border}`
+          : "1px solid rgba(248,113,113,0.24)",
+        boxShadow: isSelected
+          ? `0 0 0 1px ${islandPalette.accent}, 0 0 36px ${islandPalette.glow}, 0 16px 32px rgba(0,0,0,0.18)`
+          : cardStyle.boxShadow,
       }}
     >
       <div
@@ -959,10 +1267,53 @@ function IslandCard({
           flexWrap: "wrap",
         }}
       >
-        <div>
-          <div style={{ fontSize: "28px", fontWeight: 700 }}>{island.island}</div>
-          <div style={{ marginTop: "6px", fontSize: "14px", opacity: 0.75 }}>
-            {island.isUnlocked ? "Unlocked" : "Locked"}
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+          {islandArt?.pin && (
+            <div
+              style={{
+                width: selectionMode === "single" ? "88px" : "72px",
+                height: selectionMode === "single" ? "88px" : "72px",
+                borderRadius: selectionMode === "single" ? "22px" : "18px",
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: "rgba(255,255,255,0.08)",
+                display: "grid",
+                placeItems: "center",
+                boxShadow: "0 10px 22px rgba(0,0,0,0.16)",
+                flexShrink: 0,
+              }}
+            >
+              <img
+                src={islandArt.pin}
+                alt={`${island.island} art`}
+                style={{
+                  width: selectionMode === "single" ? "64px" : "50px",
+                  height: selectionMode === "single" ? "64px" : "50px",
+                  objectFit: "contain",
+                  transform: `scale(${islandArt.pinScale || 1.2})`,
+                  transformOrigin: "center",
+                }}
+              />
+            </div>
+          )}
+
+          <div>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "8px" }}>
+              <div style={{ ...pillStyle, background: islandPalette.accent }}>
+                {island.island}
+              </div>
+              <div style={pillStyle}>
+                {island.isUnlocked ? "Unlocked" : "Locked"}
+              </div>
+              {island.supportsStandardBreeding && <div style={pillStyle}>Breeding</div>}
+              {island.supportsNursery && <div style={pillStyle}>Nursery</div>}
+            </div>
+
+            <div style={{ fontSize: selectionMode === "single" ? "34px" : "28px", fontWeight: 800, letterSpacing: "-0.03em" }}>
+              {island.island}
+            </div>
+            <div style={{ marginTop: "6px", fontSize: "14px", opacity: 0.75 }}>
+              {island.operationalNote}
+            </div>
           </div>
         </div>
 
@@ -1004,6 +1355,74 @@ function IslandCard({
           )}
         </div>
       </div>
+
+      {selectionMode === "single" && (
+        <div
+          style={{
+            marginTop: "18px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gap: "12px",
+          }}
+        >
+          {[
+            {
+              label: "Need Now",
+              value: Number(island.needNow?.length || 0),
+              copy: Number(island.needNow?.length || 0) > 0
+                ? "Tracked work is waiting here."
+                : "Nothing urgent on this island.",
+            },
+            {
+              label: island.supportsStandardBreeding ? "Breeders" : "Breeding",
+              value: island.supportsStandardBreeding
+                ? `${island.occupiedSlots}/${island.breedingStructures}`
+                : Number(island.currentlyBreeding?.length || 0),
+              copy: island.supportsStandardBreeding
+                ? `${island.freeSlots} slot${island.freeSlots === 1 ? "" : "s"} free`
+                : "No standard breeding loop here.",
+            },
+            {
+              label: island.supportsNursery ? "Nursery" : "Eggs",
+              value: island.supportsNursery
+                ? `${island.nurseryOccupancy || 0}/${island.nurseries}`
+                : Number(island.nurserySessions?.length || 0),
+              copy: island.supportsNursery
+                ? `${island.freeNurseries || 0} slot${Number(island.freeNurseries || 0) === 1 ? "" : "s"} open`
+                : "No nursery loop on this island.",
+            },
+            {
+              label: "Collection Missing",
+              value: Number(island.collectionMissing?.length || 0),
+              copy: Number(island.collectionMissing?.length || 0) > 0
+                ? "Still missing placed collection entries."
+                : "Collection side is caught up right now.",
+            },
+          ].map((stat) => (
+            <div
+              key={`${island.island}-${stat.label}`}
+              style={{
+                borderRadius: "18px",
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.06)",
+                padding: "14px",
+                display: "grid",
+                gap: "6px",
+              }}
+            >
+              <div style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.08em", opacity: 0.68 }}>
+                {stat.label.toUpperCase()}
+              </div>
+              <div style={{ fontSize: "24px", fontWeight: 800 }}>
+                {stat.value}
+              </div>
+              <div style={{ fontSize: "13px", opacity: 0.7, lineHeight: 1.4 }}>
+                {stat.copy}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div
         style={{
@@ -2146,9 +2565,9 @@ export default function IslandPlanner({
 {
   const [activeTab, setActiveTab] = useState(ALL_REGIONS_FILTER);
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
-  const [highlightedIslandKey, setHighlightedIslandKey] = useState(null);
+  const [selectedIslandKey, setSelectedIslandKey] = useState("");
+  const [showAllVisible, setShowAllVisible] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const islandCardRefs = useRef(new Map());
 
   const groupedPlannerData = useMemo(() =>
   {
@@ -2160,21 +2579,6 @@ export default function IslandPlanner({
   const hasActiveTab = activeTab === ALL_REGIONS_FILTER
     || groupedPlannerData.some((group) => group.key === activeTab);
   const resolvedActiveTab = hasActiveTab ? activeTab : ALL_REGIONS_FILTER;
-
-  useEffect(() =>
-  {
-    if (!highlightedIslandKey)
-    {
-      return undefined;
-    }
-
-    const timeout = setTimeout(() =>
-    {
-      setHighlightedIslandKey(null);
-    }, 1800);
-
-    return () => clearTimeout(timeout);
-  }, [highlightedIslandKey]);
 
   useEffect(() =>
   {
@@ -2215,23 +2619,71 @@ export default function IslandPlanner({
   const activeRegionLabel = getRegionFilterLabel(resolvedActiveTab, groupedPlannerData);
   const activeAvailabilityLabel = getAvailabilityFilterLabel(availabilityFilter);
   const activeAvailabilityMeaning = getAvailabilityFilterMeaning(availabilityFilter);
-
-  function handleJumpToIsland(island)
-  {
-    const islandKey = island.islandKey || island.island;
-    const targetNode = islandCardRefs.current.get(islandKey);
-
-    if (!targetNode)
+  const quickSelectIslands = plannerData.filter((island) =>
+    matchesAvailabilityFilter(island, availabilityFilter)
+  );
+  const hasVisibleIslandSelection = visibleIslands.some((island) =>
+    (island.islandKey || island.island) === selectedIslandKey
+  );
+  const activeIsland = hasVisibleIslandSelection
+    ? visibleIslands.find((island) => (island.islandKey || island.island) === selectedIslandKey) || visibleIslands[0]
+    : visibleIslands[0] || null;
+  const activeIslandKey = activeIsland ? (activeIsland.islandKey || activeIsland.island) : "";
+  const activeIslandArt = activeIsland ? (PLANNER_WORLD_ART[activeIsland.island] || null) : null;
+  const activeIslandPalette = getPlannerIslandPalette(activeIsland?.island || "");
+  const activeIslandStatBlocks = activeIsland ? [
     {
+      label: "Need Now",
+      value: Number(activeIsland.needNow?.length || 0),
+      copy: Number(activeIsland.needNow?.length || 0) > 0
+        ? "Tracked work is waiting here."
+        : "Nothing urgent on this island.",
+    },
+    {
+      label: activeIsland.supportsStandardBreeding ? "Breeders" : "Breeding",
+      value: activeIsland.supportsStandardBreeding
+        ? `${activeIsland.occupiedSlots}/${activeIsland.breedingStructures}`
+        : Number(activeIsland.currentlyBreeding?.length || 0),
+      copy: activeIsland.supportsStandardBreeding
+        ? `${activeIsland.freeSlots} slot${activeIsland.freeSlots === 1 ? "" : "s"} free`
+        : activeIsland.operationalNote || "Special workflow",
+    },
+    {
+      label: activeIsland.supportsNursery ? "Nursery" : "Eggs",
+      value: activeIsland.supportsNursery
+        ? `${activeIsland.nurseryOccupancy || 0}/${activeIsland.nurseries}`
+        : Number(activeIsland.nurserySessions?.length || 0),
+      copy: activeIsland.supportsNursery
+        ? `${activeIsland.freeNurseries || 0} slot${Number(activeIsland.freeNurseries || 0) === 1 ? "" : "s"} open`
+        : Number(activeIsland.nurserySessions?.length || 0) > 0
+          ? "Egg or hatch state is active here."
+          : "No nursery loop on this island.",
+    },
+    {
+      label: "Collection Missing",
+      value: Number(activeIsland.collectionMissing?.length || 0),
+      copy: Number(activeIsland.collectionMissing?.length || 0) > 0
+        ? "Still missing placed collection entries."
+        : "Collection side is caught up right now.",
+    },
+  ] : [];
+
+  useEffect(() =>
+  {
+    if (visibleIslands.length === 0)
+    {
+      if (selectedIslandKey)
+      {
+        setSelectedIslandKey("");
+      }
       return;
     }
 
-    targetNode.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-    setHighlightedIslandKey(islandKey);
-  }
+    if (!hasVisibleIslandSelection)
+    {
+      setSelectedIslandKey(visibleIslands[0].islandKey || visibleIslands[0].island);
+    }
+  }, [hasVisibleIslandSelection, selectedIslandKey, visibleIslands]);
 
   function handleScrollToTop()
   {
@@ -2248,7 +2700,7 @@ export default function IslandPlanner({
           Island Manager
         </div>
         <div style={{ marginTop: "8px", opacity: 0.75 }}>
-          Choose a region, then manage island progression, breeding capacity, and active assignments.
+          Pick an island first, then run its breeders, nursery, and collection-side planning from one focused view.
         </div>
 
         <div className="screen-card-actions island-filter-row island-region-row" style={{ marginTop: "16px" }}>
@@ -2324,37 +2776,318 @@ export default function IslandPlanner({
             {activeAvailabilityMeaning}
           </div>
         )}
-        {plannerData.some((island) =>
-          (Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0)
-          || (Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0)
-        ) && (
-          <div className="screen-card-actions" style={{ marginTop: "14px" }}>
-            <button
+
+        {visibleIslands.length > 0 && (
+          <div
+            style={{
+              marginTop: "18px",
+              display: "grid",
+              gap: "14px",
+            }}
+          >
+            <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.72, letterSpacing: "0.06em" }}>
+              ISLAND SELECTOR
+            </div>
+
+            <div
               style={{
-                ...compactActionStyle,
-                background: "rgba(255,255,255,0.06)",
+                display: "flex",
+                gap: "10px",
+                overflowX: "auto",
+                paddingBottom: "4px",
+                scrollbarWidth: "thin",
               }}
-              onClick={() => onClearAllIslandLiveBoards?.()}
             >
-              Clear All Live Boards
-            </button>
+              {visibleIslands.map((island) =>
+              {
+                const islandKey = island.islandKey || island.island;
+                const palette = getPlannerIslandPalette(island.island);
+                const isActive = islandKey === activeIslandKey;
+                const pinArt = PLANNER_WORLD_ART[island.island]?.pin;
+
+                return (
+                  <button
+                    key={`selector-${islandKey}`}
+                    style={{
+                      minWidth: "144px",
+                      padding: "12px 14px",
+                      borderRadius: "18px",
+                      border: isActive
+                        ? `1px solid ${palette.border}`
+                        : "1px solid rgba(255,255,255,0.1)",
+                      background: isActive
+                        ? `linear-gradient(180deg, ${palette.wash}, rgba(255,255,255,0.06))`
+                        : "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))",
+                      color: "inherit",
+                      cursor: "pointer",
+                      boxShadow: isActive
+                        ? `0 0 0 1px ${palette.accent}, 0 0 24px ${palette.glow}, 0 12px 26px rgba(0,0,0,0.18)`
+                        : "0 10px 22px rgba(0,0,0,0.12)",
+                      display: "grid",
+                      gap: "8px",
+                      textAlign: "left",
+                      flexShrink: 0,
+                    }}
+                    onClick={() =>
+                    {
+                      setSelectedIslandKey(islandKey);
+                      setShowAllVisible(false);
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      {pinArt ? (
+                        <div
+                          style={{
+                            width: "48px",
+                            height: "48px",
+                            borderRadius: "14px",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                            background: "rgba(255,255,255,0.08)",
+                            display: "grid",
+                            placeItems: "center",
+                            overflow: "hidden",
+                            flexShrink: 0,
+                          }}
+                        >
+                          <img
+                            src={pinArt}
+                            alt={`${island.island} art`}
+                            style={{
+                              width: "38px",
+                              height: "38px",
+                              objectFit: "contain",
+                              transform: `scale(${PLANNER_WORLD_ART[island.island]?.pinScale || 1.18})`,
+                              transformOrigin: "center",
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            width: "48px",
+                            height: "48px",
+                            borderRadius: "14px",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                            background: "rgba(255,255,255,0.06)",
+                            display: "grid",
+                            placeItems: "center",
+                            fontSize: "14px",
+                            fontWeight: 800,
+                          }}
+                        >
+                          {String(island.island || "?").slice(0, 2).toUpperCase()}
+                        </div>
+                      )}
+
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontSize: "15px", fontWeight: 800 }}>
+                          {island.island}
+                        </div>
+                        <div style={{ marginTop: "2px", fontSize: "12px", opacity: 0.7 }}>
+                          {island.isUnlocked ? "Ready to manage" : "Locked"}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                      <div style={pillStyle}>
+                        {Number(island.needNow?.length || 0)} need now
+                      </div>
+                      {Number(island.currentlyBreeding?.length || 0) > 0 && (
+                        <div style={pillStyle}>
+                          {Number(island.currentlyBreeding?.length || 0)} breeding
+                        </div>
+                      )}
+                      {Number(island.nurserySessions?.length || 0) > 0 && (
+                        <div style={pillStyle}>
+                          {Number(island.nurserySessions?.length || 0)} eggs
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {quickSelectIslands.length > 1 && (
+              <div style={{ display: "grid", gap: "8px" }}>
+                <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.64 }}>
+                  Quick Jump
+                </div>
+                <select
+                  className="island-region-select"
+                  value={activeIslandKey}
+                  onChange={(event) =>
+                  {
+                    const nextIsland = quickSelectIslands.find((island) =>
+                      (island.islandKey || island.island) === event.target.value
+                    );
+
+                    if (!nextIsland)
+                    {
+                      return;
+                    }
+
+                    setActiveTab(nextIsland.group || ALL_REGIONS_FILTER);
+                    setSelectedIslandKey(nextIsland.islandKey || nextIsland.island);
+                    setShowAllVisible(false);
+                  }}
+                >
+                  {quickSelectIslands.map((island) => (
+                    <option key={`quick-jump-${island.islandKey || island.island}`} value={island.islandKey || island.island}>
+                      {island.island}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
         )}
-        {visibleIslands.length > 1 && (
-          <div className="island-jump-wrap" style={{ marginTop: "14px" }}>
-            <div style={{ fontSize: "12px", fontWeight: 700, opacity: 0.72 }}>
-              Jump to island
-            </div>
-            <div className="island-jump-row">
-              {visibleIslands.map((island) => (
+
+        {activeIsland && (
+          <div
+            style={{
+              marginTop: "18px",
+              borderRadius: "24px",
+              border: `1px solid ${activeIslandPalette.border}`,
+              background: `linear-gradient(135deg, ${activeIslandPalette.wash}, rgba(255,255,255,0.035))`,
+              boxShadow: `0 0 0 1px ${activeIslandPalette.accent}, 0 0 34px ${activeIslandPalette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                display: "grid",
+                gap: "18px",
+                padding: "18px",
+              }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: activeIslandArt?.pin ? "minmax(0, 1fr) auto" : "minmax(0, 1fr)",
+                  gap: "18px",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ display: "grid", gap: "10px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.08em", opacity: 0.66 }}>
+                    SELECTED ISLAND OVERVIEW
+                  </div>
+
+                  <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                    <div style={{ ...pillStyle, background: activeIslandPalette.accent }}>
+                      {activeIsland.island}
+                    </div>
+                    <div style={pillStyle}>
+                      {activeIsland.isUnlocked ? "Unlocked" : "Locked"}
+                    </div>
+                    {activeIsland.supportsStandardBreeding && <div style={pillStyle}>Breeding</div>}
+                    {activeIsland.supportsNursery && <div style={pillStyle}>Nursery</div>}
+                  </div>
+
+                  <div style={{ maxWidth: "780px", lineHeight: 1.5, opacity: 0.78 }}>
+                    {activeIsland.operationalNote || "Focused island operations live here."}
+                  </div>
+                </div>
+
+                {activeIslandArt?.pin && (
+                  <div
+                    style={{
+                      width: "132px",
+                      height: "132px",
+                      borderRadius: "28px",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      background: "rgba(255,255,255,0.08)",
+                      display: "grid",
+                      placeItems: "center",
+                      boxShadow: "0 12px 26px rgba(0,0,0,0.18)",
+                    }}
+                  >
+                    <img
+                      src={activeIslandArt.pin}
+                      alt={`${activeIsland.island} art`}
+                      style={{
+                        width: "94px",
+                        height: "94px",
+                        objectFit: "contain",
+                        transform: `scale(${activeIslandArt.pinScale || 1.22})`,
+                        transformOrigin: "center",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                  gap: "12px",
+                }}
+              >
+                {activeIslandStatBlocks.map((stat) => (
+                  <div
+                    key={`${activeIsland.island}-${stat.label}`}
+                    style={{
+                      borderRadius: "18px",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: "rgba(255,255,255,0.06)",
+                      padding: "14px",
+                      display: "grid",
+                      gap: "6px",
+                    }}
+                  >
+                    <div style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.08em", opacity: 0.68 }}>
+                      {stat.label.toUpperCase()}
+                    </div>
+                    <div style={{ fontSize: "24px", fontWeight: 800 }}>
+                      {stat.value}
+                    </div>
+                    <div style={{ fontSize: "13px", opacity: 0.7, lineHeight: 1.4 }}>
+                      {stat.copy}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 <button
-                  key={`jump-${island.islandKey || island.island}`}
-                  style={compactActionStyle}
-                  onClick={() => handleJumpToIsland(island)}
+                  style={{
+                    ...tabButtonStyle,
+                    background: showAllVisible ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.18)",
+                  }}
+                  onClick={() => setShowAllVisible(false)}
                 >
-                  {island.island}
+                  Single Island View
                 </button>
-              ))}
+                {visibleIslands.length > 1 && (
+                  <button
+                    style={{
+                      ...tabButtonStyle,
+                      background: showAllVisible ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.08)",
+                    }}
+                    onClick={() => setShowAllVisible(true)}
+                  >
+                    Show All Visible Islands ({visibleIslands.length})
+                  </button>
+                )}
+                {plannerData.some((island) =>
+                  (Array.isArray(island.currentlyBreeding) && island.currentlyBreeding.length > 0)
+                  || (Array.isArray(island.nurserySessions) && island.nurserySessions.length > 0)
+                ) && (
+                  <button
+                    style={{
+                      ...compactActionStyle,
+                      background: "rgba(255,255,255,0.08)",
+                      padding: "10px 14px",
+                    }}
+                    onClick={() => onClearAllIslandLiveBoards?.()}
+                  >
+                    Clear All Live Boards
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -2387,26 +3120,15 @@ export default function IslandPlanner({
             </div>
           </div>
         ) : (
-          visibleIslands.map((island) => (
+          (showAllVisible ? visibleIslands : visibleIslands.filter((island) =>
+            (island.islandKey || island.island) === activeIslandKey
+          )).map((island) => (
             <div
               key={island.islandKey || island.island}
-              ref={(node) =>
-              {
-                const islandKey = island.islandKey || island.island;
-
-                if (node)
-                {
-                  islandCardRefs.current.set(islandKey, node);
-                }
-                else
-                {
-                  islandCardRefs.current.delete(islandKey);
-                }
-              }}
               style={{
                 borderRadius: "18px",
-                boxShadow: highlightedIslandKey === (island.islandKey || island.island)
-                  ? "0 0 0 2px rgba(96,165,250,0.4), 0 0 30px rgba(96,165,250,0.18)"
+                boxShadow: (island.islandKey || island.island) === activeIslandKey
+                  ? `0 0 0 2px ${activeIslandPalette.border}, 0 0 32px ${activeIslandPalette.glow}`
                   : "none",
                 transition: "box-shadow 180ms ease",
               }}
