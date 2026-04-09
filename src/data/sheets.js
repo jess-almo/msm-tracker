@@ -259,9 +259,16 @@ const LIGHT_ISLAND_COLLECTION_ROSTER = [
   { name: "Ti", acquisitionType: "keys", showInOperations: false },
 ];
 
+function cloneIslandCollectionRoster(roster)
+{
+  return roster.map((entry) => ({ ...entry }));
+}
+
 const ISLAND_COLLECTION_ROSTER_OVERRIDES = {
   Faerie: FAERIE_ISLAND_COLLECTION_ROSTER,
   Light: LIGHT_ISLAND_COLLECTION_ROSTER,
+  "Mirror Faerie": cloneIslandCollectionRoster(FAERIE_ISLAND_COLLECTION_ROSTER),
+  "Mirror Light": cloneIslandCollectionRoster(LIGHT_ISLAND_COLLECTION_ROSTER),
 };
 
 function getIslandCollectionRosterEntry(islandName, monsterName)

@@ -41,6 +41,7 @@ import {
   STORAGE_KEYS,
 } from "./utils/persistence";
 import { applyCollectionEntryStatus, getCollectionEntryStatus } from "./utils/collectionStatus";
+import { useHashRouteView } from "./utils/viewRouting";
 
 const DEFAULT_SHEETS = TRACKER_SHEET_DEFAULTS;
 const APP_VERSION = packageJson.version;
@@ -555,7 +556,7 @@ export default function App()
       defaultCollections: COLLECTIONS,
     })
   );
-  const [view, setView] = useState(() => initialAppState.view);
+  const [view, setView] = useHashRouteView(initialAppState.view || { screen: "home" });
   const [sheets, setSheets] = useState(() => initialAppState.sheets);
   const [collectionsData, setCollectionsData] = useState(() => initialAppState.collectionsData);
   const [islandStates, setIslandStates] = useState(() => initialAppState.islandStates);
@@ -616,6 +617,15 @@ export default function App()
 
     return sheets.findIndex((sheet) => sheet.key === view.sheetKey);
   }, [sheets, view]);
+  useEffect(() =>
+  {
+    if (view.screen !== "sheet" || selectedSheet)
+    {
+      return;
+    }
+
+    setView({ screen: "collections" }, { replace: true });
+  }, [selectedSheet, setView, view]);
 
   const selectedSheetAssignableSessions = useMemo(() =>
   {
@@ -978,7 +988,7 @@ export default function App()
         defaultCollections: COLLECTIONS,
       });
 
-      setView(parsedBackup.view);
+      setView(parsedBackup.view, { replace: true });
       setSheets(parsedBackup.sheets);
       setCollectionsData(parsedBackup.collectionsData);
       setIslandStates(parsedBackup.islandStates);
@@ -2837,7 +2847,7 @@ export default function App()
               collectionsData={collectionsData}
               islandStates={islandStates}
               initialWorldKey={view.worldKey || ""}
-              onClearInitialWorldKey={() => setView({ screen: "collections" })}
+              onClearInitialWorldKey={() => setView({ screen: "collections" }, { replace: true })}
               onOpenCollectionWorld={openCollections}
               getDeleteInstanceBlockState={getDeleteSheetInstanceBlockState}
               onOpenSheet={openSheet}

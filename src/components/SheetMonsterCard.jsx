@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import {
+  getElementAuraStyle,
   getMonsterBreedingIslands,
   getMonsterMetadata,
   getMonsterPortrait,
@@ -135,9 +136,9 @@ function ManualAdjustRow({
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
-        <button type="button" style={buttonStyle} onClick={onDecrease}>-</button>
+        <button type="button" style={buttonStyle} onClick={onDecrease} aria-label={`Decrease ${label}`}>-</button>
         <span style={{ minWidth: "18px", textAlign: "center", fontWeight: 700 }}>{value}</span>
-        <button type="button" style={buttonStyle} onClick={onIncrease}>+</button>
+        <button type="button" style={buttonStyle} onClick={onIncrease} aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );
@@ -167,6 +168,7 @@ export default function SheetMonsterCard({
     : 0;
   const isComplete = monster.zapped >= monster.required;
   const metadata = getMonsterMetadata(monster.name);
+  const portraitFrameStyle = getElementAuraStyle(metadata?.elements || []);
   const portraitSrc = getMonsterPortrait(monster.name);
   const validBreedingIslands = getMonsterBreedingIslands(monster.name);
   const acquisitionType = monster.acquisitionType || "breed";
@@ -258,12 +260,12 @@ export default function SheetMonsterCard({
                   width: "76px",
                   height: "76px",
                   borderRadius: "18px",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.03))",
+                  border: portraitFrameStyle.border,
+                  background: portraitFrameStyle.background,
                   display: "grid",
                   placeItems: "center",
                   overflow: "hidden",
-                  boxShadow: "0 10px 20px rgba(0,0,0,0.14)",
+                  boxShadow: portraitFrameStyle.boxShadow,
                   flexShrink: 0,
                 }}
               >

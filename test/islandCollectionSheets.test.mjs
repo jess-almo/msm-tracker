@@ -364,3 +364,47 @@ test("Light planner still skips collection-only monsters when saved sheet flags 
   assert.ok(!plannerNames.includes("Tiawa"));
   assert.ok(!plannerNames.includes("Drummidary"));
 });
+
+test("Mirror Faerie uses the curated Faerie roster instead of broad breeding inference", () =>
+{
+  const mirrorFaerieSheet = getIslandCollectionSheet("Mirror Faerie");
+  const names = mirrorFaerieSheet.monsters.map((monster) => monster.name);
+  const krillby = mirrorFaerieSheet.monsters.find((monster) => monster.name === "Krillby");
+  const ffidyll = mirrorFaerieSheet.monsters.find((monster) => monster.name === "Ffidyll");
+
+  assert.ok(mirrorFaerieSheet, "Mirror Faerie collection sheet should exist");
+  assert.ok(names.includes("Boskus"));
+  assert.ok(names.includes("Ziggurab"));
+  assert.ok(names.includes("Krillby"));
+  assert.ok(names.includes("Ffidyll"));
+  assert.equal(krillby.showInOperations, false);
+  assert.equal(ffidyll.showInOperations, false);
+});
+
+test("Mirror Light keeps collection-only magical specials out of planner demand", () =>
+{
+  const mirrorLightSheet = getIslandCollectionSheet("Mirror Light");
+  const planner = buildIslandPlannerData(
+    [mirrorLightSheet],
+    [
+      {
+        name: "Mirror Light",
+        group: "mirror",
+        type: "breeding",
+        isUnlocked: true,
+        breedingStructures: 2,
+        maxBreedingStructures: 2,
+        nurseries: 2,
+        maxNurseries: 2,
+      },
+    ],
+    []
+  );
+  const mirrorLightEntry = planner.find((entry) => entry.island === "Mirror Light");
+  const plannerNames = mirrorLightEntry.collectionMissing.map((item) => item.name);
+
+  assert.deepEqual(plannerNames, ["Furcorn", "Flowah", "Gob"]);
+  assert.ok(!plannerNames.includes("Yelmut"));
+  assert.ok(!plannerNames.includes("Whiz-bang"));
+  assert.ok(!plannerNames.includes("Phosphoran Phlox"));
+});

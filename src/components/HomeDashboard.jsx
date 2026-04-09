@@ -360,6 +360,8 @@ function BackupPanel({
       {backupMessage && (
         <div
           className={backupMessage.kind === "error" ? "backup-message backup-message-error" : "backup-message"}
+          aria-live="polite"
+          role={backupMessage.kind === "error" ? "alert" : "status"}
         >
           {backupMessage.text}
         </div>

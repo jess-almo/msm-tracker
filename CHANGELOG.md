@@ -6,6 +6,11 @@ Do not create a fake release for every tiny edit.
 
 ## [Unreleased]
 
+### Changed
+
+- Added a dedicated next-agent handoff note under `docs/NEXT_AGENT_HANDOFF.md` so the current collection-world, island-truth, and asset-system decisions are preserved in the repo instead of living only in the chat history.
+- Expanded the public asset-structure doc to cover the shared circular element icon system and the current `branding / portraits / world icons / world pins / elements / inbox` folder layout.
+
 ## [0.5.0] - 2026-04-09
 
 ### Changed

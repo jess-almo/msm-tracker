@@ -14,6 +14,7 @@ import {
   getMonsterRequirementUsage,
 } from "../utils/monsterPriority";
 import {
+  getElementAuraStyle,
   getMonsterMetadata,
   getMonsterPortrait,
 } from "../utils/monsterMetadata";
@@ -44,12 +45,21 @@ const inputStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
   background: "rgba(255,255,255,0.08)",
   color: "inherit",
-  outline: "none",
 };
 
 const filterSectionStyle = {
   display: "grid",
   gap: "10px",
+};
+
+const quickFactStyle = {
+  display: "grid",
+  gap: "4px",
+  minWidth: "120px",
+  padding: "10px 12px",
+  borderRadius: "14px",
+  border: "1px solid rgba(255,255,255,0.08)",
+  background: "rgba(255,255,255,0.035)",
 };
 
 const CORE_ELEMENTS = [
@@ -359,7 +369,7 @@ export default function MonsterDirectory()
         if (selectedElements.length > 0)
         {
           const monsterElements = monster.elements || [];
-          const matchesElement = selectedElements.some((element) =>
+          const matchesElement = selectedElements.every((element) =>
             monsterElements.includes(element)
           );
 
@@ -464,7 +474,7 @@ export default function MonsterDirectory()
           <div>
             <div style={{ fontSize: "26px", fontWeight: 700 }}>Monster Directory</div>
             <div style={{ marginTop: "6px", fontSize: "14px", opacity: 0.72 }}>
-              Search first, then narrow by metadata and audit gaps.
+              Search by name, then stack element chips to narrow to exact combos.
             </div>
           </div>
 
@@ -484,48 +494,20 @@ export default function MonsterDirectory()
           <div style={{ display: "grid", gap: "14px" }}>
             <div style={filterSectionStyle}>
               <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.04em", opacity: 0.72 }}>
-                Category
+                Elements
               </div>
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                 <button
                   type="button"
                   style={{
                     ...buttonStyle,
-                    background: categoryFilter === "all" ? "rgba(255,255,255,0.18)" : buttonStyle.background,
-                  }}
-                  onClick={() => setCategoryFilter("all")}
-                >
-                  All
-                </button>
-
-                {categories.map((category) => (
-                  <button
-                    type="button"
-                    key={category.key}
-                    style={{
-                      ...buttonStyle,
-                      background:
-                        categoryFilter === category.key
-                          ? "rgba(255,255,255,0.18)"
-                          : buttonStyle.background,
-                    }}
-                    onClick={() => setCategoryFilter(category.key)}
-                  >
-                    {category.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div style={filterSectionStyle}>
-              <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.04em", opacity: 0.72 }}>
-                Core elements
-              </div>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <button
-                  style={{
-                    ...buttonStyle,
                     background: selectedElements.length === 0 ? "rgba(255,255,255,0.18)" : buttonStyle.background,
+                    border: selectedElements.length === 0
+                      ? "1px solid rgba(255,255,255,0.28)"
+                      : buttonStyle.border,
+                    boxShadow: selectedElements.length === 0
+                      ? "0 0 0 1px rgba(255,255,255,0.08), 0 0 18px rgba(255,255,255,0.08)"
+                      : "none",
                   }}
                   onClick={() => setSelectedElements([])}
                 >
@@ -537,14 +519,26 @@ export default function MonsterDirectory()
                     key={element}
                     element={element}
                     isSelected={selectedElements.includes(element)}
+                    title={
+                      selectedElements.includes(element)
+                        ? `Remove ${element} from the filter`
+                        : `Filter to monsters that include ${element}`
+                    }
                     onClick={() => setSelectedElements((current) => toggleValue(current, element))}
                   />
                 ))}
               </div>
 
+              <div style={{ fontSize: "12px", opacity: 0.68, lineHeight: 1.45 }}>
+                {selectedElements.length === 0
+                  ? "Tap one or more elements to filter. Adding another chip narrows the list to monsters that have both."
+                  : `Filtering to monsters with: ${selectedElements.join(" + ")}`}
+              </div>
+
               {specialElements.length > 0 && (
                 <div style={{ display: "grid", gap: "10px" }}>
                   <button
+                    type="button"
                     style={{
                       ...buttonStyle,
                       justifySelf: "start",
@@ -566,6 +560,11 @@ export default function MonsterDirectory()
                             key={element}
                             element={element}
                             isSelected={selectedElements.includes(element)}
+                            title={
+                              selectedElements.includes(element)
+                                ? `Remove ${element} from the filter`
+                                : `Filter to monsters that include ${element}`
+                            }
                             onClick={() => setSelectedElements((current) => toggleValue(current, element))}
                           />
                         ))}
@@ -578,6 +577,7 @@ export default function MonsterDirectory()
 
             <div style={{ ...filterSectionStyle, borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "14px" }}>
               <button
+                type="button"
                 style={{
                   ...buttonStyle,
                   justifySelf: "start",
@@ -592,6 +592,41 @@ export default function MonsterDirectory()
                 <div style={{ display: "grid", gap: "14px" }}>
                   <div style={filterSectionStyle}>
                     <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.04em", opacity: 0.72 }}>
+                      Category
+                    </div>
+                    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                      <button
+                        type="button"
+                        style={{
+                          ...buttonStyle,
+                          background: categoryFilter === "all" ? "rgba(255,255,255,0.18)" : buttonStyle.background,
+                        }}
+                        onClick={() => setCategoryFilter("all")}
+                      >
+                        All
+                      </button>
+
+                      {categories.map((category) => (
+                        <button
+                          type="button"
+                          key={category.key}
+                          style={{
+                            ...buttonStyle,
+                            background:
+                              categoryFilter === category.key
+                                ? "rgba(255,255,255,0.18)"
+                                : buttonStyle.background,
+                          }}
+                          onClick={() => setCategoryFilter(category.key)}
+                        >
+                          {category.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={filterSectionStyle}>
+                    <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.04em", opacity: 0.72 }}>
                       Sort
                     </div>
                     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -602,6 +637,7 @@ export default function MonsterDirectory()
                         { key: "complete_first", label: "Complete first" },
                       ].map((option) => (
                         <button
+                          type="button"
                           key={option.key}
                           style={{
                             ...buttonStyle,
@@ -630,6 +666,7 @@ export default function MonsterDirectory()
                         { key: "missing_description", label: "Missing description" },
                       ].map((option) => (
                         <button
+                          type="button"
                           key={option.key}
                           style={{
                             ...buttonStyle,
@@ -659,6 +696,7 @@ export default function MonsterDirectory()
                         { key: "unused", label: "Unused" },
                       ].map((option) => (
                         <button
+                          type="button"
                           key={option.key}
                           style={{
                             ...buttonStyle,
@@ -689,6 +727,7 @@ export default function MonsterDirectory()
             }}
           >
             <div>Showing {summary.showing} of {summary.total}</div>
+            <div>{selectedElements.length} active element filter{selectedElements.length === 1 ? "" : "s"}</div>
             <div>{summary.needsDetails} need details</div>
             <div>{summary.complete} complete</div>
           </div>
@@ -697,6 +736,11 @@ export default function MonsterDirectory()
 
       <div style={{ display: "grid", gap: "12px" }}>
         {filteredMonsters.map((monster) => (
+          (() =>
+          {
+            const portraitGlow = getElementAuraStyle(monster.elements || []);
+
+            return (
           <div key={monster.id || monster.name} style={cardStyle}>
             <div
               style={{
@@ -714,12 +758,12 @@ export default function MonsterDirectory()
                       width: "84px",
                       height: "84px",
                       borderRadius: "20px",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.03))",
+                      border: portraitGlow.border,
+                      background: portraitGlow.background,
                       display: "grid",
                       placeItems: "center",
                       overflow: "hidden",
-                      boxShadow: "0 10px 20px rgba(0,0,0,0.14)",
+                      boxShadow: portraitGlow.boxShadow,
                       flexShrink: 0,
                     }}
                   >
@@ -764,42 +808,83 @@ export default function MonsterDirectory()
               </div>
             </div>
 
-            <div style={{ marginTop: "14px", display: "grid", gap: "8px", fontSize: "14px", opacity: 0.84 }}>
-              <div>Breedable On: {(monster.breedableOn || []).join(", ") || "—"}</div>
-              <div style={{ display: "grid", gap: "6px" }}>
-                <div>Elements:</div>
-                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                  {hasItems(monster.elements)
-                    ? monster.elements.map((element) => (
-                      <ElementChip key={element} element={element} />
-                    ))
-                    : <span style={{ ...buttonStyle, cursor: "default" }}>—</span>}
+            <div style={{ marginTop: "14px", display: "grid", gap: "10px" }}>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                {hasItems(monster.elements)
+                  ? monster.elements.map((element) => (
+                    <ElementChip key={element} element={element} />
+                  ))
+                  : <span style={{ ...buttonStyle, cursor: "default" }}>No elements listed</span>}
+              </div>
+
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                <div style={quickFactStyle}>
+                  <div style={{ fontSize: "11px", fontWeight: 700, opacity: 0.68, letterSpacing: "0.06em" }}>
+                    COMBO
+                  </div>
+                  <div style={{ fontSize: "14px", opacity: 0.88 }}>
+                    {monster.comboDisplay || "No combo listed"}
+                  </div>
+                </div>
+
+                <div style={quickFactStyle}>
+                  <div style={{ fontSize: "11px", fontWeight: 700, opacity: 0.68, letterSpacing: "0.06em" }}>
+                    BREEDING TIME
+                  </div>
+                  <div style={{ fontSize: "14px", opacity: 0.88 }}>
+                    {monster.breedingTimeData?.breedingTime || "—"}
+                    {monster.breedingTimeData?.enhancedBreedingTime
+                      ? ` · ${monster.breedingTimeData.enhancedBreedingTime} enhanced`
+                      : ""}
+                  </div>
+                </div>
+
+                <div style={quickFactStyle}>
+                  <div style={{ fontSize: "11px", fontWeight: 700, opacity: 0.68, letterSpacing: "0.06em" }}>
+                    BREEDABLE ON
+                  </div>
+                  <div style={{ fontSize: "14px", opacity: 0.88 }}>
+                    {monster.breedableOn?.[0] || "—"}
+                    {monster.breedableOn?.length > 1 ? ` +${monster.breedableOn.length - 1} more` : ""}
+                  </div>
                 </div>
               </div>
-              <div>Combo: {monster.comboDisplay || "—"}</div>
-              <div>
-                Breeding time: {monster.breedingTimeData?.breedingTime || "—"}
-                {monster.breedingTimeData?.enhancedBreedingTime
-                  ? ` · Enhanced: ${monster.breedingTimeData.enhancedBreedingTime}`
-                  : ""}
-              </div>
-              {"description" in monster && <div>Description: {monster.description || "—"}</div>}
-              <div>Notes: {monster.notes || "—"}</div>
-              {monster.aliases.length > 0 && <div>Aliases: {monster.aliases.join(", ")}</div>}
-            </div>
 
-            <div style={{ marginTop: "12px", fontSize: "13px", opacity: 0.72 }}>
-              {monster.auditMissingFields.length > 0
-                ? `Missing: ${monster.auditMissingFields.join(", ")}`
-                : "Missing: none"}
-            </div>
+              <details
+                style={{
+                  marginTop: "2px",
+                  padding: "12px",
+                  borderRadius: "14px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.03)",
+                  opacity: 0.86,
+                }}
+              >
+                <summary style={{ cursor: "pointer", fontSize: "13px", fontWeight: 700 }}>
+                  More Details
+                </summary>
 
-            <div style={{ marginTop: "6px", fontSize: "13px", opacity: 0.72 }}>
-              {monster.usage.length > 0
-                ? `Used in ${monster.usage.map(formatLabel).join(", ")} requirements`
-                : "Used in requirements: —"}
+                <div style={{ marginTop: "12px", display: "grid", gap: "8px", fontSize: "14px", opacity: 0.84 }}>
+                  <div>Breedable On: {(monster.breedableOn || []).join(", ") || "—"}</div>
+                  {"description" in monster && <div>Description: {monster.description || "—"}</div>}
+                  <div>Notes: {monster.notes || "—"}</div>
+                  {monster.aliases.length > 0 && <div>Aliases: {monster.aliases.join(", ")}</div>}
+                  <div>
+                    {monster.auditMissingFields.length > 0
+                      ? `Missing: ${monster.auditMissingFields.join(", ")}`
+                      : "Missing: none"}
+                  </div>
+                  <div>
+                    {monster.usage.length > 0
+                      ? `Used in ${monster.usage.map(formatLabel).join(", ")} requirements`
+                      : "Used in requirements: —"}
+                  </div>
+                </div>
+              </details>
             </div>
           </div>
+            );
+          })()
         ))}
       </div>
     </div>

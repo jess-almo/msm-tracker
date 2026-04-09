@@ -45,6 +45,20 @@ Examples:
 - `fire-oasis.png`
 - `ethereal-island.png`
 
+### Element Icons
+
+- `public/monsters/elements/<element-name>.png`
+  - Used by the shared circular element chip system
+  - Prefer the circular icon set for repeated in-app UI use
+  - Use lowercase kebab-case names
+
+Examples:
+- `plant.png`
+- `electricity.png`
+- `season-of-love.png`
+- `echoes-of-eco.png`
+- `anniversary-month.png`
+
 ### Temporary Drop Zone
 
 - `public/inbox/`
@@ -69,4 +83,5 @@ Examples:
 - Monster art goes in `public/monsters/portraits`
 - Island/world sheet art goes in `public/monsters/worlds/icons`
 - Island/world card art goes in `public/monsters/worlds/pins`
+- Element icons go in `public/monsters/elements`
 - App logo goes in `public/branding/app-icon.png`

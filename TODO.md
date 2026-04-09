@@ -13,23 +13,26 @@ Do not let this turn into a graveyard of every idea. Move finished work to [`CHA
 
 ## Now
 
-- Finish the island-collection truth pass beyond Faerie:
-  - move more islands off broad `breedableOn` inference and onto explicit collection rosters
-  - separate `showInCollection` from `showInOperations`
-  - keep Dipsters, relic-bought monsters, and other non-breeding collection entries visible in Collections without leaking into planner demand
-- Tighten island collection operations rules:
+- Finish the curated island-collection truth pass beyond the current first batches:
+  - keep moving islands off broad `breedableOn` inference and onto explicit collection rosters
+  - preserve `showInCollection` vs `showInOperations` so collection-only entries do not leak into planner demand
+  - keep standard island worlds browseable even while locked, but only let unlocked worlds drive live operations
+- Tighten time-gated and special availability rules:
   - seasonal monsters stay in collection but only enter operations when marked available
   - Owlesque and other time-gated cases need explicit availability handling instead of generic always-on routing
   - verify mythical behavior and design Mythical Island as a special teleport/breeding system instead of forcing it into standard island logic
-- Keep refining Island Manager around normal island collections:
+- Keep refining normal island collection flow:
   - collection gaps should stay visible until the monster is actually hatched/placed
   - nursery/placement truth should read more clearly for regular island collections
-  - reduce leftover testing/debug controls in the primary planner action lane
-- Polish the compact island collection sheet workflow:
-  - keep cards dense and checklist-first
-  - simplify remaining copy that still sounds like planner math
-  - make quick collected toggles and any future hatch/placement actions feel obvious
-- Tighten cross-screen consistency across Collections, Dashboard, Island Manager, Active Sheets, and Monster Library so the app feels like one design system.
+  - keep per-island collection focus to a clean 3-slot lane once that interaction is finalized
+- Keep polishing the app-first UI system:
+  - standard collection world cards are now clickable and art-led; continue tuning desktop/mobile balance without regressing the stronger app feel
+  - compact collection cards should stay dense, portrait-friendly, and checklist-first
+  - remove leftover copy or states that still sound like planner math instead of collection progress
+- Keep expanding the asset-driven visual system:
+  - wire newly added world art and monster portraits as assets land
+  - keep the circular element icon system consistent across all screens
+  - finish documenting any remaining naming/placement rules so asset drops do not depend on thread context
 - Keep improving correction and reconciliation flows for wrong zaps, wrong assignments, and tracker drift during real play.
 
 ## Before Next Release
@@ -93,6 +96,11 @@ npm run android:package-debug
 - Expand data coverage where it materially improves the live app, not just for encyclopedia completeness.
 - Keep the lightweight persistence tests healthy as shared save/load helpers evolve.
 - Treat island collection membership as curated game-truth data, not something that can be inferred safely from broad breeding metadata alone.
+- Keep the new asset system curated:
+  - monster portraits live under `public/monsters/portraits`
+  - world sheet art lives under `public/monsters/worlds/icons`
+  - world card pins live under `public/monsters/worlds/pins`
+  - circular element icons live under `public/monsters/elements`
 
 ## Later
 

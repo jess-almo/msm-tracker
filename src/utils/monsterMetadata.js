@@ -1,32 +1,32 @@
 import { MONSTER_DIRECTORY } from "../data/monsterDatabase.js";
 
 export const ELEMENT_COLORS = {
-  Plant: "rgba(34,197,94,0.18)",
-  Fire: "rgba(239,68,68,0.18)",
-  Water: "rgba(59,130,246,0.18)",
-  Cold: "rgba(147,197,253,0.18)",
-  Air: "rgba(203,213,225,0.18)",
-  Earth: "rgba(120,113,108,0.18)",
-  Light: "rgba(250,204,21,0.18)",
-  Psychic: "rgba(168,85,247,0.18)",
-  Faerie: "rgba(244,114,182,0.18)",
-  Bone: "rgba(214,211,209,0.18)",
-  Plasma: "rgba(236,72,153,0.18)",
-  Shadow: "rgba(75,85,99,0.25)",
-  Mech: "rgba(148,163,184,0.18)",
-  Crystal: "rgba(192,132,252,0.18)",
-  Poison: "rgba(132,204,22,0.18)",
-  Electricity: "rgba(250,204,21,0.22)",
-  Celestial: "rgba(96,165,250,0.18)",
-  Dipster: "rgba(45,212,191,0.18)",
-  Titansoul: "rgba(251,146,60,0.18)",
-  Legendary: "rgba(250,204,21,0.18)",
-  Mythical: "rgba(192,132,252,0.18)",
-  Dream: "rgba(125,211,252,0.18)",
-  Control: "rgba(244,114,182,0.16)",
-  Hoax: "rgba(129,140,248,0.16)",
-  Ruin: "rgba(248,113,113,0.16)",
-  Depths: "rgba(45,212,191,0.16)",
+  Plant: "rgba(108, 214, 55, 0.24)",
+  Fire: "rgba(255, 114, 36, 0.24)",
+  Water: "rgba(49, 214, 237, 0.24)",
+  Cold: "rgba(190, 235, 255, 0.24)",
+  Air: "rgba(228, 231, 238, 0.22)",
+  Earth: "rgba(171, 153, 126, 0.24)",
+  Light: "rgba(255, 212, 77, 0.24)",
+  Psychic: "rgba(232, 90, 255, 0.24)",
+  Faerie: "rgba(145, 240, 255, 0.24)",
+  Bone: "rgba(198, 188, 174, 0.22)",
+  Plasma: "rgba(255, 88, 204, 0.22)",
+  Shadow: "rgba(109, 111, 133, 0.24)",
+  Mech: "rgba(173, 181, 197, 0.22)",
+  Crystal: "rgba(178, 126, 255, 0.24)",
+  Poison: "rgba(160, 204, 46, 0.24)",
+  Electricity: "rgba(80, 190, 255, 0.28)",
+  Celestial: "rgba(132, 196, 255, 0.24)",
+  Dipster: "rgba(118, 191, 73, 0.24)",
+  Titansoul: "rgba(255, 154, 74, 0.22)",
+  Legendary: "rgba(255, 207, 79, 0.26)",
+  Mythical: "rgba(188, 132, 255, 0.24)",
+  Dream: "rgba(124, 221, 255, 0.24)",
+  Control: "rgba(199, 126, 220, 0.22)",
+  Hoax: "rgba(125, 133, 241, 0.22)",
+  Ruin: "rgba(240, 112, 112, 0.22)",
+  Depths: "rgba(66, 196, 191, 0.22)",
 };
 
 const elementChipBaseStyle = {
@@ -453,8 +453,68 @@ export function getElementChipStyle(element, isSelected = false)
     ...elementChipBaseStyle,
     background: ELEMENT_COLORS[element] || "rgba(255,255,255,0.08)",
     border: isSelected
-      ? "1px solid rgba(255,255,255,0.26)"
+      ? "1px solid rgba(255,255,255,0.4)"
       : elementChipBaseStyle.border,
+    boxShadow: isSelected
+      ? "0 0 0 1px rgba(255,255,255,0.14), 0 0 18px rgba(255,255,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12)"
+      : elementChipBaseStyle.boxShadow,
+    transform: isSelected ? "translateY(-1px)" : "none",
+  };
+}
+
+export function getElementAuraStyle(elements = [])
+{
+  const glowStops = Array.from(
+    new Set(
+      elements
+        .map((element) => ELEMENT_COLORS[element])
+        .filter(Boolean)
+    )
+  );
+
+  if (glowStops.length === 0)
+  {
+    return {
+      border: "1px solid rgba(255,255,255,0.08)",
+      background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.03))",
+      boxShadow: "0 10px 20px rgba(0,0,0,0.14)",
+    };
+  }
+
+  if (glowStops.length === 1)
+  {
+    return {
+      border: "1px solid rgba(255,255,255,0.16)",
+      background: `radial-gradient(circle at 30% 24%, ${glowStops[0]}, rgba(255,255,255,0.03) 72%)`,
+      boxShadow: `0 10px 20px rgba(0,0,0,0.14), 0 0 24px ${glowStops[0]}`,
+    };
+  }
+
+  const anchorPoints = [
+    "20% 18%",
+    "82% 22%",
+    "24% 82%",
+    "78% 80%",
+    "50% 10%",
+    "50% 90%",
+    "10% 50%",
+    "90% 50%",
+  ];
+  const radialLayers = glowStops
+    .map((color, index) =>
+    {
+      const anchor = anchorPoints[index % anchorPoints.length];
+      return `radial-gradient(circle at ${anchor}, ${color} 0%, rgba(255,255,255,0.02) 34%, transparent 62%)`;
+    })
+    .join(", ");
+  const shadowLayers = glowStops
+    .map((color, index) => `0 0 ${24 + index * 3}px ${color}`)
+    .join(", ");
+
+  return {
+    border: "1px solid rgba(255,255,255,0.18)",
+    background: `${radialLayers}, radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(18,20,28,0.16) 52%, rgba(18,20,28,0.04) 70%, transparent 84%)`,
+    boxShadow: `0 10px 20px rgba(0,0,0,0.14), ${shadowLayers}`,
   };
 }
 
@@ -489,13 +549,20 @@ function normalizeElementAssetName(element)
 
 const AVAILABLE_ELEMENT_ICONS = new Set([
   "air",
+  "anniversary-month",
   "beat-hereafter",
   "bone",
+  "celestial",
+  "cloverspell",
   "cold",
   "control",
+  "crescendo-moon",
   "crystal",
   "depths",
+  "dipster",
+  "dream",
   "earth",
+  "echoes-of-eco",
   "eggs-travaganza",
   "electricity",
   "faerie",
@@ -504,8 +571,12 @@ const AVAILABLE_ELEMENT_ICONS = new Set([
   "fire",
   "hoax",
   "legendary",
+  "life-formula",
   "light",
   "mech",
+  "mindboggle",
+  "mythical",
+  "perplexplore",
   "plant",
   "plasma",
   "poison",
@@ -513,22 +584,37 @@ const AVAILABLE_ELEMENT_ICONS = new Set([
   "ruin",
   "season-of-love",
   "shadow",
+  "skypainting",
   "spooktacle",
   "summersong",
+  "titansoul",
   "water",
 ]);
 
 const ELEMENT_ICON_ALIASES = {
+  "anniversary-month": "anniversary-month",
   "beat-hereafter": "beat-hereafter",
+  celestial: "celestial",
+  cloverspell: "cloverspell",
+  "crescendo-moon": "crescendo-moon",
   "eggs-travaganza": "eggs-travaganza",
+  dipster: "dipster",
+  dream: "dream",
+  "echoes-of-eco": "echoes-of-eco",
   electricity: "electricity",
   "faerie": "faerie",
   "feast-ember": "feast-ember",
   "festival-of-yay": "festival-of-yay",
   legendary: "legendary",
+  "life-formula": "life-formula",
+  mindboggle: "mindboggle",
+  mythical: "mythical",
+  perplexplore: "perplexplore",
   "season-of-love": "season-of-love",
+  skypainting: "skypainting",
   spooktacle: "spooktacle",
   summersong: "summersong",
+  titansoul: "titansoul",
 };
 
 export function getElementIconPath(element)
