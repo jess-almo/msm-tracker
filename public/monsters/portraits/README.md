@@ -2,6 +2,11 @@
 
 Drop monster portrait files here for use in the app.
 
+These are used for monster-level art surfaces like:
+- compact collection cards
+- future monster directory portraits
+- future queue / detail art
+
 ### Naming
 
 Use lowercase kebab-case monster names:
@@ -18,8 +23,8 @@ Use lowercase kebab-case monster names:
 - Keep portraits roughly square
 - Leave a little padding around the monster so cards can crop safely
 
-### First Test
+### Not For Island Art
 
-For the first wiring test, place the image at:
-
-`public/monsters/portraits/noggin.png`
+If the file is an island/world image, use:
+- `public/monsters/worlds/icons`
+- `public/monsters/worlds/pins`

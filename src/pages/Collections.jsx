@@ -76,11 +76,13 @@ const COLLECTION_WORLD_ART = {
   Plant: {
     icon: "/monsters/worlds/icons/plant.png",
     pin: "/monsters/worlds/pins/plant.png",
+    // Tweak world-card pin scale per island here.
     pinScale: 1.28,
   },
   Cold: {
     icon: "/monsters/worlds/icons/cold.png",
     pin: "/monsters/worlds/pins/cold.png",
+    // Cold reads a little smaller, so it runs slightly larger by default.
     pinScale: 1.42,
   },
   Air: {
@@ -137,6 +139,71 @@ const COLLECTION_WORLD_ART = {
     icon: "/monsters/worlds/icons/ethereal-island.png",
     pin: "/monsters/worlds/pins/ethereal-island.png",
     pinScale: 1.3,
+  },
+  "Amber Island": {
+    icon: "/monsters/worlds/icons/amber-island.png",
+    pin: "/monsters/worlds/pins/amber-island.png",
+    pinScale: 1.34,
+  },
+  "Wublin Island": {
+    icon: "/monsters/worlds/icons/wublin-island.png",
+    pin: "/monsters/worlds/pins/wublin-island.png",
+    pinScale: 1.34,
+  },
+  Shugabush: {
+    icon: "/monsters/worlds/icons/shugabush.png",
+    pin: "/monsters/worlds/pins/shugabush.png",
+    pinScale: 1.34,
+  },
+  "Seasonal Shanty": {
+    icon: "/monsters/worlds/icons/seasonal-shanty.png",
+    pin: "/monsters/worlds/pins/seasonal-shanty.png",
+    pinScale: 1.34,
+  },
+  "Mirror Plant": {
+    icon: "/monsters/worlds/icons/mirror-plant.png",
+    pin: "/monsters/worlds/pins/mirror-plant.png",
+    pinScale: 1.32,
+  },
+  "Mirror Cold": {
+    icon: "/monsters/worlds/icons/mirror-cold.png",
+    pin: "/monsters/worlds/pins/mirror-cold.png",
+    pinScale: 1.34,
+  },
+  "Mirror Air": {
+    icon: "/monsters/worlds/icons/mirror-air.png",
+    pin: "/monsters/worlds/pins/mirror-air.png",
+    pinScale: 1.32,
+  },
+  "Mirror Water": {
+    icon: "/monsters/worlds/icons/mirror-water.png",
+    pin: "/monsters/worlds/pins/mirror-water.png",
+    pinScale: 1.32,
+  },
+  "Mirror Earth": {
+    icon: "/monsters/worlds/icons/mirror-earth.png",
+    pin: "/monsters/worlds/pins/mirror-earth.png",
+    pinScale: 1.32,
+  },
+  "Mirror Light": {
+    icon: "/monsters/worlds/icons/mirror-light.png",
+    pin: "/monsters/worlds/pins/mirror-light.png",
+    pinScale: 1.32,
+  },
+  "Mirror Psychic": {
+    icon: "/monsters/worlds/icons/mirror-psychic.png",
+    pin: "/monsters/worlds/pins/mirror-psychic.png",
+    pinScale: 1.32,
+  },
+  "Mirror Faerie": {
+    icon: "/monsters/worlds/icons/mirror-faerie.png",
+    pin: "/monsters/worlds/pins/mirror-faerie.png",
+    pinScale: 1.32,
+  },
+  "Mirror Bone": {
+    icon: "/monsters/worlds/icons/mirror-bone.png",
+    pin: "/monsters/worlds/pins/mirror-bone.png",
+    pinScale: 1.32,
   },
 };
 
@@ -1351,19 +1418,12 @@ function CollectionWorldCard({
     ? () => onOpenSheet(world.sheetKey)
     : () => onOpenWorld(world.key);
   const isClickable = true;
-  const chipsBeforePin = worldArt?.pin
-    ? world.chips.slice(0, Math.ceil(world.chips.length / 2))
-    : world.chips;
-  const chipsAfterPin = worldArt?.pin
-    ? world.chips.slice(Math.ceil(world.chips.length / 2))
-    : [];
-  const showCenteredWorldArt = world.kind === "island" && Boolean(worldArt?.pin);
-  const showWorldChips = world.kind !== "island";
+  const showCenteredWorldArt = Boolean(worldArt?.pin);
   const statusLabel = world.isLocked
     ? "Locked"
-    : world.kind === "island"
-      ? (world.status === "complete" ? "Complete" : "Active")
-      : getStatusLabel(world.status);
+    : world.status === "complete"
+      ? "Complete"
+      : "Active";
 
   return (
     <div
@@ -1462,29 +1522,12 @@ function CollectionWorldCard({
 
       <div
         style={{
-          display: showWorldChips || showCenteredWorldArt ? "flex" : "none",
-          justifyContent: showCenteredWorldArt ? "center" : "flex-start",
-          gap: "8px",
+          display: showCenteredWorldArt ? "flex" : "none",
+          justifyContent: "center",
           alignItems: "center",
-          flexWrap: "wrap",
           minHeight: showCenteredWorldArt ? "124px" : "0",
         }}
       >
-        {showWorldChips && !showCenteredWorldArt && chipsBeforePin.map((chip) => (
-          <span
-            key={`${world.key}:${chip}`}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              background: "rgba(255,255,255,0.06)",
-              fontSize: "13px",
-              fontWeight: 700,
-            }}
-          >
-            {chip}
-          </span>
-        ))}
         {showCenteredWorldArt && (
           <div
             style={{
@@ -1513,21 +1556,6 @@ function CollectionWorldCard({
             />
           </div>
         )}
-        {showWorldChips && !showCenteredWorldArt && chipsAfterPin.map((chip) => (
-          <span
-            key={`${world.key}:${chip}`}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "999px",
-              border: "1px solid rgba(255,255,255,0.1)",
-              background: "rgba(255,255,255,0.06)",
-              fontSize: "13px",
-              fontWeight: 700,
-            }}
-          >
-            {chip}
-          </span>
-        ))}
       </div>
 
       <div
@@ -1943,25 +1971,6 @@ export default function Collections({
             </div>
           </div>
 
-          {selectedWorld && (
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
-              {selectedWorld.chips.map((chip) => (
-                <span
-                  key={`${selectedWorld.key}:hero:${chip}`}
-                  style={{
-                    padding: "7px 12px",
-                    borderRadius: "999px",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    background: "rgba(255,255,255,0.08)",
-                    fontSize: "12px",
-                    fontWeight: 700,
-                  }}
-                >
-                  {chip}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
 
         {selectedWorld && COLLECTION_WORLD_ART[selectedWorld.title]?.icon && (

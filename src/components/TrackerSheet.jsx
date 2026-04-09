@@ -16,6 +16,19 @@ const ISLAND_COLLECTION_ART = {
   Bone: "/monsters/worlds/icons/bone.png",
   "Magical Sanctum": "/monsters/worlds/icons/magical-sanctum.png",
   "Ethereal Island": "/monsters/worlds/icons/ethereal-island.png",
+  "Amber Island": "/monsters/worlds/icons/amber-island.png",
+  "Wublin Island": "/monsters/worlds/icons/wublin-island.png",
+  Shugabush: "/monsters/worlds/icons/shugabush.png",
+  "Seasonal Shanty": "/monsters/worlds/icons/seasonal-shanty.png",
+  "Mirror Plant": "/monsters/worlds/icons/mirror-plant.png",
+  "Mirror Cold": "/monsters/worlds/icons/mirror-cold.png",
+  "Mirror Air": "/monsters/worlds/icons/mirror-air.png",
+  "Mirror Water": "/monsters/worlds/icons/mirror-water.png",
+  "Mirror Earth": "/monsters/worlds/icons/mirror-earth.png",
+  "Mirror Light": "/monsters/worlds/icons/mirror-light.png",
+  "Mirror Psychic": "/monsters/worlds/icons/mirror-psychic.png",
+  "Mirror Faerie": "/monsters/worlds/icons/mirror-faerie.png",
+  "Mirror Bone": "/monsters/worlds/icons/mirror-bone.png",
 };
 
 export default function TrackerSheet({
@@ -110,8 +123,9 @@ export default function TrackerSheet({
           style={{
             marginTop: "8px",
             marginBottom: "10px",
-            width: "84px",
-            height: "84px",
+            // Tweak island sheet icon container size here.
+            width: "124px",
+            height: "124px",
             borderRadius: "24px",
             border: "1px solid rgba(255,255,255,0.1)",
             background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0.04))",
@@ -127,8 +141,9 @@ export default function TrackerSheet({
             src={islandCollectionIcon}
             alt={`${data.island} icon`}
             style={{
-              width: "62px",
-              height: "62px",
+              // Tweak island sheet icon image size here.
+              width: "96px",
+              height: "96px",
               objectFit: "contain",
               display: "block",
             }}
