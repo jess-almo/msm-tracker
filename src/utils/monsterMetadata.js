@@ -32,6 +32,7 @@ export const ELEMENT_COLORS = {
 const elementChipBaseStyle = {
   display: "inline-flex",
   alignItems: "center",
+  gap: "6px",
   padding: "5px 10px",
   borderRadius: "999px",
   border: "1px solid rgba(255,255,255,0.12)",
@@ -155,6 +156,61 @@ const PRIMARY_BREEDING_ISLAND_OVERRIDES = {
   Tring: "Fire Haven",
 };
 
+const ELECTRICITY_MONSTERS = new Set([
+  "Wubbox",
+  "Rare Wubbox",
+  "Epic Wubbox",
+  "Brump",
+  "Rare Brump",
+  "Epic Brump",
+  "Zynth",
+  "Rare Zynth",
+  "Epic Zynth",
+  "Poewk",
+  "Rare Poewk",
+  "Epic Poewk",
+  "Thwok",
+  "Rare Thwok",
+  "Epic Thwok",
+  "Dwumrohl",
+  "Rare Dwumrohl",
+  "Epic Dwumrohl",
+  "Zuuker",
+  "Rare Zuuker",
+  "Epic Zuuker",
+  "Screemu",
+  "Rare Screemu",
+  "Tympa",
+  "Rare Tympa",
+  "Epic Tympa",
+  "Dermit",
+  "Rare Dermit",
+  "Epic Dermit",
+  "Gheegur",
+  "Rare Gheegur",
+  "Epic Gheegur",
+  "Whajje",
+  "Rare Whajje",
+  "Creepuscule",
+  "Rare Creepuscule",
+  "Blipsqueak",
+  "Rare Blipsqueak",
+  "Epic Blipsqueak",
+  "Scargo",
+  "Rare Scargo",
+  "Astropod",
+  "Rare Astropod",
+  "Pixolotl",
+  "Rare Pixolotl",
+  "Bona-Petite",
+  "Rare Bona-Petite",
+  "Maulch",
+  "Rare Maulch",
+  "Fleechwurm",
+  "Rare Fleechwurm",
+  "Epic Fleechwurm",
+]);
+
 function getDescriptionIsland(metadata)
 {
   const description = metadata?.description || "";
@@ -175,7 +231,17 @@ export function getMonsterMetadata(name)
     return null;
   }
 
-  return MONSTER_DIRECTORY[name] || null;
+  const metadata = MONSTER_DIRECTORY[name];
+
+  if (!metadata)
+  {
+    return null;
+  }
+
+  return {
+    ...metadata,
+    elements: getResolvedMonsterElements(name, metadata),
+  };
 }
 
 export function normalizeMonsterIslandName(islandName)
@@ -381,12 +447,101 @@ export function formatCategoryLabel(category)
     .join(" ");
 }
 
-export function getElementChipStyle(element)
+export function getElementChipStyle(element, isSelected = false)
 {
   return {
     ...elementChipBaseStyle,
     background: ELEMENT_COLORS[element] || "rgba(255,255,255,0.08)",
+    border: isSelected
+      ? "1px solid rgba(255,255,255,0.26)"
+      : elementChipBaseStyle.border,
   };
+}
+
+function getResolvedMonsterElements(name, metadata)
+{
+  const baseElements = Array.isArray(metadata?.elements)
+    ? metadata.elements.filter(Boolean)
+    : [];
+
+  if (baseElements.length > 0)
+  {
+    return Array.from(new Set(baseElements));
+  }
+
+  if (ELECTRICITY_MONSTERS.has(name))
+  {
+    return ["Electricity"];
+  }
+
+  return [];
+}
+
+function normalizeElementAssetName(element)
+{
+  return String(element || "")
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const AVAILABLE_ELEMENT_ICONS = new Set([
+  "air",
+  "beat-hereafter",
+  "bone",
+  "cold",
+  "control",
+  "crystal",
+  "depths",
+  "earth",
+  "eggs-travaganza",
+  "electricity",
+  "faerie",
+  "feast-ember",
+  "festival-of-yay",
+  "fire",
+  "hoax",
+  "legendary",
+  "light",
+  "mech",
+  "plant",
+  "plasma",
+  "poison",
+  "psychic",
+  "ruin",
+  "season-of-love",
+  "shadow",
+  "spooktacle",
+  "summersong",
+  "water",
+]);
+
+const ELEMENT_ICON_ALIASES = {
+  "beat-hereafter": "beat-hereafter",
+  "eggs-travaganza": "eggs-travaganza",
+  electricity: "electricity",
+  "faerie": "faerie",
+  "feast-ember": "feast-ember",
+  "festival-of-yay": "festival-of-yay",
+  legendary: "legendary",
+  "season-of-love": "season-of-love",
+  spooktacle: "spooktacle",
+  summersong: "summersong",
+};
+
+export function getElementIconPath(element)
+{
+  const assetKey = normalizeElementAssetName(element);
+  const resolvedAssetKey = ELEMENT_ICON_ALIASES[assetKey] || assetKey;
+
+  if (!AVAILABLE_ELEMENT_ICONS.has(resolvedAssetKey))
+  {
+    return "";
+  }
+
+  return `/monsters/elements/${encodeURIComponent(resolvedAssetKey)}.png`;
 }
 
 function normalizeMonsterAssetName(name)
@@ -400,38 +555,79 @@ function normalizeMonsterAssetName(name)
 }
 
 const AVAILABLE_MONSTER_PORTRAITS = new Set([
+  "anglow",
+  "barrb",
+  "bbli-zard",
   "bowgart",
+  "buzzinga",
+  "candelavra",
   "clamble",
+  "congle",
+  "cybop",
+  "dandidoo",
+  "deedge",
   "do",
   "drumpler",
   "entbrat",
   "fa",
+  "floogull",
+  "flowah",
   "furcorn",
   "fwog",
   "ghazt",
   "gjoob",
+  "glowl",
+  "grumpyre",
+  "hoola",
+  "humbug",
+  "hyehehe",
+  "jeeode",
+  "kayna",
   "la",
+  "maggpi",
   "mammot",
   "maw",
   "mi",
   "noggin",
   "oaktopus",
+  "pango",
   "parlsona",
+  "pompom",
   "potbelly",
   "pummel",
   "punkleton",
+  "quarrister",
+  "quibble",
   "re",
+  "reebro",
+  "reedling",
+  "repatillo",
+  "riff",
+  "schmoochle",
+  "scups",
+  "shellbeat",
   "shrubb",
   "shugabush",
   "sol",
+  "spunge",
+  "stogg",
+  "stoowarb",
+  "strombonin",
   "t-rox",
-  "tawker",
+  "tawkerr",
+  "thumpies",
   "ti",
   "toe-jammer",
+  "tring",
+  "tweedle",
   "wubbox",
+  "yawstrich",
+  "yool",
 ]);
 
 const MONSTER_PORTRAIT_ALIASES = {
+  "bbli-zard": "bbli-zard",
+  "bbli-ard": "bbli-zard",
   "g-joob": "gjoob",
   mammott: "mammot",
 };
@@ -446,5 +642,5 @@ export function getMonsterPortrait(name)
     return "";
   }
 
-  return `/monsters/portraits/${resolvedAssetKey}.png`;
+  return `/monsters/portraits/${encodeURIComponent(resolvedAssetKey)}.png`;
 }

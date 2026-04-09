@@ -6,7 +6,6 @@ import {
   inferBreedingOutcomeFromParents,
 } from "../utils/breedingCombos";
 import {
-  getElementChipStyle,
   getMonsterBreedingIslands,
   getMonsterMetadata,
 } from "../utils/monsterMetadata";
@@ -14,6 +13,7 @@ import {
   compareMonsterNamesByPriority,
   isEpicMonsterName,
 } from "../utils/monsterPriority";
+import ElementChip from "./ElementChip";
 
 const cardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -287,9 +287,7 @@ function NeedNowRow({ item, faded, canBreed, onBreed, buttonLabel = "Assign Here
       {metadata?.elements?.length > 0 && (
         <div style={{ marginTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {metadata.elements.map((element) => (
-            <span key={`${item.sheetKey}-${item.name}-${element}`} style={getElementChipStyle(element)}>
-              {element}
-            </span>
+            <ElementChip key={`${item.sheetKey}-${item.name}-${element}`} element={element} />
           ))}
         </div>
       )}
@@ -413,9 +411,7 @@ function CookingRow({
       {metadata?.elements?.length > 0 && (
         <div style={{ marginTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {metadata.elements.map((element) => (
-            <span key={`${item.sheetKey}-${item.name}-${element}`} style={getElementChipStyle(element)}>
-              {element}
-            </span>
+            <ElementChip key={`${item.sheetKey}-${item.name}-${element}`} element={element} />
           ))}
         </div>
       )}
@@ -570,9 +566,7 @@ function NurseryRow({ item, onHatch, onUnassign })
       {metadata?.elements?.length > 0 && (
         <div style={{ marginTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {metadata.elements.map((element) => (
-            <span key={`${item.name}-${element}-nursery`} style={getElementChipStyle(element)}>
-              {element}
-            </span>
+            <ElementChip key={`${item.name}-${element}-nursery`} element={element} />
           ))}
         </div>
       )}

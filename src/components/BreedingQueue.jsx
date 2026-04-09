@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import {
   formatCategoryLabel,
-  getElementChipStyle,
   getMonsterMetadata,
 } from "../utils/monsterMetadata";
 import {
@@ -9,6 +8,7 @@ import {
   buildBlockedBreedingQueue,
   buildReadyBreedingQueue,
 } from "../utils/queue";
+import ElementChip from "./ElementChip";
 
 const cardStyle = {
   border: "1px solid rgba(255,255,255,0.1)",
@@ -106,9 +106,7 @@ function QueueCard({
           {entry.metadata?.elements?.length > 0 && (
             <div style={{ marginTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
               {entry.metadata.elements.map((element) => (
-                <span key={`${entry.id}-${entry.island}-${element}`} style={getElementChipStyle(element)}>
-                  {element}
-                </span>
+                <ElementChip key={`${entry.id}-${entry.island}-${element}`} element={element} />
               ))}
             </div>
           )}

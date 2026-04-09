@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from "react";
 import {
-  getElementChipStyle,
   getMonsterBreedingIslands,
   getMonsterMetadata,
   getMonsterPortrait,
   isRealBreedingIsland,
 } from "../utils/monsterMetadata";
+import ElementChip from "./ElementChip";
 
 const cardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -346,9 +346,7 @@ export default function SheetMonsterCard({
         {metadata?.elements?.length > 0 && (
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {metadata.elements.map((element) => (
-              <span key={`${monster.name}-${element}`} style={getElementChipStyle(element)}>
-                {element}
-              </span>
+              <ElementChip key={`${monster.name}-${element}`} element={element} />
             ))}
           </div>
         )}
@@ -460,9 +458,7 @@ export default function SheetMonsterCard({
                 ? (
                   <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", minHeight: "28px" }}>
                     {metadata.elements.map((element) => (
-                      <span key={`${monster.name}-${element}`} style={getElementChipStyle(element)}>
-                        {element}
-                      </span>
+                      <ElementChip key={`${monster.name}-${element}`} element={element} />
                     ))}
                   </div>
                 )

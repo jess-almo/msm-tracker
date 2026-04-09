@@ -13,6 +13,11 @@ import {
   compareMonsterEntriesByPriority,
   getMonsterRequirementUsage,
 } from "../utils/monsterPriority";
+import {
+  getMonsterMetadata,
+  getMonsterPortrait,
+} from "../utils/monsterMetadata";
+import ElementChip from "./ElementChip";
 
 const cardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -45,48 +50,6 @@ const inputStyle = {
 const filterSectionStyle = {
   display: "grid",
   gap: "10px",
-};
-
-const chipStyle = {
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "6px",
-  padding: "6px 10px",
-  borderRadius: "999px",
-  border: "1px solid rgba(255,255,255,0.12)",
-  fontSize: "12px",
-  fontWeight: 600,
-  color: "rgba(255,255,255,0.92)",
-  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
-};
-
-const ELEMENT_COLORS = {
-  Plant: "rgba(34,197,94,0.18)",
-  Fire: "rgba(239,68,68,0.18)",
-  Water: "rgba(59,130,246,0.18)",
-  Cold: "rgba(147,197,253,0.18)",
-  Air: "rgba(203,213,225,0.18)",
-  Earth: "rgba(120,113,108,0.18)",
-  Light: "rgba(250,204,21,0.18)",
-  Psychic: "rgba(168,85,247,0.18)",
-  Faerie: "rgba(244,114,182,0.18)",
-  Bone: "rgba(214,211,209,0.18)",
-  Plasma: "rgba(236,72,153,0.18)",
-  Shadow: "rgba(75,85,99,0.25)",
-  Mech: "rgba(148,163,184,0.18)",
-  Crystal: "rgba(192,132,252,0.18)",
-  Poison: "rgba(132,204,22,0.18)",
-  Electricity: "rgba(250,204,21,0.22)",
-  Celestial: "rgba(96,165,250,0.18)",
-  Dipster: "rgba(45,212,191,0.18)",
-  Titansoul: "rgba(251,146,60,0.18)",
-  Legendary: "rgba(250,204,21,0.18)",
-  Mythical: "rgba(192,132,252,0.18)",
-  Dream: "rgba(125,211,252,0.18)",
-  Control: "rgba(244,114,182,0.16)",
-  Hoax: "rgba(129,140,248,0.16)",
-  Ruin: "rgba(248,113,113,0.16)",
-  Depths: "rgba(45,212,191,0.16)",
 };
 
 const CORE_ELEMENTS = [
@@ -255,19 +218,6 @@ function toggleValue(list, value)
   return [...list, value];
 }
 
-function getElementChipStyle(element, isSelected = false)
-{
-  const background = ELEMENT_COLORS[element] || "rgba(255,255,255,0.08)";
-
-  return {
-    ...chipStyle,
-    background,
-    border: isSelected
-      ? "1px solid rgba(255,255,255,0.26)"
-      : "1px solid rgba(255,255,255,0.12)",
-  };
-}
-
 export default function MonsterDirectory()
 {
   const [searchQuery, setSearchQuery] = useState("");
@@ -341,6 +291,7 @@ export default function MonsterDirectory()
   {
     return Object.values(MONSTER_DATABASE).map((monster) =>
     {
+      const metadata = getMonsterMetadata(monster.name) || monster;
       const coreMissingFields = getCoreMissingFields(monster);
       const breedingComboData = getBreedingComboByMonsterName(monster.name);
       const comboDisplay = getComboDisplay(monster, breedingComboData);
@@ -353,6 +304,7 @@ export default function MonsterDirectory()
 
       return {
         ...monster,
+        ...metadata,
         aliases,
         coreMissingFields,
         auditMissingFields,
@@ -360,6 +312,7 @@ export default function MonsterDirectory()
         breedingComboData,
         normalizedCategory,
         breedingTimeData,
+        portraitSrc: getMonsterPortrait(monster.name),
         isComplete: coreMissingFields.length === 0,
         usage: getMonsterRequirementUsage(monster.name),
       };
@@ -580,16 +533,12 @@ export default function MonsterDirectory()
                 </button>
 
                 {coreElements.map((element) => (
-                  <button
+                  <ElementChip
                     key={element}
-                    style={{
-                      ...getElementChipStyle(element, selectedElements.includes(element)),
-                      cursor: "pointer",
-                    }}
+                    element={element}
+                    isSelected={selectedElements.includes(element)}
                     onClick={() => setSelectedElements((current) => toggleValue(current, element))}
-                  >
-                    {element}
-                  </button>
+                  />
                 ))}
               </div>
 
@@ -613,16 +562,12 @@ export default function MonsterDirectory()
                       </div>
                       <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                         {specialElements.map((element) => (
-                          <button
+                          <ElementChip
                             key={element}
-                            style={{
-                              ...getElementChipStyle(element, selectedElements.includes(element)),
-                              cursor: "pointer",
-                            }}
+                            element={element}
+                            isSelected={selectedElements.includes(element)}
                             onClick={() => setSelectedElements((current) => toggleValue(current, element))}
-                          >
-                            {element}
-                          </button>
+                          />
                         ))}
                       </div>
                     </div>
@@ -762,12 +707,43 @@ export default function MonsterDirectory()
                 alignItems: "center",
               }}
             >
-              <div>
-                <div style={{ fontSize: "24px", fontWeight: 700 }}>
-                  {monster.name || "Unnamed monster"}
-                </div>
-                <div style={{ marginTop: "4px", fontSize: "14px", opacity: 0.72 }}>
-                  {monster.category ? formatLabel(monster.category) : "No category"}
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", minWidth: 0 }}>
+                {monster.portraitSrc && (
+                  <div
+                    style={{
+                      width: "84px",
+                      height: "84px",
+                      borderRadius: "20px",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.03))",
+                      display: "grid",
+                      placeItems: "center",
+                      overflow: "hidden",
+                      boxShadow: "0 10px 20px rgba(0,0,0,0.14)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <img
+                      src={monster.portraitSrc}
+                      alt={monster.name}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        padding: "6px",
+                        display: "block",
+                      }}
+                    />
+                  </div>
+                )}
+
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontSize: "24px", fontWeight: 700 }}>
+                    {monster.name || "Unnamed monster"}
+                  </div>
+                  <div style={{ marginTop: "4px", fontSize: "14px", opacity: 0.72 }}>
+                    {monster.category ? formatLabel(monster.category) : "No category"}
+                  </div>
                 </div>
               </div>
 
@@ -795,11 +771,9 @@ export default function MonsterDirectory()
                 <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                   {hasItems(monster.elements)
                     ? monster.elements.map((element) => (
-                      <span key={element} style={getElementChipStyle(element)}>
-                        {element}
-                      </span>
+                      <ElementChip key={element} element={element} />
                     ))
-                    : <span style={chipStyle}>—</span>}
+                    : <span style={{ ...buttonStyle, cursor: "default" }}>—</span>}
                 </div>
               </div>
               <div>Combo: {monster.comboDisplay || "—"}</div>
