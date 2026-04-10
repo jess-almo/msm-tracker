@@ -5,6 +5,7 @@ import {
   getCollectionEntryStatus,
   getSheetProgressState,
 } from "../utils/collectionStatus";
+import { getWorldVisualPalette } from "../utils/worldPalettes";
 
 const pageCardStyle = {
   border: "1px solid rgba(255,255,255,0.12)",
@@ -333,174 +334,7 @@ function getStatusVisualStyle(status)
 
 function getIslandCompletionPalette(islandName = "")
 {
-  const normalizedName = String(islandName || "").toLowerCase();
-
-  if (normalizedName.includes("amber"))
-  {
-    return {
-      glow: "rgba(251,191,36,0.26)",
-      accent: "rgba(245,158,11,0.24)",
-      border: "rgba(245,158,11,0.34)",
-      wash: "rgba(180,83,9,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("wublin"))
-  {
-    return {
-      glow: "rgba(45,212,191,0.24)",
-      accent: "rgba(20,184,166,0.22)",
-      border: "rgba(20,184,166,0.34)",
-      wash: "rgba(13,148,136,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("celestial"))
-  {
-    return {
-      glow: "rgba(251,207,232,0.24)",
-      accent: "rgba(192,132,252,0.22)",
-      border: "rgba(216,180,254,0.34)",
-      wash: "rgba(168,85,247,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("plant"))
-  {
-    return {
-      glow: "rgba(74,222,128,0.24)",
-      accent: "rgba(74,222,128,0.24)",
-      border: "rgba(74,222,128,0.34)",
-      wash: "rgba(34,197,94,0.14)",
-    };
-  }
-
-  if (normalizedName.includes("cold"))
-  {
-    return {
-      glow: "rgba(125,211,252,0.24)",
-      accent: "rgba(125,211,252,0.24)",
-      border: "rgba(125,211,252,0.34)",
-      wash: "rgba(56,189,248,0.14)",
-    };
-  }
-
-  if (normalizedName.includes("air"))
-  {
-    return {
-      glow: "rgba(147,197,253,0.22)",
-      accent: "rgba(191,219,254,0.22)",
-      border: "rgba(147,197,253,0.32)",
-      wash: "rgba(96,165,250,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("water"))
-  {
-    return {
-      glow: "rgba(96,165,250,0.24)",
-      accent: "rgba(96,165,250,0.22)",
-      border: "rgba(96,165,250,0.34)",
-      wash: "rgba(37,99,235,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("bone"))
-  {
-    return {
-      glow: "rgba(221,214,254,0.24)",
-      accent: "rgba(196,181,253,0.22)",
-      border: "rgba(196,181,253,0.34)",
-      wash: "rgba(139,92,246,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("earth"))
-  {
-    return {
-      glow: "rgba(251,191,36,0.22)",
-      accent: "rgba(245,158,11,0.2)",
-      border: "rgba(245,158,11,0.32)",
-      wash: "rgba(180,83,9,0.1)",
-    };
-  }
-
-  if (normalizedName.includes("fire"))
-  {
-    return {
-      glow: "rgba(251,146,60,0.24)",
-      accent: "rgba(249,115,22,0.22)",
-      border: "rgba(249,115,22,0.34)",
-      wash: "rgba(194,65,12,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("light"))
-  {
-    return {
-      glow: "rgba(253,224,71,0.28)",
-      accent: "rgba(250,204,21,0.24)",
-      border: "rgba(250,204,21,0.36)",
-      wash: "rgba(234,179,8,0.15)",
-    };
-  }
-
-  if (normalizedName.includes("psychic"))
-  {
-    return {
-      glow: "rgba(192,132,252,0.28)",
-      accent: "rgba(168,85,247,0.24)",
-      border: "rgba(168,85,247,0.36)",
-      wash: "rgba(126,34,206,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("faerie"))
-  {
-    return {
-      glow: "rgba(244,114,182,0.28)",
-      accent: "rgba(244,114,182,0.24)",
-      border: "rgba(244,114,182,0.36)",
-      wash: "rgba(219,39,119,0.15)",
-    };
-  }
-
-  if (normalizedName.includes("sanctum"))
-  {
-    return {
-      glow: "rgba(129,140,248,0.24)",
-      accent: "rgba(99,102,241,0.22)",
-      border: "rgba(129,140,248,0.34)",
-      wash: "rgba(67,56,202,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("ethereal"))
-  {
-    return {
-      glow: "rgba(94,234,212,0.24)",
-      accent: "rgba(45,212,191,0.22)",
-      border: "rgba(45,212,191,0.34)",
-      wash: "rgba(13,148,136,0.12)",
-    };
-  }
-
-  if (normalizedName.includes("mirror"))
-  {
-    return {
-      glow: "rgba(226,232,240,0.22)",
-      accent: "rgba(191,219,254,0.18)",
-      border: "rgba(226,232,240,0.28)",
-      wash: "rgba(148,163,184,0.1)",
-    };
-  }
-
-  return {
-    glow: "rgba(251,191,36,0.24)",
-    accent: "rgba(245,158,11,0.22)",
-    border: "rgba(245,158,11,0.34)",
-    wash: "rgba(146,64,14,0.12)",
-  };
+  return getWorldVisualPalette(islandName);
 }
 
 function getIslandCardVisualStyle(sheet, status)
@@ -526,7 +360,7 @@ function getIslandCardVisualStyle(sheet, status)
       ...baseStyle,
       border: `1px solid ${palette.border}`,
       background: `linear-gradient(180deg, ${palette.wash}, rgba(255,255,255,0.045))`,
-      boxShadow: `0 0 0 1px ${palette.accent}, 0 0 34px ${palette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
+      boxShadow: `0 0 0 1px ${palette.accent}, 0 0 18px ${palette.glow}, 0 0 46px ${palette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
       chipBackground: `linear-gradient(180deg, ${palette.accent}, rgba(255,255,255,0.06))`,
       opacity: 1,
     };
@@ -546,7 +380,7 @@ function getIslandCardVisualStyle(sheet, status)
   return {
     border: `1px solid ${palette.border}`,
     background: `linear-gradient(180deg, ${palette.wash}, ${statusWashByState[status] || "rgba(255,255,255,0.02)"})`,
-    boxShadow: `0 0 0 1px ${statusEdgeByState[status] || "rgba(255,255,255,0.06)"}, 0 0 26px ${palette.glow}, 0 16px 32px rgba(0,0,0,0.16)`,
+    boxShadow: `0 0 0 1px ${statusEdgeByState[status] || "rgba(255,255,255,0.06)"}, 0 0 16px ${palette.glow}, 0 0 38px ${palette.glow}, 0 16px 32px rgba(0,0,0,0.16)`,
     chipBackground: `linear-gradient(180deg, ${palette.accent}, rgba(255,255,255,0.06))`,
     opacity: 1,
   };

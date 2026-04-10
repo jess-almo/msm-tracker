@@ -53,6 +53,28 @@ function createWublinTemplateNotes(timeLimitDays, totalEggs)
   return noteParts.join(" ");
 }
 
+function createCelestialTemplateNotes(month, timeLimitDays, totalEggs)
+{
+  const noteParts = ["Young Celestial template."];
+
+  if (month)
+  {
+    noteParts.push(`Associated month: ${month}.`);
+  }
+
+  if (Number(timeLimitDays || 0) > 0)
+  {
+    noteParts.push(`Time limit: ${timeLimitDays} day${timeLimitDays === 1 ? "" : "s"}.`);
+  }
+
+  if (Number(totalEggs || 0) > 0)
+  {
+    noteParts.push(`Total eggs: ${totalEggs}.`);
+  }
+
+  return noteParts.join(" ");
+}
+
 export function createTrackerSheet({
   systemKey,
   targetMonsterName,
@@ -523,6 +545,21 @@ const COMMON_WUBLIN_TRACKABLE_SHEET_CONFIGS = [
   { targetMonsterName: "Fleechwurm", priority: 119, totalEggs: 24, timeLimitDays: 5 },
 ];
 
+const YOUNG_CELESTIAL_TRACKABLE_SHEET_CONFIGS = [
+  { targetMonsterName: "Hornacle", priority: 130, month: "January", totalEggs: 118, timeLimitDays: 12 },
+  { targetMonsterName: "Furnoss", priority: 131, month: "February", totalEggs: 94, timeLimitDays: 25 },
+  { targetMonsterName: "Glaishur", priority: 132, month: "March", totalEggs: 87, timeLimitDays: 10 },
+  { targetMonsterName: "Blasoom", priority: 133, month: "April", totalEggs: 72, timeLimitDays: 14 },
+  { targetMonsterName: "Syncopite", priority: 134, month: "May", totalEggs: 174, timeLimitDays: 11 },
+  { targetMonsterName: "Vhamp", priority: 135, month: "June", totalEggs: 195, timeLimitDays: 8 },
+  { targetMonsterName: "Galvana", priority: 136, month: "July", totalEggs: 150, timeLimitDays: 28 },
+  { targetMonsterName: "Scaratar", priority: 137, month: "August", totalEggs: 123, timeLimitDays: 9 },
+  { targetMonsterName: "Loodvigg", priority: 138, month: "September", totalEggs: 121, timeLimitDays: 8 },
+  { targetMonsterName: "Torrt", priority: 139, month: "October", totalEggs: 87, timeLimitDays: 7 },
+  { targetMonsterName: "Plixie", priority: 140, month: "November", totalEggs: 249, timeLimitDays: 13 },
+  { targetMonsterName: "Attmoz", priority: 141, month: "December", totalEggs: 65, timeLimitDays: 12 },
+];
+
 export const AMBER_TRACKER_SHEET_DEFAULTS = AMBER_TRACKABLE_SHEET_CONFIGS.map((config) =>
   createTrackerSheet({
     systemKey: "amber",
@@ -552,6 +589,25 @@ export const WUBLIN_TRACKER_SHEET_DEFAULTS = COMMON_WUBLIN_TRACKABLE_SHEET_CONFI
   })
 );
 
+export const CELESTIAL_TRACKER_SHEET_DEFAULTS = YOUNG_CELESTIAL_TRACKABLE_SHEET_CONFIGS.map((config) =>
+  createTrackerSheet({
+    systemKey: "celestial",
+    targetMonsterName: config.targetMonsterName,
+    collectionKey: "celestials",
+    collectionName: "Celestials",
+    priority: config.priority,
+    sheetTitle: config.targetMonsterName,
+    displayName: config.targetMonsterName,
+    templateNotes: createCelestialTemplateNotes(
+      config.month,
+      config.timeLimitDays,
+      config.totalEggs
+    ),
+    totalEggs: config.totalEggs,
+    timeLimitDays: config.timeLimitDays,
+  })
+);
+
 export const ISLAND_COLLECTION_SHEET_DEFAULTS = BASE_ISLAND_COLLECTION_ISLANDS
   .map((islandName, index) => createIslandCollectionSheet(islandName, 200 + index))
   .filter((sheet) => sheet.monsters.length > 0);
@@ -561,5 +617,6 @@ export const TRACKER_SHEET_DEFAULTS = [
   ZIGGURAB_DEFAULT,
   ...AMBER_TRACKER_SHEET_DEFAULTS,
   ...WUBLIN_TRACKER_SHEET_DEFAULTS,
+  ...CELESTIAL_TRACKER_SHEET_DEFAULTS,
   ...ISLAND_COLLECTION_SHEET_DEFAULTS,
 ];

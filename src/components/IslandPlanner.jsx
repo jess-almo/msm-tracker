@@ -13,6 +13,7 @@ import {
   compareMonsterNamesByPriority,
   isEpicMonsterName,
 } from "../utils/monsterPriority";
+import { getWorldVisualPalette } from "../utils/worldPalettes";
 import ElementChip from "./ElementChip";
 
 const cardStyle = {
@@ -248,154 +249,7 @@ const PLANNER_WORLD_ART = {
 
 function getPlannerIslandPalette(islandName = "")
 {
-  const normalizedName = String(islandName || "").toLowerCase();
-
-  if (normalizedName.includes("amber"))
-  {
-    return {
-      glow: "rgba(251,191,36,0.28)",
-      border: "rgba(245,158,11,0.34)",
-      wash: "rgba(180,83,9,0.18)",
-      accent: "rgba(251,191,36,0.18)",
-    };
-  }
-
-  if (normalizedName.includes("wublin"))
-  {
-    return {
-      glow: "rgba(45,212,191,0.24)",
-      border: "rgba(20,184,166,0.32)",
-      wash: "rgba(15,118,110,0.18)",
-      accent: "rgba(45,212,191,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("plant"))
-  {
-    return {
-      glow: "rgba(74,222,128,0.26)",
-      border: "rgba(74,222,128,0.32)",
-      wash: "rgba(21,128,61,0.2)",
-      accent: "rgba(74,222,128,0.18)",
-    };
-  }
-
-  if (normalizedName.includes("cold"))
-  {
-    return {
-      glow: "rgba(125,211,252,0.24)",
-      border: "rgba(125,211,252,0.3)",
-      wash: "rgba(14,116,144,0.18)",
-      accent: "rgba(125,211,252,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("air"))
-  {
-    return {
-      glow: "rgba(191,219,254,0.22)",
-      border: "rgba(147,197,253,0.3)",
-      wash: "rgba(59,130,246,0.16)",
-      accent: "rgba(191,219,254,0.14)",
-    };
-  }
-
-  if (normalizedName.includes("water"))
-  {
-    return {
-      glow: "rgba(96,165,250,0.24)",
-      border: "rgba(96,165,250,0.32)",
-      wash: "rgba(30,64,175,0.18)",
-      accent: "rgba(96,165,250,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("earth"))
-  {
-    return {
-      glow: "rgba(251,191,36,0.22)",
-      border: "rgba(245,158,11,0.3)",
-      wash: "rgba(120,53,15,0.18)",
-      accent: "rgba(245,158,11,0.15)",
-    };
-  }
-
-  if (normalizedName.includes("fire"))
-  {
-    return {
-      glow: "rgba(251,146,60,0.24)",
-      border: "rgba(249,115,22,0.32)",
-      wash: "rgba(154,52,18,0.18)",
-      accent: "rgba(249,115,22,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("light"))
-  {
-    return {
-      glow: "rgba(253,224,71,0.28)",
-      border: "rgba(250,204,21,0.34)",
-      wash: "rgba(161,98,7,0.18)",
-      accent: "rgba(250,204,21,0.18)",
-    };
-  }
-
-  if (normalizedName.includes("psychic"))
-  {
-    return {
-      glow: "rgba(192,132,252,0.26)",
-      border: "rgba(168,85,247,0.32)",
-      wash: "rgba(107,33,168,0.18)",
-      accent: "rgba(168,85,247,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("faerie"))
-  {
-    return {
-      glow: "rgba(244,114,182,0.26)",
-      border: "rgba(244,114,182,0.32)",
-      wash: "rgba(157,23,77,0.18)",
-      accent: "rgba(244,114,182,0.16)",
-    };
-  }
-
-  if (normalizedName.includes("bone"))
-  {
-    return {
-      glow: "rgba(221,214,254,0.24)",
-      border: "rgba(196,181,253,0.3)",
-      wash: "rgba(91,33,182,0.16)",
-      accent: "rgba(196,181,253,0.15)",
-    };
-  }
-
-  if (normalizedName.includes("mirror"))
-  {
-    return {
-      glow: "rgba(226,232,240,0.22)",
-      border: "rgba(203,213,225,0.28)",
-      wash: "rgba(71,85,105,0.18)",
-      accent: "rgba(226,232,240,0.14)",
-    };
-  }
-
-  if (normalizedName.includes("ethereal"))
-  {
-    return {
-      glow: "rgba(94,234,212,0.24)",
-      border: "rgba(45,212,191,0.3)",
-      wash: "rgba(17,94,89,0.18)",
-      accent: "rgba(45,212,191,0.14)",
-    };
-  }
-
-  return {
-    glow: "rgba(148,163,184,0.22)",
-    border: "rgba(148,163,184,0.26)",
-    wash: "rgba(51,65,85,0.18)",
-    accent: "rgba(148,163,184,0.12)",
-  };
+  return getWorldVisualPalette(islandName);
 }
 
 function getTabLabel(group)
@@ -2821,7 +2675,7 @@ export default function IslandPlanner({
                       color: "inherit",
                       cursor: "pointer",
                       boxShadow: isActive
-                        ? `0 0 0 1px ${palette.accent}, 0 0 24px ${palette.glow}, 0 12px 26px rgba(0,0,0,0.18)`
+                        ? `0 0 0 1px ${palette.accent}, 0 0 14px ${palette.glow}, 0 0 34px ${palette.glow}, 0 12px 26px rgba(0,0,0,0.18)`
                         : "0 10px 22px rgba(0,0,0,0.12)",
                       display: "grid",
                       gap: "8px",
@@ -2951,7 +2805,7 @@ export default function IslandPlanner({
               borderRadius: "24px",
               border: `1px solid ${activeIslandPalette.border}`,
               background: `linear-gradient(135deg, ${activeIslandPalette.wash}, rgba(255,255,255,0.035))`,
-              boxShadow: `0 0 0 1px ${activeIslandPalette.accent}, 0 0 34px ${activeIslandPalette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
+              boxShadow: `0 0 0 1px ${activeIslandPalette.accent}, 0 0 18px ${activeIslandPalette.glow}, 0 0 48px ${activeIslandPalette.glow}, 0 18px 36px rgba(0,0,0,0.18)`,
               overflow: "hidden",
             }}
           >
@@ -3128,7 +2982,7 @@ export default function IslandPlanner({
               style={{
                 borderRadius: "18px",
                 boxShadow: (island.islandKey || island.island) === activeIslandKey
-                  ? `0 0 0 2px ${activeIslandPalette.border}, 0 0 32px ${activeIslandPalette.glow}`
+                  ? `0 0 0 2px ${activeIslandPalette.border}, 0 0 18px ${activeIslandPalette.glow}, 0 0 42px ${activeIslandPalette.glow}`
                   : "none",
                 transition: "box-shadow 180ms ease",
               }}

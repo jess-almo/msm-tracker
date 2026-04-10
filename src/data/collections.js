@@ -66,8 +66,21 @@ export const COLLECTIONS = [
   {
     key: "celestials",
     name: "Celestials",
-    status: "coming_soon",
-    entries: []
+    status: "active",
+    entries: [
+      { name: "Hornacle", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: January." },
+      { name: "Furnoss", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: February." },
+      { name: "Glaishur", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: March." },
+      { name: "Blasoom", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: April." },
+      { name: "Syncopite", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: May." },
+      { name: "Vhamp", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: June." },
+      { name: "Galvana", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: July." },
+      { name: "Scaratar", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: August." },
+      { name: "Loodvigg", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: September." },
+      { name: "Torrt", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: October." },
+      { name: "Plixie", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: November." },
+      { name: "Attmoz", rarity: "common", type: "zapping", collected: false, status: "inactive", notes: "Young Celestial. Associated month: December." },
+    ]
   },
   {
     key: "amber_island",
